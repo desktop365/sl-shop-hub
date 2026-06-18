@@ -1,0 +1,11 @@
+{
+  "note": "Handgepflegt. Hebt Produkte hervor, ohne die App anzufassen. Schluessel ist die MSKU.",
+  "overrides": {
+    "EP2-47594": {
+      "featured": true,
+      "badge": "Empfehlung",
+      "priority": 10,
+      "marketing": "Unser Bestseller fuer das moderne Buero."
+    }
+  }
+}

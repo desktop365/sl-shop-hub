@@ -1,0 +1,13 @@
+:root{
+  --sl-cyan:#00A3E0;
+  --sl-ink:#1A1A1A;
+  --sl-text-secondary:#6B6B70;
+  --sl-black:#000000;
+  --sl-surface:#FFFFFF;
+  --sl-surface-2:#F5F6F7;
+  --sl-border:#E6E7E9;
+  --sl-success:#1B9E5A;
+  --sl-incoming:#B8860B;
+  --sl-radius:14px;
+  --sl-font:"Segoe UI Variable","Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Arial,sans-serif;
+}

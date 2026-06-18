@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "source": "API Distributor / Continue Pricelist",
+    "generated_at": "2026-06-18T05:00:00+02:00",
+    "currency": "EUR",
+    "markup_factor": 1.25,
+    "vat_rate": 1.19,
+    "contract_types": { "leasing": [15, 24, 32, 36], "finanzierung": [15, 24, 36] },
+    "count": 2,
+    "note": "Beispieldatei zum Bauen. Live-Daten kommen aus der Pipeline in den Bucket."
+  },
+  "products": [
+    {
+      "sku": "589554",
+      "msku": "EP2-47594",
+      "manufacturer": "Microsoft",
+      "name": "Surface Laptop8 13,8\" CU516GB256GB DE Black Win 11 Pro",
+      "title_raw": "Microsoft Surface Laptop8 13,8\" CU516GB256GB DE Black W11P",
+      "display_name": "Surface Laptop, 13,8 Zoll, Core Ultra 5, 16 GB, 256 GB, Schwarz",
+      "specs": { "cpu": "Core Ultra 5", "ram_gb": 16, "storage_gb": 256, "color": "Schwarz", "screen_inch": 13.8, "generation": "8" },
+      "size_inch": 13.8,
+      "os": "Win 11 Pro",
+      "is_5g": false,
+      "without_charger": false,
+      "availability": { "status": "in_stock", "stock": 42 },
+      "rates": {
+        "leasing": [
+          {"term": 15, "net": 142.89, "gross": 170.04},
+          {"term": 24, "net": 92.60,  "gross": 110.19},
+          {"term": 32, "net": 71.40,  "gross": 84.97},
+          {"term": 36, "net": 71.40,  "gross": 84.97}
+        ],
+        "finanzierung": [
+          {"term": 15, "net": 184.91, "gross": 220.04},
+          {"term": 24, "net": 96.73,  "gross": 115.11},
+          {"term": 36, "net": 67.11,  "gross": 79.86}
+        ]
+      },
+      "rate_from": {"net": 67.11, "contract": "finanzierung", "term": 36}
+    },
+    {
+      "sku": "302484",
+      "msku": "FHD-00017",
+      "manufacturer": "Microsoft",
+      "name": "Surface Arc Mouse Cmr Bluetooth XZNLFRDE Black",
+      "title_raw": "Microsoft Surface Arc Mouse Cmr Bluetooth XZNLFRDE Black",
+      "display_name": "Surface Arc Mouse, Bluetooth, Schwarz",
+      "is_5g": false,
+      "without_charger": false,
+      "availability": { "status": "incoming" },
+      "rates": {
+        "leasing": [
+          {"term": 15, "net": 5.79, "gross": 6.89},
+          {"term": 24, "net": 3.75, "gross": 4.46},
+          {"term": 32, "net": 2.90, "gross": 3.45},
+          {"term": 36, "net": 2.90, "gross": 3.45}
+        ],
+        "finanzierung": [
+          {"term": 15, "net": 7.50, "gross": 8.93},
+          {"term": 24, "net": 3.92, "gross": 4.66},
+          {"term": 36, "net": 2.72, "gross": 3.24}
+        ]
+      },
+      "rate_from": {"net": 2.72, "contract": "finanzierung", "term": 36}
+    }
+  ]
+}

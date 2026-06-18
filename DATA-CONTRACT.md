@@ -1,0 +1,32 @@
+# Datenvertrag products.json
+
+Quelle: Azure-Pipeline (Distributor Continue), getestet und vertragsfest gerechnet. Kanonischer
+Dateiname im Bucket: products.json. Beispiel zum Bauen: data/products.sample.json.
+
+## Grundsaetze
+- Oeffentlich sind NUR fertige Monatsraten. Keine EK-, VK- oder Faktorwerte.
+- net ist B2B-Standard, gross (mal 1,19) liegt als Komfortfeld dabei.
+- rate_from ist die guenstigste Rate ueber alle Kombinationen, fuer die Anzeige "ab X pro Monat".
+- Defensive bauen: optionale Felder koennen fehlen.
+
+## Felder je Produkt
+- sku, msku, manufacturer (Pflicht)
+- name (bereinigt), title_raw (Original)
+- rates.leasing[] und rates.finanzierung[] mit je {term, net, gross}
+- rate_from {net, contract, term}
+- optional: size_inch, os, is_5g, without_charger
+
+## Vorwaertskompatible Felder (kommen spaeter aus der Pipeline)
+- availability { status, stock }  status in: in_stock | incoming | out_of_stock. stock optional,
+  oeffentlich nur als weiche Stufe anzeigen.
+- display_name  sauberer, lesbarer Anzeigename
+- specs { cpu, ram_gb, storage_gb, color, screen_inch, generation }
+Anreicherung pipelineseitig ueber eine MSKU-Mapping-Tabelle, nicht im Browser parsen.
+
+## Vertragsarten und Laufzeiten
+Leasing 15, 24, 32, 36. Finanzierung 15, 24, 36.
+
+## Begleitdateien
+- product-overrides.json  handgepflegt: featured, badge, priority, marketing je MSKU
+- images.json             optionales Mapping MSKU -> Bilddatei, falls Namen abweichen
+- licenses.json, services.json  spaeter, gleiches Schema (meta, items, rates)

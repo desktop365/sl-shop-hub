@@ -1,0 +1,11 @@
+# niemals Secrets oder Buildmuell
+.env
+.env.*
+*.key
+*.pem
+secrets/
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+dist/

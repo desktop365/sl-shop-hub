@@ -253,17 +253,21 @@ selben Schema (meta, items, rates). Offen ist die Quelle der Lizenzpreise, das k
 
 ## 9. Bildkonzept
 
-- Ablage im Bucket unter `images/{MSKU}.webp` und `images/{MSKU}_thumb.webp`. Dateiname exakt nach
-  MSKU, Groß- und Kleinschreibung unverändert, weil Linux case-sensitiv ist.
-- Format WebP, Qualität etwa 80. Hauptbild quadratische Leinwand bis 1200 x 1200, Gerät proportional
-  einpassen, nicht beschneiden, mit gleichmäßigem weißem Rand, damit das Kartenraster ruhig bleibt.
-  Vorschaubild bis 400 x 400, gleiches Framing.
+Maßgeblich ist IMAGES.md, dort steht die vollständige Spezifikation. Diese Kurzfassung ersetzt das
+frühere Modell mit starrer MSKU-Benennung.
+- Bilder liegen im Bucket unter `images/`. Dateien sind je Bildmodell benannt (slug) mit sprechenden
+  Suffixen, nicht mehr starr nach MSKU.
+- Die Datei `data/images.json` (version 2) ist die maßgebliche Bildschicht: ein Block `models` mit
+  slug, family, Hauptbild, Vorschau und gallery, plus ein flaches `map`, das jede MSKU auf einen
+  Bildmodell-slug abbildet. Ein Fotoset je einzigartiger Kombination aus Familie, Generation,
+  Bildschirmgröße und Farbe, unabhängig von CPU, RAM, Speicher, OS oder Konnektivität.
+- Der Shop-Resolver liest `images.json`, löst die MSKU über `map` auf den slug auf und zeigt Hauptbild,
+  Vorschau und optional die Galerie. Fallback: `_fallback-{familySlug}.webp`, dann `_fallback.webp`.
+- Format WebP, Qualität etwa 80. Hauptbild bis 1200 x 1200, Gerät eingepasst, nicht beschnitten, weißer
+  oder transparenter Hintergrund. Vorschaubild bis 400 x 400, gleiches Framing.
 - Öffentlicher Aufruf: `https://storage.googleapis.com/slshopv2-media/images/{name}`.
-- Resolver in der App: erst `{MSKU}.webp`, sonst Kategorie-Fallback `_fallback-{familySlug}.webp`,
-  sonst generisch `_fallback.webp`.
-- Die Bildaufbereitung läuft in einem eigenen Chat, die Anforderungen sind festgehalten (Benennung,
-  Maße, Fallbacks, Abdeckungsbericht). Die Quellbilder sind aktuell noch nicht nach MSKU benannt, das
-  wird dort erledigt. Bilder blockieren den Start nicht, Phase 1 baut gegen Platzhalter.
+- Die Bildaufbereitung läuft im eigenen Bild-Chat, der `images.json` pflegt. Bilder blockieren den Start
+  nicht, der Shop baut gegen Platzhalter, echte Bilder greifen automatisch über die Zuordnung.
 - Später optional ein eigener Hostname wie cdn.surface.love über Cloudflare vor dem Bucket, ohne
   Codeänderung.
 

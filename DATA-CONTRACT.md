@@ -18,7 +18,8 @@ Dateiname im Bucket: products.json. Beispiel zum Bauen: data/products.sample.jso
 
 ## Vorwaertskompatible Felder (kommen spaeter aus der Pipeline)
 - availability { status, stock }  status in: in_stock | incoming | out_of_stock. stock optional,
-  oeffentlich nur als weiche Stufe anzeigen.
+  oeffentlich nur als weiche Stufe anzeigen. Ist der Status unbekannt, wird das Feld weggelassen, der
+  Shop zeigt dann auf Anfrage.
 - display_name  sauberer, lesbarer Anzeigename
 - specs { cpu, ram_gb, storage_gb, color, screen_inch, generation }
 Anreicherung pipelineseitig ueber eine MSKU-Mapping-Tabelle, nicht im Browser parsen.
@@ -28,5 +29,5 @@ Leasing 15, 24, 32, 36. Finanzierung 15, 24, 36.
 
 ## Begleitdateien
 - product-overrides.json  handgepflegt: featured, badge, priority, marketing je MSKU
-- images.json             optionales Mapping MSKU -> Bilddatei, falls Namen abweichen
+- images.json             version 2, massgebliche Bildschicht (models plus map), siehe IMAGES.md
 - licenses.json, services.json  spaeter, gleiches Schema (meta, items, rates)

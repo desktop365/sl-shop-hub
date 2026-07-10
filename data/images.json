@@ -1,4 +1,26 @@
 {
-  "note": "Optional. Nur noetig, wenn eine Bilddatei nicht exakt {MSKU}.webp heisst. Sonst leer lassen.",
-  "map": {}
+  "version": 2,
+  "note": "Massgebliche Bildschicht. models definiert je Bildmodell die Dateien, map ordnet jede MSKU einem Bildmodell-slug zu. Vollstaendige Spezifikation in IMAGES.md. Diese Datei ist ein Geruest mit zwei Beispielmodellen, der Bild-Chat fuellt die rund 25 Modelle und das vollstaendige map.",
+  "models": {
+    "surface-laptop-8-13-black": {
+      "family": "surface-laptop",
+      "main": "surface-laptop-8-13-black.webp",
+      "thumb": "surface-laptop-8-13-black_thumb.webp",
+      "gallery": [
+        "surface-laptop-8-13-black_open.webp",
+        "surface-laptop-8-13-black_closed.webp",
+        "surface-laptop-8-13-black_back.webp"
+      ]
+    },
+    "surface-arc-mouse-black": {
+      "family": "zubehoer",
+      "main": "surface-arc-mouse-black.webp",
+      "thumb": "surface-arc-mouse-black_thumb.webp",
+      "gallery": []
+    }
+  },
+  "map": {
+    "EP2-47594": "surface-laptop-8-13-black",
+    "FHD-00017": "surface-arc-mouse-black"
+  }
 }

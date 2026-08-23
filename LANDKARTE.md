@@ -20,16 +20,37 @@ Eine eigene, aus Claude Code gebaute Plattform, die zweigleisig verkauft: Neuger
 12. Kundenportal, Login, Kommunikation, Auf- und Querverkauf (Version zwei)
 13. DLL-Bank-Anbindung, Bonitaet, Vertrag, Unterschrift (spaeter)
 14. Infrastruktur, Hosting bei Hostinger, Postgres, Domain, Media
+15. Storefronts, Einmarken-Auftritte je Domain, Marke, Sortiment, Recht und Absender je Domain
 
 ## 2. Zwei Geschaeftsmodelle, zwei Kassenwege
 - Neu: Kunde konfiguriert, stellt eine Anfrage, Bonitaetspruefung und Vertrag ueber die DLL-Bank. Kein Sofortkauf. Umsatz ueber Leasing und Finanzierung.
 - Refurbished: Kunde waehlt ein geprueftes Geraet aus eigenem Bestand, schliesst direkt ein Abo ab, zahlt ueber Stripe. Keine Bank. Volle Marge, wiederkehrender Umsatz.
 Beide Wege leben in einer App, mit einem gemeinsamen Katalog, der den Zustand unterscheidet.
 
+## 2a. Storefronts, Einmarken-Auftritte je Domain
+Die zweite Achse neben dem Geschäftsmodell. Ein Storefront ist eine Konfiguration je Domain, sie legt
+Marke, Optik, Hersteller-Filter, rechtliche Texte, Kontaktdaten, Mail-Absender und die HubSpot-Parameter
+fest. Die App erkennt die Domain und rendert den passenden Auftritt.
+
+Eine Codebasis, ein HubSpot, ein Bestand. Nach außen getrennte Marken-Shops:
+- **surface** auf surface.love, Microsoft Surface, Herz und Cyan, aktiv.
+- **lenovo** auf lenovo.online, Lenovo, eigene Marke, vorbereitet.
+
+Drei Achsen, die sich kombinieren: Storefront (Marke und Domain), Markt (Land, Währung, Recht), Lane (neu,
+refurbished). Ein Aufruf ist immer ein Tripel daraus.
+
+Regel: kein markenübergreifender Querverkauf. Die Verbindung neu zu refurbished aus Abschnitt 6 bleibt
+innerhalb einer Marke, ein Surface-Besucher sieht nie ein Lenovo-Angebot und umgekehrt.
+
+Name lenovo.online und Lenovo-Logo unterliegen Lenovos Partner- und Markenregeln, vor Livegang gegen den
+Partnervertrag zu prüfen, siehe Abschnitt 17.
+
+Verbindlich in contracts/STOREFRONTS.md.
+
 ## 3. Wie die Produkte in den Shop kommen
 Zwei Quellen, klar getrennt:
-- Neu, vom Distributor: Der Distributor-Feed, Surface und kuenftig Lenovo, wird von der Preis-Pipeline eingelesen, normalisiert, mit Spezifikationen angereichert und mit Raten versehen. Ergebnis ist der Datenvertrag (products.json), den der Shop liest. Neue Hersteller sind eine Erweiterung der Pipeline, das Datenmodell ist herstellerneutral.
-- Refurbished, aus eigenem Bestand: Ruecklaeufer kommen herein, stetiger Strom, werden erfasst, geprueft und mit Zustand bewertet, und landen als konkrete Einheiten mit Seriennummer in der Bestandsverwaltung (Postgres). Von dort werden sie im Shop gelistet. Kein Distributor.
+- Neu, vom Distributor: Der Distributor-Feed, Surface und kuenftig Lenovo, wird von der Preis-Pipeline eingelesen, normalisiert, mit Spezifikationen angereichert und mit Raten versehen. Ergebnis ist der Datenvertrag (products.json), den der Shop liest. Neue Hersteller sind eine Erweiterung der Pipeline, das Datenmodell ist herstellerneutral. Welcher Hersteller in welchem Auftritt erscheint, entscheidet der Hersteller-Filter des Storefronts, nicht der Katalog.
+- Refurbished, aus eigenem Bestand: Ruecklaeufer kommen herein, stetiger Strom, werden erfasst, geprueft und mit Zustand bewertet, und landen als konkrete Einheiten mit Seriennummer in der Bestandsverwaltung (Postgres). Von dort werden sie im Shop gelistet, gefiltert nach dem Hersteller des jeweiligen Storefronts. Kein Distributor.
 
 ## 4. Preis-Engine, wer, wo, wie
 Grundsatz: keine manuelle Preisschaetzung, Preise entstehen automatisiert.
@@ -64,6 +85,9 @@ Von Tag eins strukturell, nicht nachgeruestet:
 
 ## 9. CRM und Automatisierung
 - HubSpot bleibt das Rueckgrat fuer Kontakte, Firmen, Deals, Abos.
+- Ein Portal und eine gemeinsame SL-Pipeline für beide Marken, keine eigene Lenovo-Pipeline. Die Marke
+  steckt in einem Deal-Feld mit den Werten Surface und Lenovo, dazu die Deal-Quelle je Storefront.
+  Auswertung je Marke über Filter auf dem Feld, siehe contracts/HUBSPOT.md.
 - Dein Mail-MCP bindet das Postfach an, Kundenmails auslesen und beantworten, alles nach HubSpot gespiegelt.
 - Agenten uebernehmen den Lebenszyklus fuer kleine Faelle: Anfrage aufnehmen, antworten, Status pflegen, Versand anstossen. Eskalation an dich bei Spezialfaellen und Grosskunden.
 
@@ -74,6 +98,9 @@ Von Tag eins strukturell, nicht nachgeruestet:
 
 ## 11. SEO und Inhalte
 - Technisches SEO ist eingebaut: serverseitiges Rendern, saubere Metadaten, Sitemaps, strukturierte Daten, schnelle Seiten. Das liefert der moderne Stack von Haus aus.
+- Je Storefront eine eigene SEO-Identität: kanonische Domain, eigene Sitemap und robots, eigene
+  Metadaten. Kein Inhalt erscheint unter zwei Domains ohne Kanonik. Rechtliche Texte und Kontaktdaten
+  ebenso je Storefront, nicht geteilt.
 - Inhalte agentengetrieben: der Content-Agent, den wir entworfen haben, zweisprachig, woechentliche Artikel aus LinkedIn, YouTube, Surface-Quellen und Herstellerseiten, veroeffentlicht ueber den Blog. Du gibst nur Richtung, der Agent macht.
 
 ## 12. Kundenportal, Version zwei
@@ -91,7 +118,9 @@ Von Tag eins strukturell, nicht nachgeruestet:
 - Hosting bei Hostinger ueber das gemanagte Node-Hosting, verwaltet aus Claude Code ueber das Hostinger-Plugin, GitHub-Repo verbunden.
 - Datenbank: Postgres fuer Bestand, Abos, Zuordnungen, Portal.
 - Zahlung: Stripe, hostunabhaengig in die App integriert.
-- Domain und DNS: surface.love ueber Hostinger.
+- Eine App, zwei Domains. Dieselbe Anwendung liefert beide Storefronts aus und unterscheidet sie an der
+  Domain, kein zweiter Deploy, keine Kopie der Codebasis.
+- Domain und DNS: surface.love ueber Hostinger, lenovo.online kommt dazu, beide auf dieselbe App.
 - Media: Bilder im Objektspeicher, Ablageort noch zu entscheiden.
 - Der alte AI-Studio-Shop bleibt live, bis der neue steht.
 
@@ -115,3 +144,5 @@ Querschnitt, immer dabei: mehrere Hersteller (Surface, Lenovo), i18n, die Bilder
 3. Reihenfolge recht, erst neu portieren, dann refurbished, dann Agenten. Empfehlung: ja.
 4. Media-Ablage: Bilder beim bestehenden GCS-Bucket lassen, oder zu Hostinger ziehen, damit alles unter einem Dach liegt.
 5. Refurbished-Bilder: repraesentative Modellfotos plus Zustandsangabe als Standard, bestaetigt.
+6. Lenovo-Storefront: Domainname lenovo.online, Logo und Wortmarke gegen Lenovos Partner- und
+   Markenregeln prüfen, dazu der Sortimentsschnitt. Offen bis zur Prüfung des Partnervertrags.

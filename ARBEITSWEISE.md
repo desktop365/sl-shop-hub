@@ -43,6 +43,7 @@ sl-shop-hub/
     HUBSPOT.md             Felder, Pipeline-Stufen, kaufmännischer Master
     MARKETS.md             Sprachen, Währungen, Vertragsarten je Markt
     PROMOS.md              Aktionsregeln
+    STOREFRONTS.md         Marken-Auftritte je Domain
   data/
     products.sample.json
     images.sample.json
@@ -69,7 +70,7 @@ surface-love-shop/
   lib/                     HubSpot, Stripe, Graph-Mail, Formatter, Markt-Logik
   db/                      Schema, Migrationen, Sync
   content/                 i18n-Texte de, en
-  config/                  markets, contract-types
+  config/                  markets, contract-types, storefronts
   public/
   docs/                    Verweis aufs Hub, lokale Notizen
 ```
@@ -88,11 +89,12 @@ surface-love-shop/
 | HubSpot-Map | Felder, Stufen, Deal, Firma, Kontakt, Abo | HUBSPOT.md | HubSpot | Agent über MCP | Shop und Agenten | HubSpot, Map im Hub |
 | Markt-Config | Sprachen, Währungen, Vertragsarten je Markt | Config plus MARKETS.md | App-Config | shop-Repo | Shop und Pipeline | shop/config, Doku im Hub |
 | Promotions | Preisaktionen | DB-Tabelle plus PROMOS.md | Datenbank, agent-gepflegt | Agent oder Admin | Shop und Checkout | Postgres, Doku im Hub |
+| Storefronts | Marke, Domain, Hersteller-Filter, Recht, Absender | Config plus STOREFRONTS.md | App-Config | shop-Repo | Shop und Agenten | shop/config, Doku im Hub |
 | Brand-Tokens | Farben, Typo, Radius | tokens.css | Hub | Strategie | Shop | Hub/brand |
 
 ## 5. Speicher-Plan, wo was liegt
 - Specs, Verträge, Marke, Prompts liegen im **Hub-Repo**.
-- App-Code liegt in **surface-love-shop**.
+- App-Code liegt in **surface-love-shop**, dort auch die Storefront- und Markt-Config.
 - Pipeline-Code liegt in **surface-love-pricing** und **sl-bilder**.
 - Live-Katalog products.json und images.json gehen in den **Objektspeicher** und werden von dort nach Postgres synchronisiert.
 - Medien, die Bilder als WebP, liegen im **Objektspeicher**, Ablageort noch offen, GCS oder Hostinger.
@@ -103,17 +105,19 @@ surface-love-shop/
 
 ## 6. Die Verbindungen, Flüsse
 1. **Entscheidung zu Bau.** Strategie-Chat schreibt die Vorgabe ins Hub, Claude Code liest das Hub und baut im Shop-Repo, deployt zu Hostinger. Kein Kopieren.
-2. **Neu-Katalog.** Distributor-Feed, Surface und Lenovo, zur Pricing-Pipeline, dann products.json in den Datenstore, Shop-Sync, Postgres, Shop.
+2. **Neu-Katalog.** Distributor-Feed, Surface und Lenovo, zur Pricing-Pipeline, dann products.json in den Datenstore, Shop-Sync, Postgres, Shop. Der Katalog ist herstellerneutral, der Hersteller-Filter des Storefronts schneidet ihn beim Ausliefern zu.
 3. **Bilder.** Quellbilder zur Bild-Pipeline, der Agent schneidet, konvertiert nach WebP, nummeriert und lädt hoch, in den Objektspeicher plus images.json, der Shop liest.
 4. **Refurbished.** Rücklauf, Erfassung und Zustand, Postgres-Bestand, Shop, Kunde abonniert, Stripe, HubSpot-Abo und Rechnung, Versand, Bestand aktualisiert.
-5. **Anfrage neu.** Shop zum Anfrage-Endpunkt, HubSpot-Deal und Graph-Mail, Agent bearbeitet kleine Fälle, eskaliert große.
+5. **Anfrage neu.** Shop zum Anfrage-Endpunkt, HubSpot-Deal und Graph-Mail, Agent bearbeitet kleine Fälle, eskaliert große. Marke, Storefront und Deal-Quelle gehen aus der erkannten Domain mit an den Deal.
 6. **Kaufmännisch.** Shop und Agenten schreiben Geschäftsereignisse über API und MCP nach HubSpot, HubSpot bleibt Master.
+7. **Storefront.** Der Aufruf trifft eine Domain, die App erkennt daraus den Storefront, lädt Marke, Optik, rechtliche Texte, Kontaktdaten und Absender, und wendet den Hersteller-Filter auf Katalog, Bestand, Suche und Empfehlungen an. Kein markenübergreifender Querverkauf. Alles Kaufmännische geht mit Marke und Deal-Quelle nach HubSpot, in die gemeinsame Pipeline.
 
 ## 7. Konventionen und Leitplanken
 - Kundentext deutsch, echte Umlaute ä ö ü ß, keine langen Bindestriche, Komma statt.
 - Nie Einkauf, Verkauf oder Leasingfaktoren öffentlich, nur Monatsraten.
 - Preise nie schätzen, Eingabe über Widget.
 - Ein HubSpot-Deal je Vertragsende, kein Bündeln verschiedener Enddaten.
+- Ein Storefront ist ein Einmarken-Auftritt, kein markenübergreifender Querverkauf, kein Hinweis auf die andere Marke.
 - Wir-Form in Kundenmails, Entwurf immer erst zeigen und bestätigen lassen, Allen antworten.
 - Secrets nur als Umgebungsvariable, nie im Repo, im öffentlichen Hub keine internen Preise.
 - Windows ARM, PowerShell, Terminalbefehle in wenige kopierbare Boxen.

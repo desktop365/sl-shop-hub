@@ -28,6 +28,8 @@ beschreibt sie, es ersetzt sie nicht.
 ### 2.3 Abos, Stripe-Status
 - Zweck: laufende Abos zu refurbished Geräten, Laufzeit, Zahlungsstatus.
 - Felder: Stripe-Kennungen für Kunde, Abonnement und Preis, Status, Beginn, Ende, Bezug zur Bestandseinheit.
+- Zusätzlich Marke und Storefront, siehe Abschnitt 5. Sie sagen, über welchen Auftritt das Abo entstand,
+  und werden bei der Spiegelung nach HubSpot mitgegeben.
 - Sync-Quelle: Stripe über Webhooks, Spiegelung nach HubSpot, siehe [HUBSPOT.md](HUBSPOT.md).
 
 ### 2.4 Promotions
@@ -37,7 +39,8 @@ beschreibt sie, es ersetzt sie nicht.
 
 ### 2.5 Anfragen-Log
 - Zweck: Nachweis der eingegangenen Anfragen aus dem Neu-Zweig, technisch, nicht kaufmännisch.
-- Felder: Anfrage-Kennung, Zeitpunkt, Warenkorb, Markt, Sprache, Ergebnis der Übergabe an HubSpot und Mail.
+- Felder: Anfrage-Kennung, Zeitpunkt, Warenkorb, Marke, Storefront, Markt, Sprache, Ergebnis der Übergabe
+  an HubSpot und Mail. Marke und Storefront siehe Abschnitt 5.
 - Sync-Quelle: der Anfrage-Endpunkt des Shops. Kaufmännischer Master des Vorgangs bleibt HubSpot.
 
 ## 3. Sync-Quellen in der Übersicht
@@ -45,3 +48,17 @@ Je Tabelle eine Zeile: Quelle, Richtung, Takt, wer schreibt, wer nur liest. Folg
 
 ## 4. Migrationen und Versionierung
 Ablage, Benennung und Reihenfolge der SQL-Migrationen im Shop-Repo. Folgt beim Bau.
+
+## 5. Marke und Storefront als Querschnittsfelder
+Jeder kundenbezogene Vorgang trägt, woher er kam. Zwei Felder, gemeinsam gesetzt:
+
+- **Marke**, Werte Surface und Lenovo, gleicher Wertevorrat wie das Deal-Feld Marke in
+  [HUBSPOT.md](HUBSPOT.md) Abschnitt 9.
+- **Storefront**, die id aus [STOREFRONTS.md](STOREFRONTS.md) Abschnitt 3, zum Beispiel surface, lenovo.
+
+Gesetzt werden sie beim Eingang aus der erkannten Domain, nicht aus einer Nutzereingabe. Sie stehen im
+Anfragen-Log (Abschnitt 2.5) und in der Abo-Tabelle (Abschnitt 2.3) und gehen in die Deal- und
+Abo-Spiegelung nach HubSpot mit.
+
+Katalog und refurbished Bestand tragen die Felder nicht. Der Bestand ist markenübergreifend, welcher
+Storefront ein Gerät zeigt, ergibt sich aus dem Hersteller-Filter, nicht aus einem Feld an der Einheit.

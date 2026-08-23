@@ -34,6 +34,7 @@ Bei Widerspruch gilt ARBEITSWEISE.md.
 - [contracts/HUBSPOT.md](contracts/HUBSPOT.md)              Felder, Pipeline-Stufen, kaufmännischer Master
 - [contracts/MARKETS.md](contracts/MARKETS.md)              Sprachen, Währungen, Vertragsarten je Markt
 - [contracts/PROMOS.md](contracts/PROMOS.md)                Aktionsregeln
+- [contracts/STOREFRONTS.md](contracts/STOREFRONTS.md)      Marken-Auftritte je Domain, surface und lenovo
 
 ## Datenfluss, kurz
 - Den Live-Katalog erzeugt die Preis-Pipeline und legt products.json im Objektspeicher ab, der Shop liest

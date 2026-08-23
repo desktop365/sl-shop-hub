@@ -17,7 +17,7 @@ Bei Widerspruch gilt ARBEITSWEISE.md.
 - Nichts löschen. Wird ein Dokument abgelöst, oben in der Datei vermerken und stehen lassen.
 
 ## Wo was liegt
-- contracts, die verbindlichen Kontrakte: Datenvertrag, Bildschicht, DB-Schema, HubSpot-Map, Märkte, Aktionen.
+- contracts, die verbindlichen Kontrakte: Datenvertrag, Bildschicht, DB-Schema, HubSpot-Map, Märkte, Aktionen, Storefronts.
 - data, Beispiel- und handgepflegte Datendateien.
 - brand, Logo, Farben, Tokens.
 - prompts, Kontextblock und Kickoff-Prompts.

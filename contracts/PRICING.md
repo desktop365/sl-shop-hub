@@ -1,6 +1,6 @@
 # Preis-Kontrakt, Neu-Raten
 
-Maßgeblich für Herkunft und Berechnung der Neu-Raten. Die Rechenlogik stammt aus dem ersten Anlauf, früher in KONZEPT.md Abschnitt 8, jetzt hier. Sie ist stack-neutral und gilt unabhängig davon, wo die Pipeline läuft. Master der Neu-Raten ist die Preis-Pipeline im Repo surface-love-pricing, sie erzeugt products.json nach contracts/DATA-CONTRACT.md.
+Maßgeblich für Herkunft und Berechnung der Neu-Raten. Die Rechenlogik stammt aus dem ersten Anlauf, früher in archive/KONZEPT.md Abschnitt 8, jetzt hier. Sie ist stack-neutral und gilt unabhängig davon, wo die Pipeline läuft. Master der Neu-Raten ist die Preis-Pipeline im Repo surface-love-pricing, sie erzeugt products.json nach contracts/DATA-CONTRACT.md.
 
 ## Stand, ehrlich
 Die Pipeline wurde im Juli gebaut, Parser und Rechenlogik stehen. Sie hat aber noch nie eine gültige products.json in den Bucket geschrieben, der Bucket ist leer, und ob der Distributor-Zugang heute noch funktioniert, ist nicht geprüft. Also gebaut, aber nicht End-zu-End bewiesen. Bevor der Schreibweg oder der Sync angefasst werden, steht eine rein lesende Bestandsaufnahme, siehe Abschnitt 5.

@@ -46,9 +46,9 @@ Damit der neue Chat nicht in dieselben Fallen läuft:
 - Website nie löschen, um neu anzulegen, das Löschen nimmt zugeordnete Datenbanken mit.
 
 ## 6. Was offen ist, der nächste Block
-Der Katalog. Der Bucket ist leer, deshalb zeigt der Shop ehrlich null Geraete. Der Blocker liegt in den Pipelines, nicht mehr in der App. Wichtig, die Preis-Pipeline ist gebaut, aber nie End-zu-End bewiesen, sie hat noch nie in den Bucket geschrieben, und der Anfrage-Endpunkt ist im neuen Stack noch nicht gebaut. Deshalb gilt, erst pruefen, dann bauen.
+Der Katalog. Der Bucket ist leer, deshalb zeigt der Shop ehrlich null Geräte. Der Blocker liegt in den Pipelines, nicht mehr in der App. Wichtig, die Preis-Pipeline ist gebaut, aber nie End-zu-End bewiesen, sie hat noch nie in den Bucket geschrieben, und der Anfrage-Endpunkt ist im neuen Stack noch nicht gebaut. Deshalb gilt, erst prüfen, dann bauen.
 Aufgaben des nächsten Blocks:
-- Zuerst rein lesend pruefen, laeuft die Preis-Pipeline, ist der Distributor erreichbar, stimmen die Raten, siehe contracts/PRICING.md Abschnitt 5. Erst dann den Schreibweg in den Bucket bauen.
+- Zuerst rein lesend prüfen, läuft die Preis-Pipeline, ist der Distributor erreichbar, stimmen die Raten, siehe contracts/PRICING.md Abschnitt 5. Erst dann den Schreibweg in den Bucket bauen.
 - Bild-Pipeline dazu bringen, images.json und die Bilder in den Bucket zu schreiben. Vorher die vier offenen Bildfragen klären, Pro 12 Zoll gegen 13 Zoll gleiche physische Größe, Laptop 13 Zoll in Schwarz, Laptop 5G welche Generation visuell, Slim-Pen-Bundles eigene Fotos.
 - Sync auf dem Server lauffähig machen, tsx nach dependencies, dann läuft Bucket zu Datenbank.
 - Danach erscheinen zum ersten Mal echte Geräte im Shop.

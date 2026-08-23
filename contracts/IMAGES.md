@@ -1,7 +1,7 @@
 # Bildspezifikation (images.json v2)
 
 Maßgebliche Spezifikation für alle Produktbilder des Shops. Ersetzt das frühere Modell mit starrer
-MSKU-Benennung. Kurzfassung auch in KONZEPT.md Abschnitt 9.
+MSKU-Benennung.
 
 ## Idee in einem Satz
 Nicht jede Produktvariante bekommt eigene Fotos. Es gibt ein Fotoset je Bildmodell, und jede MSKU wird

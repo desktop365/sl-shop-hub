@@ -120,7 +120,7 @@ Von Tag eins strukturell, nicht nachgerüstet:
 - Zahlung: Stripe, hostunabhängig in die App integriert.
 - Eine App, zwei Domains. Dieselbe Anwendung liefert beide Storefronts aus und unterscheidet sie an der
   Domain, kein zweiter Deploy, keine Kopie der Codebasis.
-- Domain und DNS: surface.love liegt bei Cloudflare und zeigt bis zum Umschalten auf den alten Shop, die neue App laeuft unter worklove.shop bei Hostinger, lenovo.online kommt spaeter dazu. Details in contracts/INFRA.md.
+- Domain und DNS: surface.love liegt bei Cloudflare und zeigt bis zum Umschalten auf den alten Shop, die neue App läuft unter worklove.shop bei Hostinger, lenovo.online kommt später dazu. Details in contracts/INFRA.md.
 - Media: Bilder und Live-Dateien liegen im GCS-Bucket slshopv2-media, entschieden, siehe contracts/INFRA.md.
 - Der alte AI-Studio-Shop bleibt live, bis der neue steht.
 

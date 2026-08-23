@@ -19,12 +19,12 @@ Bei Widerspruch gilt ARBEITSWEISE.md.
 - PROJECT.md        Zielbild, Positionierung, Branding-Regeln
 - DESIGN.md         Designsprache und Tokens
 - UX.md             Anfrage-Wizard und Bedienregeln
-- archive/          abgeloeste Dokumente aus dem ersten Anlauf, siehe Hinweis in den Dateien
+- archive/          abgelöste Dokumente aus dem ersten Anlauf, siehe Hinweis in den Dateien
 - DETAILS.md        Feinvorgaben, leicht zu übersehende Punkte
 - contracts/        die verbindlichen Kontrakte, siehe unten
 - data/             Beispiel- und handgepflegte Datendateien
 - brand/            Herz-Logo, Farb- und Schrift-Tokens
-- STATUS.md         Uebergabe nach Phase 0, aktueller Stand
+- STATUS.md         Übergabe nach Phase 0, aktueller Stand
 - PLAN.md           Lehren aus dem ersten Anlauf, historisch, siehe Hinweis in der Datei
 
 ## Die Kontrakte
@@ -36,7 +36,7 @@ Bei Widerspruch gilt ARBEITSWEISE.md.
 - [contracts/PROMOS.md](contracts/PROMOS.md)                Aktionsregeln
 - [contracts/STOREFRONTS.md](contracts/STOREFRONTS.md)      Marken-Auftritte je Domain, surface und lenovo
 - [contracts/PRICING.md](contracts/PRICING.md)  Preisquelle und Rechenweg der Neu-Raten
-- [contracts/ANFRAGE.md](contracts/ANFRAGE.md)  Anfrage-Endpunkt und Schluessel
+- [contracts/ANFRAGE.md](contracts/ANFRAGE.md)  Anfrage-Endpunkt und Schlüssel
 - [contracts/INFRA.md](contracts/INFRA.md)  Infrastruktur, Google-Projekte, Bucket, Cloudflare, Hosting
 
 ## Datenfluss, kurz

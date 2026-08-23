@@ -35,7 +35,7 @@ sl-shop-hub/
   README.md
   ARBEITSWEISE.md          dieses Handbuch
   LANDKARTE.md             Architektur-Landkarte
-  PROJECT.md DESIGN.md UX.md KONZEPT.md DETAILS.md
+  PROJECT.md DESIGN.md UX.md DETAILS.md STATUS.md PLAN.md
   contracts/
     DATA-CONTRACT.md       products.json Schema
     IMAGES.md              images.json Schema
@@ -44,14 +44,15 @@ sl-shop-hub/
     MARKETS.md             Sprachen, Währungen, Vertragsarten je Markt
     PROMOS.md              Aktionsregeln
     STOREFRONTS.md         Marken-Auftritte je Domain
+    PRICING.md             Preisquelle und Rechenweg der Neu-Raten
+    ANFRAGE.md             Anfrage-Endpunkt und Schlüssel
+    INFRA.md               Infrastruktur, Google-Projekte, Bucket, Cloudflare
   data/
     products.sample.json
     images.sample.json
   brand/
     SL_Heart_RGB.svg colors.md tokens.css
-  prompts/
-    00-context.md
-    claude-code-kickoff.md
+  archive/                 abgelöste Dokumente aus dem ersten Anlauf
   CHANGELOG.md
 ```
 
@@ -129,4 +130,4 @@ surface-love-shop/
 3. sl-bilder als Repo initialisieren, in den Workspace aufnehmen.
 4. MCPs einrichten, HubSpot und Mail im Betriebs-Cowork, Hostinger und GitHub in Claude Code.
 5. Offenen Punkt Objektspeicher entscheiden, GCS behalten oder zu Hostinger.
-6. Phase 0 in Claude Code starten, Next.js plus MySQL bei Hostinger, mehrsprachig, Designtokens aus dem Hub. Der Kickoff-Prompt liegt im Hub unter prompts.
+6. Phase 0 in Claude Code starten, Next.js plus MySQL bei Hostinger, mehrsprachig, Designtokens aus dem Hub. Der Kickoff-Prompt liegt im Hub unter archive.

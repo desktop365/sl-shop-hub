@@ -1,6 +1,6 @@
 # Detailvorgaben und Feinheiten
 
-Ergänzung zu DESIGN.md, UX.md, PROJECT.md und KONZEPT.md. Hält die feinen, leicht zu übersehenden
+Ergänzung zu DESIGN.md, UX.md und PROJECT.md. Hält die feinen, leicht zu übersehenden
 Vorgaben fest, die im ersten Anlauf erarbeitet wurden.
 
 ## Marke und Kontakt
@@ -37,7 +37,7 @@ Vorgaben fest, die im ersten Anlauf erarbeitet wurden.
 - Beratungsassistent "Welches Surface passt zu mir"
 - FAQ-Chatbot
 - ROI-Rechner auf der Vorteilsseite
-HubSpot und der serverseitige Mailversand sind bereits konzipiert, siehe KONZEPT.md.
+HubSpot und der serverseitige Mailversand sind bereits konzipiert, siehe contracts/ANFRAGE.md.
 
 ## Homepage-Marketing, kommt mit den Bildern
 - Main-Teaser und beworbene Geräte auf der Startseite, gespeist aus product-overrides.json (featured,

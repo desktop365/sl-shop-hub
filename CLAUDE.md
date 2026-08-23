@@ -20,7 +20,7 @@ Bei Widerspruch gilt ARBEITSWEISE.md.
 - contracts, die verbindlichen Kontrakte: Datenvertrag, Bildschicht, DB-Schema, HubSpot-Map, Märkte, Aktionen, Storefronts.
 - data, Beispiel- und handgepflegte Datendateien.
 - brand, Logo, Farben, Tokens.
-- prompts, Kontextblock und Kickoff-Prompts.
+- archive, abgelöste Dokumente aus dem ersten Anlauf, Fachkonzept, Kontextblock und Kickoff-Prompts.
 
 ## Hinweis
 Diese Datei ist die Hub-Variante. Die CLAUDE.md der Code-Repos ist eine andere und regelt dort Stack,

@@ -1,6 +1,6 @@
 # Anfrage-Kontrakt, Endpunkt und Schlüssel
 
-Maßgeblich für die Anfrage-Logik des Neu-Zweigs. Die Logik stammt aus dem ersten Anlauf, früher KONZEPT.md Abschnitt 11. Sie gilt unverändert, nur das Ziel ist jetzt die Hostinger-Node-App als Next.js-API-Route, nicht mehr ein FastAPI-Dienst auf Cloud Run.
+Maßgeblich für die Anfrage-Logik des Neu-Zweigs. Die Logik stammt aus dem ersten Anlauf, früher archive/KONZEPT.md Abschnitt 11. Sie gilt unverändert, nur das Ziel ist jetzt die Hostinger-Node-App als Next.js-API-Route, nicht mehr ein FastAPI-Dienst auf Cloud Run.
 
 ## Stand, ehrlich
 Ablauf und Schlüssel sind vollständig entworfen, aber der Endpunkt ist im neuen Stack noch nicht gebaut. Die zugehörigen Apps und Zugänge, die HubSpot-Private-App, die Graph-App-Registrierung und das Turnstile-Widget, müssen für den neuen Auftritt geprüft oder neu erstellt und die Schlüssel als Umgebungsvariablen der Hostinger-App gesetzt werden.

@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "note": "Kleines Beispiel zur Form aus contracts/IMAGES.md. Zum Bauen und Testen, nicht der Live-Stand. Der gepflegte Stand liegt in data/images.json und im Objektspeicher.",
+  "models": {
+    "surface-laptop-8-13-black": {
+      "family": "surface-laptop",
+      "main": "surface-laptop-8-13-black.webp",
+      "thumb": "surface-laptop-8-13-black_thumb.webp",
+      "gallery": [
+        "surface-laptop-8-13-black_open.webp",
+        "surface-laptop-8-13-black_closed.webp"
+      ]
+    },
+    "surface-pro-11-13-platin": {
+      "family": "surface-pro",
+      "main": "surface-pro-11-13-platin.webp",
+      "thumb": "surface-pro-11-13-platin_thumb.webp",
+      "gallery": [
+        "surface-pro-11-13-platin_tablet.webp",
+        "surface-pro-11-13-platin_back.webp",
+        "surface-pro-11-13-platin_pen.webp"
+      ]
+    },
+    "surface-arc-mouse-black": {
+      "family": "zubehoer",
+      "main": "surface-arc-mouse-black.webp",
+      "thumb": "surface-arc-mouse-black_thumb.webp",
+      "gallery": []
+    }
+  },
+  "map": {
+    "EP2-47594": "surface-laptop-8-13-black",
+    "EP2-47601": "surface-laptop-8-13-black",
+    "ZDV-00004": "surface-pro-11-13-platin",
+    "FHD-00017": "surface-arc-mouse-black"
+  }
+}

@@ -1,33 +1,55 @@
-# sl-shop-hub - zentrale Datenablage Surface as a Service Shop
+# sl-shop-hub, Brücke und Quelle der Wahrheit
 
-Single source of truth fuer den Shop "slshopv2". Alle Beteiligten (Google AI Studio fuer die App,
-die VS Code Chats fuer Pipeline und Bilder, und Claude) ziehen sich Vorgaben und Beispieldaten von
-hier, statt sie ueber den PC hin und her zu kopieren.
+Hub-Repo für Surface.Love. Hier liegen Specs, Kontrakte, Marke und Prompts. Alle Oberflächen, der
+Strategie-Strang, Claude Code und die Betriebs-Agenten, lesen von hier, statt Vorgaben hin und her zu
+kopieren. Kein Code, keine Secrets, keine internen Preise.
+
+## Einstieg, in dieser Reihenfolge
+1. [ARBEITSWEISE.md](ARBEITSWEISE.md), das Betriebshandbuch. Welche Oberfläche was tut, welche Repos es
+   gibt, welche Verträge in welcher Form, wo alles liegt, welche Leitplanken gelten.
+2. [LANDKARTE.md](LANDKARTE.md), die Architektur-Landkarte. Module, zwei Geschäftsmodelle, Preis-Engine,
+   Promotions, Phasen, offene Entscheidungen.
+3. [CLAUDE.md](CLAUDE.md), die kurze Arbeitsanweisung für dieses Repo.
+
+Bei Widerspruch gilt ARBEITSWEISE.md.
 
 ## Inhalt
-- PROJECT.md         Zielbild, Positionierung, Branding-Regeln
-- DESIGN.md          Designsprache und Tokens
-- UX.md              Anfrage-Wizard und Bedienregeln
-- PLAN.md            Phasenplan und Lehren aus dem ersten Anlauf
-- DATA-CONTRACT.md   verbindliche Form der Produktdaten
-- data/              Beispiel- und handgepflegte Datendateien
-- brand/             Herz-Logo, Farb- und Schrift-Tokens
-- prompts/           Kontext-Block und AI-Studio-Prompts je Phase
+- ARBEITSWEISE.md   Betriebshandbuch, Repo- und Ordnerstruktur
+- LANDKARTE.md      Architektur-Landkarte
+- PROJECT.md        Zielbild, Positionierung, Branding-Regeln
+- DESIGN.md         Designsprache und Tokens
+- UX.md             Anfrage-Wizard und Bedienregeln
+- KONZEPT.md        ausführliches Fachkonzept
+- DETAILS.md        Feinvorgaben, leicht zu übersehende Punkte
+- contracts/        die verbindlichen Kontrakte, siehe unten
+- data/             Beispiel- und handgepflegte Datendateien
+- brand/            Herz-Logo, Farb- und Schrift-Tokens
+- prompts/          Kontextblock und Kickoff-Prompts
+- PLAN.md, STATUS.md  Stände aus dem ersten Anlauf, historisch, siehe Hinweis in den Dateien
 
-## Datenfluss, wichtig
-- Die LIVE-Produktdaten (alle rund 358 Artikel, nur fertige Raten) erzeugt die Azure-Pipeline und
-  laedt sie als products.json in den GCS-Bucket slshopv2-media (Variante A). Die App liest immer
-  aus dem Bucket, nie aus diesem Repo.
-- Dieses Repo haelt: den Datenvertrag, eine Beispieldatei (data/products.sample.json) zum Bauen,
-  sowie die handgepflegten Dateien product-overrides.json (Hervorhebungen) und images.json
-  (Bild-Zuordnung). Diese beiden werden nach Aenderung in den Bucket synchronisiert.
-- Bilder liegen im Bucket unter images/{MSKU}.webp und images/{MSKU}_thumb.webp.
+## Die Kontrakte
+- [contracts/DATA-CONTRACT.md](contracts/DATA-CONTRACT.md)  products.json, Neu-Katalog und Raten
+- [contracts/IMAGES.md](contracts/IMAGES.md)                images.json, Bildmodelle und Zuordnung
+- [contracts/DB-SCHEMA.md](contracts/DB-SCHEMA.md)          Postgres, Leseabbild, Bestand, Abo
+- [contracts/HUBSPOT.md](contracts/HUBSPOT.md)              Felder, Pipeline-Stufen, kaufmännischer Master
+- [contracts/MARKETS.md](contracts/MARKETS.md)              Sprachen, Währungen, Vertragsarten je Markt
+- [contracts/PROMOS.md](contracts/PROMOS.md)                Aktionsregeln
 
-## Roh-Zugriff fuer Chats und Tools
-https://raw.githubusercontent.com/<OWNER>/<REPO>/main/<pfad>
+## Datenfluss, kurz
+- Den Live-Katalog erzeugt die Preis-Pipeline und legt products.json im Objektspeicher ab, der Shop liest
+  von dort und synchronisiert nach Postgres, nie aus diesem Repo.
+- Die Bildschicht images.json kommt aus der Bild-Pipeline, die Bilddateien liegen im Objektspeicher.
+- Dieses Repo hält die Schemata, kleine Beispieldateien zum Bauen und die handgepflegten Dateien
+  product-overrides.json und images.json.
+- Der Ablageort des Objektspeichers ist noch offen, GCS behalten oder zu Hostinger, siehe LANDKARTE.md
+  Abschnitt 17.
+
+## Roh-Zugriff für Chats und Tools
+https://raw.githubusercontent.com/desktop365/sl-shop-hub/main/<pfad>
 
 ## Regeln, nicht verhandelbar
-- NIE Secrets in dieses Repo. Keine Graph-, HubSpot-, Turnstile-Schluessel. Keine EK- oder
-  VK-Werte. Oeffentlich sind ausschliesslich fertige Monatsraten.
-- Produktdaten nie von Hand pflegen, nur ueber die Pipeline. Von Hand nur product-overrides.json,
+- Nie Secrets in dieses Repo. Keine Graph-, HubSpot-, Stripe- oder Turnstile-Schlüssel.
+- Keine Einkaufs-, Verkaufs- oder Faktorwerte. Öffentlich sind ausschließlich fertige Monatsraten.
+- Produktdaten nie von Hand pflegen, nur über die Pipeline. Von Hand nur product-overrides.json,
   images.json, Texte und Brand-Assets.
+- Nichts löschen. Abgelöste Dokumente bleiben stehen und bekommen oben einen Hinweis.

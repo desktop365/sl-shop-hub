@@ -1,5 +1,9 @@
 # Projektstatus Surface as a Service Shop (slshopv2)
 
+> Hinweis: abgelöst. Stand vom 10.07.2026 aus dem ersten Anlauf, historisch. Der gültige Rahmen steht in
+> ARBEITSWEISE.md und LANDKARTE.md. Diese Datei bleibt als Zwischenstand erhalten, sie ist keine Vorgabe
+> mehr.
+
 Zusammenführung der drei parallelen Arbeitsstränge nach einer Pause. Stand: 10.07.2026.
 Stränge: Shop-App (Google AI Studio), Preis-Pipeline (Azure), Bild-Chat (images.json und Bilder).
 
@@ -75,7 +79,7 @@ Der Bildansatz ist über das ursprüngliche Konzept hinausgewachsen. Anzupassen:
   umstellen, also MSKU auf Bildmodell-slug, je Modell Hauptbild, Vorschau und Galerie.
 - data/images.json im Repo: vom leeren Platzhalter auf das v2-Schema (models plus map) bringen, sobald der
   Bild-Chat die Matrix und die vier offenen Fragen final hat.
-- DATA-CONTRACT.md und DETAILS.md: den Verweis auf images.json als einfache Zuordnung auf die neue Rolle
+- contracts/DATA-CONTRACT.md und DETAILS.md: den Verweis auf images.json als einfache Zuordnung auf die neue Rolle
   als maßgebliche Bildschicht mit Galerien schärfen.
 - Der Shop-Bild-Resolver liest dann images.json v2, löst MSKU auf slug auf und zeigt Hauptbild, Vorschau
   und optional Galerie, mit Fallback über die Familie. Dateinamen kommen aus images.json, nicht mehr starr

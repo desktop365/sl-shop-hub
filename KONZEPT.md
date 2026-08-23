@@ -222,7 +222,7 @@ den Shop. `pricelist-internal` mit EK und VK, ausschließlich intern, nie öffen
 gültige Raten, kein Einbruch), bei Fehlschlag bleibt die alte Datei live.
 
 ### 8.2 Datenvertrag der öffentlichen Datei
-Verbindliche Form in `DATA-CONTRACT.md`, Beispiel in `data/products.sample.json`. Kurz:
+Verbindliche Form in `contracts/DATA-CONTRACT.md`, Beispiel in `data/products.sample.json`. Kurz:
 - Öffentlich sind nur fertige Monatsraten, keine EK-, VK- oder Faktorwerte.
 - Je Produkt: sku, msku, manufacturer, name, title_raw, rates.leasing und rates.finanzierung mit je
   {term, net, gross}, rate_from als günstigste Kombination für die Anzeige "ab X pro Monat". net ist
@@ -253,7 +253,7 @@ selben Schema (meta, items, rates). Offen ist die Quelle der Lizenzpreise, das k
 
 ## 9. Bildkonzept
 
-Maßgeblich ist IMAGES.md, dort steht die vollständige Spezifikation. Diese Kurzfassung ersetzt das
+Maßgeblich ist contracts/IMAGES.md, dort steht die vollständige Spezifikation. Diese Kurzfassung ersetzt das
 frühere Modell mit starrer MSKU-Benennung.
 - Bilder liegen im Bucket unter `images/`. Dateien sind je Bildmodell benannt (slug) mit sprechenden
   Suffixen, nicht mehr starr nach MSKU.
@@ -450,7 +450,7 @@ verbindlichen Regeln:
 - PROJECT.md, Zielbild, Positionierung, Branding
 - DESIGN.md und brand/tokens.css, Designsprache und Tokens
 - UX.md, Wizard und Bedienregeln
-- DATA-CONTRACT.md und data/products.sample.json, Datenform
+- contracts/DATA-CONTRACT.md und data/products.sample.json, Datenform
 - PLAN.md, Phasenplan
 - prompts/00-context.md, Kontext-Block für AI-Studio-Prompts
 - brand/SL_Heart_RGB.svg und brand/colors.md, Logo und Farben

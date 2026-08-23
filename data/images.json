@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "note": "Massgebliche Bildschicht. models definiert je Bildmodell die Dateien, map ordnet jede MSKU einem Bildmodell-slug zu. Vollstaendige Spezifikation in IMAGES.md. Diese Datei ist ein Geruest mit zwei Beispielmodellen, der Bild-Chat fuellt die rund 25 Modelle und das vollstaendige map.",
+  "note": "Massgebliche Bildschicht. models definiert je Bildmodell die Dateien, map ordnet jede MSKU einem Bildmodell-slug zu. Vollstaendige Spezifikation in contracts/IMAGES.md. Diese Datei ist ein Geruest mit zwei Beispielmodellen, der Bild-Chat fuellt die rund 25 Modelle und das vollstaendige map.",
   "models": {
     "surface-laptop-8-13-black": {
       "family": "surface-laptop",

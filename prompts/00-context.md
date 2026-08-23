@@ -7,7 +7,7 @@ Sprich Deutsch in der Oberflaeche. Keine langen Bindestriche, echte Umlaute.
 - Keine persistenten Daten lokal im Container.
 - Produktdaten und Medien aus dem GCS-Bucket slshopv2-media, Bibliothek google-cloud-storage.
 - Produktdaten: products.json aus dem Bucket (von der Pipeline erzeugt, Variante A). Beim Bauen gegen
-  die lokale data/products.sample.json in der Form aus DATA-CONTRACT.md. Spaeter nur die Quelle auf den
+  die lokale data/products.sample.json in der Form aus contracts/DATA-CONTRACT.md. Spaeter nur die Quelle auf den
   Bucket umstellen.
 - Bilder: images/{MSKU}.webp und images/{MSKU}_thumb.webp, Gross- und Kleinschreibung unveraendert
   (Linux case-sensitiv). Aufruf https://storage.googleapis.com/slshopv2-media/images/{name}.

@@ -1,5 +1,9 @@
 # Phasenplan und Lehren
 
+> Hinweis: abgelöst. Der gültige Phasenplan steht in LANDKARTE.md Abschnitt 16, die Arbeitsweise in
+> ARBEITSWEISE.md. Diese Datei beschreibt den ersten Anlauf mit der AI-Studio-App und bleibt wegen der
+> Lehren daraus erhalten, sie ist keine Vorgabe mehr.
+
 ## Lehren aus dem ersten Anlauf
 - Ein einziger i18n-Mega-Prompt hat Datenladeschicht, Steuerlogik, Zustand und Routing zugleich
   umgebaut, eine Inkonsistenz reichte fuer den Totalausfall. Daher: i18n nur in duennen Scheiben.

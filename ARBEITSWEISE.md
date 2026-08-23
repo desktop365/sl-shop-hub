@@ -129,5 +129,5 @@ surface-love-shop/
 2. Dieses Handbuch und die Landkarte ins Hub committen, die Kontrakte unter contracts anlegen.
 3. sl-bilder als Repo initialisieren, in den Workspace aufnehmen.
 4. MCPs einrichten, HubSpot und Mail im Betriebs-Cowork, Hostinger und GitHub in Claude Code.
-5. Offenen Punkt Objektspeicher entscheiden, GCS behalten oder zu Hostinger.
+5. Objektspeicher entschieden, bleibt der GCS-Bucket slshopv2-media, siehe contracts/INFRA.md.
 6. Phase 0 in Claude Code starten, Next.js plus MySQL bei Hostinger, mehrsprachig, Designtokens aus dem Hub. Der Kickoff-Prompt liegt im Hub unter archive.

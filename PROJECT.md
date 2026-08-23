@@ -17,9 +17,9 @@ sorgenfreier faehrt als mit dem Einmalkauf. Vier herausgestellte Vorteile:
 - KI und Copilot, klar getrennt: Copilot+ PC als KI-faehige Hardware, Microsoft 365 Copilot als Software.
   Mit Service immer auf aktueller, KI-faehiger Hardware, ohne Neukauf alle paar Jahre.
 - Skalierbarkeit und Nachhaltigkeit: einfach hoch und runter skalieren, neue Mitarbeiter schnell
-  ausgestattet, Geraete im Kreislauf statt im Schrank.
+  ausgestattet, Geräte im Kreislauf statt im Schrank.
 
-Eigene Vorteilsseite mit Designelementen, Platz fuer einen spaeteren ROI-Rechner, Sorglos-Paket als
+Eigene Vorteilsseite mit Designelementen, Platz für einen späteren ROI-Rechner, Sorglos-Paket als
 Leistungskacheln, KI-Block, immer genau eine Hauptaktion: der Sprung in die Anfrage.
 
 ## Branding, strikt

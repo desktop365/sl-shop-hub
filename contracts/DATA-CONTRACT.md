@@ -15,7 +15,7 @@ Quelle: Azure-Pipeline, Distributor Continue, Rechenlogik in contracts/PRICING.m
 - rate_from {net, contract, term}
 - optional: size_inch, os, is_5g, without_charger
 
-## Vorwaertskompatible Felder (kommen spaeter aus der Pipeline)
+## Vorwärtskompatible Felder (kommen später aus der Pipeline)
 - availability { status, stock }  status in: in_stock | incoming | out_of_stock. stock optional,
   oeffentlich nur als weiche Stufe anzeigen. Ist der Status unbekannt, wird das Feld weggelassen, der
   Shop zeigt dann auf Anfrage.
@@ -29,4 +29,4 @@ Leasing 15, 24, 32, 36. Finanzierung 15, 24, 36.
 ## Begleitdateien
 - product-overrides.json  handgepflegt: featured, badge, priority, marketing je MSKU
 - images.json             version 2, massgebliche Bildschicht (models plus map), siehe IMAGES.md
-- licenses.json, services.json  spaeter, gleiches Schema (meta, items, rates)
+- licenses.json, services.json  später, gleiches Schema (meta, items, rates)

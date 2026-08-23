@@ -14,7 +14,7 @@
 
 ## Phasen
 0  Fundament: FastAPI in west1 steht, Repo verbunden, Checkpoint- und Sync-Disziplin. (erledigt)
-1  Grundgeruest, Designsystem, duenne i18n-Schicht (de), DE einzige sichtbare Sprache, Geraeteuebersicht
+1  Grundgerüst, Designsystem, dünne i18n-Schicht (de), DE einzige sichtbare Sprache, Geräteübersicht
    gegen products.sample.json.
 2  Datenschicht und Markt-Config (DE aktiv, US definiert und deaktiviert), Waehrungs- und Steuer-Formatter.
 3  Produktdetail mit Vertragsart und Laufzeit, Rate, Verfuegbarkeitsanzeige, Hervorhebungen aus Overrides.
@@ -26,4 +26,4 @@
    Inhalts- und Rechtsseiten, SEO.
 9  Zweite i18n-Scheibe: Marktumschaltung und en-Woerterbuch, erst wenn alles stabil.
 10 Domain surface.love: west1-Dienst aus GitHub, Domainzuordnung, Cloudflare, Zertifikat.
-   ROI-Rechner als eigene spaetere Interaktionsphase.
+   ROI-Rechner als eigene spätere Interaktionsphase.

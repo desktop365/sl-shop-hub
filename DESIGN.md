@@ -21,7 +21,7 @@ Ruhig, premium, minimalistisch. Grosszuegige Weissraeume. Genau eine Hauptaktion
 
 ## Form, Raum, Bewegung
 - 8er-Raster, weiche Ecken um 14px, sehr sparsame Schatten nur an schwebenden Elementen.
-- Buttons: genau ein primaerer pro Bildschirm, cyan gefuellt, Semibold. Daneben hoechstens ein dezenter
+- Buttons: genau ein primärer pro Bildschirm, cyan gefüllt, Semibold. Daneben höchstens ein dezenter
   sekundaerer als Outline.
 - Bewegung zurueckhaltend. Herz: Doppel-Herzschlag, sanfter Skalierungspuls alle rund 3,5s, beim
   Ueberfahren ein einzelner Schlag. Kann zugleich Ladeindikator sein. Rate zaehlt beim Umschalten sanft hoch.

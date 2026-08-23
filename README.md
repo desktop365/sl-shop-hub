@@ -19,13 +19,13 @@ Bei Widerspruch gilt ARBEITSWEISE.md.
 - PROJECT.md        Zielbild, Positionierung, Branding-Regeln
 - DESIGN.md         Designsprache und Tokens
 - UX.md             Anfrage-Wizard und Bedienregeln
-- KONZEPT.md        ausführliches Fachkonzept
+- archive/          abgeloeste Dokumente aus dem ersten Anlauf, siehe Hinweis in den Dateien
 - DETAILS.md        Feinvorgaben, leicht zu übersehende Punkte
 - contracts/        die verbindlichen Kontrakte, siehe unten
 - data/             Beispiel- und handgepflegte Datendateien
 - brand/            Herz-Logo, Farb- und Schrift-Tokens
-- prompts/          Kontextblock und Kickoff-Prompts
-- PLAN.md, STATUS.md  Stände aus dem ersten Anlauf, historisch, siehe Hinweis in den Dateien
+- STATUS.md         Uebergabe nach Phase 0, aktueller Stand
+- PLAN.md           Lehren aus dem ersten Anlauf, historisch, siehe Hinweis in der Datei
 
 ## Die Kontrakte
 - [contracts/DATA-CONTRACT.md](contracts/DATA-CONTRACT.md)  products.json, Neu-Katalog und Raten
@@ -35,6 +35,9 @@ Bei Widerspruch gilt ARBEITSWEISE.md.
 - [contracts/MARKETS.md](contracts/MARKETS.md)              Sprachen, Währungen, Vertragsarten je Markt
 - [contracts/PROMOS.md](contracts/PROMOS.md)                Aktionsregeln
 - [contracts/STOREFRONTS.md](contracts/STOREFRONTS.md)      Marken-Auftritte je Domain, surface und lenovo
+- [contracts/PRICING.md](contracts/PRICING.md)  Preisquelle und Rechenweg der Neu-Raten
+- [contracts/ANFRAGE.md](contracts/ANFRAGE.md)  Anfrage-Endpunkt und Schluessel
+- [contracts/INFRA.md](contracts/INFRA.md)  Infrastruktur, Google-Projekte, Bucket, Cloudflare, Hosting
 
 ## Datenfluss, kurz
 - Den Live-Katalog erzeugt die Preis-Pipeline und legt products.json im Objektspeicher ab, der Shop liest
@@ -42,8 +45,7 @@ Bei Widerspruch gilt ARBEITSWEISE.md.
 - Die Bildschicht images.json kommt aus der Bild-Pipeline, die Bilddateien liegen im Objektspeicher.
 - Dieses Repo hält die Schemata, kleine Beispieldateien zum Bauen und die handgepflegten Dateien
   product-overrides.json und images.json.
-- Der Ablageort des Objektspeichers ist noch offen, GCS behalten oder zu Hostinger, siehe LANDKARTE.md
-  Abschnitt 17.
+- Der Objektspeicher ist der GCS-Bucket slshopv2-media, entschieden, siehe contracts/INFRA.md.
 
 ## Roh-Zugriff für Chats und Tools
 https://raw.githubusercontent.com/desktop365/sl-shop-hub/main/<pfad>

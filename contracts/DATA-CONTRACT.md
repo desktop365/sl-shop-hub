@@ -1,7 +1,6 @@
 # Datenvertrag products.json
 
-Quelle: Azure-Pipeline (Distributor Continue), getestet und vertragsfest gerechnet. Kanonischer
-Dateiname im Bucket: products.json. Beispiel zum Bauen: data/products.sample.json.
+Quelle: Azure-Pipeline, Distributor Continue, Rechenlogik in contracts/PRICING.md. Stand, gebaut, aber noch nicht End-zu-End bewiesen, der Bucket ist leer, Bestandsaufnahme vor dem Bau. Kanonischer Dateiname im Bucket: products.json. Beispiel zum Bauen: data/products.sample.json.
 
 ## Grundsaetze
 - Oeffentlich sind NUR fertige Monatsraten. Keine EK-, VK- oder Faktorwerte.

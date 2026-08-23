@@ -1,3 +1,5 @@
+> Abgeloest und archiviert. Beschreibt den ersten Anlauf mit FastAPI auf Google Cloud Run aus der AI-Studio-Zeit, keine Vorgabe mehr. Gueltig sind LANDKARTE.md, ARBEITSWEISE.md, STATUS.md und die Kontrakte unter contracts. Die wertvollen Teile, Rechenlogik und Anfrage-Logik, stehen jetzt in contracts/PRICING.md und contracts/ANFRAGE.md.
+
 # Kontext-Block, jedem AI-Studio-Prompt voranstellen
 
 Projekt slshopv2, Google Cloud Run, Region europe-west1, Python mit FastAPI, zustandsloser Container.

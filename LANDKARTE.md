@@ -75,7 +75,7 @@ Sichtbar wird der Unterschied über einen Zustands-Umschalter im Katalog, klare 
 - Quelle: Neu = Herstellerfotos von Microsoft und Lenovo, als Reseller nutzbar, aber nicht ins öffentliche Repo. Refurbished = zunächst repräsentative Modellfotos plus Zustandsangabe, keine Einzelfotografie je Gerät, das skaliert bei laufendem Rücklauf nicht. Echte Einzelfotos nur, wenn ein Gerät stark abweicht.
 - Zuschnitt und Optimierung: die bestehende Pillow-Pipeline, WebP in Qualität 80, Hauptbild bis 1200 mal 1200 eingepasst, Vorschau bis 400 mal 400, Fallbacks.
 - Automatisierung: die Pipeline wird zum Agenten-Ablauf. Quelle ablegen, der Agent schneidet zu, konvertiert, erzeugt die Größen, benennt nach der Konvention, lädt hoch und trägt die Zuordnung in images.json ein.
-- Einspielung: über den Media-Speicher plus die Zuordnung MSKU zu Fotoset in images.json, die der Shop liest. Offene Frage: Media beim GCS-Bucket lassen oder zu Hostinger ziehen, siehe Abschnitt 17.
+- Einspielung: über den Media-Speicher plus die Zuordnung MSKU zu Fotoset in images.json, die der Shop liest. Media liegt im GCS-Bucket slshopv2-media, entschieden, siehe contracts/INFRA.md.
 
 ## 8. Internationalisierung
 Von Tag eins strukturell, nicht nachgerüstet:
@@ -120,8 +120,8 @@ Von Tag eins strukturell, nicht nachgerüstet:
 - Zahlung: Stripe, hostunabhängig in die App integriert.
 - Eine App, zwei Domains. Dieselbe Anwendung liefert beide Storefronts aus und unterscheidet sie an der
   Domain, kein zweiter Deploy, keine Kopie der Codebasis.
-- Domain und DNS: surface.love über Hostinger, lenovo.online kommt dazu, beide auf dieselbe App.
-- Media: Bilder im Objektspeicher, Ablageort noch zu entscheiden.
+- Domain und DNS: surface.love liegt bei Cloudflare und zeigt bis zum Umschalten auf den alten Shop, die neue App laeuft unter worklove.shop bei Hostinger, lenovo.online kommt spaeter dazu. Details in contracts/INFRA.md.
+- Media: Bilder und Live-Dateien liegen im GCS-Bucket slshopv2-media, entschieden, siehe contracts/INFRA.md.
 - Der alte AI-Studio-Shop bleibt live, bis der neue steht.
 
 ## 15. Was 1 zu 1 übernommen wird, was neu entsteht
@@ -142,7 +142,7 @@ Querschnitt, immer dabei: mehrere Hersteller (Surface, Lenovo), i18n, die Bilder
 1. Hosting bei Hostinger fix, oder soll ich es kurz gegen eine Alternative stellen. Empfehlung: Hostinger, gut geeignet.
 2. Stripe für die Refurbished-Abos, bestätigt, oder Hostingers eigenen Subscriptions-Baustein prüfen. Empfehlung: Stripe.
 3. Reihenfolge recht, erst neu portieren, dann refurbished, dann Agenten. Empfehlung: ja.
-4. Media-Ablage: Bilder beim bestehenden GCS-Bucket lassen, oder zu Hostinger ziehen, damit alles unter einem Dach liegt.
+4. Media-Ablage, entschieden, bleibt im GCS-Bucket slshopv2-media, siehe contracts/INFRA.md.
 5. Refurbished-Bilder: repräsentative Modellfotos plus Zustandsangabe als Standard, bestätigt.
 6. Lenovo-Storefront: Domainname lenovo.online, Logo und Wortmarke gegen Lenovos Partner- und
    Markenregeln prüfen, dazu der Sortimentsschnitt. Offen bis zur Prüfung des Partnervertrags.

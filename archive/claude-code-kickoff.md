@@ -1,3 +1,5 @@
+> Abgeloest und archiviert. Beschreibt den ersten Anlauf mit FastAPI auf Google Cloud Run aus der AI-Studio-Zeit, keine Vorgabe mehr. Gueltig sind LANDKARTE.md, ARBEITSWEISE.md, STATUS.md und die Kontrakte unter contracts. Die wertvollen Teile, Rechenlogik und Anfrage-Logik, stehen jetzt in contracts/PRICING.md und contracts/ANFRAGE.md.
+
 # Kickoff-Prompt für Phase 0, Claude Code
 
 Status: Platzhalter. Der Inhalt folgt, sobald die Entscheidung zum Objektspeicher gefallen ist, siehe

@@ -3,7 +3,7 @@
 Status: Gerüst. Überschriften stehen, der Feininhalt folgt mit der Promotions-Schicht in Phase 2.
 
 Eine Aktionsschicht über den Grundpreisen, datengetrieben, Pflege über Admin oder Agent, nie im Code.
-Master ist die Postgres-Tabelle, siehe [DB-SCHEMA.md](DB-SCHEMA.md) Abschnitt 2.4.
+Master ist die MySQL-Tabelle, siehe [DB-SCHEMA.md](DB-SCHEMA.md) Abschnitt 2.4.
 
 ## 1. Regelmodell
 Je Aktion ein Datensatz mit diesen Bestandteilen:

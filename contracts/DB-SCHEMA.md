@@ -1,4 +1,4 @@
-# DB-Schema, Postgres
+# DB-Schema, MySQL
 
 Status: Gerüst. Überschriften stehen, der Feininhalt folgt beim Bau von Phase 0 und Phase 2.
 

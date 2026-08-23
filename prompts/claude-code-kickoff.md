@@ -10,7 +10,7 @@ liest. Ohne die Entscheidung würde der Prompt einen Pfad vorgeben, der gleich w
 - Auftrag und Abgrenzung für Phase 0, Fundament nach ARBEITSWEISE.md Abschnitt 8.
 - Verweis auf das Hub-Repo als Quelle der Wahrheit, mit den Pfaden zu ARBEITSWEISE.md, LANDKARTE.md und
   den Kontrakten unter contracts.
-- Stack und Rahmen: Next.js plus Postgres bei Hostinger, mehrsprachig und mehrmarktfähig von Anfang an.
+- Stack und Rahmen: Next.js plus MySQL bei Hostinger, mehrsprachig und mehrmarktfähig von Anfang an.
 - Designtokens aus brand, Herz-Logo, Farben, Typo.
 - Ablageort für Katalog, Bildschicht und Medien, Ergebnis der Objektspeicher-Entscheidung.
 - Leitplanken aus ARBEITSWEISE.md Abschnitt 7, deutsch mit echten Umlauten, keine Secrets im Repo, keine

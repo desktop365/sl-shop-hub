@@ -22,7 +22,7 @@ Kern sind zwei chatartige Stränge, Strategie hier und der Code-Workspace, plus 
 
 ### 3.1 Übersicht
 - **sl-shop-hub**, die Brücke und Quelle der Wahrheit für Specs und Kontrakte. GitHub desktop365/sl-shop-hub, lokal C:\Dev\sl-shop-hub. Kein Code, keine Secrets.
-- **surface-love-shop**, die neue App. GitHub desktop365/surface-love-shop, lokal C:\Dev\surface-love-shop. Next.js plus Postgres, hier baut Claude Code.
+- **surface-love-shop**, die neue App. GitHub desktop365/surface-love-shop, lokal C:\Dev\surface-love-shop. Next.js plus MySQL, hier baut Claude Code.
 - **surface-love-pricing**, die Preis-Pipeline für Neu-Raten. Azure DevOps desktop365/Surface.Love/surface-love-pricing, lokal C:\Dev\surface-love-pricing.
 - **sl-bilder**, das Bild-Tooling. Neu als Repo desktop365/sl-bilder, lokal C:\Dev\sl-bilder.
 - **SLSHOPAISTUDIO**, alter AI-Studio-Shop, nur Archiv und Nachschlagewerk, bleibt live bis zum Umschalten.
@@ -39,7 +39,7 @@ sl-shop-hub/
   contracts/
     DATA-CONTRACT.md       products.json Schema
     IMAGES.md              images.json Schema
-    DB-SCHEMA.md           Postgres Leseabbild, Bestand, Abo
+    DB-SCHEMA.md           MySQL Leseabbild, Bestand, Abo
     HUBSPOT.md             Felder, Pipeline-Stufen, kaufmännischer Master
     MARKETS.md             Sprachen, Währungen, Vertragsarten je Markt
     PROMOS.md              Aktionsregeln
@@ -83,12 +83,12 @@ surface-love-shop/
 
 | Vertrag | Zweck | Form | Master | erzeugt von | gelesen von | Ablage |
 |---|---|---|---|---|---|---|
-| products.json | Neu-Katalog und Raten | JSON nach DATA-CONTRACT.md | Pricing-Pipeline | pricing-Repo | Shop, Sync nach Postgres | Datenstore, Schema und Sample im Hub |
+| products.json | Neu-Katalog und Raten | JSON nach DATA-CONTRACT.md | Pricing-Pipeline | pricing-Repo | Shop, Sync nach MySQL | Datenstore, Schema und Sample im Hub |
 | images.json | MSKU zu Fotoset | JSON nach IMAGES.md | Bild-Pipeline | sl-bilder | Shop | Datenstore oder Hub, Medien im Objektspeicher |
-| DB-Schema | Leseabbild, Bestand, Abo-Status | SQL-Migrationen plus DB-SCHEMA.md | Shop-App | shop-Repo | Shop | Postgres, Doku im Hub |
+| DB-Schema | Leseabbild, Bestand, Abo-Status | SQL-Migrationen plus DB-SCHEMA.md | Shop-App | shop-Repo | Shop | MySQL, Doku im Hub |
 | HubSpot-Map | Felder, Stufen, Deal, Firma, Kontakt, Abo | HUBSPOT.md | HubSpot | Agent über MCP | Shop und Agenten | HubSpot, Map im Hub |
 | Markt-Config | Sprachen, Währungen, Vertragsarten je Markt | Config plus MARKETS.md | App-Config | shop-Repo | Shop und Pipeline | shop/config, Doku im Hub |
-| Promotions | Preisaktionen | DB-Tabelle plus PROMOS.md | Datenbank, agent-gepflegt | Agent oder Admin | Shop und Checkout | Postgres, Doku im Hub |
+| Promotions | Preisaktionen | DB-Tabelle plus PROMOS.md | Datenbank, agent-gepflegt | Agent oder Admin | Shop und Checkout | MySQL, Doku im Hub |
 | Storefronts | Marke, Domain, Hersteller-Filter, Recht, Absender | Config plus STOREFRONTS.md | App-Config | shop-Repo | Shop und Agenten | shop/config, Doku im Hub |
 | Brand-Tokens | Farben, Typo, Radius | tokens.css | Hub | Strategie | Shop | Hub/brand |
 
@@ -96,18 +96,18 @@ surface-love-shop/
 - Specs, Verträge, Marke, Prompts liegen im **Hub-Repo**.
 - App-Code liegt in **surface-love-shop**, dort auch die Storefront- und Markt-Config.
 - Pipeline-Code liegt in **surface-love-pricing** und **sl-bilder**.
-- Live-Katalog products.json und images.json gehen in den **Objektspeicher** und werden von dort nach Postgres synchronisiert.
+- Live-Katalog products.json und images.json gehen in den **Objektspeicher** und werden von dort nach MySQL synchronisiert.
 - Medien, die Bilder als WebP, liegen im **Objektspeicher**, Ablageort noch offen, GCS oder Hostinger.
-- Leseabbild, refurbished Bestand, Abo-Status und Promos liegen in **Postgres**.
+- Leseabbild, refurbished Bestand, Abo-Status und Promos liegen in **MySQL**.
 - Kaufmännische Daten, Kontakte, Deals, Angebote, Abos, Rechnung, liegen in **HubSpot**.
 - Abo und Zahlung laufen über **Stripe** und werden nach HubSpot gespiegelt.
 - Secrets liegen nur als **Umgebungsvariable** der jeweiligen Oberfläche, nie im Repo.
 
 ## 6. Die Verbindungen, Flüsse
 1. **Entscheidung zu Bau.** Strategie-Chat schreibt die Vorgabe ins Hub, Claude Code liest das Hub und baut im Shop-Repo, deployt zu Hostinger. Kein Kopieren.
-2. **Neu-Katalog.** Distributor-Feed, Surface und Lenovo, zur Pricing-Pipeline, dann products.json in den Datenstore, Shop-Sync, Postgres, Shop. Der Katalog ist herstellerneutral, der Hersteller-Filter des Storefronts schneidet ihn beim Ausliefern zu.
+2. **Neu-Katalog.** Distributor-Feed, Surface und Lenovo, zur Pricing-Pipeline, dann products.json in den Datenstore, Shop-Sync, MySQL, Shop. Der Katalog ist herstellerneutral, der Hersteller-Filter des Storefronts schneidet ihn beim Ausliefern zu.
 3. **Bilder.** Quellbilder zur Bild-Pipeline, der Agent schneidet, konvertiert nach WebP, nummeriert und lädt hoch, in den Objektspeicher plus images.json, der Shop liest.
-4. **Refurbished.** Rücklauf, Erfassung und Zustand, Postgres-Bestand, Shop, Kunde abonniert, Stripe, HubSpot-Abo und Rechnung, Versand, Bestand aktualisiert.
+4. **Refurbished.** Rücklauf, Erfassung und Zustand, MySQL-Bestand, Shop, Kunde abonniert, Stripe, HubSpot-Abo und Rechnung, Versand, Bestand aktualisiert.
 5. **Anfrage neu.** Shop zum Anfrage-Endpunkt, HubSpot-Deal und Graph-Mail, Agent bearbeitet kleine Fälle, eskaliert große. Marke, Storefront und Deal-Quelle gehen aus der erkannten Domain mit an den Deal.
 6. **Kaufmännisch.** Shop und Agenten schreiben Geschäftsereignisse über API und MCP nach HubSpot, HubSpot bleibt Master.
 7. **Storefront.** Der Aufruf trifft eine Domain, die App erkennt daraus den Storefront, lädt Marke, Optik, rechtliche Texte, Kontaktdaten und Absender, und wendet den Hersteller-Filter auf Katalog, Bestand, Suche und Empfehlungen an. Kein markenübergreifender Querverkauf. Alles Kaufmännische geht mit Marke und Deal-Quelle nach HubSpot, in die gemeinsame Pipeline.
@@ -129,4 +129,4 @@ surface-love-shop/
 3. sl-bilder als Repo initialisieren, in den Workspace aufnehmen.
 4. MCPs einrichten, HubSpot und Mail im Betriebs-Cowork, Hostinger und GitHub in Claude Code.
 5. Offenen Punkt Objektspeicher entscheiden, GCS behalten oder zu Hostinger.
-6. Phase 0 in Claude Code starten, Next.js plus Postgres bei Hostinger, mehrsprachig, Designtokens aus dem Hub. Der Kickoff-Prompt liegt im Hub unter prompts.
+6. Phase 0 in Claude Code starten, Next.js plus MySQL bei Hostinger, mehrsprachig, Designtokens aus dem Hub. Der Kickoff-Prompt liegt im Hub unter prompts.

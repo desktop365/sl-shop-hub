@@ -30,7 +30,7 @@ Bei Widerspruch gilt ARBEITSWEISE.md.
 ## Die Kontrakte
 - [contracts/DATA-CONTRACT.md](contracts/DATA-CONTRACT.md)  products.json, Neu-Katalog und Raten
 - [contracts/IMAGES.md](contracts/IMAGES.md)                images.json, Bildmodelle und Zuordnung
-- [contracts/DB-SCHEMA.md](contracts/DB-SCHEMA.md)          Postgres, Leseabbild, Bestand, Abo
+- [contracts/DB-SCHEMA.md](contracts/DB-SCHEMA.md)          MySQL, Leseabbild, Bestand, Abo
 - [contracts/HUBSPOT.md](contracts/HUBSPOT.md)              Felder, Pipeline-Stufen, kaufmännischer Master
 - [contracts/MARKETS.md](contracts/MARKETS.md)              Sprachen, Währungen, Vertragsarten je Markt
 - [contracts/PROMOS.md](contracts/PROMOS.md)                Aktionsregeln
@@ -38,7 +38,7 @@ Bei Widerspruch gilt ARBEITSWEISE.md.
 
 ## Datenfluss, kurz
 - Den Live-Katalog erzeugt die Preis-Pipeline und legt products.json im Objektspeicher ab, der Shop liest
-  von dort und synchronisiert nach Postgres, nie aus diesem Repo.
+  von dort und synchronisiert nach MySQL, nie aus diesem Repo.
 - Die Bildschicht images.json kommt aus der Bild-Pipeline, die Bilddateien liegen im Objektspeicher.
 - Dieses Repo hält die Schemata, kleine Beispieldateien zum Bauen und die handgepflegten Dateien
   product-overrides.json und images.json.

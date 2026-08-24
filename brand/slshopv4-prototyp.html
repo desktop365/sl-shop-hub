@@ -1,0 +1,1303 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SL Shop V4, Produkt und Variante</title>
+<style>
+/* ============ Token-Saetze, identisch mit tokens.surface.css / tokens.lenovo.css ============ */
+[data-sf="surface"]{
+  --sf-accent:#00A3E0; --sf-accent-strong:#007DB8; --sf-accent-weak:#E6F6FD;
+  --sf-action:#007DB8; --sf-action-hover:#006CA0; --sf-action-ink:#FFFFFF; --sf-focus:#007DB8;
+  --sf-ink:#1A1A1A; --sf-text-2:#6B6B70; --sf-surface:#FFFFFF; --sf-surface-2:#F5F6F7;
+  --sf-border:#E6E7E9; --sf-border-strong:#C9CCD1; --sf-logo-ink:#000000;
+  --sf-success:#1B9E5A; --sf-incoming:#B8860B; --sf-onrequest:#8A8D93;
+  --sf-badge-new-bg:#F0F1F3; --sf-badge-new-ink:#3A3C40;
+  --sf-badge-ref-bg:#E7F6EE; --sf-badge-ref-ink:#136F41;
+  --sf-font:"Segoe UI Variable","Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --sf-w-display:300; --sf-w-body:400; --sf-w-strong:600;
+  --sf-text-display:clamp(2.25rem, 1.5rem + 3.8cqw, 3.5rem);
+  --sf-text-h1:clamp(1.75rem, 1.4rem + 1.8cqw, 2.25rem);
+  --sf-text-h2:clamp(1.375rem, 1.2rem + 0.9cqw, 1.625rem);
+  --sf-text-h3:1.25rem; --sf-text-body:1.0625rem; --sf-text-small:0.875rem; --sf-text-micro:0.75rem;
+  --sf-tracking-display:-0.02em; --sf-leading-tight:1.15; --sf-leading-body:1.55;
+  --sf-radius:18px; --sf-radius-sm:12px; --sf-radius-btn:999px;
+  --sf-shadow-card:0 1px 2px rgba(20,24,28,.06);
+  --sf-shadow-float:0 12px 32px rgba(20,24,28,.14);
+  --sf-ease:cubic-bezier(.2,.7,.3,1); --sf-dur-1:150ms; --sf-dur-2:260ms; --sf-dur-3:550ms; --sf-pulse:3.5s;
+  --sf-tint:14%;
+  --sf-space-1:4px; --sf-space-2:8px; --sf-space-3:12px; --sf-space-4:16px; --sf-space-5:24px;
+  --sf-space-6:32px; --sf-space-7:48px; --sf-space-8:64px; --sf-space-9:96px;
+  --sf-container:1200px; --sf-gutter:clamp(20px, 4cqw, 32px);
+}
+[data-sf="lenovo"]{
+  --sf-accent:#D0342C; --sf-accent-strong:#A82519; --sf-accent-weak:#FBEBE8;
+  --sf-action:#D0342C; --sf-action-hover:#B32A21; --sf-action-ink:#FFFFFF; --sf-focus:#A82519;
+  --sf-ink:#191817; --sf-text-2:#6F6A66; --sf-surface:#FFFFFF; --sf-surface-2:#F7F5F2;
+  --sf-border:#E8E4DF; --sf-border-strong:#CFC8C1; --sf-logo-ink:#A82519;
+  --sf-success:#1B9E5A; --sf-incoming:#B8860B; --sf-onrequest:#8A8D93;
+  --sf-badge-new-bg:#F1EEEA; --sf-badge-new-ink:#46413C;
+  --sf-badge-ref-bg:#E7F6EE; --sf-badge-ref-ink:#136F41;
+  --sf-font:"Inter","Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --sf-w-display:600; --sf-w-body:400; --sf-w-strong:600;
+  --sf-text-display:clamp(2rem, 1.4rem + 3cqw, 3rem);
+  --sf-text-h1:clamp(1.625rem, 1.35rem + 1.4cqw, 2rem);
+  --sf-text-h2:clamp(1.25rem, 1.1rem + 0.8cqw, 1.5rem);
+  --sf-text-h3:1.125rem; --sf-text-body:1rem; --sf-text-small:0.875rem; --sf-text-micro:0.75rem;
+  --sf-tracking-display:-0.01em; --sf-leading-tight:1.1; --sf-leading-body:1.5;
+  --sf-radius:12px; --sf-radius-sm:8px; --sf-radius-btn:10px;
+  --sf-shadow-card:0 1px 2px rgba(25,24,23,.07);
+  --sf-shadow-float:0 10px 24px rgba(25,24,23,.16);
+  --sf-ease:cubic-bezier(.2,.7,.3,1); --sf-dur-1:150ms; --sf-dur-2:260ms; --sf-dur-3:550ms; --sf-pulse:0s;
+  --sf-tint:12%;
+  --sf-space-1:4px; --sf-space-2:8px; --sf-space-3:12px; --sf-space-4:16px; --sf-space-5:24px;
+  --sf-space-6:32px; --sf-space-7:48px; --sf-space-8:64px; --sf-space-9:96px;
+  --sf-container:1200px; --sf-gutter:clamp(20px, 4cqw, 32px);
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  [data-rev]{opacity:1!important;transform:none!important}
+}
+
+/* ============ Prototyp-Chrome (nicht Teil des Designs) ============ */
+body{margin:0;background:#101216;color:#E7E9EE;font-family:ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif}
+.bar{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;
+  padding:12px 18px;background:rgba(21,24,29,.92);backdrop-filter:blur(10px);border-bottom:1px solid #23262c}
+.bar-title{display:flex;flex-direction:column;margin-right:8px}
+.bar-title b{font-size:14px}
+.bar-title span{font-size:11px;color:#8a919d}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.tab{padding:7px 13px;border-radius:9px;background:#1d2127;color:#aab0bb;border:1px solid #262a31;cursor:pointer;font-size:13px;font-family:inherit}
+.tab:hover{color:#e7e9ee}
+.tab.on{background:#e7e9ee;color:#15181d;border-color:#e7e9ee}
+#stage{padding:26px 18px 60px;display:flex;gap:26px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+.devlabel{font-size:12px;color:#8a919d;text-align:center;margin-bottom:10px;font-family:ui-monospace,Consolas,monospace}
+.phone{width:min(394px,96vw)}
+.phone .frame{border-radius:40px;border:1px solid #2a2e36;background:#07080a;padding:10px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.phone .screen{height:min(76vh,800px);border-radius:30px}
+.desk{width:min(1340px,97vw)}
+.desk .frame{border-radius:14px;border:1px solid #2a2e36;background:#07080a;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.browserbar{display:flex;align-items:center;padding:10px 14px;background:#15181d;border-bottom:1px solid #23262c}
+.wdots{display:flex;gap:6px}
+.wdots i{width:10px;height:10px;border-radius:50%;background:#2c313a;display:block}
+.url{margin:0 auto;background:#1d2127;border-radius:8px;padding:4px 42px;font-size:12px;color:#aab0bb;font-family:ui-monospace,Consolas,monospace}
+.desk .screen{height:min(82vh,880px)}
+
+/* ============ Shop, alles ueber var(--sf-*) ============ */
+.screen{background:var(--sf-surface);color:var(--sf-ink);font-family:var(--sf-font);font-size:var(--sf-text-body);
+  line-height:var(--sf-leading-body);overflow-y:auto;overflow-x:hidden;position:relative;
+  container-type:inline-size;container-name:screen;-webkit-font-smoothing:antialiased;
+  scrollbar-width:thin;scrollbar-color:var(--sf-border-strong) transparent}
+.screen *{box-sizing:border-box}
+.screen button{font-family:inherit}
+.screen :focus-visible{outline:2px solid var(--sf-focus);outline-offset:2px}
+.wrap{max-width:var(--sf-container);margin:0 auto;padding-left:var(--sf-gutter);padding-right:var(--sf-gutter)}
+.hide{display:none!important}
+
+.display{font-size:var(--sf-text-display);font-weight:var(--sf-w-display);letter-spacing:var(--sf-tracking-display);line-height:var(--sf-leading-tight);margin:0 0 var(--sf-space-4)}
+.h1{font-size:var(--sf-text-h1);font-weight:var(--sf-w-display);letter-spacing:var(--sf-tracking-display);line-height:var(--sf-leading-tight);margin:0 0 var(--sf-space-3)}
+.h2{font-size:var(--sf-text-h2);font-weight:var(--sf-w-display);letter-spacing:var(--sf-tracking-display);line-height:1.2;margin:0 0 var(--sf-space-4)}
+.sub{color:var(--sf-text-2);margin:0 0 var(--sf-space-5);max-width:34rem}
+.sub2{color:var(--sf-text-2);margin:4px 0 0;font-size:var(--sf-text-small)}
+.micro{color:var(--sf-text-2);font-size:var(--sf-text-micro);margin-top:10px}
+.center{text-align:center}
+
+/* Erscheinen beim Scrollen */
+[data-rev]{opacity:0;transform:translateY(16px);transition:opacity var(--sf-dur-3) var(--sf-ease) var(--d,0s),transform var(--sf-dur-3) var(--sf-ease) var(--d,0s)}
+[data-rev].in{opacity:1;transform:none}
+.fx{animation:fadeUp .55s var(--sf-ease) both}
+.fx2{animation-delay:.08s}.fx3{animation-delay:.16s}.fx4{animation-delay:.24s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Header */
+.hdr{position:sticky;top:0;z-index:6;background:color-mix(in srgb,var(--sf-surface) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--sf-border)}
+.hdr-in{display:flex;align-items:center;gap:16px;height:60px}
+.logo{display:inline-flex;align-items:center;color:var(--sf-logo-ink);cursor:pointer}
+.slogan{font-size:11px;color:var(--sf-text-2);margin-left:9px}
+.nav{display:none;gap:22px;font-size:var(--sf-text-small);color:var(--sf-text-2)}
+.nav span{cursor:pointer}
+.nav span:hover{color:var(--sf-ink)}
+.hdr-cta{margin-left:auto;display:flex;gap:10px;align-items:center}
+.iconbtn{position:relative;background:none;border:0;color:var(--sf-ink);width:40px;height:40px;display:grid;place-items:center;border-radius:var(--sf-radius-sm);cursor:pointer}
+.iconbtn:hover{background:var(--sf-surface-2)}
+.count{position:absolute;top:2px;right:0;background:var(--sf-accent);color:#fff;font-size:10px;font-weight:600;min-width:16px;height:16px;border-radius:999px;display:grid;place-items:center;padding:0 4px}
+.phone-l{display:none;align-items:center;gap:7px;font-weight:600;font-size:var(--sf-text-small);color:var(--sf-ink);text-decoration:none}
+.phone-l svg{color:var(--sf-accent-strong)}
+.ph-r{display:inline-block;max-width:0;overflow:hidden;white-space:nowrap;color:var(--sf-text-2);font-weight:400;transition:max-width .35s var(--sf-ease),margin-left .35s var(--sf-ease)}
+.phone-l:hover .ph-r,.phone-l:focus-visible .ph-r{max-width:130px;margin-left:6px}
+.btn.sm{padding:9px 16px;font-size:var(--sf-text-small)}
+.hdr-go{display:none}
+@container screen (min-width:760px){.nav{display:flex}.only-m{display:none}.phone-l{display:inline-flex}}
+@container screen (min-width:900px){.hdr-go{display:inline-flex}}
+
+/* Herz */
+.heart{animation:beat var(--sf-pulse,0s) var(--sf-ease) infinite;transform-origin:50% 55%}
+.logo:hover .heart{animation:beat .7s var(--sf-ease) 1}
+@keyframes beat{0%{transform:scale(1)}5%{transform:scale(1.09)}10%{transform:scale(1)}15%{transform:scale(1.06)}22%,100%{transform:scale(1)}}
+
+/* Buttons und Links */
+.btn{font-weight:var(--sf-w-strong);font-size:1rem;border-radius:var(--sf-radius-btn);padding:13px 22px;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background var(--sf-dur-1) var(--sf-ease),transform var(--sf-dur-1) var(--sf-ease)}
+.btn.primary{background:var(--sf-action);color:var(--sf-action-ink)}
+.btn.primary:hover{background:var(--sf-action-hover)}
+.btn.primary:active{transform:translateY(1px)}
+.btn.secondary{background:transparent;color:var(--sf-ink);border-color:var(--sf-border-strong)}
+.btn.secondary:hover{background:var(--sf-surface-2)}
+.btn.ghostw{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.55);backdrop-filter:blur(6px)}
+.btn.ghostw:hover{background:rgba(255,255,255,.24)}
+.btn.block{width:100%;margin-top:var(--sf-space-4)}
+.linkacc{color:var(--sf-accent-strong);font-weight:600;font-size:var(--sf-text-small);display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.linkacc:hover{text-decoration:underline}
+.linkacc svg{transition:transform var(--sf-dur-1) var(--sf-ease)}
+.linkacc:hover svg{transform:translateX(3px)}
+
+/* Szenen, die Bildslots fuer Lifestyle-Medien */
+.scene{position:relative;overflow:hidden;background:linear-gradient(135deg,color-mix(in srgb,var(--sf-accent) var(--sf-tint),#F3F1ED),color-mix(in srgb,var(--sf-accent) 5%,#FFFFFF) 72%)}
+.scene-art{position:absolute;inset:0}
+.scene-art.kb{animation:kb 26s ease-in-out infinite alternate;transform-origin:60% 40%}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.06) translate(-1.2%,-.8%)}}
+.sc-light{position:absolute;top:-30%;right:-18%;width:78%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.95),rgba(255,255,255,0) 62%)}
+.sc-desk{position:absolute;left:0;right:0;bottom:0;height:24%;background:linear-gradient(180deg,color-mix(in srgb,var(--sf-ink) 9%,#EBE8E2),color-mix(in srgb,var(--sf-ink) 20%,#DFDBD3))}
+.sc-window{position:absolute;top:4%;right:2%;width:56%;height:64%;opacity:.45}
+.sc-window path{stroke:color-mix(in srgb,var(--sf-ink) 22%,transparent);stroke-width:2;fill:none}
+.sc-plant{position:absolute;left:4%;bottom:12%;width:20%}
+.sc-plant .leaf{fill:color-mix(in srgb,var(--sf-success) 45%,var(--sf-ink))}
+.sc-plant .stem{fill:color-mix(in srgb,var(--sf-ink) 55%,var(--sf-success))}
+.sc-plant .pot{fill:color-mix(in srgb,var(--sf-ink) 35%,#C9C2B8)}
+.sc-person{position:absolute}
+.sc-person .body{fill:color-mix(in srgb,var(--sf-ink) 80%,var(--sf-accent))}
+.sc-person .lap{fill:color-mix(in srgb,#FFFFFF 78%,var(--sf-ink))}
+.sc-person .lap2{fill:color-mix(in srgb,#FFFFFF 55%,var(--sf-ink))}
+.sc-table{position:absolute;left:16%;right:16%;bottom:9%;height:11%;border-radius:50%;background:color-mix(in srgb,#FFFFFF 68%,var(--sf-ink))}
+.sc-cup{position:absolute;width:7%;aspect-ratio:1;border-radius:50%;background:color-mix(in srgb,var(--sf-ink) 55%,#BFB8AC)}
+.sc-note{position:absolute;width:16%;height:5%;border-radius:3px;background:color-mix(in srgb,#FFFFFF 85%,var(--sf-ink));box-shadow:0 1px 0 rgba(0,0,0,.08)}
+.sc-mockwrap{position:absolute;left:0;right:0;bottom:12%;display:flex;justify-content:center}
+.sc-grain{position:absolute;inset:0;pointer-events:none;opacity:.16;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")}
+.sc-tag{position:absolute;left:12px;bottom:12px;z-index:3;background:rgba(255,255,255,.82);backdrop-filter:blur(6px);border-radius:var(--sf-radius-btn);padding:5px 11px;font-size:11px;color:var(--sf-text-2)}
+.sc-hero .sc-person{right:10%;bottom:17%;width:36%}
+.sc-team .sc-person.p1{right:13%;bottom:19%;width:30%}
+.sc-team .sc-person.p2{left:13%;bottom:19%;width:30%;transform:scaleX(-1)}
+.sc-focus .sc-cup{right:14%;bottom:16%}
+.sc-focus .sc-note{left:12%;bottom:15%;transform:rotate(-4deg)}
+.sc-focus .sc-mockwrap .mock{width:52%;max-width:none}
+.sc-detail .sc-mockwrap{bottom:4%;left:-8%;right:-8%}
+.sc-detail .sc-mockwrap .mock{width:86%;max-width:none}
+
+/* Video- und Bildslots */
+.vslot{position:relative;overflow:hidden;background:#0E1116}
+.vslot video,.vslot .vposter{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vslot .scene{position:absolute;inset:0;border:0;border-radius:0}
+.vctl{position:absolute;right:16px;bottom:16px;z-index:4;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.6);background:rgba(10,14,18,.35);backdrop-filter:blur(8px);color:#fff;display:grid;place-items:center;cursor:pointer}
+.vctl:hover{background:rgba(10,14,18,.55)}
+.vctl .ic-play{display:none}
+.vctl.paused .ic-pause{display:none}
+.vctl.paused .ic-play{display:block}
+
+/* Hero mit Video */
+.vhero{position:relative;min-height:clamp(500px,62cqw,700px);display:flex;align-items:center;overflow:hidden}
+.vhero>.vslot{position:absolute;inset:0}
+.vhero .scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,13,17,.78) 0%,rgba(10,13,17,.42) 48%,rgba(10,13,17,.10) 80%),linear-gradient(0deg,rgba(10,13,17,.45),transparent 34%)}
+.vhero-in{position:relative;z-index:2;width:100%;padding-top:var(--sf-space-7);padding-bottom:var(--sf-space-8)}
+.vhero .display{color:#fff;max-width:16ch}
+.vhero .sub{color:rgba(255,255,255,.86)}
+.vhero .trust{color:rgba(255,255,255,.85)}
+.eyebrow{display:inline-block;background:var(--sf-accent-weak);color:var(--sf-accent-strong);font-size:var(--sf-text-micro);font-weight:600;border-radius:var(--sf-radius-btn);padding:6px 12px;margin-bottom:var(--sf-space-4)}
+.eyebrow.inv{background:rgba(255,255,255,.16);color:#fff;backdrop-filter:blur(6px)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:var(--sf-space-5)}
+.trust{display:flex;gap:8px 20px;flex-wrap:wrap;color:var(--sf-text-2);font-size:var(--sf-text-small)}
+.trust span{display:inline-flex;align-items:center;gap:7px}
+.trust svg{color:var(--sf-success)}
+
+/* Geraete-Attrappe */
+.mock{width:64%;max-width:230px;margin:auto}
+.mock-screen{aspect-ratio:16/10;border-radius:10px 10px 3px 3px;background:linear-gradient(145deg,color-mix(in srgb,var(--sf-accent) 30%,#232830),#101318);border:3px solid #1a1e24;border-bottom-width:7px}
+.mock-base{height:6px;background:linear-gradient(#dcdfe4,#b7bcc4);border-radius:2px 2px 7px 7px;margin:0 -5%}
+
+/* Sektionen und Karten */
+.sect{padding-bottom:var(--sf-space-7)}
+.sect-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:var(--sf-space-4)}
+.sect-head .h2{margin:0}
+.sect-top{padding-top:var(--sf-space-7)}
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:1fr}
+@container screen (min-width:560px){.g3{grid-template-columns:repeat(3,1fr)}}
+.pcard{border:1px solid var(--sf-border);border-radius:var(--sf-radius);background:var(--sf-surface);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow var(--sf-dur-2) var(--sf-ease)}
+.pcard:hover{box-shadow:var(--sf-shadow-float)}
+.pmedia{aspect-ratio:4/3;background:var(--sf-surface-2);position:relative;display:grid;place-items:center;overflow:hidden}
+.pmedia .scene{position:absolute;inset:0;border:0;border-radius:0}
+.pmedia .mock,.pcard .scene-art{transition:transform var(--sf-dur-2) var(--sf-ease)}
+.pcard:hover .pmedia .mock{transform:translateY(-3px) scale(1.03)}
+.pcard:hover .scene-art{transform:scale(1.04)}
+.badge{position:absolute;top:12px;left:12px;z-index:2;font-size:12px;font-weight:600;padding:4px 11px;border-radius:var(--sf-radius-btn)}
+.badge.new{background:var(--sf-badge-new-bg);color:var(--sf-badge-new-ink)}
+.badge.ref{background:var(--sf-badge-ref-bg);color:var(--sf-badge-ref-ink)}
+.badge.stat{position:static;display:inline-block;margin-bottom:12px}
+.pbody{padding:14px 16px 16px;display:flex;flex-direction:column;gap:5px;flex:1}
+.pname{font-weight:600}
+.pspec{font-size:var(--sf-text-small);color:var(--sf-text-2)}
+.dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--sf-onrequest)}
+.dot.ok{background:var(--sf-success)}
+.prate{margin-top:auto;display:flex;align-items:baseline;gap:7px;padding-top:8px}
+.prate b{color:var(--sf-accent-strong);font-size:1.2rem;font-weight:600;font-variant-numeric:tabular-nums}
+.psub{font-size:var(--sf-text-micro);color:var(--sf-text-2)}
+.fam .linkacc{margin-top:8px}
+.lane{border:1px solid var(--sf-border);border-radius:var(--sf-radius);padding:22px;background:var(--sf-surface)}
+.lane h3{margin:0 0 6px;font-size:var(--sf-text-h3);font-weight:600}
+.lane p{margin:0 0 12px;color:var(--sf-text-2);font-size:var(--sf-text-small)}
+
+/* Video-Karten (Hochformat) */
+.vcards{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@container screen (min-width:1020px){.vcards{grid-template-columns:repeat(4,1fr)}}
+.vcard-media{aspect-ratio:4/5;border-radius:var(--sf-radius);border:1px solid var(--sf-border)}
+.vcard h3{margin:12px 0 4px;font-size:1rem;font-weight:600}
+.vcard p{margin:0;font-size:var(--sf-text-small);color:var(--sf-text-2)}
+
+/* Video-Akkordeon */
+.acc{display:grid;gap:var(--sf-space-5)}
+@container screen (min-width:760px){.acc{grid-template-columns:1.05fr .95fr;align-items:center;gap:var(--sf-space-7)}}
+.acc-stage{position:relative;aspect-ratio:5/4;border-radius:var(--sf-radius);overflow:hidden;border:1px solid var(--sf-border)}
+.acc-layer{position:absolute;inset:0;opacity:0;transition:opacity .45s var(--sf-ease)}
+.acc-layer.on{opacity:1}
+.acc-layer .vslot{position:absolute;inset:0}
+.acc-list{display:flex;flex-direction:column;gap:6px}
+.acc-item{display:block;width:100%;text-align:left;background:none;border:0;border-left:2px solid var(--sf-border);padding:12px 16px;cursor:pointer;color:var(--sf-text-2);transition:border-color var(--sf-dur-1) var(--sf-ease)}
+.acc-item b{display:block;color:var(--sf-ink);font-size:1.05rem;font-weight:600;margin-bottom:2px}
+.acc-item span{font-size:var(--sf-text-small);display:none}
+.acc-item:hover{border-left-color:var(--sf-border-strong)}
+.acc-item.on{border-left-color:var(--sf-ink)}
+.acc-item.on span{display:block}
+
+/* Vorteils-Kacheln */
+.tiles{display:grid;gap:14px}
+@container screen (min-width:560px){.tiles{grid-template-columns:repeat(2,1fr)}}
+@container screen (min-width:1020px){.tiles{grid-template-columns:repeat(4,1fr)}}
+.tile{border:1px solid var(--sf-border);border-radius:var(--sf-radius);padding:20px;background:var(--sf-surface)}
+.tile-ico{width:44px;height:44px;border-radius:50%;background:var(--sf-accent-weak);color:var(--sf-accent-strong);display:grid;place-items:center;margin-bottom:12px}
+.tile h3{margin:0 0 6px;font-size:1rem;font-weight:600}
+.tile p{margin:0;font-size:var(--sf-text-small);color:var(--sf-text-2)}
+
+/* Spotlight */
+.spot{background:var(--sf-surface-2);padding:var(--sf-space-7) 0;margin-bottom:var(--sf-space-7);text-align:center}
+.spot .mock{width:min(380px,72%)}
+.spot .h2{margin-top:var(--sf-space-5)}
+.spot-rate{display:flex;justify-content:center;align-items:baseline;gap:8px;margin:4px 0 var(--sf-space-5)}
+.spot-rate b{font-size:1.6rem;color:var(--sf-accent-strong);font-weight:600;font-variant-numeric:tabular-nums}
+.spot-rate span{color:var(--sf-text-2);font-size:var(--sf-text-small)}
+
+/* Zitat */
+.quote{text-align:center;padding-top:var(--sf-space-2)}
+.q{font-size:var(--sf-text-h2);font-weight:var(--sf-w-display);letter-spacing:var(--sf-tracking-display);max-width:28ch;margin:0 auto 10px;line-height:1.3}
+.qa{display:block;color:var(--sf-text-2);font-size:var(--sf-text-small)}
+
+/* Split-Sektionen */
+.split{display:grid;gap:var(--sf-space-5);align-items:center}
+@container screen (min-width:760px){.split{grid-template-columns:1fr 1fr;gap:var(--sf-space-7)}}
+.split .scene,.split .vslot{aspect-ratio:4/3;border-radius:var(--sf-radius);border:1px solid var(--sf-border)}
+.split-rate{display:flex;align-items:baseline;gap:8px;margin:var(--sf-space-4) 0}
+.split-rate b{font-size:1.5rem;color:var(--sf-accent-strong);font-weight:600;font-variant-numeric:tabular-nums}
+.benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;color:var(--sf-text-2);font-size:var(--sf-text-small)}
+.benefits li{display:flex;align-items:center;gap:9px}
+.benefits svg{color:var(--sf-success);flex:none}
+
+/* Seitenkopf und Vergleich */
+.page-head{padding:var(--sf-space-5) 0 var(--sf-space-4)}
+.page-head .h1{margin-bottom:0}
+.cmpwrap{overflow-x:auto}
+.cmp{display:grid;grid-template-columns:minmax(96px,120px) repeat(3,minmax(150px,1fr));min-width:580px;border:1px solid var(--sf-border);border-radius:var(--sf-radius);overflow:hidden;background:var(--sf-surface)}
+.cmp-c{padding:12px 14px;font-size:var(--sf-text-small);border-top:1px solid var(--sf-border)}
+.cmp-c:nth-child(-n+4){border-top:0}
+.cmp-h{font-weight:600}
+.cmp-l{color:var(--sf-text-2)}
+.cmprate{color:var(--sf-accent-strong);font-weight:600;font-variant-numeric:tabular-nums}
+
+/* Segmente */
+.seg{display:inline-flex;background:var(--sf-surface-2);border-radius:var(--sf-radius-btn);padding:4px;gap:2px;max-width:100%}
+.seg button{border:0;background:transparent;padding:9px 14px;border-radius:calc(var(--sf-radius-btn) - 3px);font-size:var(--sf-text-small);color:var(--sf-text-2);cursor:pointer;white-space:nowrap}
+.seg button.active{background:var(--sf-surface);color:var(--sf-ink);font-weight:600;box-shadow:var(--sf-shadow-card)}
+.cfg-famrow{padding:14px 0 2px;overflow-x:auto;scrollbar-width:none}
+
+/* Konfigurator */
+.crumb{padding:var(--sf-space-4) 0 0;color:var(--sf-text-2);font-size:var(--sf-text-small);display:flex;align-items:center;gap:7px;cursor:pointer;width:max-content}
+.crumb:hover{color:var(--sf-ink)}
+.crumb svg{transform:rotate(180deg)}
+.cfgwrap{display:grid;gap:var(--sf-space-5);padding:var(--sf-space-3) 0 var(--sf-space-7)}
+@container screen (min-width:760px){.cfgwrap{grid-template-columns:.95fr 1.05fr;gap:var(--sf-space-7)}.cfg-media{position:sticky;top:76px;align-self:start}}
+.cfg-stage{position:relative;aspect-ratio:4/3;background:var(--sf-surface-2);border:1px solid var(--sf-border);border-radius:var(--sf-radius);display:grid;place-items:center;overflow:hidden}
+.cfg-stage .mock{width:min(320px,64%)}
+.cfg-stage .mock-base{background:linear-gradient(color-mix(in srgb,var(--devc,#C9CCD1) 45%,#fff),var(--devc,#B7BCC4))}
+.cfg-meta{margin-top:10px;font-size:var(--sf-text-small);color:var(--sf-text-2)}
+.cfg-meta b{color:var(--sf-ink);font-weight:600}
+.conf-label{font-size:var(--sf-text-small);font-weight:600;margin:var(--sf-space-4) 0 8px}
+.optrow{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.optcard{border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-sm);background:var(--sf-surface);padding:12px 14px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.optcard b{font-size:1.05rem;font-weight:600}
+.optcard .os{font-size:var(--sf-text-micro);color:var(--sf-text-2)}
+.optcard .od{font-size:var(--sf-text-micro);color:var(--sf-text-2);font-variant-numeric:tabular-nums;min-height:1em}
+.optcard.active{border-color:var(--sf-ink);box-shadow:inset 0 0 0 1px var(--sf-ink)}
+.swatches{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.swatch{width:34px;height:34px;border-radius:50%;border:2px solid var(--sf-border);cursor:pointer;padding:0}
+.swatch.active{border-color:var(--sf-ink);box-shadow:inset 0 0 0 2px var(--sf-surface)}
+.sw-name{font-size:var(--sf-text-small);color:var(--sf-text-2);margin-left:4px}
+.sw-name b{color:var(--sf-ink);font-weight:600}
+.tiercards{display:flex;flex-direction:column;gap:10px}
+.tiercard{border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-sm);background:var(--sf-surface);padding:14px 16px;text-align:left;cursor:pointer;display:block;width:100%}
+.tiercard.active{border-color:var(--sf-ink);box-shadow:inset 0 0 0 1px var(--sf-ink)}
+.tc-top{display:flex;align-items:baseline;gap:8px}
+.tc-top b{font-weight:600}
+.tc-top .od{margin-left:auto;font-size:var(--sf-text-small);color:var(--sf-text-2);font-variant-numeric:tabular-nums}
+.pop{font-size:10px;font-weight:600;background:var(--sf-accent-weak);color:var(--sf-accent-strong);border-radius:var(--sf-radius-btn);padding:2px 8px}
+.tc-spec{display:block;font-size:var(--sf-text-small);color:var(--sf-ink);margin-top:2px}
+.tc-rec{display:block;font-size:var(--sf-text-micro);color:var(--sf-text-2);margin-top:2px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-btn)}
+.qty button{width:32px;height:32px;border:0;background:none;font-size:15px;cursor:pointer;color:var(--sf-ink);border-radius:var(--sf-radius-btn)}
+.qty button:hover{background:var(--sf-surface-2)}
+.qv{min-width:26px;text-align:center;font-size:var(--sf-text-small);font-weight:600}
+.addons{display:flex;flex-direction:column;gap:10px}
+.addon{display:flex;justify-content:space-between;gap:12px;border:1px solid var(--sf-border);border-radius:var(--sf-radius-sm);padding:12px 14px;cursor:pointer;align-items:center;background:var(--sf-surface)}
+.addon.active{border-color:var(--sf-ink);box-shadow:inset 0 0 0 1px var(--sf-ink)}
+.ad-t b{font-size:var(--sf-text-small);font-weight:600;display:block}
+.ad-t span{font-size:var(--sf-text-micro);color:var(--sf-text-2)}
+.ad-r{display:flex;align-items:center;gap:12px;flex:none}
+.ad-rate{font-size:var(--sf-text-small);font-variant-numeric:tabular-nums}
+.addon.active .ad-rate{font-weight:600}
+.ad-btn{font-size:var(--sf-text-small);font-weight:600;color:var(--sf-accent-strong)}
+
+/* Ratenfeld */
+.ratebox{position:relative;border:1px solid var(--sf-border);background:var(--sf-surface-2);border-radius:var(--sf-radius);padding:20px;margin-top:var(--sf-space-5)}
+.ratebox.flash{animation:ring .55s var(--sf-ease)}
+@keyframes ring{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--sf-accent) 40%,transparent)}100%{box-shadow:0 0 0 16px transparent}}
+.rb-line{display:flex;justify-content:space-between;gap:12px;font-size:var(--sf-text-small);color:var(--sf-text-2);margin-bottom:4px}
+.rb-line b{color:var(--sf-ink);font-variant-numeric:tabular-nums;font-weight:600}
+.rate-line{display:flex;align-items:baseline;gap:9px;margin-top:8px}
+.rate-big{font-size:2rem;font-weight:600;color:var(--sf-accent-strong);font-variant-numeric:tabular-nums;letter-spacing:-0.01em}
+.rate-per{color:var(--sf-text-2);font-size:var(--sf-text-small)}
+.rate-gross{font-size:var(--sf-text-micro);color:var(--sf-text-2);margin-top:2px}
+.rate-gross b{font-weight:600;font-variant-numeric:tabular-nums}
+.rate-sub{color:var(--sf-text-2);font-size:var(--sf-text-small);margin-top:6px}
+.incl{list-style:none;margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--sf-border);display:flex;flex-direction:column;gap:8px;font-size:var(--sf-text-small);color:var(--sf-text-2)}
+.incl li{display:flex;gap:9px;align-items:center}
+.incl svg{color:var(--sf-success);flex:none}
+.incl .last{font-weight:600;color:var(--sf-ink)}
+.xref{margin-top:16px;font-size:var(--sf-text-small);color:var(--sf-text-2)}
+
+/* Raten-Dock (Konfigurator und Abo, mobil) */
+.cartdock{position:sticky;bottom:0;z-index:7;margin:0;background:var(--sf-ink);color:#fff;border-radius:var(--sf-radius-btn) var(--sf-radius-btn) 0 0;padding:10px 10px calc(10px + env(safe-area-inset-bottom)) 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:var(--sf-shadow-float)}
+.dock-rate{display:flex;flex-direction:column;line-height:1.25}
+.dock-rate b{font-size:1.1rem;font-variant-numeric:tabular-nums}
+.dock-rate span{font-size:var(--sf-text-micro);color:rgba(255,255,255,.7)}
+.cartdock .btn{padding:11px 18px;font-size:var(--sf-text-small)}
+@container screen (min-width:760px){.cartdock{display:none}}
+
+/* Mobile Bottom-Bar (Start, Geraete) */
+.mobilebar{position:sticky;bottom:0;z-index:7;display:flex;align-items:center;gap:10px;padding:10px var(--sf-gutter) calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--sf-surface) 90%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--sf-border)}
+.mobilebar .btn{flex:1;padding:12px 16px}
+.mb-phone{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:64px;height:46px;border-radius:var(--sf-radius-sm);border:1px solid var(--sf-border-strong);color:var(--sf-ink);text-decoration:none;font-size:9px;font-weight:600}
+.mb-phone svg{color:var(--sf-accent-strong)}
+.mb-cart{border:1px solid var(--sf-border-strong);width:46px;height:46px}
+@container screen (min-width:760px){.mobilebar{display:none}}
+
+/* Schritt-Indikator */
+.steps{display:flex;align-items:center;gap:8px;padding:var(--sf-space-5) 0 var(--sf-space-3);font-size:var(--sf-text-micro);color:var(--sf-text-2)}
+.step{display:flex;align-items:center;gap:7px;flex:none}
+.step .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--sf-border-strong);font-weight:600;background:var(--sf-surface);color:var(--sf-text-2)}
+.step.done .n{border-color:var(--sf-ink);color:var(--sf-ink)}
+.step.done{cursor:pointer}
+.step.active .n{background:var(--sf-accent);border-color:var(--sf-accent);color:#fff}
+.step.active{color:var(--sf-ink);font-weight:600}
+.step .lb{display:none}
+.step.active .lb{display:inline}
+.step-line{flex:1;height:1px;background:var(--sf-border);min-width:10px}
+@container screen (min-width:760px){.step .lb{display:inline}.steps{font-size:var(--sf-text-small)}}
+
+/* Anfrage */
+.aq{display:grid;gap:var(--sf-space-5);padding-bottom:var(--sf-space-7)}
+@container screen (min-width:900px){.aq{grid-template-columns:1.15fr .85fr;align-items:start}.aq-side{position:sticky;top:76px}}
+.panel{border:1px solid var(--sf-border);border-radius:var(--sf-radius);padding:20px;background:var(--sf-surface)}
+.cline{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--sf-border)}
+.cthumb{width:76px;aspect-ratio:1;background:var(--sf-surface-2);border-radius:var(--sf-radius-sm);flex:none;display:grid;place-items:center;overflow:hidden}
+.cinfo{flex:1;display:flex;flex-direction:column;gap:3px}
+.cinfo b{font-size:var(--sf-text-small)}
+.cctl{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
+.crate{font-size:var(--sf-text-small);color:var(--sf-text-2)}
+.crate b{color:var(--sf-ink);font-variant-numeric:tabular-nums}
+.csum{display:flex;align-items:baseline;justify-content:space-between;padding-top:var(--sf-space-4)}
+.cart-total{font-size:1.4rem;font-weight:600;color:var(--sf-accent-strong);font-variant-numeric:tabular-nums}
+.field{display:block;margin-bottom:14px}
+.field>span{display:block;font-size:var(--sf-text-small);font-weight:600;margin-bottom:6px}
+.field .opt{font-weight:400;color:var(--sf-text-2)}
+.field input{width:100%;border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-sm);padding:12px 14px;font:inherit;background:var(--sf-surface);color:var(--sf-ink)}
+.frow{display:grid;gap:0 12px}
+@container screen (min-width:560px){.frow{grid-template-columns:1fr 1fr}}
+.check{display:flex;gap:10px;font-size:var(--sf-text-micro);color:var(--sf-text-2);align-items:flex-start;line-height:1.5;margin-top:4px}
+.check input{margin-top:2px;accent-color:var(--sf-action)}
+.confirm{text-align:center;padding:var(--sf-space-4) 0}
+.confirm-ico{width:52px;height:52px;border-radius:50%;background:var(--sf-badge-ref-bg);color:var(--sf-badge-ref-ink);display:grid;place-items:center;margin:0 auto var(--sf-space-4)}
+.confirm p{margin:6px 0}
+
+/* Footer */
+.ftr{border-top:1px solid var(--sf-border);padding:var(--sf-space-6) 0 var(--sf-space-5);color:var(--sf-text-2);font-size:var(--sf-text-small);background:var(--sf-surface-2)}
+.ftr-grid{display:grid;gap:var(--sf-space-5)}
+@container screen (min-width:760px){.ftr-grid{grid-template-columns:1.2fr 1fr 1fr}}
+.ftr-note{margin:12px 0 0;max-width:26rem}
+.ftr-contact{display:flex;align-items:center;gap:8px;margin-top:14px;color:var(--sf-ink);font-weight:600;flex-wrap:wrap}
+.ftr-contact svg{color:var(--sf-accent-strong)}
+.ftr-contact .sep{width:4px;height:4px;border-radius:50%;background:var(--sf-border-strong)}
+.ftr-col{display:flex;flex-direction:column;gap:9px}
+.ftr-col b{color:var(--sf-ink);font-weight:600;margin-bottom:2px}
+.ftr-col span{cursor:pointer}
+.ftr-col span:hover{color:var(--sf-ink)}
+.ftr-base{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between;margin-top:var(--sf-space-6);padding-top:var(--sf-space-4);border-top:1px solid var(--sf-border);font-size:var(--sf-text-micro)}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-title"><b>SL Shop V4</b><span>Produkt und Variante: drei Geräte, geführter Konfigurator, Delta-Raten</span></div>
+  <div class="tabs" id="tabs">
+    <button class="tab" data-s="start">Start</button>
+    <button class="tab" data-s="geraete">Geräte</button>
+    <button class="tab" data-s="konfigurator">Konfigurator</button>
+    <button class="tab" data-s="abo">Refurbished Abo</button>
+    <button class="tab" data-s="anfrage">Anfrage</button>
+  </div>
+  <div class="tabs" id="views">
+    <button class="tab" data-v="desktop">Desktop</button>
+    <button class="tab" data-v="mobile">Mobil, beide Marken</button>
+  </div>
+  <div class="tabs" id="brandsel">
+    <button class="tab" data-b="surface">surface.love</button>
+    <button class="tab" data-b="lenovo">lenovo.online</button>
+  </div>
+</div>
+<div id="stage"></div>
+
+<script>
+"use strict";
+/* ---------- Helfer und Icons ---------- */
+var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var fmt = function(v){ return v.toFixed(2).replace(".", ","); };
+var round10 = function(v){ return Math.round(v * 10) / 10; };
+var dfmt = function(d){ if (Math.abs(d) < 0.005) return ""; return (d > 0 ? "+ " : "\u2212 ") + fmt(Math.abs(d)) + " €"; };
+var icoCheck = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 8.5 6.5 12 13 4.5"/></svg>';
+var icoCheckBig = '<svg viewBox="0 0 16 16" width="24" height="24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 8.5 6.5 12 13 4.5"/></svg>';
+var icoCart = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 12.2a1.6 1.6 0 0 0 1.6 1.3h7.9a1.6 1.6 0 0 0 1.6-1.3L20.6 8H6"/><circle cx="10" cy="21" r="1"/><circle cx="17.5" cy="21" r="1"/></svg>';
+var icoMenu = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+var icoArr = '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"/></svg>';
+var icoPhone = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 3.5h4l1.8 4.4-2.3 1.8a13 13 0 0 0 6.3 6.3l1.8-2.3 4.4 1.8v4a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 2.5 5.7a2 2 0 0 1 2-2.2z"/></svg>';
+var icoShield = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 5.5v5.2c0 4.6 3 7.9 7 9.8 4-1.9 7-5.2 7-9.8V5.5z"/><path d="M9 11.5l2.2 2.3L15.5 9"/></svg>';
+var icoRefresh = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.9-3M4 13a8 8 0 0 0 14.9 3"/><path d="M20 4v4h-4M4 20v-4h4"/></svg>';
+var icoSpark = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.6L18 9.4l-4.2 1.8L12 15.8l-1.8-4.6L6 9.4l4.2-1.8z"/><path d="M18.5 15.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg>';
+var icoScale = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M7 20V9m5 11V4m5 16v-7"/></svg>';
+var icoPause = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>';
+var icoPlay = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5l11 6.5-11 6.5z"/></svg>';
+var markSurface = '<svg class="heart" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path fill="currentColor" d="M16 28.2C10.4 24.4 3 18.6 3 11.9 3 7.6 6.3 4.5 10.2 4.5c2.3 0 4.4 1.1 5.8 3 1.4-1.9 3.5-3 5.8-3 3.9 0 7.2 3.1 7.2 7.4 0 6.7-7.4 12.5-13 16.3z"/><path fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 14h4.2l1.6-3.4 2.4 7 1.7-5 1.3 1.4H25"/></svg>';
+var markLenovo = '<svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="currentColor"/><rect x="9" y="14.5" width="14" height="3" rx="1.5" fill="#fff"/></svg>';
+var mock = function(){ return '<div class="mock"><div class="mock-screen"></div><div class="mock-base"></div></div>'; };
+var badge = function(lane){ return lane === "ref" ? '<span class="badge ref">Refurbished</span>' : '<span class="badge new">Neu</span>'; };
+
+/* ---------- Szenen (Fallback der Bild- und Videoslots) ---------- */
+var scLight = '<i class="sc-light"></i>';
+var scDesk = '<i class="sc-desk"></i>';
+var scWindow = '<svg class="sc-window" viewBox="0 0 200 140" preserveAspectRatio="none" aria-hidden="true"><path d="M8 0v140M72 0v140M136 0v140M198 0v140M0 64h200"/></svg>';
+var scPlant = '<svg class="sc-plant" viewBox="0 0 100 130" aria-hidden="true"><rect class="stem" x="47" y="62" width="5" height="52" rx="2.5"/><path class="leaf" d="M50 86C30 82 19 63 22 42c17 5 28 21 28 44z"/><path class="leaf" d="M50 74c20-6 29-25 26-46-17 6-26 23-26 46z"/><path class="leaf" d="M50 98c-13-2-21-11-21-23 11 2 19 10 21 23z"/><path class="pot" d="M34 112h32l-4 16H38z"/></svg>';
+function person(cls){
+  return '<svg class="sc-person' + (cls ? ' ' + cls : '') + '" viewBox="0 0 140 110" aria-hidden="true">' +
+    '<circle class="body" cx="70" cy="27" r="15"/>' +
+    '<path class="body" d="M36 110c0-24 14-38 34-38s34 14 34 38z"/>' +
+    '<rect class="lap" x="46" y="80" width="48" height="19" rx="3"/>' +
+    '<rect class="lap2" x="40" y="97" width="60" height="5" rx="2.5"/></svg>';
+}
+function scene(kind, tag, kb){
+  var a = "";
+  if (kind === "hero")   a = scLight + scWindow + scDesk + scPlant + person("");
+  if (kind === "team")   a = scLight + scWindow + scDesk + '<i class="sc-table"></i>' + person("p1") + person("p2");
+  if (kind === "focus")  a = scLight + scDesk + '<i class="sc-cup"></i><i class="sc-note"></i><div class="sc-mockwrap">' + mock() + '</div>';
+  if (kind === "detail") a = scLight + '<div class="sc-mockwrap">' + mock() + '</div>';
+  return '<div class="scene sc-' + kind + '"><div class="scene-art' + (kb ? ' kb' : '') + '">' + a + '</div><i class="sc-grain"></i>' +
+    (tag ? '<span class="sc-tag">' + tag + '</span>' : '') + '</div>';
+}
+function vslot(v, cls, fb, auto){
+  var inner, tag;
+  if (v && v.src && !REDUCE) {
+    inner = '<video muted loop playsinline preload="metadata"' + (auto ? ' autoplay' : '') +
+      (v.poster ? ' poster="' + v.poster + '"' : '') + ' src="' + v.src + '"></video>';
+    tag = '<span class="sc-tag">Referenz Microsoft, vor Livegang ersetzen</span>';
+  } else if (v && v.poster) {
+    inner = '<img class="vposter" src="' + v.poster + '" alt="">';
+    tag = '<span class="sc-tag">Referenz Microsoft, vor Livegang ersetzen</span>';
+  } else {
+    inner = scene(fb || "hero", null, true);
+    tag = '<span class="sc-tag">Videoslot: eigenes Material folgt</span>';
+  }
+  return '<div class="vslot ' + (cls || '') + '" data-fb="' + (fb || "hero") + '">' + inner + tag + '</div>';
+}
+function islot(src, fb){
+  return '<div class="vslot" data-fb="' + fb + '"><img class="vposter" src="' + src + '" alt="">' +
+    '<span class="sc-tag">Eigenes Material (Higgsfield), Entwurf</span></div>';
+}
+
+/* ---------- Raten-Logik ---------- */
+var FACT = { leasing: { "15": 1.734, "24": 1.328, "32": 1.107, "36": 1 },
+             finanzierung: { "15": 1.809, "24": 1.387, "36": 1.048 } };
+var TERMS = { leasing: ["15", "24", "32", "36"], finanzierung: ["15", "24", "36"] };
+var CTLBL = { leasing: "Leasing", finanzierung: "Finanzierung" };
+function famDelta(list, id){ var d = 0; list.forEach(function(x){ if (x.id === id) d = x.d; }); return d; }
+function unitRate(f, sizeId, tierId, ct, term){
+  return round10((f.base + famDelta(f.sizes, sizeId) + famDelta(f.tiers, tierId)) * FACT[ct][term]);
+}
+function abFrom(f){
+  var ms = Math.min.apply(null, f.sizes.map(function(s){ return s.d; }));
+  var mt = Math.min.apply(null, f.tiers.map(function(t){ return t.d; }));
+  return round10(f.base + ms + mt);
+}
+function refFrom(b){
+  return Math.min.apply(null, b.refurb.map(function(u){ return u.abo["24"]; }));
+}
+
+/* ---------- Medien ---------- */
+var MSV = "https://videos.ctfassets.net/jy9s7k22hbg4/";
+var MSI = "https://images.ctfassets.net/jy9s7k22hbg4/";
+var HF = {
+  lounge: "https://d8j0ntlcm91z4.cloudfront.net/user_33s5u3E7IUjE1XeDO22tVMpQXeS/hf_20260824_113248_bcddaaed-a516-4e70-abfe-27a8d25fd29e.png",
+  ice: "https://d8j0ntlcm91z4.cloudfront.net/user_33s5u3E7IUjE1XeDO22tVMpQXeS/hf_20260824_113248_36503bc8-08b7-4e4b-add0-2b1dd457aefa.png"
+};
+
+/* ---------- Marken-Konfiguration ---------- */
+var BRANDS = {
+  surface: {
+    domain: "surface.love",
+    mark: markSurface,
+    slogan: "work love balance",
+    eyebrow: "Surface as a Service",
+    phone: { vanity: "0800-SURFACE", real: "0800 7873223", tel: "+498007873223" },
+    mail: "sales@surface.love",
+    heroTitle: "Surface für Ihr Team, zur Monatsrate.",
+    heroSub: "Drei Geräte, alle Möglichkeiten: konfigurieren, unverbindlich anfragen, oder refurbished sofort im Abo. Planbare Kosten statt Investition.",
+    hf: HF,
+    videos: {
+      hero: { src: MSV + "55HlSYKd6rt82zVC87JShZ/28866452787f1c73420c3638c64e4997/MSFT-Surface_Hero_Desktop_Multi_1920x1080-17.mp4",
+              poster: MSI + "bPyR4d56RSSOiaVbkcwg3/a9a5b18703f0cf9433588f1c02d11c50/MSFT-Surface_Hero_Desktop_Multi_3840x2160_Poster_17.jpg" },
+      cards: [
+        { src: MSV + "3uJ8YTmOFRWmLIDxLM4c2D/cafe4dd1328055bab59f7646a7698841/COM_303_Always_protected_Emerald-1080x1350.mp4",
+          poster: MSI + "4KFwSBHBVD7iWD4cbM65Zo/37b7ad8825e890b9d102cfe3d00a15d9/COM_303_Always_protected_Emerald_Poster-1080x1350.jpg" },
+        { src: MSV + "6vaShuDdPFvBKulmHMA6Bw/ad16f13cc34f351d3266531aab79bd6e/COM_302_Stay_Unplugged_Black-1080x1350.mp4",
+          poster: MSI + "2tMNF3EhSZ7HP0ybPQArpZ/a5889c500fed15f28bbf34f50beed6d5/COM_302_Stay_Unplugged_Black_Poster-1080x1350.jpg" },
+        { src: MSV + "6MunHX2roathEaKZaVxkZ9/2d4683f1a2c58622ffeaa0ae33712971/COM_301_Multitasking_Emerald-1080x1350.mp4",
+          poster: MSI + "22kqtXWEE2840Sd2CmGxaX/d3ad03e30d93ac12b38be42ef6c7cab6/COM_301_Multitasking_Emerald_Poster-1080x1350.jpg" },
+        { src: MSV + "2F3Sw8jjhmFfcGVJQ6wemY/fa1a820a1a0e234bf4a74c8de57dc419/COM_304_Camera_Desktop-1080x1350.mp4",
+          poster: MSI + "1213RO4ZOBgJgPeiZPn2YY/53d0691d3061c1828ef07945460db6be/COM_304_Camera_Desktop_Poster-1080x1350.jpg" }
+      ],
+      acc: [
+        { src: MSV + "HzF11t6MQfREHq3UDGjNU/ad57b3b11b226f9bd5e13d2c398efa0d/MSFT-Accordian-Search-Desktop-1680x1344.mp4" },
+        { src: MSV + "7601rcAH1zGpIsU73QgsGz/8baff2e00b4d3bd2fde9bff973e2db0a/msft_Accordian_All_Your_Apps_Desktop-1680x1344.mp4" },
+        { src: MSV + "1LNcACGi94NkpiWyjjBeZt/88023630b294c3c64b00086faa5d2ec7/COM_401_Accordian_Cocreator_Desktop-1680x1344.mp4" },
+        { src: MSV + "2ZgkXxy4kkVBWlh6JAXydV/ca04cbdb60858260dc0fe6b951d1f7cf/msft-COM_404_Gaming_Dune_Desktop-1680x1344.mp4" }
+      ]
+    },
+    fams: [
+      { id: "pro", name: "Surface Pro", claim: "Das flexible 2 in 1",
+        use: "Tablet, Laptop und Stift in einem Gerät, gemacht für unterwegs und den Außendienst.",
+        base: 79.90,
+        sizes: [ { id: "s12", label: '12"', sub: "Kompakt und leicht", d: -10 },
+                 { id: "s13", label: '13"', sub: "Beliebt im Team", d: 0 } ],
+        colors: [ { id: "platin", label: "Platin", hex: "#C9CCD1" },
+                  { id: "saphir", label: "Saphir", hex: "#3B5BA5" },
+                  { id: "graphit", label: "Graphit", hex: "#3A3C40" } ],
+        tiers: [ { id: "essential", label: "Essential", spec: "16 GB RAM, 256 GB SSD", rec: "Für E-Mail, Office und Microsoft 365.", d: -10 },
+                 { id: "advanced", label: "Advanced", spec: "16 GB RAM, 512 GB SSD", rec: "Reserven für viele Apps und große Dateien.", d: 0, pop: true },
+                 { id: "performance", label: "Performance", spec: "32 GB RAM, 1 TB SSD", rec: "Für Datenanalyse, Kreation und KI-Workloads.", d: 20 } ],
+        def: { size: "s13", color: "platin", tier: "advanced" },
+        cmp: { who: "Unterwegs und Außendienst", display: '12" oder 13"', max: "32 GB, 1 TB" } },
+      { id: "laptop", name: "Surface Laptop", claim: "Der Allrounder fürs Team",
+        use: "Leicht, leise, Akku für den ganzen Arbeitstag, gemacht für den Alltag im Team.",
+        base: 74.90,
+        sizes: [ { id: "s13", label: '13"', sub: "Kompakt", d: -5 },
+                 { id: "s138", label: '13,8"', sub: "Beliebt im Team", d: 0 },
+                 { id: "s15", label: '15"', sub: "Viel Fläche", d: 10 } ],
+        colors: [ { id: "platin", label: "Platin", hex: "#C9CCD1" },
+                  { id: "schwarz", label: "Schwarz", hex: "#26262A" },
+                  { id: "jade", label: "Jade", hex: "#7FA98F" } ],
+        tiers: [ { id: "essential", label: "Essential", spec: "16 GB RAM, 256 GB SSD", rec: "Für E-Mail, Office und Microsoft 365.", d: -8 },
+                 { id: "advanced", label: "Advanced", spec: "16 GB RAM, 512 GB SSD", rec: "Reserven für viele Apps und große Dateien.", d: 0, pop: true },
+                 { id: "performance", label: "Performance", spec: "32 GB RAM, 1 TB SSD", rec: "Für Datenanalyse, Kreation und KI-Workloads.", d: 20 } ],
+        def: { size: "s138", color: "platin", tier: "advanced" },
+        cmp: { who: "Alltag im Team", display: '13" bis 15"', max: "32 GB, 1 TB" } },
+      { id: "ultra", name: "Surface Laptop Ultra", claim: "Maximale Leistung",
+        use: "Für Entwicklung, CAD und lokale KI-Workloads, wenn Reserven zählen.",
+        base: 129.90,
+        sizes: [ { id: "s14", label: '14"', sub: "Eine Größe", d: 0 } ],
+        colors: [ { id: "platin", label: "Platin", hex: "#C9CCD1" },
+                  { id: "schwarz", label: "Schwarz", hex: "#26262A" } ],
+        tiers: [ { id: "performance", label: "Performance", spec: "32 GB RAM, 1 TB SSD", rec: "Für Entwicklung und anspruchsvolle Projekte.", d: 0, pop: true },
+                 { id: "max", label: "Max", spec: "64 GB RAM, 2 TB SSD", rec: "Für lokale KI-Modelle und sehr große Datenmengen.", d: 30 } ],
+        def: { size: "s14", color: "platin", tier: "performance" },
+        cmp: { who: "Power-User und Kreation", display: '14"', max: "64 GB, 2 TB" } }
+    ],
+    addons: [
+      { id: "kb", label: "Tastatur mit Stift", sub: "Signature Keyboard und Slim Pen", rate: 5.90, fams: ["pro"] },
+      { id: "dock", label: "Dock", sub: "Zwei Monitore, Netzwerk, Laden über ein Kabel", rate: 4.90 },
+      { id: "m365", label: "Microsoft 365 Business", sub: "Office-Apps, Exchange und Teams, pro Nutzer", rate: 11.90 }
+    ],
+    refurb: [
+      { id: "l5", name: "Surface Laptop 5, refurbished", spec: '13,5", 16 GB, 256 GB', zustand: "sehr gut",
+        abo: { flex: 39.90, "12": 34.90, "24": 29.90 } },
+      { id: "p9", name: "Surface Pro 9, refurbished", spec: '13", 16 GB, 256 GB', zustand: "gut",
+        abo: { flex: 37.90, "12": 32.90, "24": 27.90 } }
+    ],
+    tiles: [
+      { i: "shield", h: "Liquidität geschont", p: "Keine Anfangsinvestition, eine feste Rate pro Gerät und Monat, budget- und bilanzschonend." },
+      { i: "refresh", h: "Rundum sorglos", p: "Beschaffung, Rollout, Support und Austausch inklusive, ein Ansprechpartner, ein Vertrag." },
+      { i: "spark", h: "Immer KI-fähig", p: "Aktuelle Copilot+ Hardware im Zyklus, ohne Neukauf alle paar Jahre." },
+      { i: "scale", h: "Skalierbar", p: "Hoch und runter skalieren, neue Mitarbeitende schnell ausgestattet, Geräte im Kreislauf." }
+    ],
+    quote: { q: "Ausgerollt in einer Woche, seitdem einfach Ruhe im Betrieb.", a: "Geschäftsführung, Agentur aus Dresden" },
+    cart: [
+      { name: "Surface Laptop", spec: '13,8", Advanced, Leasing, 36 Monate', rate: 74.90, qty: 5 },
+      { name: "Surface Pro", spec: '13", Advanced, Leasing, 36 Monate', rate: 79.90, qty: 2 }
+    ]
+  },
+  lenovo: {
+    domain: "lenovo.online",
+    mark: markLenovo,
+    slogan: "",
+    eyebrow: "Hardware as a Service",
+    phone: { vanity: "0800 000 0000", real: "", tel: "+49800000000" },
+    mail: "sales@lenovo.online",
+    heroTitle: "Business-Notebooks zur Monatsrate.",
+    heroSub: "Drei Geräte, alle Möglichkeiten: konfigurieren und unverbindlich anfragen, oder refurbished sofort im Abo. Eine Rate, alles drin.",
+    hf: null,
+    videos: { hero: null, cards: [null, null, null, null], acc: [null, null, null, null] },
+    fams: [
+      { id: "nb", name: "Business Notebook", claim: "Der Allrounder fürs Team",
+        use: "Robust, leise, Akku für den ganzen Arbeitstag, gemacht für den Alltag im Team.",
+        base: 66.90,
+        sizes: [ { id: "s14", label: '14"', sub: "Beliebt im Team", d: 0 },
+                 { id: "s16", label: '16"', sub: "Viel Fläche", d: 8 } ],
+        colors: [ { id: "schwarz", label: "Schwarz", hex: "#26262A" },
+                  { id: "grau", label: "Grau", hex: "#8A8D93" } ],
+        tiers: [ { id: "essential", label: "Essential", spec: "16 GB RAM, 256 GB SSD", rec: "Für E-Mail, Office und Microsoft 365.", d: -8 },
+                 { id: "advanced", label: "Advanced", spec: "16 GB RAM, 512 GB SSD", rec: "Reserven für viele Apps und große Dateien.", d: 0, pop: true },
+                 { id: "performance", label: "Performance", spec: "32 GB RAM, 1 TB SSD", rec: "Für Datenanalyse und große Projekte.", d: 18 } ],
+        def: { size: "s14", color: "schwarz", tier: "advanced" },
+        cmp: { who: "Alltag im Team", display: '14" oder 16"', max: "32 GB, 1 TB" } },
+      { id: "cv", name: "Convertible", claim: "Flexibel mit Stift",
+        use: "Notizen, Präsentationen und Kundentermine, ein Gerät für alles.",
+        base: 76.90,
+        sizes: [ { id: "s13", label: '13,3"', sub: "Eine Größe", d: 0 } ],
+        colors: [ { id: "schwarz", label: "Schwarz", hex: "#26262A" },
+                  { id: "grau", label: "Grau", hex: "#8A8D93" } ],
+        tiers: [ { id: "essential", label: "Essential", spec: "16 GB RAM, 256 GB SSD", rec: "Für E-Mail, Office und Microsoft 365.", d: -8 },
+                 { id: "advanced", label: "Advanced", spec: "16 GB RAM, 512 GB SSD", rec: "Reserven für viele Apps und große Dateien.", d: 0, pop: true },
+                 { id: "performance", label: "Performance", spec: "32 GB RAM, 1 TB SSD", rec: "Für Datenanalyse und große Projekte.", d: 18 } ],
+        def: { size: "s13", color: "schwarz", tier: "advanced" },
+        cmp: { who: "Unterwegs und Termine", display: '13,3"', max: "32 GB, 1 TB" } },
+      { id: "ws", name: "Workstation", claim: "Maximale Leistung",
+        use: "Für CAD, Entwicklung und Datenarbeit, wenn Reserven zählen.",
+        base: 119.90,
+        sizes: [ { id: "s16", label: '16"', sub: "Eine Größe", d: 0 } ],
+        colors: [ { id: "schwarz", label: "Schwarz", hex: "#26262A" } ],
+        tiers: [ { id: "performance", label: "Performance", spec: "32 GB RAM, 1 TB SSD", rec: "Für anspruchsvolle Projekte.", d: 0, pop: true },
+                 { id: "max", label: "Max", spec: "64 GB RAM, 2 TB SSD", rec: "Für sehr große Datenmengen.", d: 30 } ],
+        def: { size: "s16", color: "schwarz", tier: "performance" },
+        cmp: { who: "Power-User", display: '16"', max: "64 GB, 2 TB" } }
+    ],
+    addons: [
+      { id: "dock", label: "Dockingstation USB-C", sub: "Zwei Monitore, Netzwerk, Laden über ein Kabel", rate: 4.90 },
+      { id: "set", label: "Maus und Tastatur", sub: "Kabelloses Business-Set", rate: 1.90 },
+      { id: "m365", label: "Microsoft 365 Business", sub: "Office-Apps, Exchange und Teams, pro Nutzer", rate: 11.90 }
+    ],
+    refurb: [
+      { id: "bn", name: "Business Notebook 14, refurbished", spec: '14", 16 GB, 256 GB', zustand: "sehr gut",
+        abo: { flex: 34.90, "12": 29.90, "24": 25.90 } },
+      { id: "cv", name: "Convertible 13, refurbished", spec: '13,3", 16 GB, 256 GB', zustand: "gut",
+        abo: { flex: 32.90, "12": 27.90, "24": 23.90 } }
+    ],
+    tiles: [
+      { i: "shield", h: "Liquidität geschont", p: "Keine Anfangsinvestition, eine feste Rate pro Gerät und Monat, budget- und bilanzschonend." },
+      { i: "refresh", h: "Rundum sorglos", p: "Beschaffung, Rollout, Support und Austausch inklusive, ein Ansprechpartner, ein Vertrag." },
+      { i: "spark", h: "Immer KI-fähig", p: "Aktuelle KI-fähige Hardware im Zyklus, ohne Neukauf alle paar Jahre." },
+      { i: "scale", h: "Skalierbar", p: "Hoch und runter skalieren, neue Mitarbeitende schnell ausgestattet, Geräte im Kreislauf." }
+    ],
+    quote: { q: "Ausgerollt in einer Woche, seitdem einfach Ruhe im Betrieb.", a: "Geschäftsführung, Handelsunternehmen aus Leipzig" },
+    cart: [
+      { name: "Business Notebook", spec: '14", Advanced, Leasing, 36 Monate', rate: 66.90, qty: 5 },
+      { name: "Dockingstation USB-C", spec: "Zubehör, Leasing, 36 Monate", rate: 4.90, qty: 5 }
+    ]
+  }
+};
+var TILE_ICONS = { shield: icoShield, refresh: icoRefresh, spark: icoSpark, scale: icoScale };
+var VCARDS = [
+  { t: "Von Anfang an sicher", p: "Geräte kommen vorkonfiguriert, Sicherheit läuft im Hintergrund mit.", fb: "focus" },
+  { t: "Den ganzen Tag mobil", p: "Leicht, leise, mit Akku für den ganzen Arbeitstag.", fb: "hero" },
+  { t: "Schnell bei jeder Aufgabe", p: "Tabs, Calls und KI laufen flüssig nebeneinander.", fb: "detail" },
+  { t: "Immer kamerafertig", p: "Meetings mit automatischem Licht, ohne Störgeräusche.", fb: "team" }
+];
+var ACC_ITEMS = [
+  { t: "Dateien schneller finden", p: "Beschreiben statt suchen: die Suche findet Dokumente und Bilder per KI.", fb: "detail" },
+  { t: "Alle Apps Ihres Teams", p: "Microsoft 365, Branchensoftware und mehr, sofort startklar.", fb: "focus" },
+  { t: "Inhalte mit KI erstellen", p: "Entwürfe, Bilder und Texte direkt auf dem Gerät.", fb: "hero" },
+  { t: "Auch nach Feierabend", p: "Ein Gerät für Arbeit und Zuhause, vom Meeting bis zum Spiel.", fb: "team" }
+];
+
+/* ---------- Bausteine ---------- */
+function phoneLink(b){
+  return '<a class="phone-l" href="tel:' + b.phone.tel + '">' + icoPhone + '<span>' + b.phone.vanity + '</span>' +
+    (b.phone.real ? '<span class="ph-r">' + b.phone.real + '</span>' : '') + '</a>';
+}
+function header(b){
+  return '<header class="hdr"><div class="wrap hdr-in">' +
+    '<span class="logo" data-go="start" role="link" tabindex="0" aria-label="Startseite">' + b.mark +
+      (b.slogan ? '<span class="slogan">' + b.slogan + '</span>' : '') + '</span>' +
+    '<nav class="nav"><span data-go="geraete">Geräte</span><span data-go="abo">Refurbished</span><span>So funktioniert es</span><span>Kontakt</span></nav>' +
+    '<div class="hdr-cta">' + phoneLink(b) +
+      '<button class="btn primary sm hdr-go" data-go="konfigurator">Gerät anfragen</button>' +
+      '<button class="iconbtn" data-go="anfrage" aria-label="Anfragekorb">' + icoCart + '<span class="count">2</span></button>' +
+      '<button class="iconbtn only-m" aria-label="Menü">' + icoMenu + '</button>' +
+    '</div></div></header>';
+}
+function mobilebar(b){
+  return '<div class="mobilebar">' +
+    '<a class="mb-phone" href="tel:' + b.phone.tel + '">' + icoPhone + '<span>' + b.phone.vanity + '</span></a>' +
+    '<button class="btn primary" data-go="konfigurator">Gerät anfragen</button>' +
+    '<button class="iconbtn mb-cart" data-go="anfrage" aria-label="Anfragekorb">' + icoCart + '<span class="count">2</span></button>' +
+    '</div>';
+}
+function footer(b){
+  return '<footer class="ftr"><div class="wrap ftr-grid">' +
+    '<div><span class="logo">' + b.mark + (b.slogan ? '<span class="slogan">' + b.slogan + '</span>' : '') + '</span>' +
+      '<p class="ftr-note">Hardware zur Monatsrate für Geschäftskunden. Alle Raten netto, zzgl. USt., unverbindlich.</p>' +
+      '<div class="ftr-contact">' + icoPhone + '<span>' + b.phone.vanity + '</span><span class="sep"></span><span>' + b.mail + '</span></div></div>' +
+    '<div class="ftr-col"><b>Shop</b><span data-go="geraete">Geräte</span><span data-go="abo">Refurbished im Abo</span><span>So funktioniert es</span><span>Vorteile</span></div>' +
+    '<div class="ftr-col"><b>Rechtliches</b><span>Impressum</span><span>Datenschutz</span><span>AGB</span><span>Widerruf</span><span>Markenhinweise</span></div>' +
+    '</div><div class="wrap ftr-base"><span>' + b.domain + '</span><span>Angebot richtet sich an Unternehmer im Sinne des § 14 BGB.</span></div></footer>';
+}
+function famCard(f, i, big){
+  return '<article class="pcard fam" data-rev style="--d:' + (i * 80) + 'ms" data-go="konfigurator" data-fami="' + i + '" tabindex="0">' +
+    '<div class="pmedia">' + badge("new") + mock() + '</div>' +
+    '<div class="pbody"><span class="pname">' + f.name + '</span><span class="pspec">' + (big ? f.claim + ". " + f.use : f.claim) + '</span>' +
+    '<div class="prate"><b>ab ' + fmt(abFrom(f)) + ' €</b><span class="psub">mtl. netto</span></div>' +
+    '<span class="linkacc">Konfigurieren ' + icoArr + '</span></div></article>';
+}
+function step(n, label, cls){
+  return '<span class="step ' + cls + '"><span class="n">' + (cls === "done" ? icoCheck : n) + '</span><span class="lb">' + label + '</span></span>';
+}
+function cline(it){
+  return '<div class="cline" data-rate="' + it.rate + '">' +
+    '<div class="cthumb">' + mock() + '</div>' +
+    '<div class="cinfo"><b>' + it.name + '</b><span class="pspec">' + it.spec + '</span>' +
+    '<div class="cctl"><span class="qty"><button data-q="-1" aria-label="Weniger">&minus;</button><span class="qv">' + it.qty + '</span><button data-q="1" aria-label="Mehr">+</button></span>' +
+    '<span class="crate"><b class="lr">' + fmt(it.rate * it.qty) + ' €</b> mtl.</span></div></div></div>';
+}
+function inclList(){
+  return '<ul class="incl">' +
+    '<li>' + icoCheck + ' Rollout, Support und Austausch inklusive</li>' +
+    '<li>' + icoCheck + ' Versand und Rückholung inklusive</li>' +
+    '<li>' + icoCheck + ' Am Laufzeitende verlängern, tauschen oder zurückgeben</li>' +
+    '<li class="last">Ein Ansprechpartner, ein Vertrag, eine Rate.</li></ul>';
+}
+
+/* ---------- Startseite ---------- */
+function screenStart(b){
+  var v = b.videos;
+  var hero =
+  '<section class="vhero">' + vslot(v.hero, "", "hero", true) + '<div class="scrim"></div>' +
+    '<div class="wrap vhero-in">' +
+      '<span class="eyebrow inv fx">' + b.eyebrow + '</span>' +
+      '<h1 class="display fx fx2">' + b.heroTitle + '</h1>' +
+      '<p class="sub fx fx3">' + b.heroSub + '</p>' +
+      '<div class="cta-row fx fx4"><button class="btn primary" data-go="geraete">Gerät auswählen</button><button class="btn ghostw">So funktioniert es</button></div>' +
+      '<div class="trust fx fx4"><span>' + icoCheck + ' Für Geschäftskunden</span><span>' + icoCheck + ' Monatsrate statt Investition</span><span>' + icoCheck + ' Austausch bei Defekt</span></div>' +
+    '</div>' +
+    (v.hero && v.hero.src && !REDUCE ? '<button class="vctl" data-vctl aria-label="Video anhalten"><span class="ic-pause">' + icoPause + '</span><span class="ic-play">' + icoPlay + '</span></button>' : '') +
+  '</section>';
+  var vcards = VCARDS.map(function(c, i){
+    return '<div class="vcard" data-rev style="--d:' + (i * 90) + 'ms">' +
+      vslot(v.cards[i], "vcard-media", c.fb, false) +
+      '<h3>' + c.t + '</h3><p>' + c.p + '</p></div>';
+  }).join("");
+  var fams = b.fams.map(function(f, i){ return famCard(f, i, false); }).join("");
+  var accLayers = ACC_ITEMS.map(function(it, i){
+    return '<div class="acc-layer' + (i === 0 ? ' on' : '') + '">' + vslot(v.acc[i], "", it.fb, false) + '</div>';
+  }).join("");
+  var accList = ACC_ITEMS.map(function(it, i){
+    return '<button class="acc-item' + (i === 0 ? ' on' : '') + '" data-ai="' + i + '"><b>' + it.t + '</b><span>' + it.p + '</span></button>';
+  }).join("");
+  var tiles = b.tiles.map(function(x, i){
+    return '<div class="tile" data-rev style="--d:' + (i * 90) + 'ms"><div class="tile-ico">' + TILE_ICONS[x.i] + '</div><h3>' + x.h + '</h3><p>' + x.p + '</p></div>';
+  }).join("");
+  var spotFam = b.fams[1];
+  var refMedia = b.hf ? islot(b.hf.ice, "focus") : scene("focus", "Bildslot: Refurbished im Einsatz", false);
+  return header(b) + hero +
+  '<section class="wrap sect sect-top"><div class="sect-head" data-rev><h2 class="h2">Gemacht für Ihren Arbeitstag</h2></div><div class="vcards">' + vcards + '</div></section>' +
+  '<section class="wrap sect"><div class="sect-head" data-rev><h2 class="h2">Drei Geräte, alle Möglichkeiten</h2><span class="linkacc" data-go="geraete">Alle Geräte ' + icoArr + '</span></div><div class="grid g3">' + fams + '</div></section>' +
+  '<section class="wrap sect"><div class="sect-head" data-rev><h2 class="h2">Ein Gerät, alles drin</h2></div><div class="acc" data-rev><div class="acc-stage">' + accLayers + '</div><div class="acc-list">' + accList + '</div></div></section>' +
+  '<section class="wrap sect"><div class="sect-head" data-rev><h2 class="h2">Das Sorglos-Paket</h2></div><div class="tiles">' + tiles + '</div></section>' +
+  '<section class="spot" data-rev><div class="wrap">' + mock() +
+    '<h2 class="h2">' + spotFam.name + '</h2>' +
+    '<div class="spot-rate"><b>ab ' + fmt(abFrom(spotFam)) + ' €</b><span>mtl. netto, unverbindlich</span></div>' +
+    '<button class="btn secondary" data-go="konfigurator" data-fami="1">Konfigurieren</button></div></section>' +
+  '<section class="wrap sect"><div class="split">' +
+    '<div data-rev>' + refMedia + '</div>' +
+    '<div data-rev style="--d:120ms"><span class="badge ref stat">Refurbished</span>' +
+      '<h2 class="h2">Sofort im Abo</h2>' +
+      '<p class="sub" style="margin-bottom:0">Geprüfte Geräte aus Rückläufern, gereinigt und neu aufgesetzt. Monatlich kündbar oder mit Laufzeit, online abschließbar, Versand inklusive.</p>' +
+      '<div class="split-rate"><b>ab ' + fmt(refFrom(b)) + ' €</b><span class="psub">mtl. netto im Abo</span></div>' +
+      '<span class="linkacc" data-go="abo">Abo entdecken ' + icoArr + '</span></div>' +
+  '</div></section>' +
+  '<section class="wrap sect quote" data-rev><p class="q">„' + b.quote.q + '"</p><span class="qa">' + b.quote.a + '</span></section>' +
+  footer(b) + mobilebar(b);
+}
+
+/* ---------- Geraete-Uebersicht (ersetzt den Katalog) ---------- */
+function screenGeraete(b){
+  var fams = b.fams.map(function(f, i){ return famCard(f, i, true); }).join("");
+  var rows = [
+    ["Für wen", function(f){ return f.cmp.who; }],
+    ["Display", function(f){ return f.cmp.display; }],
+    ["Ausstattung bis", function(f){ return f.cmp.max; }],
+    ["ab mtl. netto", function(f){ return '<span class="cmprate">' + fmt(abFrom(f)) + ' €</span>'; }]
+  ];
+  var cmp = '<div class="cmp"><div class="cmp-c cmp-h"></div>' +
+    b.fams.map(function(f){ return '<div class="cmp-c cmp-h">' + f.name + '</div>'; }).join("") +
+    rows.map(function(r){
+      return '<div class="cmp-c cmp-l">' + r[0] + '</div>' +
+        b.fams.map(function(f){ return '<div class="cmp-c">' + r[1](f) + '</div>'; }).join("");
+    }).join("") + '</div>';
+  var svcMedia = b.hf ? islot(b.hf.lounge, "hero") : scene("team", "Bildslot: Team im Meeting", false);
+  return header(b) + '<main class="wrap">' +
+    '<div class="page-head"><h1 class="h1">Geräte</h1><p class="sub2">Drei Produkte, viele Möglichkeiten. Erst das Gerät, die Variante in wenigen Klicks.</p></div>' +
+    '<div class="grid g3" style="padding-bottom:8px">' + fams + '</div>' +
+    '<section class="sect" style="padding-top:24px"><h2 class="h2" data-rev>Der direkte Vergleich</h2><div class="cmpwrap" data-rev>' + cmp + '</div></section>' +
+    '<section class="sect"><div class="split">' +
+      '<div data-rev>' + svcMedia + '</div>' +
+      '<div data-rev style="--d:120ms"><h2 class="h2">Ein Ansprechpartner, ein Vertrag, eine Rate</h2>' +
+      '<p class="sub" style="margin-bottom:16px">Beschaffung, Rollout, Support und Austausch sind in jeder Rate enthalten, egal welches Gerät Sie wählen.</p>' +
+      '<ul class="benefits"><li>' + icoCheck + ' Beschaffung, Einrichtung und Rollout durch uns</li><li>' + icoCheck + ' Support, Reparatur und Austausch inklusive</li><li>' + icoCheck + ' Versand und Rückholung inklusive</li></ul></div>' +
+    '</div></section>' +
+    '<section class="sect"><div class="lane" data-rev style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;justify-content:space-between">' +
+      '<div style="max-width:60ch"><h3>Refurbished im Abo</h3><p style="margin:0">Geprüfte Geräte aus Rückläufern, ab ' + fmt(refFrom(b)) + ' € mtl. netto, sofort verfügbar und monatlich kündbar.</p></div>' +
+      '<span class="linkacc" data-go="abo">Abo entdecken ' + icoArr + '</span></div></section>' +
+  '</main>' + footer(b) + mobilebar(b);
+}
+
+/* ---------- Konfigurator ---------- */
+function screenKonfigurator(b){
+  var fami = Math.min(state.fami, b.fams.length - 1);
+  var f = b.fams[fami];
+  var famSeg = '<div class="seg seg-fam">' + b.fams.map(function(x, i){
+    return '<button class="' + (i === fami ? "active" : "") + '" data-fami="' + i + '">' + x.name + '</button>';
+  }).join("") + '</div>';
+  var sizeGroup = f.sizes.length > 1
+    ? '<div class="conf-label">Größe</div><div class="optrow">' + f.sizes.map(function(s){
+        return '<button class="optcard" data-opt="size" data-val="' + s.id + '"><b>' + s.label + '</b><span class="os">' + s.sub + '</span><span class="od"></span></button>';
+      }).join("") + '</div>'
+    : "";
+  var colorGroup = '<div class="conf-label">Farbe</div><div class="swatches">' + f.colors.map(function(c){
+      return '<button class="swatch" data-opt="color" data-val="' + c.id + '" style="background:' + c.hex + '" aria-label="' + c.label + '" title="' + c.label + '"></button>';
+    }).join("") + '<span class="sw-name"><b class="cfg-colorname"></b>, inklusive</span></div>';
+  var tierGroup = '<div class="conf-label">Ausstattung</div><div class="tiercards">' + f.tiers.map(function(t){
+      return '<button class="tiercard" data-opt="tier" data-val="' + t.id + '"><span class="tc-top"><b>' + t.label + '</b>' +
+        (t.pop ? '<span class="pop">Beliebt</span>' : '') + '<span class="od"></span></span>' +
+        '<span class="tc-spec">' + t.spec + '</span><span class="tc-rec">' + t.rec + '</span></button>';
+    }).join("") + '</div>';
+  var ctGroup = '<div class="conf-label">Vertragsart</div><div class="seg seg-ct"><button data-ct="leasing">Leasing</button><button data-ct="finanzierung">Finanzierung</button></div>';
+  var termGroup = '<div class="conf-label">Laufzeit</div>' + ["leasing", "finanzierung"].map(function(ct){
+      return '<div class="seg seg-terms" data-ct="' + ct + '">' + TERMS[ct].map(function(t){
+        return '<button data-term="' + t + '">' + t + ' Monate</button>';
+      }).join("") + '</div>';
+    }).join("");
+  var qtyGroup = '<div class="conf-label">Menge</div><span class="qty"><button data-cq="-1" aria-label="Weniger">&minus;</button><span class="qv">1</span><button data-cq="1" aria-label="Mehr">+</button></span>';
+  var ads = b.addons.filter(function(a){ return !a.fams || a.fams.indexOf(f.id) >= 0; });
+  var adGroup = '<div class="conf-label">Dazu passend, pro Gerät</div><div class="addons">' + ads.map(function(a){
+      return '<div class="addon" data-ad="' + a.id + '" role="button" tabindex="0"><div class="ad-t"><b>' + a.label + '</b><span>' + a.sub + '</span></div>' +
+        '<div class="ad-r"><span class="ad-rate">+ ' + fmt(a.rate) + ' € mtl.</span><span class="ad-btn">Hinzufügen</span></div></div>';
+    }).join("") + '</div>';
+  var ratebox = '<div class="ratebox">' +
+    '<div class="rb-line">Gerät pro Monat<b class="rb-dev"></b></div>' +
+    '<div class="rb-line rb-add hide">Zubehör und Services<b class="rb-adds"></b></div>' +
+    '<div class="rb-line rb-qty hide">Geräte<b class="rb-n"></b></div>' +
+    '<div class="rate-line"><span class="rate-big rate-live" data-val="0">0,00 €</span><span class="rate-per">pro Monat, netto</span></div>' +
+    '<div class="rate-gross">entspricht <b class="gross-live">0,00 €</b> brutto</div>' +
+    '<div class="rate-sub"></div>' +
+    '<button class="btn primary block" data-go="anfrage">In Anfrage übernehmen</button>' +
+    '<div class="micro">Unverbindlich, Angebot folgt per E-Mail.</div>' + inclList() + '</div>';
+  var xref = '<div class="xref">Geprüfte refurbished Geräte gibt es ab ' + fmt(refFrom(b)) + ' € mtl. <span class="linkacc" data-go="abo">Refurbished ansehen ' + icoArr + '</span></div>';
+  var media = '<div class="cfg-media"><div class="cfg-stage">' + badge("new") + mock() + '</div>' +
+    '<div class="cfg-meta">Größe <b class="cfg-sizename"></b> · Farbe <b class="cfg-colorname"></b></div></div>';
+  return header(b) + '<main class="wrap">' +
+    '<div class="crumb" data-go="geraete">' + icoArr + ' Zurück zu den Geräten</div>' +
+    '<div class="cfg-famrow">' + famSeg + '</div>' +
+    '<div class="cfg" data-fami="' + fami + '" data-size="' + f.def.size + '" data-color="' + f.def.color + '" data-tier="' + f.def.tier + '" data-ct="leasing" data-term="36" data-qty="1" data-addons="">' +
+      '<div class="cfgwrap">' + media +
+      '<div class="cfg-panel"><h1 class="h1">' + f.name + '</h1><p class="sub2" style="margin-bottom:6px">' + f.claim + ". " + f.use + '</p>' +
+        sizeGroup + colorGroup + tierGroup + ctGroup + termGroup + qtyGroup + adGroup + ratebox + xref +
+      '</div></div></div>' +
+  '</main>' + footer(b) +
+  '<div class="cartdock"><div class="dock-rate"><b class="rate-live" data-val="0">0,00 €</b><span>mtl. netto</span></div><button class="btn primary" data-go="anfrage">In Anfrage übernehmen</button></div>';
+}
+
+/* ---------- Refurbished Abo ---------- */
+function screenAbo(b){
+  var units = b.refurb;
+  var unitGroup = '<div class="conf-label">Verfügbares Gerät</div><div class="tiercards">' + units.map(function(u){
+      return '<button class="tiercard" data-ru="' + u.id + '"><span class="tc-top"><b>' + u.name + '</b><span class="od"></span></span>' +
+        '<span class="tc-spec">' + u.spec + '</span>' +
+        '<span class="tc-rec"><span class="dot ok" style="display:inline-block;vertical-align:middle;margin-right:6px"></span>Zustand ' + u.zustand + ', geprüft, gereinigt und neu aufgesetzt</span></button>';
+    }).join("") + '</div>';
+  var aboGroup = '<div class="conf-label">Abo-Modell</div><div class="seg seg-abo">' +
+    [["flex", "Flexibel"], ["12", "12 Monate"], ["24", "24 Monate"]].map(function(p){
+      return '<button data-abo="' + p[0] + '">' + p[1] + '</button>';
+    }).join("") + '</div>';
+  var qtyGroup = '<div class="conf-label">Menge</div><span class="qty"><button data-cq="-1" aria-label="Weniger">&minus;</button><span class="qv">1</span><button data-cq="1" aria-label="Mehr">+</button></span>';
+  var ratebox = '<div class="ratebox">' +
+    '<div class="rb-line">Gerät pro Monat<b class="rb-dev"></b></div>' +
+    '<div class="rb-line rb-qty hide">Geräte<b class="rb-n"></b></div>' +
+    '<div class="rate-line"><span class="rate-big rate-live" data-val="0">0,00 €</span><span class="rate-per">pro Monat, netto</span></div>' +
+    '<div class="rate-gross">entspricht <b class="gross-live">0,00 €</b> brutto</div>' +
+    '<div class="rate-sub"></div>' +
+    '<button class="btn primary block">Abo starten</button>' +
+    '<div class="micro">Sichere Zahlung über Stripe, Rechnung monatlich.</div>' + inclList() + '</div>';
+  var xref = '<div class="xref">Lieber neu und frei konfiguriert? <span class="linkacc" data-go="konfigurator">Zum Konfigurator ' + icoArr + '</span></div>';
+  var media = '<div class="cfg-media"><div class="cfg-stage">' + badge("ref") + mock() + '</div>' +
+    '<div class="cfg-meta">Sofort verfügbar, Versand inklusive</div></div>';
+  return header(b) + '<main class="wrap">' +
+    '<div class="crumb" data-go="geraete">' + icoArr + ' Zurück zu den Geräten</div>' +
+    '<div class="rcfg" data-ru="' + units[0].id + '" data-abo="flex" data-qty="1">' +
+      '<div class="cfgwrap">' + media +
+      '<div class="cfg-panel"><h1 class="h1">Refurbished im Abo</h1><p class="sub2" style="margin-bottom:6px">Geprüfte Geräte aus Rückläufern, monatlich kündbar oder mit Laufzeit, online abschließbar.</p>' +
+        unitGroup + aboGroup + qtyGroup + ratebox + xref +
+      '</div></div></div>' +
+  '</main>' + footer(b) +
+  '<div class="cartdock"><div class="dock-rate"><b class="rate-live" data-val="0">0,00 €</b><span>mtl. netto</span></div><button class="btn primary">Abo starten</button></div>';
+}
+
+/* ---------- Anfrage ---------- */
+function screenAnfrage(b){
+  var total = b.cart.reduce(function(s, it){ return s + it.rate * it.qty; }, 0);
+  return header(b) + '<main class="wrap">' +
+    '<div class="steps">' +
+      step(1, "Gerät", "done") + '<span class="step-line"></span>' +
+      step(2, "Konfiguration", "done") + '<span class="step-line"></span>' +
+      step(3, "Übersicht", "active") + '<span class="step-line"></span>' +
+      step(4, "Kontakt", "") +
+    '</div>' +
+    '<div class="aq">' +
+      '<div class="aq-main"><div class="panel">' +
+        '<h2 class="h2">Ihre Anfrage</h2>' +
+        b.cart.map(cline).join("") +
+        '<div class="csum"><span>Monatliche Rate gesamt</span><b class="cart-total">' + fmt(total) + ' €</b></div>' +
+        '<div class="micro">Netto, unverbindlich. Das verbindliche Angebot erhalten Sie per E-Mail.</div>' +
+      '</div></div>' +
+      '<div class="aq-side"><div class="panel form-panel">' +
+        '<h2 class="h2">Kontakt</h2>' +
+        '<label class="field"><span>Firma</span><input placeholder="Firmenname GmbH"></label>' +
+        '<div class="frow">' +
+          '<label class="field"><span>Name</span><input placeholder="Vor- und Nachname"></label>' +
+          '<label class="field"><span>E-Mail</span><input type="email" placeholder="name@firma.de"></label>' +
+        '</div>' +
+        '<label class="field"><span>Telefon <span class="opt">optional</span></span><input type="tel" placeholder="+49"></label>' +
+        '<label class="check"><input type="checkbox"> Ich habe die Datenschutzerklärung gelesen und stimme der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage zu.</label>' +
+        '<button class="btn primary block" data-send>Anfrage senden</button>' +
+        '<div class="micro center">Kein Konto nötig, keine Zahlung. Antwort in der Regel am selben Werktag.</div>' +
+      '</div></div>' +
+    '</div></main>' + footer(b);
+}
+var confirmHTML = function(){
+  return '<div class="confirm"><div class="confirm-ico">' + icoCheckBig + '</div>' +
+    '<h2 class="h2">Anfrage gesendet</h2>' +
+    '<p>Ihre Anfrage-ID: <b>SL-20260824-A3F7C2</b></p>' +
+    '<p class="sub2">Wir prüfen Verfügbarkeit und Konditionen und melden uns mit einem unverbindlichen Angebot, in der Regel am selben Werktag.</p></div>';
+};
+
+/* ---------- Buehne ---------- */
+var SCREENS = {
+  start: screenStart,
+  geraete: screenGeraete,
+  konfigurator: screenKonfigurator,
+  abo: screenAbo,
+  anfrage: screenAnfrage
+};
+var state = { screen: "start", view: "desktop", brand: "surface", fami: 1 };
+var stage = document.getElementById("stage");
+
+function slotFallback(el){
+  var slot = el.closest(".vslot");
+  if (slot) slot.innerHTML = scene(slot.dataset.fb || "hero", null, true) +
+    '<span class="sc-tag">Bildslot: eigenes Material folgt</span>';
+}
+function canPlay(v){
+  var layer = v.closest(".acc-layer");
+  if (layer && !layer.classList.contains("on")) return false;
+  if (v.dataset.up) return false;
+  return true;
+}
+function initFX(scr){
+  var els = scr.querySelectorAll("[data-rev]");
+  if (!("IntersectionObserver" in window)) { els.forEach(function(el){ el.classList.add("in"); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  }, { root: scr, threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  els.forEach(function(el){ io.observe(el); });
+}
+function initVideos(scr){
+  scr.querySelectorAll(".vslot video, .vslot img").forEach(function(el){
+    el.addEventListener("error", function(){ slotFallback(el); });
+  });
+  if (!("IntersectionObserver" in window) || REDUCE) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      var v = en.target.querySelector("video");
+      if (!v) return;
+      if (en.isIntersecting && canPlay(v)) { v.play().catch(function(){}); }
+      else { v.pause(); }
+    });
+  }, { root: scr, threshold: 0.3 });
+  scr.querySelectorAll(".vslot").forEach(function(s){ io.observe(s); });
+}
+function render(){
+  var f = SCREENS[state.screen];
+  if (state.view === "mobile") {
+    stage.innerHTML = ["surface", "lenovo"].map(function(k){
+      return '<div class="phone"><div class="devlabel">' + BRANDS[k].domain + '</div>' +
+        '<div class="frame"><div class="screen" data-sf="' + k + '">' + f(BRANDS[k]) + '</div></div></div>';
+    }).join("");
+  } else {
+    var k = state.brand;
+    stage.innerHTML =
+      '<div class="desk"><div class="devlabel">' + BRANDS[k].domain + ', Desktop</div>' +
+      '<div class="frame"><div class="browserbar"><span class="wdots"><i></i><i></i><i></i></span><span class="url">https://' + BRANDS[k].domain + '</span></div>' +
+      '<div class="screen" data-sf="' + k + '">' + f(BRANDS[k]) + '</div></div></div>';
+  }
+  stage.querySelectorAll(".screen").forEach(function(scr){
+    initFX(scr); initVideos(scr);
+    scr.querySelectorAll(".cfg").forEach(function(c){ recompute(c); });
+    scr.querySelectorAll(".rcfg").forEach(function(c){ recomputeRef(c); });
+  });
+  syncBar();
+}
+function syncBar(){
+  document.querySelectorAll("#tabs .tab").forEach(function(t){ t.classList.toggle("on", t.dataset.s === state.screen); });
+  document.querySelectorAll("#views .tab").forEach(function(t){ t.classList.toggle("on", t.dataset.v === state.view); });
+  document.querySelectorAll("#brandsel .tab").forEach(function(t){ t.classList.toggle("on", t.dataset.b === state.brand); });
+  document.getElementById("brandsel").style.display = state.view === "desktop" ? "flex" : "none";
+}
+document.querySelector(".bar").addEventListener("click", function(e){
+  var t = e.target.closest(".tab"); if (!t) return;
+  if (t.dataset.s) state.screen = t.dataset.s;
+  else if (t.dataset.v) state.view = t.dataset.v;
+  else if (t.dataset.b) state.brand = t.dataset.b;
+  render();
+});
+
+/* ---------- Live-Berechnung ---------- */
+function animateRate(el, from, to){
+  var t0 = performance.now(), d = 260;
+  function f(t){
+    var pr = Math.min(1, (t - t0) / d), e2 = 1 - Math.pow(1 - pr, 3);
+    el.textContent = fmt(from + (to - from) * e2) + " €";
+    if (pr < 1) requestAnimationFrame(f);
+  }
+  requestAnimationFrame(f);
+}
+function pushTotal(scr, total, sub, opts){
+  scr.querySelectorAll(".rate-live").forEach(function(el){
+    var from = parseFloat(el.dataset.val || 0);
+    el.dataset.val = total;
+    animateRate(el, from, total);
+  });
+  var g = scr.querySelector(".gross-live");
+  if (g) g.textContent = fmt(total * 1.19) + " €";
+  var s = scr.querySelector(".rate-sub");
+  if (s) s.textContent = sub;
+  if (opts && opts.flash) {
+    var rb = scr.querySelector(".ratebox");
+    if (rb) { rb.classList.remove("flash"); void rb.offsetWidth; rb.classList.add("flash"); }
+  }
+}
+function recompute(cfg, opts){
+  var scr = cfg.closest(".screen");
+  var b = BRANDS[scr.dataset.sf];
+  var f = b.fams[+cfg.dataset.fami];
+  var ds = cfg.dataset;
+  if (!FACT[ds.ct][ds.term]) ds.term = "36";
+  var cur = unitRate(f, ds.size, ds.tier, ds.ct, ds.term);
+  cfg.querySelectorAll('[data-opt="size"]').forEach(function(el){
+    var on = el.dataset.val === ds.size;
+    el.classList.toggle("active", on);
+    el.querySelector(".od").textContent = on ? "" : dfmt(unitRate(f, el.dataset.val, ds.tier, ds.ct, ds.term) - cur);
+  });
+  cfg.querySelectorAll('[data-opt="tier"]').forEach(function(el){
+    var on = el.dataset.val === ds.tier;
+    el.classList.toggle("active", on);
+    el.querySelector(".od").textContent = on ? "" : dfmt(unitRate(f, ds.size, el.dataset.val, ds.ct, ds.term) - cur);
+  });
+  var col = f.colors[0];
+  f.colors.forEach(function(c){ if (c.id === ds.color) col = c; });
+  cfg.querySelectorAll('[data-opt="color"]').forEach(function(el){
+    el.classList.toggle("active", el.dataset.val === ds.color);
+  });
+  var stg = cfg.querySelector(".cfg-stage");
+  if (stg) stg.style.setProperty("--devc", col.hex);
+  var sz = f.sizes[0];
+  f.sizes.forEach(function(s){ if (s.id === ds.size) sz = s; });
+  cfg.querySelectorAll(".cfg-colorname").forEach(function(el){ el.textContent = col.label; });
+  cfg.querySelectorAll(".cfg-sizename").forEach(function(el){ el.textContent = sz.label; });
+  cfg.querySelectorAll(".seg-ct button").forEach(function(el){ el.classList.toggle("active", el.dataset.ct === ds.ct); });
+  cfg.querySelectorAll(".seg-terms").forEach(function(row){
+    row.classList.toggle("hide", row.dataset.ct !== ds.ct);
+    row.querySelectorAll("button").forEach(function(el){ el.classList.toggle("active", el.dataset.term === ds.term); });
+  });
+  var ads = b.addons.filter(function(a){ return !a.fams || a.fams.indexOf(f.id) >= 0; });
+  var chosen = ds.addons ? ds.addons.split(",") : [];
+  var asum = 0;
+  cfg.querySelectorAll(".addon").forEach(function(row){
+    var on = chosen.indexOf(row.dataset.ad) >= 0;
+    row.classList.toggle("active", on);
+    row.querySelector(".ad-btn").textContent = on ? "Entfernen" : "Hinzufügen";
+    if (on) ads.forEach(function(a){ if (a.id === row.dataset.ad) asum += a.rate; });
+  });
+  asum = round10(asum);
+  var q = Math.max(1, parseInt(ds.qty, 10) || 1);
+  var qv = cfg.querySelector(".qv");
+  if (qv) qv.textContent = q;
+  var per = round10(cur + asum);
+  var total = round10(per * q);
+  var dev = cfg.querySelector(".rb-dev");
+  if (dev) dev.textContent = fmt(cur) + " €";
+  var addRow = cfg.querySelector(".rb-add");
+  if (addRow) {
+    addRow.classList.toggle("hide", asum < 0.005);
+    var av = cfg.querySelector(".rb-adds");
+    if (av) av.textContent = fmt(asum) + " €";
+  }
+  var qtyRow = cfg.querySelector(".rb-qty");
+  if (qtyRow) {
+    qtyRow.classList.toggle("hide", q < 2);
+    var nv = cfg.querySelector(".rb-n");
+    if (nv) nv.textContent = "\u00d7 " + q;
+  }
+  var sub = CTLBL[ds.ct] + ", " + ds.term + " Monate" + (q > 1 ? ", " + q + " Geräte" : "");
+  pushTotal(scr, total, sub, opts);
+}
+function recomputeRef(rc, opts){
+  var scr = rc.closest(".screen");
+  var b = BRANDS[scr.dataset.sf];
+  var ds = rc.dataset;
+  var unit = b.refurb[0];
+  b.refurb.forEach(function(u){ if (u.id === ds.ru) unit = u; });
+  rc.querySelectorAll("[data-ru]").forEach(function(el){
+    var on = el.dataset.ru === ds.ru;
+    el.classList.toggle("active", on);
+    var target = b.refurb[0];
+    b.refurb.forEach(function(u){ if (u.id === el.dataset.ru) target = u; });
+    var od = el.querySelector(".od");
+    if (od) od.textContent = on ? "" : dfmt(target.abo[ds.abo] - unit.abo[ds.abo]);
+  });
+  rc.querySelectorAll(".seg-abo button").forEach(function(el){ el.classList.toggle("active", el.dataset.abo === ds.abo); });
+  var q = Math.max(1, parseInt(ds.qty, 10) || 1);
+  var qv = rc.querySelector(".qv");
+  if (qv) qv.textContent = q;
+  var rate = unit.abo[ds.abo];
+  var total = round10(rate * q);
+  var dev = rc.querySelector(".rb-dev");
+  if (dev) dev.textContent = fmt(rate) + " €";
+  var qtyRow = rc.querySelector(".rb-qty");
+  if (qtyRow) {
+    qtyRow.classList.toggle("hide", q < 2);
+    var nv = rc.querySelector(".rb-n");
+    if (nv) nv.textContent = "\u00d7 " + q;
+  }
+  var sub = (ds.abo === "flex" ? "monatlich kündbar" : "bei " + ds.abo + " Monaten Laufzeit") + (q > 1 ? ", " + q + " Geräte" : "");
+  pushTotal(scr, total, sub, opts);
+}
+
+/* ---------- Interaktion ---------- */
+stage.addEventListener("click", function(e){
+  var vc = e.target.closest("[data-vctl]");
+  if (vc) {
+    var hv = vc.closest(".vhero").querySelector("video");
+    if (hv) {
+      if (hv.paused) { delete hv.dataset.up; hv.play().catch(function(){}); vc.classList.remove("paused"); vc.setAttribute("aria-label", "Video anhalten"); }
+      else { hv.pause(); hv.dataset.up = "1"; vc.classList.add("paused"); vc.setAttribute("aria-label", "Video abspielen"); }
+    }
+    return;
+  }
+  var tel = e.target.closest('a[href^="tel:"]');
+  if (tel) { e.preventDefault(); return; }
+  var ai = e.target.closest(".acc-item");
+  if (ai) {
+    var acc = ai.closest(".acc");
+    var idx = parseInt(ai.dataset.ai, 10);
+    acc.querySelectorAll(".acc-item").forEach(function(x){ x.classList.toggle("on", x === ai); });
+    acc.querySelectorAll(".acc-layer").forEach(function(l, j){
+      l.classList.toggle("on", j === idx);
+      var v = l.querySelector("video");
+      if (v) { if (j === idx && !REDUCE) { v.play().catch(function(){}); } else { v.pause(); } }
+    });
+    return;
+  }
+  var fs = e.target.closest(".seg-fam button");
+  if (fs) { state.fami = +fs.dataset.fami; render(); return; }
+  var cfg = e.target.closest(".cfg");
+  if (cfg) {
+    var opt = e.target.closest("[data-opt]");
+    if (opt) { cfg.dataset[opt.dataset.opt] = opt.dataset.val; recompute(cfg, { flash: true }); return; }
+    var ctb = e.target.closest("button[data-ct]");
+    if (ctb) {
+      cfg.dataset.ct = ctb.dataset.ct;
+      if (!FACT[cfg.dataset.ct][cfg.dataset.term]) cfg.dataset.term = "36";
+      recompute(cfg, { flash: true }); return;
+    }
+    var tb = e.target.closest("[data-term]");
+    if (tb) { cfg.dataset.term = tb.dataset.term; recompute(cfg, { flash: true }); return; }
+    var cq = e.target.closest("[data-cq]");
+    if (cq) { cfg.dataset.qty = Math.max(1, (parseInt(cfg.dataset.qty, 10) || 1) + parseInt(cq.dataset.cq, 10)); recompute(cfg, { flash: true }); return; }
+    var ad = e.target.closest(".addon");
+    if (ad) {
+      var s = cfg.dataset.addons ? cfg.dataset.addons.split(",") : [];
+      var i = s.indexOf(ad.dataset.ad);
+      if (i >= 0) s.splice(i, 1); else s.push(ad.dataset.ad);
+      cfg.dataset.addons = s.filter(Boolean).join(",");
+      recompute(cfg, { flash: true }); return;
+    }
+  }
+  var rc = e.target.closest(".rcfg");
+  if (rc) {
+    var ru = e.target.closest("[data-ru]");
+    if (ru) { rc.dataset.ru = ru.dataset.ru; recomputeRef(rc, { flash: true }); return; }
+    var ab = e.target.closest("[data-abo]");
+    if (ab) { rc.dataset.abo = ab.dataset.abo; recomputeRef(rc, { flash: true }); return; }
+    var cq2 = e.target.closest("[data-cq]");
+    if (cq2) { rc.dataset.qty = Math.max(1, (parseInt(rc.dataset.qty, 10) || 1) + parseInt(cq2.dataset.cq, 10)); recomputeRef(rc, { flash: true }); return; }
+  }
+  var q2 = e.target.closest(".qty button[data-q]");
+  if (q2) {
+    var line = q2.closest(".cline");
+    var qv2 = line.querySelector(".qv");
+    var n = Math.max(1, parseInt(qv2.textContent, 10) + parseInt(q2.dataset.q, 10));
+    qv2.textContent = n;
+    line.querySelector(".lr").textContent = fmt(parseFloat(line.dataset.rate) * n) + " €";
+    var scr2 = q2.closest(".screen");
+    var tsum = 0;
+    scr2.querySelectorAll(".cline").forEach(function(l){
+      tsum += parseFloat(l.dataset.rate) * parseInt(l.querySelector(".qv").textContent, 10);
+    });
+    var tot = scr2.querySelector(".cart-total");
+    if (tot) tot.textContent = fmt(tsum) + " €";
+    return;
+  }
+  var send = e.target.closest("[data-send]");
+  if (send) { send.closest(".panel").innerHTML = confirmHTML(); return; }
+  var go = e.target.closest("[data-go]");
+  if (go) {
+    if (go.dataset.fami !== undefined) state.fami = +go.dataset.fami;
+    state.screen = go.dataset.go;
+    render();
+  }
+});
+
+render();
+</script>
+</body>
+</html>

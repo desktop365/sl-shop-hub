@@ -37,7 +37,9 @@ von: <owner-Kuerzel>
 Genau ein Akteur schreibt board.json: Claude Code. Chats melden, Claude Code
 bucht. Sascha fuegt einen oder mehrere Meldebloecke mit dem Stichwort
 Board-Meldung in eine beliebige Claude-Code-Sitzung ein. Claude Code prueft
-dann: existiert die id, ist der Status einer der fuenf erlaubten, ist die
-Meldung neuer als der Eintrag. Dann traegt er status, notiz, gemeldet_von
-und datum ein, committet in sl-shop-hub und pusht. Unbekannte ids oder
+dann: existiert die id, ist der Status einer der fuenf erlaubten, ist das
+Datum der Meldung neuer als oder gleich dem Datum des Eintrags. Gleich
+genuegt, denn mehrere Meldungen desselben Tages sind der Regelfall. Dann
+traegt er status, notiz, gemeldet_von und datum ein, committet in
+sl-shop-hub und pusht. Unbekannte ids oder
 Widersprueche werden nicht geraten, sondern rueckgefragt.

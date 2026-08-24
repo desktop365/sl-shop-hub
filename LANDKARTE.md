@@ -2,6 +2,10 @@
 
 Working-Stand als Grundlage für den Umbau von der AI-Studio-App zur eigenen Plattform. Getroffene Annahmen sind als Empfehlung markiert und in Abschnitt 17 zur Bestätigung gesammelt.
 
+**Übersicht auf einem Blatt:** [SYSTEMKARTE-A0.svg](SYSTEMKARTE-A0.svg), der
+Wertstrom vom Distributor-Feed bis zur Anfrage im CRM, dazu Stränge,
+Zeitband und Kontraktleiste. Druckbar auf A0 quer, Stand 25.08.2026.
+
 ## 0. Zielbild
 Eine eigene, aus Claude Code gebaute Plattform, die zweigleisig verkauft: Neugeräte zur Rate über die DLL-Bank, und refurbished Geräte aus eigenem Bestand im Abo mit Zahlung über Stripe. Betrieb weitgehend durch Agenten über Mail und HubSpot, Mensch nur für Spezialfälle und Großkunden. Von Anfang an mehrsprachig und mehrmarktfähig, mit eingebautem SEO und einer Marketing-Brücke zu LinkedIn. Version zwei bringt ein Kundenportal mit Login.
 

@@ -1,5 +1,5 @@
 {
-  "stand": "2026-08-24",
+  "stand": "2026-08-25",
   "aufgaben": [
     { "id": "a1", "phase": "Fundament", "titel": "Shop-App live auf Hostinger, worklove.shop", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "a2", "phase": "Fundament", "titel": "Datenbank verbunden, Migrationen automatisch", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
@@ -16,7 +16,7 @@
     { "id": "c2", "phase": "Katalog Durchstich", "titel": "Fallback-Bilder und minimale images.json im Bucket", "owner": "sascha", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "sascha", "datum": "2026-08-24" },
     { "id": "c3", "phase": "Katalog Durchstich", "titel": "products.json im Bucket, Datenstand 05.07.", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "wird vom ersten Feed-Lauf ersetzt", "gemeldet_von": "code", "datum": "2026-08-24" },
     { "id": "c4", "phase": "Katalog Durchstich", "titel": "358 echte Geraete live auf worklove.shop", "owner": "ziel", "status": "erledigt", "haengt_von": ["c1", "c2", "c3"], "notiz": "aktuell ueber Bucket-Rueckfall", "gemeldet_von": "code", "datum": "2026-08-24" },
-    { "id": "c5", "phase": "Katalog Durchstich", "titel": "Sync-Route Bucket zu MySQL im Shop", "owner": "code", "status": "laeuft", "haengt_von": [], "notiz": "Stand bestaetigen, Ziel katalog.quelle datenbank", "gemeldet_von": "master", "datum": "2026-08-24" },
+    { "id": "c5", "phase": "Katalog Durchstich", "titel": "Sync-Route Bucket zu MySQL im Shop", "owner": "code", "status": "blockiert", "haengt_von": [], "notiz": "Route gebaut, deployt und erreichbar, antwortet 503. SYNC_TOKEN ist auf Hostinger nicht gesetzt und das Plugin kann keine Umgebungsvariablen setzen. Wartet auf Sascha, hPanel, Node.js-App, Umgebungsvariablen", "gemeldet_von": "code", "datum": "2026-08-25" },
     { "id": "c6", "phase": "Katalog Durchstich", "titel": "Azure prod vollstaendig konfiguriert, Timer 04:00 UTC", "owner": "sascha", "status": "erledigt", "haengt_von": [], "notiz": "fuenf Settings plus TIMER_SCHEDULE, test bewusst ohne Schluessel", "gemeldet_von": "sascha", "datum": "2026-08-24" },
 
     { "id": "k1", "phase": "Katalog Betrieb", "titel": "Erster frischer Feed-Lauf mit Abnahme", "owner": "katalog", "status": "erledigt", "haengt_von": ["c6"], "notiz": "Lauf 13:15 erfolgreich geschrieben, 471 Artikel, source_date 2026-08-24, products.previous.json traegt die Juli-Fassung, abgenommen", "gemeldet_von": "katalog", "datum": "2026-08-24" },
@@ -32,9 +32,9 @@
     { "id": "v2", "phase": "Varianten und Admin", "titel": "Zuordnungsschicht MSKU zu Reihe, Stufe, Attributen", "owner": "code", "status": "offen", "haengt_von": ["v1"], "notiz": "Parse-Regelwerk als Vorlage liegt in berichte/parse-regelwerk-2026-08-24.md, Bauvorgabe folgt vom Master", "gemeldet_von": "katalog", "datum": "2026-08-24" },
     { "id": "m1", "phase": "Varianten und Admin", "titel": "Admin-Backend Ausbaustufe 1", "owner": "code", "status": "offen", "haengt_von": ["c5"], "notiz": "laut ADMIN.md, Kuration, Sync-Karte, Datenstand", "gemeldet_von": "master", "datum": "2026-08-24" },
 
-    { "id": "b1", "phase": "Bilder", "titel": "Vier offene Bildfragen recherchieren", "owner": "master", "status": "offen", "haengt_von": [], "notiz": "Pro 12 vs 13, Laptop 13 schwarz, Laptop 5G, Slim-Pen-Bundle", "gemeldet_von": "master", "datum": "2026-08-24" },
-    { "id": "b2", "phase": "Bilder", "titel": "Bildmodell-Matrix finalisieren", "owner": "master", "status": "offen", "haengt_von": ["b1"], "notiz": "Schnitt je Reihe, Generation, Groesse, Farbe", "gemeldet_von": "master", "datum": "2026-08-24" },
-    { "id": "b3", "phase": "Bilder", "titel": "Bild-Pipeline bauen, volle images.json in den Bucket", "owner": "code", "status": "offen", "haengt_von": ["b2"], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
+    { "id": "b1", "phase": "Bilder", "titel": "Vier offene Bildfragen recherchieren", "owner": "master", "status": "erledigt", "haengt_von": [], "notiz": "Vier Bildfragen recherchiert und entschieden, siehe contracts/IMAGES.md, Abschnitt Bildmodell-Matrix vom 25.08.2026", "gemeldet_von": "master", "datum": "2026-08-25" },
+    { "id": "b2", "phase": "Bilder", "titel": "Bildmodell-Matrix finalisieren", "owner": "master", "status": "erledigt", "haengt_von": ["b1"], "notiz": "Matrix-Regeln normativ in contracts/IMAGES.md, Schluessel familie-generation-groesse-farbe, Zubehoer je Produkt", "gemeldet_von": "master", "datum": "2026-08-25" },
+    { "id": "b3", "phase": "Bilder", "titel": "Bild-Pipeline bauen, volle images.json in den Bucket", "owner": "code", "status": "laeuft", "haengt_von": ["b2"], "notiz": "Pipeline und Bedarfsliste stehen in sl-bilder, 28 Geraete- und 35 Zubehoermodelle abgeleitet, 46 Tests gruen. Es fehlen die Fotos, source/ ist leer, images.json bleibt bis dahin leer", "gemeldet_von": "code", "datum": "2026-08-25" },
 
     { "id": "d1", "phase": "Design", "titel": "Design-Brief", "owner": "master", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "d2", "phase": "Design", "titel": "UX-Varianten-Konzept und V4-Prototyp", "owner": "design", "status": "geliefert", "haengt_von": ["d1"], "notiz": "Konzept im Hub, Kontrakte nachgezogen", "gemeldet_von": "design", "datum": "2026-08-24" },

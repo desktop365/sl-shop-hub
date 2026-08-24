@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1189 841" width="1189mm" height="841mm" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif">
+<defs><marker id="pfeil" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#5b6874"/></marker><marker id="pfeilstark" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="7" markerHeight="7" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#1d2733"/></marker><marker id="pfeilgrau" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="5" markerHeight="5" orient="auto-start-end"><path d="M0,0 L10,5 L0,10 z" fill="#aab4bf"/></marker></defs>
+<rect width="1189" height="841" fill="#ffffff"/>
+<text x="26.0" y="34.0" font-size="17" fill="#1d2733" font-weight="600" text-anchor="start">Surface.Love Systemkarte</text>
+<text x="26.0" y="45.0" font-size="6" fill="#5b6874" font-weight="normal" text-anchor="start">Vom Distributor-Feed bis zur Anfrage im CRM, Stand 25. August 2026</text>
+<rect x="711.0" y="16.0" width="452.0" height="36.0" rx="3" fill="#f4f6f8" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="720.0" y="27.0" font-size="5.2" fill="#1d2733" font-weight="600" text-anchor="start">Legende</text>
+<line x1="720.0" y1="33" x2="750.0" y2="33" stroke="#1d2733" stroke-width="2.6" marker-end="url(#pfeilstark)"/>
+<text x="755.0" y="35.0" font-size="4.4" fill="#1d2733" font-weight="normal" text-anchor="start">kritischer Pfad zum Umschalten</text>
+<line x1="720.0" y1="43" x2="750.0" y2="43" stroke="#5b6874" stroke-width="1" marker-end="url(#pfeil)"/>
+<text x="755.0" y="45.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">Datenfluss</text>
+<line x1="947.0" y1="33" x2="977.0" y2="33" stroke="#5b6874" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="982.0" y="35.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">Rückfall, umgeht das Leseabbild</text>
+<rect x="947.0" y="39.5" width="10" height="6" rx="1.5" fill="#ffffff" stroke="#00a3e0" stroke-width="0.8"/>
+<text x="982.0" y="45.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">heute erreicht</text>
+<line x1="26" y1="58" x2="1163" y2="58" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="26.0" y="82.0" font-size="9" fill="#1d2733" font-weight="600" text-anchor="start">1  Wertstrom</text>
+<text x="112.0" y="82.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="start">von links nach rechts, jeder Pfeil ist ein tatsächlicher Übergang</text>
+<rect x="26.0" y="94.0" width="1137.0" height="196.0" rx="4" fill="#f4f6f8" stroke="#d3dae1" stroke-width="0.8"/>
+<rect x="98.5" y="126.0" width="92.0" height="92.0" rx="3" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="144.5" y="150.0" font-size="7" fill="#1d2733" font-weight="600" text-anchor="middle">Continue-API</text>
+<text x="144.5" y="166.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Distributor-Feed</text>
+<text x="144.5" y="173.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">3 Abrufe je 15 Min</text>
+<rect x="202.5" y="126.0" width="120.0" height="92.0" rx="3" fill="#ffffff" stroke="#00a3e0" stroke-width="1.1"/>
+<text x="262.5" y="150.0" font-size="7" fill="#1d2733" font-weight="600" text-anchor="middle">func-slpricing-prod</text>
+<text x="262.5" y="166.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Azure Function, Timer 04:00 UTC</text>
+<text x="262.5" y="173.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Plausibilitätsprüfung vor Upload</text>
+<rect x="334.5" y="126.0" width="116.0" height="92.0" rx="3" fill="#ffffff" stroke="#00a3e0" stroke-width="1.1"/>
+<text x="392.5" y="150.0" font-size="7" fill="#1d2733" font-weight="600" text-anchor="middle">slshopv2-media</text>
+<text x="392.5" y="166.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">GCS-Bucket, öffentlich lesbar</text>
+<text x="392.5" y="173.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">products.json, images.json, images/</text>
+<rect x="462.5" y="126.0" width="100.0" height="92.0" rx="3" fill="#ffffff" stroke="#00a3e0" stroke-width="1.1"/>
+<text x="512.5" y="150.0" font-size="7" fill="#1d2733" font-weight="600" text-anchor="middle">Sync-Route</text>
+<text x="512.5" y="166.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">POST /de/api/sync/catalog</text>
+<text x="512.5" y="173.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Bearer SYNC_TOKEN</text>
+<rect x="574.5" y="126.0" width="100.0" height="92.0" rx="3" fill="#ffffff" stroke="#00a3e0" stroke-width="1.1"/>
+<text x="624.5" y="150.0" font-size="7" fill="#1d2733" font-weight="600" text-anchor="middle">MySQL-Leseabbild</text>
+<text x="624.5" y="166.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Hostinger, katalog.quelle</text>
+<text x="624.5" y="173.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">datenbank</text>
+<rect x="686.5" y="126.0" width="100.0" height="92.0" rx="3" fill="#ffffff" stroke="#00a3e0" stroke-width="1.1"/>
+<text x="736.5" y="150.0" font-size="7" fill="#1d2733" font-weight="600" text-anchor="middle">Next.js-Shop</text>
+<text x="736.5" y="166.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">worklove.shop</text>
+<text x="736.5" y="173.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">später surface.love</text>
+<rect x="798.5" y="126.0" width="78.0" height="92.0" rx="3" fill="#ffffff" stroke="#00a3e0" stroke-width="1.1"/>
+<text x="837.5" y="150.0" font-size="7" fill="#1d2733" font-weight="600" text-anchor="middle">Kunde</text>
+<text x="837.5" y="166.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Katalog, Konfigurator</text>
+<text x="837.5" y="173.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Varianten</text>
+<rect x="888.5" y="126.0" width="108.0" height="92.0" rx="3" fill="#ffffff" stroke="#00a3e0" stroke-width="1.1"/>
+<text x="942.5" y="150.0" font-size="7" fill="#1d2733" font-weight="600" text-anchor="middle">Anfrage-Strecke</text>
+<text x="942.5" y="166.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">später Verfügbarkeits-Check</text>
+<text x="942.5" y="173.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Lieferfenster 28 Tage</text>
+<rect x="1008.5" y="126.0" width="82.0" height="92.0" rx="3" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="1049.5" y="150.0" font-size="7" fill="#1d2733" font-weight="600" text-anchor="middle">HubSpot</text>
+<text x="1049.5" y="166.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Deal, kaufmännischer</text>
+<text x="1049.5" y="173.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Master</text>
+<line x1="191.5" y1="172.0" x2="200.5" y2="172.0" stroke="#5b6874" stroke-width="1" marker-end="url(#pfeil)"/>
+<line x1="323.5" y1="172.0" x2="332.5" y2="172.0" stroke="#1d2733" stroke-width="2.6" marker-end="url(#pfeilstark)"/>
+<line x1="451.5" y1="172.0" x2="460.5" y2="172.0" stroke="#1d2733" stroke-width="2.6" marker-end="url(#pfeilstark)"/>
+<line x1="563.5" y1="172.0" x2="572.5" y2="172.0" stroke="#1d2733" stroke-width="2.6" marker-end="url(#pfeilstark)"/>
+<line x1="675.5" y1="172.0" x2="684.5" y2="172.0" stroke="#1d2733" stroke-width="2.6" marker-end="url(#pfeilstark)"/>
+<line x1="787.5" y1="172.0" x2="796.5" y2="172.0" stroke="#1d2733" stroke-width="2.6" marker-end="url(#pfeilstark)"/>
+<line x1="877.5" y1="172.0" x2="886.5" y2="172.0" stroke="#1d2733" stroke-width="2.6" marker-end="url(#pfeilstark)"/>
+<line x1="997.5" y1="172.0" x2="1006.5" y2="172.0" stroke="#5b6874" stroke-width="1" marker-end="url(#pfeil)"/>
+<rect x="202.5" y="234.0" width="132.0" height="30.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="268.5" y="246.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Rohantwort in privaten Blob</text>
+<text x="268.5" y="255.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">Aufbewahrung 30 Tage, nie öffentlich</text>
+<line x1="268.5" y1="218.0" x2="268.5" y2="233.0" stroke="#aab4bf" stroke-width="1" marker-end="url(#pfeilgrau)"/>
+<rect x="334.5" y="234.0" width="128.0" height="30.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="398.5" y="246.0" font-size="5" fill="#5b6874" font-weight="normal" text-anchor="middle">Bild-Pipeline sl-bilder</text>
+<text x="398.5" y="255.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">28 Geräte- und 35 Zubehörmodelle</text>
+<line x1="398.5" y1="234.0" x2="398.5" y2="219.0" stroke="#aab4bf" stroke-width="1" marker-end="url(#pfeilgrau)"/>
+<path d="M 436.5 126.0 V 108.0 H 700.5 V 125.0" fill="none" stroke="#5b6874" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#pfeil)"/>
+<text x="568.5" y="105.5" font-size="4.2" fill="#5b6874" font-weight="normal" text-anchor="middle">Rückfall: leeres Leseabbild, Shop liest direkt aus dem Bucket</text>
+<text x="26.0" y="316.0" font-size="8" fill="#1d2733" font-weight="600" text-anchor="start">2  Stränge und Zuständigkeiten</text>
+<rect x="26.0" y="328.0" width="182.8" height="58.0" rx="3" fill="#f4f6f8" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="36.0" y="348.0" font-size="6.4" fill="#1d2733" font-weight="600" text-anchor="start">Master-Chat</text>
+<text x="36.0" y="364.0" font-size="4.8" fill="#5b6874" font-weight="normal" text-anchor="start">Strategie, Kontrakte, Struktur des Boards</text>
+<rect x="216.8" y="328.0" width="182.8" height="58.0" rx="3" fill="#f4f6f8" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="226.8" y="348.0" font-size="6.4" fill="#1d2733" font-weight="600" text-anchor="start">Preislisten-Chat</text>
+<text x="226.8" y="364.0" font-size="4.8" fill="#5b6874" font-weight="normal" text-anchor="start">Abruf, Zuschnitt des Sortiments, Admin</text>
+<rect x="407.7" y="328.0" width="182.8" height="58.0" rx="3" fill="#f4f6f8" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="417.7" y="348.0" font-size="6.4" fill="#1d2733" font-weight="600" text-anchor="start">Design-Strang</text>
+<text x="417.7" y="364.0" font-size="4.8" fill="#5b6874" font-weight="normal" text-anchor="start">UX, Runde 2, Prototyp V4</text>
+<rect x="598.5" y="328.0" width="182.8" height="58.0" rx="3" fill="#f4f6f8" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="608.5" y="348.0" font-size="6.4" fill="#1d2733" font-weight="600" text-anchor="start">Claude Code</text>
+<text x="608.5" y="364.0" font-size="4.8" fill="#5b6874" font-weight="normal" text-anchor="start">baut in allen Repos und bucht das Board</text>
+<rect x="789.3" y="328.0" width="182.8" height="58.0" rx="3" fill="#f4f6f8" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="799.3" y="348.0" font-size="6.4" fill="#1d2733" font-weight="600" text-anchor="start">Sascha</text>
+<text x="799.3" y="364.0" font-size="4.8" fill="#5b6874" font-weight="normal" text-anchor="start">Schlüssel, Freigaben, Betrieb, Upload</text>
+<rect x="980.2" y="328.0" width="182.8" height="58.0" rx="3" fill="#f4f6f8" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="990.2" y="348.0" font-size="6.4" fill="#1d2733" font-weight="600" text-anchor="start">HubSpot</text>
+<text x="990.2" y="364.0" font-size="4.8" fill="#5b6874" font-weight="normal" text-anchor="start">kaufmännische Welt, Deal und Angebot</text>
+<text x="26.0" y="414.0" font-size="8" fill="#1d2733" font-weight="600" text-anchor="start">3  Zeitband</text>
+<line x1="68.0" y1="462.0" x2="1121.0" y2="462.0" stroke="#aab4bf" stroke-width="1.4"/>
+<circle cx="68.0" cy="462.0" r="2.8" fill="#1d2733" stroke="#1d2733" stroke-width="1"/>
+<text x="68.0" y="479.0" font-size="5" fill="#1d2733" font-weight="600" text-anchor="middle">Phase 0</text>
+<text x="68.0" y="485.6" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">Fundament</text>
+<circle cx="173.3" cy="462.0" r="2.8" fill="#1d2733" stroke="#1d2733" stroke-width="1"/>
+<text x="173.3" y="450.0" font-size="5" fill="#1d2733" font-weight="600" text-anchor="middle">Hub</text>
+<text x="173.3" y="443.4" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">eine Wahrheit</text>
+<circle cx="278.6" cy="462.0" r="2.8" fill="#1d2733" stroke="#1d2733" stroke-width="1"/>
+<text x="278.6" y="479.0" font-size="5" fill="#1d2733" font-weight="600" text-anchor="middle">24.08.</text>
+<text x="278.6" y="485.6" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">Nachtlauf</text>
+<circle cx="383.9" cy="462.0" r="2.8" fill="#1d2733" stroke="#1d2733" stroke-width="1"/>
+<text x="383.9" y="450.0" font-size="5" fill="#1d2733" font-weight="600" text-anchor="middle">24.08.</text>
+<text x="383.9" y="443.4" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">Durchstich, 358 Geräte</text>
+<circle cx="489.2" cy="462.0" r="2.8" fill="#1d2733" stroke="#1d2733" stroke-width="1"/>
+<text x="489.2" y="479.0" font-size="5" fill="#1d2733" font-weight="600" text-anchor="middle">24.08.</text>
+<text x="489.2" y="485.6" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">erster Feed-Lauf, 471 Artikel</text>
+<circle cx="594.5" cy="462.0" r="4.2" fill="#ffffff" stroke="#00a3e0" stroke-width="1.6"/>
+<text x="594.5" y="450.0" font-size="5" fill="#1d2733" font-weight="600" text-anchor="middle">25.08.</text>
+<text x="594.5" y="443.4" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">heute</text>
+<circle cx="699.8" cy="462.0" r="2.8" fill="#ffffff" stroke="#aab4bf" stroke-width="1"/>
+<text x="699.8" y="479.0" font-size="5" fill="#5b6874" font-weight="600" text-anchor="middle">kommend</text>
+<text x="699.8" y="485.6" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">Varianten und Konfigurator</text>
+<circle cx="805.1" cy="462.0" r="2.8" fill="#ffffff" stroke="#aab4bf" stroke-width="1"/>
+<text x="805.1" y="450.0" font-size="5" fill="#5b6874" font-weight="600" text-anchor="middle">kommend</text>
+<text x="805.1" y="443.4" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">Bilder</text>
+<circle cx="910.4" cy="462.0" r="2.8" fill="#ffffff" stroke="#aab4bf" stroke-width="1"/>
+<text x="910.4" y="479.0" font-size="5" fill="#5b6874" font-weight="600" text-anchor="middle">kommend</text>
+<text x="910.4" y="485.6" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">Anfrage-Strecke</text>
+<circle cx="1015.7" cy="462.0" r="2.8" fill="#ffffff" stroke="#aab4bf" stroke-width="1"/>
+<text x="1015.7" y="450.0" font-size="5" fill="#5b6874" font-weight="600" text-anchor="middle">kommend</text>
+<text x="1015.7" y="443.4" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">Umschalten surface.love</text>
+<circle cx="1121.0" cy="462.0" r="2.8" fill="#ffffff" stroke="#aab4bf" stroke-width="1"/>
+<text x="1121.0" y="479.0" font-size="5" fill="#5b6874" font-weight="600" text-anchor="middle">danach</text>
+<text x="1121.0" y="485.6" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="middle">Refurbished, Marketing, Agenten</text>
+<text x="26.0" y="518.0" font-size="8" fill="#1d2733" font-weight="600" text-anchor="start">4  Kontrakte, jeder ein Satz</text>
+<rect x="26.0" y="532.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="35.0" y="549.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">ARBEITSWEISE</text>
+<text x="35.0" y="562.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">gilt bei Widerspruch vor allem anderen</text>
+<rect x="189.6" y="532.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="198.6" y="549.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">DATA-CONTRACT</text>
+<text x="198.6" y="562.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">Schema der products.json, nur fertige Raten</text>
+<rect x="353.1" y="532.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="362.1" y="549.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">PRICING</text>
+<text x="362.1" y="562.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">Rechenweg der Monatsraten, Faktoren bleiben privat</text>
+<rect x="516.7" y="532.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="525.7" y="549.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">INFRA</text>
+<text x="525.7" y="562.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">wo was läuft, Azure, GCS, Hostinger</text>
+<rect x="680.3" y="532.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="689.3" y="549.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">DB-SCHEMA</text>
+<text x="689.3" y="562.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">Leseabbild, Bestand, Abos, Anfragen-Log</text>
+<rect x="843.9" y="532.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="852.9" y="549.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">STOREFRONTS</text>
+<text x="852.9" y="562.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">eine Codebasis, mehrere Marken je Domain</text>
+<rect x="1007.4" y="532.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="1016.4" y="549.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">MARKETS</text>
+<text x="1016.4" y="562.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">Sprachen, Währungen, Vertragsarten je Markt</text>
+<rect x="26.0" y="594.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="35.0" y="611.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">SICHTBARKEIT</text>
+<text x="35.0" y="624.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">Sortiment bleibt sichtbar, später Check</text>
+<rect x="189.6" y="594.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="198.6" y="611.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">VARIANTEN</text>
+<text x="198.6" y="624.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">MSKU auf Reihe, Stufe und Attribute</text>
+<rect x="353.1" y="594.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="362.1" y="611.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">IMAGES</text>
+<text x="362.1" y="624.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">ein Fotoset je Bildmodell, nicht je Variante</text>
+<rect x="516.7" y="594.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="525.7" y="611.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">ADMIN</text>
+<text x="525.7" y="624.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">Kuration schlägt Automatik, immer</text>
+<rect x="680.3" y="594.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="689.3" y="611.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">ANFRAGE</text>
+<text x="689.3" y="624.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">Weg vom Konfigurator in den Deal</text>
+<rect x="843.9" y="594.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="852.9" y="611.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">HUBSPOT</text>
+<text x="852.9" y="624.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">kaufmännischer Master, Felder und Stufen</text>
+<rect x="1007.4" y="594.0" width="155.6" height="50.0" rx="2" fill="#ffffff" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="1016.4" y="611.0" font-size="5.6" fill="#1d2733" font-weight="600" text-anchor="start">PROMOS</text>
+<text x="1016.4" y="624.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">Aktionsregeln, später</text>
+<line x1="26" y1="819.0" x2="1163" y2="819.0" stroke="#d3dae1" stroke-width="0.8"/>
+<text x="26.0" y="827.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="start">Keine internen Werte auf dieser Karte. Genannt sind ausschließlich öffentliche Artikelzahlen und die öffentlich sichtbaren Bausteine.</text>
+<text x="1163.0" y="827.0" font-size="4.4" fill="#5b6874" font-weight="normal" text-anchor="end">sl-shop-hub, SYSTEMKARTE-A0.svg, A0 quer, 1189 x 841 mm</text>
+</svg>

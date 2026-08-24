@@ -68,7 +68,33 @@ Dateinamen kommen immer aus images.json, nie starr aus der MSKU konstruiert.
 - Alle Dateien nach gs://slshopv2-media/images/. Upload über Google Cloud Shell.
 - Öffentliche URL je Datei: https://storage.googleapis.com/slshopv2-media/images/{Dateiname}.
 
+## Bildmodell-Matrix, entschieden 25.08.2026
+
+Vier Festlegungen, sie beantworten die offenen Fragen weiter unten und sind
+normativ.
+
+1. **Surface Pro 12 Zoll und 13 Zoll sind getrennte Bildmodelle.** Die
+   Bildschirmgröße ist Teil des Schlüssels, ein gemeinsames Fotoset gibt es
+   nicht.
+2. **Eine Farbe ohne beschaffbares Herstellerfoto erbt das Bildmodell von
+   Platinum derselben Reihe und Größe** und wird als `foto_fehlt` geführt. Die
+   Erbregel wird erst angewandt, wenn feststeht, dass zu einer Farbe kein Foto
+   zu bekommen ist. Platinum wird deshalb zuerst fotografiert.
+3. **5G ist ein Attribut, kein eigenes Bildmodell.** Ein 5G-Gerät erbt das
+   Bildmodell von Generation und Größe.
+4. **Slim-Pen-Bundles bekommen nur mit echtem Hersteller-Bundle-Foto ein
+   eigenes Modell.** Sonst erben sie das Bildmodell der Tastatur.
+
+Der Schlüssel eines Bildmodells lautet `familie-generation-groesse-farbe`,
+Zubehör bekommt je Produkt ein eigenes Modell. Was sich aus dem Titel nicht
+sicher bestimmen lässt, bleibt leer und wird als unsicher ausgewiesen, es wird
+nicht geraten. Die abgeleitete Matrix und die Beschaffungsliste liegen im
+privaten Repo `sl-bilder` unter `data/matrix.json` und
+`docs/bildbedarf-2026-08-25.md`.
+
 ## Offene Fragen, vor der finalen Bildmatrix zu klären
+**Alle vier am 25.08.2026 entschieden, siehe Abschnitt Bildmodell-Matrix. Der
+Wortlaut bleibt als Beleg stehen, welche Frage womit beantwortet wurde.**
 - Surface Pro 12 Zoll Snapdragon gegen Surface Pro 13 Zoll Intel, wirklich unterschiedliche
   Bildschirmgröße oder ein Bildmodell.
 - Surface Laptop 13 Zoll, gibt es die Farbe Schwarz.

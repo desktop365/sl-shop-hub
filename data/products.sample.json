@@ -3,7 +3,6 @@
     "source": "API Distributor / Continue Pricelist",
     "generated_at": "2026-06-18T05:00:00+02:00",
     "currency": "EUR",
-    "markup_factor": 1.25,
     "vat_rate": 1.19,
     "contract_types": { "leasing": [15, 24, 32, 36], "finanzierung": [15, 24, 36] },
     "count": 2,

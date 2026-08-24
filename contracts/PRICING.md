@@ -12,7 +12,7 @@ Die Pipeline wurde im Juli gebaut, Parser und Rechenlogik stehen. Sie hat aber n
 
 ## 2. Rechenweg
 - EK netto vom Distributor.
-- Aufschlag Faktor 1,25 auf den EK netto, ergibt VK netto.
+- Aufschlag mit einem internen Faktor auf den EK netto, ergibt VK netto. Der Wert steht nicht in diesem Repo, er liegt versioniert im privaten Pricing-Repo surface-love-pricing.
 - Aus dem VK netto die Monatsraten je Vertragsart und Wertstaffel über die DLL-Faktortabelle.
 - Kaufmännisch gerundet, ROUND_HALF_UP, auf genau zwei Stellen, identisch zur DLL-Bank, weil die Rate so im Vertrag steht.
 - Vertragsarten und Laufzeiten wie im Datenvertrag, Leasing 15, 24, 32, 36, Finanzierung 15, 24, 36.

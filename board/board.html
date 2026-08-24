@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Surface.Love, Projekt-Board</title>
+<style>
+  body { margin: 0; min-height: 100vh; background: #fafbfc; color: #14181d;
+    font-family: "Segoe UI", "Segoe UI Variable", system-ui, -apple-system, sans-serif;
+    padding: 28px 20px 60px; }
+  .kern { max-width: 1060px; margin: 0 auto; }
+  header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  h1 { font-size: 21px; font-weight: 650; margin: 0; letter-spacing: -0.01em; }
+  .stand { color: #5b6673; font-size: 13px; }
+  .refresh { margin-left: auto; border: none; cursor: pointer;
+    background: #0a97ad; color: #fff; font: inherit; font-size: 13px;
+    padding: 7px 16px; border-radius: 7px; }
+  .refresh:hover { background: #08869a; }
+  .refresh:focus-visible { outline: 2px solid #14181d; outline-offset: 2px; }
+  .fortschritt { margin: 18px 0 6px; }
+  .fzahl { font-size: 13px; color: #5b6673; margin-bottom: 6px; }
+  .fzahl b { color: #14181d; font-weight: 650; }
+  .fbalken { height: 4px; background: #e6eaee; border-radius: 2px; overflow: hidden; }
+  .fwert { height: 100%; background: #0a97ad; border-radius: 2px; transition: width .4s ease; }
+  .spalten { display: grid; gap: 16px; margin-top: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .karte { background: #fff; border: 1px solid #e6eaee; border-radius: 10px; padding: 16px 18px; }
+  .karte h2 { font-size: 12px; font-weight: 650; text-transform: uppercase;
+    letter-spacing: .07em; color: #5b6673; margin: 0 0 10px; }
+  .karte h2 .anz { color: #14181d; margin-left: 6px; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  .zeile { display: flex; align-items: baseline; gap: 9px; padding: 7px 0;
+    border-top: 1px solid #f0f3f5; font-size: 13.5px; }
+  .zeile:first-child { border-top: none; }
+  .punkt { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; position: relative; top: -1px; }
+  .zid { font-family: "Cascadia Code", Consolas, monospace; font-size: 11.5px;
+    color: #8a94a0; flex: 0 0 auto; min-width: 22px; }
+  .ztitel { flex: 1 1 auto; line-height: 1.45; }
+  .zowner { flex: 0 0 auto; font-size: 12px; color: #5b6673; }
+  .notiz { display: block; color: #7c8794; font-size: 12px; margin-top: 1px; }
+  .warteauf { display: block; font-size: 12px; color: #5b6673; margin-top: 2px; }
+  .warteauf b { font-weight: 600; color: #14181d; }
+  .blk { color: #b3402e; font-style: normal; font-weight: 600; font-size: 12px; }
+  .phasen { margin-top: 26px; }
+  .phase { margin-top: 14px; }
+  .phase h3 { font-size: 13.5px; font-weight: 650; margin: 0 0 4px;
+    display: flex; align-items: baseline; gap: 8px; }
+  .phase h3 .pf { font-size: 12px; font-weight: 400; color: #5b6673; }
+  .leer { color: #7c8794; font-size: 13px; padding: 6px 0; }
+  .meldung { padding: 30px 0; color: #5b6673; font-size: 14px; }
+  .fehler { color: #b3402e; }
+</style>
+</head>
+<body>
+<div class="kern">
+  <header>
+    <h1>Surface.Love, Projekt-Board</h1>
+    <span class="stand" id="stand"></span>
+    <button class="refresh" id="refresh">Aktualisieren</button>
+  </header>
+  <div id="inhalt"><p class="meldung">Board wird geladen…</p></div>
+</div>
+<script>
+(function () {
+  var URL_BOARD = "https://raw.githubusercontent.com/desktop365/sl-shop-hub/main/board/board.json";
+  var OWNER = { master: "Master-Chat", katalog: "Preislisten-Chat", design: "Design-Strang",
+    code: "Claude Code", sascha: "Sascha", betrieb: "Betrieb", ziel: "Meilenstein" };
+  var DOT = { erledigt: "#1f9d5b", geliefert: "#d99114", laeuft: "#d99114",
+    offen: "#9aa4ae", blockiert: "#9aa4ae" };
+  var inhalt = document.getElementById("inhalt");
+  var standEl = document.getElementById("stand");
+  var knopf = document.getElementById("refresh");
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function zeile(t, extraHtml) {
+    var farbe = DOT[t.status] || "#9aa4ae";
+    var blk = t.status === "blockiert" ? ' <em class="blk">blockiert</em>' : "";
+    var notiz = t.notiz ? '<span class="notiz">' + esc(t.notiz) + "</span>" : "";
+    return '<li class="zeile"><span class="punkt" style="background:' + farbe + '"></span>' +
+      '<span class="zid">' + esc(t.id) + "</span>" +
+      '<span class="ztitel">' + esc(t.titel) + blk + (extraHtml || "") + notiz + "</span>" +
+      '<span class="zowner">' + esc(OWNER[t.owner] || t.owner) + "</span></li>";
+  }
+  function render(data) {
+    var aufgaben = data.aufgaben || [];
+    var byId = {};
+    aufgaben.forEach(function (t) { byId[t.id] = t; });
+    function offeneDeps(t) {
+      var deps = Array.isArray(t.haengt_von) ? t.haengt_von : [];
+      return deps.filter(function (id) { return !(byId[id] && byId[id].status === "erledigt"); });
+    }
+    var erledigt = aufgaben.filter(function (t) { return t.status === "erledigt"; });
+    var inArbeit = aufgaben.filter(function (t) { return t.status === "laeuft" || t.status === "geliefert"; });
+    var blockiert = aufgaben.filter(function (t) { return t.status === "blockiert"; });
+    var jetztDran = aufgaben.filter(function (t) { return t.status === "offen" && offeneDeps(t).length === 0; });
+    var wartet = aufgaben.filter(function (t) { return t.status === "offen" && offeneDeps(t).length > 0; });
+    var prozent = aufgaben.length ? Math.round(erledigt.length / aufgaben.length * 100) : 0;
+    var phasen = [];
+    aufgaben.forEach(function (t) { if (phasen.indexOf(t.phase) < 0) phasen.push(t.phase); });
+
+    var h = "";
+    h += '<div class="fortschritt"><div class="fzahl"><b>' + prozent + "%</b> · " +
+      erledigt.length + " von " + aufgaben.length + " Aufgaben erledigt · " +
+      inArbeit.length + " in Arbeit · " + jetztDran.length + " startklar · " +
+      wartet.length + " wartend" + (blockiert.length ? " · " + blockiert.length + " blockiert" : "") +
+      '</div><div class="fbalken"><div class="fwert" style="width:' + prozent + '%"></div></div></div>';
+
+    h += '<div class="spalten">';
+    h += '<section class="karte"><h2>Jetzt dran<span class="anz">' + jetztDran.length + "</span></h2><ul>";
+    h += jetztDran.length
+      ? jetztDran.map(function (t) { return zeile(t); }).join("")
+      : '<li class="leer">Nichts startklar, alles läuft oder wartet.</li>';
+    h += "</ul></section>";
+    h += '<section class="karte"><h2>In Arbeit<span class="anz">' + inArbeit.length + "</span></h2><ul>";
+    h += inArbeit.length
+      ? inArbeit.map(function (t) {
+          var ex = t.status === "geliefert" ? '<span class="warteauf">geliefert, wartet auf Abnahme</span>' : "";
+          return zeile(t, ex);
+        }).join("")
+      : '<li class="leer">Gerade nichts in Arbeit.</li>';
+    h += "</ul></section>";
+    h += '<section class="karte"><h2>Wartet<span class="anz">' + wartet.length + "</span></h2><ul>";
+    h += wartet.length
+      ? wartet.map(function (t) {
+          var auf = offeneDeps(t).map(function (id) {
+            var o = byId[id] ? " (" + esc(OWNER[byId[id].owner] || byId[id].owner) + ")" : " (unbekannt)";
+            return "<b>" + esc(id) + "</b>" + o;
+          }).join(", ");
+          return zeile(t, '<span class="warteauf">wartet auf ' + auf + "</span>");
+        }).join("")
+      : '<li class="leer">Keine Aufgabe wartet.</li>';
+    h += "</ul></section></div>";
+
+    h += '<div class="phasen karte"><h2>Alle Phasen</h2>';
+    phasen.forEach(function (p) {
+      var liste = aufgaben.filter(function (t) { return t.phase === p; });
+      var fertig = liste.filter(function (t) { return t.status === "erledigt"; }).length;
+      h += '<div class="phase"><h3>' + esc(p) + '<span class="pf">' + fertig + "/" + liste.length +
+        " erledigt</span></h3><ul>" + liste.map(function (t) { return zeile(t); }).join("") + "</ul></div>";
+    });
+    h += "</div>";
+    inhalt.innerHTML = h;
+    standEl.textContent = "gelesen " +
+      new Date().toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) +
+      " Uhr" + (data.stand ? " · Datenstand " + data.stand : "");
+  }
+
+  function lade() {
+    knopf.disabled = true;
+    knopf.textContent = "Lädt…";
+    fetch(URL_BOARD + "?t=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+      .then(function (text) { render(JSON.parse(text.replace(/^\uFEFF/, ""))); })
+      .catch(function (e) {
+        inhalt.innerHTML = '<p class="meldung fehler">Das Board konnte nicht gelesen werden (' +
+          esc(e.message) + "). Netzverbindung prüfen, die raw-Auslieferung cached zudem einige Minuten.</p>";
+      })
+      .then(function () { knopf.disabled = false; knopf.textContent = "Aktualisieren"; });
+  }
+  knopf.addEventListener("click", lade);
+  lade();
+})();
+</script>
+</body>
+</html>

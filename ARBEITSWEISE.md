@@ -131,3 +131,10 @@ surface-love-shop/
 4. MCPs einrichten, HubSpot und Mail im Betriebs-Cowork, Hostinger und GitHub in Claude Code.
 5. Objektspeicher entschieden, bleibt der GCS-Bucket slshopv2-media, siehe contracts/INFRA.md.
 6. Phase 0 in Claude Code starten, Next.js plus MySQL bei Hostinger, mehrsprachig, Designtokens aus dem Hub. Der Kickoff-Prompt liegt im Hub unter archive.
+
+## Setz-Regel fuer Secrets und Werte mit Sonderzeichen
+Umgebungsvariablen und App-Settings werden nie als direktes CLI-Argument
+gesetzt, sondern immer ueber eine temporaere Settings-Datei (JSON) oder eine
+maskierte Eingabe. Grund: cmd und PowerShell zerreissen Werte an & und $,
+im Juni ging so der shop-Parameter der Distributor-URL verloren. Werte nie
+in die Terminal-Historie, in Berichten nur Namen.

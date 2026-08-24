@@ -62,3 +62,14 @@ Abo-Spiegelung nach HubSpot mit.
 
 Katalog und refurbished Bestand tragen die Felder nicht. Der Bestand ist markenübergreifend, welcher
 Storefront ein Gerät zeigt, ergibt sich aus dem Hersteller-Filter, nicht aus einem Feld an der Einheit.
+
+## Kuration (Vorgabe aus contracts/ADMIN.md, noch nicht gebaut)
+Zwei Tabellen, vom Sync niemals beruehrt:
+- katalog_kuration: msku (PK), sichtbar (bool), notiz (text, optional),
+  geaendert_am. Ein Eintrag existiert nur, wenn von der Erstauftauchen-Politik
+  abgewichen oder ein Artikel je bearbeitet wurde.
+- steuerung: schluessel (PK), wert (JSON), geaendert_am. Generischer
+  Konfigurationsspeicher, u. a. erstauftauchen_politik je Hersteller. Neue
+  Stellschrauben werden hier zu Daten, ohne Schemaaenderung.
+Katalogabfragen des Shops filtern auf sichtbar, aufgeloest aus Kurationseintrag
+oder Politik. Der Health-Endpunkt weist kuenftig gesamt und sichtbar aus.

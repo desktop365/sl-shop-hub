@@ -1,0 +1,94 @@
+/* Storefront surface (surface.love), Token-Satz V2.1
+   Gleiche Variablennamen wie tokens.lenovo.css, nur die Werte unterscheiden sich.
+   Theming: <html data-sf="surface"> laedt diesen Satz, sonst nichts. */
+
+:root, [data-sf="surface"]{
+
+  /* Akzent, geschaerft in zwei Stufen.
+     --sf-accent ist die Markenfarbe (Logo-Puls, aktiver Schritt, Tints).
+     --sf-accent-strong ist die interaktive Stufe fuer Links und die Rate,
+     erfuellt 4,5:1 auf Weiss. --sf-action ist die Fuellung der Hauptaktion. */
+  --sf-accent:#00A3E0;
+  --sf-accent-strong:#007DB8;
+  --sf-accent-weak:#E6F6FD;
+  --sf-action:#007DB8;
+  --sf-action-hover:#006CA0;
+  --sf-action-ink:#FFFFFF;
+  --sf-focus:#007DB8;
+
+  /* Neutrale, kuehl */
+  --sf-ink:#1A1A1A;
+  --sf-text-2:#6B6B70;
+  --sf-surface:#FFFFFF;
+  --sf-surface-2:#F5F6F7;
+  --sf-border:#E6E7E9;
+  --sf-border-strong:#C9CCD1;
+  --sf-logo-ink:#000000;
+
+  /* Status, nie Akzent */
+  --sf-success:#1B9E5A;
+  --sf-incoming:#B8860B;
+  --sf-onrequest:#8A8D93;
+
+  /* Badges der beiden Lanes */
+  --sf-badge-new-bg:#F0F1F3;  --sf-badge-new-ink:#3A3C40;
+  --sf-badge-ref-bg:#E7F6EE;  --sf-badge-ref-ink:#136F41;
+
+  /* Typografie, fluid von Mobil nach Desktop */
+  --sf-font:"Segoe UI Variable","Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --sf-w-display:300;
+  --sf-w-body:400;
+  --sf-w-strong:600;
+  --sf-text-display:clamp(2.25rem, 1.5rem + 3.8vw, 3.5rem);   /* 36 bis 56 */
+  --sf-text-h1:clamp(1.75rem, 1.4rem + 1.8vw, 2.25rem);       /* 28 bis 36 */
+  --sf-text-h2:clamp(1.375rem, 1.2rem + 0.9vw, 1.625rem);     /* 22 bis 26 */
+  --sf-text-h3:1.25rem;
+  --sf-text-body:1.0625rem;                                   /* 17 */
+  --sf-text-small:0.875rem;
+  --sf-text-micro:0.75rem;
+  --sf-tracking-display:-0.02em;
+  --sf-leading-tight:1.15;
+  --sf-leading-body:1.55;
+
+  /* Form */
+  --sf-radius:18px;        /* Karten, Panels */
+  --sf-radius-sm:12px;     /* Eingaben, Thumbnails, innere Flaechen */
+  --sf-radius-btn:999px;   /* Buttons, Chips, Segmente: Pille */
+
+  /* Tiefe, nur zwei Ebenen */
+  --sf-shadow-card:0 1px 2px rgba(20,24,28,.06);
+  --sf-shadow-float:0 12px 32px rgba(20,24,28,.14);
+
+  /* Bewegung */
+  --sf-ease:cubic-bezier(.2,.7,.3,1);
+  --sf-dur-1:150ms;        /* Mikro: Hover, Fokus */
+  --sf-dur-2:260ms;        /* Umschalten: Rate, Segmente, Crossfade-Anteil */
+  --sf-dur-3:550ms;        /* Erscheinen: Scroll-Reveal, Ladefolge */
+  --sf-pulse:3.5s;         /* Herz-Doppelschlag, Periode */
+
+  /* Bildton: Staerke des Marken-Duotons auf Lifestyle-Medien und Szenen */
+  --sf-tint:14%;
+
+  /* Raum, 4er-Basis */
+  --sf-space-1:4px;  --sf-space-2:8px;  --sf-space-3:12px;
+  --sf-space-4:16px; --sf-space-5:24px; --sf-space-6:32px;
+  --sf-space-7:48px; --sf-space-8:64px; --sf-space-9:96px;
+  --sf-container:1200px;
+  --sf-gutter:clamp(20px, 4vw, 32px);
+}
+
+/* Uebergang: Aliasse fuer den bisherigen --sl-Namensraum,
+   entfernen, sobald keine Komponente mehr darauf zeigt. */
+:root, [data-sf="surface"]{
+  --sl-cyan:var(--sf-accent);
+  --sl-ink:var(--sf-ink);
+  --sl-text-secondary:var(--sf-text-2);
+  --sl-black:var(--sf-logo-ink);
+  --sl-surface:var(--sf-surface);
+  --sl-surface-2:var(--sf-surface-2);
+  --sl-border:var(--sf-border);
+  --sl-success:var(--sf-success);
+  --sl-incoming:var(--sf-incoming);
+  --sl-radius:var(--sf-radius);
+  --sl-font:var(--sf-font);
+}

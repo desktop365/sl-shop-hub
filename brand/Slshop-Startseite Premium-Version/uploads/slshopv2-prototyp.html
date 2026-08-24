@@ -1,0 +1,1084 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SL Shop V3, Design-Prototyp</title>
+<style>
+/* ============ Token-Saetze, identisch mit tokens.surface.css / tokens.lenovo.css ============ */
+[data-sf="surface"]{
+  --sf-accent:#00A3E0; --sf-accent-strong:#007DB8; --sf-accent-weak:#E6F6FD;
+  --sf-action:#007DB8; --sf-action-hover:#006CA0; --sf-action-ink:#FFFFFF; --sf-focus:#007DB8;
+  --sf-ink:#1A1A1A; --sf-text-2:#6B6B70; --sf-surface:#FFFFFF; --sf-surface-2:#F5F6F7;
+  --sf-border:#E6E7E9; --sf-border-strong:#C9CCD1; --sf-logo-ink:#000000;
+  --sf-success:#1B9E5A; --sf-incoming:#B8860B; --sf-onrequest:#8A8D93;
+  --sf-badge-new-bg:#F0F1F3; --sf-badge-new-ink:#3A3C40;
+  --sf-badge-ref-bg:#E7F6EE; --sf-badge-ref-ink:#136F41;
+  --sf-font:"Segoe UI Variable","Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --sf-w-display:300; --sf-w-body:400; --sf-w-strong:600;
+  --sf-text-display:clamp(2.25rem, 1.5rem + 3.8cqw, 3.5rem);
+  --sf-text-h1:clamp(1.75rem, 1.4rem + 1.8cqw, 2.25rem);
+  --sf-text-h2:clamp(1.375rem, 1.2rem + 0.9cqw, 1.625rem);
+  --sf-text-h3:1.25rem; --sf-text-body:1.0625rem; --sf-text-small:0.875rem; --sf-text-micro:0.75rem;
+  --sf-tracking-display:-0.02em; --sf-leading-tight:1.15; --sf-leading-body:1.55;
+  --sf-radius:18px; --sf-radius-sm:12px; --sf-radius-btn:999px;
+  --sf-shadow-card:0 1px 2px rgba(20,24,28,.06);
+  --sf-shadow-float:0 12px 32px rgba(20,24,28,.14);
+  --sf-ease:cubic-bezier(.2,.7,.3,1); --sf-dur-1:150ms; --sf-dur-2:260ms; --sf-dur-3:550ms; --sf-pulse:3.5s;
+  --sf-tint:14%;
+  --sf-space-1:4px; --sf-space-2:8px; --sf-space-3:12px; --sf-space-4:16px; --sf-space-5:24px;
+  --sf-space-6:32px; --sf-space-7:48px; --sf-space-8:64px; --sf-space-9:96px;
+  --sf-container:1200px; --sf-gutter:clamp(20px, 4cqw, 32px);
+}
+[data-sf="lenovo"]{
+  --sf-accent:#D0342C; --sf-accent-strong:#A82519; --sf-accent-weak:#FBEBE8;
+  --sf-action:#D0342C; --sf-action-hover:#B32A21; --sf-action-ink:#FFFFFF; --sf-focus:#A82519;
+  --sf-ink:#191817; --sf-text-2:#6F6A66; --sf-surface:#FFFFFF; --sf-surface-2:#F7F5F2;
+  --sf-border:#E8E4DF; --sf-border-strong:#CFC8C1; --sf-logo-ink:#A82519;
+  --sf-success:#1B9E5A; --sf-incoming:#B8860B; --sf-onrequest:#8A8D93;
+  --sf-badge-new-bg:#F1EEEA; --sf-badge-new-ink:#46413C;
+  --sf-badge-ref-bg:#E7F6EE; --sf-badge-ref-ink:#136F41;
+  --sf-font:"Inter","Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --sf-w-display:600; --sf-w-body:400; --sf-w-strong:600;
+  --sf-text-display:clamp(2rem, 1.4rem + 3cqw, 3rem);
+  --sf-text-h1:clamp(1.625rem, 1.35rem + 1.4cqw, 2rem);
+  --sf-text-h2:clamp(1.25rem, 1.1rem + 0.8cqw, 1.5rem);
+  --sf-text-h3:1.125rem; --sf-text-body:1rem; --sf-text-small:0.875rem; --sf-text-micro:0.75rem;
+  --sf-tracking-display:-0.01em; --sf-leading-tight:1.1; --sf-leading-body:1.5;
+  --sf-radius:12px; --sf-radius-sm:8px; --sf-radius-btn:10px;
+  --sf-shadow-card:0 1px 2px rgba(25,24,23,.07);
+  --sf-shadow-float:0 10px 24px rgba(25,24,23,.16);
+  --sf-ease:cubic-bezier(.2,.7,.3,1); --sf-dur-1:150ms; --sf-dur-2:260ms; --sf-dur-3:550ms; --sf-pulse:0s;
+  --sf-tint:12%;
+  --sf-space-1:4px; --sf-space-2:8px; --sf-space-3:12px; --sf-space-4:16px; --sf-space-5:24px;
+  --sf-space-6:32px; --sf-space-7:48px; --sf-space-8:64px; --sf-space-9:96px;
+  --sf-container:1200px; --sf-gutter:clamp(20px, 4cqw, 32px);
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  [data-rev]{opacity:1!important;transform:none!important}
+}
+
+/* ============ Prototyp-Chrome (nicht Teil des Designs) ============ */
+body{margin:0;background:#101216;color:#E7E9EE;font-family:ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif}
+.bar{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;
+  padding:12px 18px;background:rgba(21,24,29,.92);backdrop-filter:blur(10px);border-bottom:1px solid #23262c}
+.bar-title{display:flex;flex-direction:column;margin-right:8px}
+.bar-title b{font-size:14px}
+.bar-title span{font-size:11px;color:#8a919d}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.tab{padding:7px 13px;border-radius:9px;background:#1d2127;color:#aab0bb;border:1px solid #262a31;cursor:pointer;font-size:13px;font-family:inherit}
+.tab:hover{color:#e7e9ee}
+.tab.on{background:#e7e9ee;color:#15181d;border-color:#e7e9ee}
+#stage{padding:26px 18px 60px;display:flex;gap:26px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+.devlabel{font-size:12px;color:#8a919d;text-align:center;margin-bottom:10px;font-family:ui-monospace,Consolas,monospace}
+.phone{width:min(394px,96vw)}
+.phone .frame{border-radius:40px;border:1px solid #2a2e36;background:#07080a;padding:10px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.phone .screen{height:min(76vh,800px);border-radius:30px}
+.desk{width:min(1340px,97vw)}
+.desk .frame{border-radius:14px;border:1px solid #2a2e36;background:#07080a;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.browserbar{display:flex;align-items:center;padding:10px 14px;background:#15181d;border-bottom:1px solid #23262c}
+.wdots{display:flex;gap:6px}
+.wdots i{width:10px;height:10px;border-radius:50%;background:#2c313a;display:block}
+.url{margin:0 auto;background:#1d2127;border-radius:8px;padding:4px 42px;font-size:12px;color:#aab0bb;font-family:ui-monospace,Consolas,monospace}
+.desk .screen{height:min(82vh,880px)}
+
+/* ============ Shop, alles ueber var(--sf-*) ============ */
+.screen{background:var(--sf-surface);color:var(--sf-ink);font-family:var(--sf-font);font-size:var(--sf-text-body);
+  line-height:var(--sf-leading-body);overflow-y:auto;overflow-x:hidden;position:relative;
+  container-type:inline-size;container-name:screen;-webkit-font-smoothing:antialiased;
+  scrollbar-width:thin;scrollbar-color:var(--sf-border-strong) transparent}
+.screen *{box-sizing:border-box}
+.screen button{font-family:inherit}
+.screen :focus-visible{outline:2px solid var(--sf-focus);outline-offset:2px}
+.wrap{max-width:var(--sf-container);margin:0 auto;padding-left:var(--sf-gutter);padding-right:var(--sf-gutter)}
+.hide{display:none}
+
+.display{font-size:var(--sf-text-display);font-weight:var(--sf-w-display);letter-spacing:var(--sf-tracking-display);line-height:var(--sf-leading-tight);margin:0 0 var(--sf-space-4)}
+.h1{font-size:var(--sf-text-h1);font-weight:var(--sf-w-display);letter-spacing:var(--sf-tracking-display);line-height:var(--sf-leading-tight);margin:0 0 var(--sf-space-3)}
+.h2{font-size:var(--sf-text-h2);font-weight:var(--sf-w-display);letter-spacing:var(--sf-tracking-display);line-height:1.2;margin:0 0 var(--sf-space-4)}
+.sub{color:var(--sf-text-2);margin:0 0 var(--sf-space-5);max-width:34rem}
+.sub2{color:var(--sf-text-2);margin:4px 0 0;font-size:var(--sf-text-small)}
+.micro{color:var(--sf-text-2);font-size:var(--sf-text-micro);margin-top:10px}
+.center{text-align:center}
+
+/* Erscheinen beim Scrollen */
+[data-rev]{opacity:0;transform:translateY(16px);transition:opacity var(--sf-dur-3) var(--sf-ease) var(--d,0s),transform var(--sf-dur-3) var(--sf-ease) var(--d,0s)}
+[data-rev].in{opacity:1;transform:none}
+.fx{animation:fadeUp .55s var(--sf-ease) both}
+.fx2{animation-delay:.08s}.fx3{animation-delay:.16s}.fx4{animation-delay:.24s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Header */
+.hdr{position:sticky;top:0;z-index:6;background:color-mix(in srgb,var(--sf-surface) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--sf-border)}
+.hdr-in{display:flex;align-items:center;gap:16px;height:60px}
+.logo{display:inline-flex;align-items:center;color:var(--sf-logo-ink);cursor:pointer}
+.slogan{font-size:11px;color:var(--sf-text-2);margin-left:9px}
+.nav{display:none;gap:22px;font-size:var(--sf-text-small);color:var(--sf-text-2)}
+.nav span{cursor:pointer}
+.nav span:hover{color:var(--sf-ink)}
+.hdr-cta{margin-left:auto;display:flex;gap:10px;align-items:center}
+.iconbtn{position:relative;background:none;border:0;color:var(--sf-ink);width:40px;height:40px;display:grid;place-items:center;border-radius:var(--sf-radius-sm);cursor:pointer}
+.iconbtn:hover{background:var(--sf-surface-2)}
+.count{position:absolute;top:2px;right:0;background:var(--sf-accent);color:#fff;font-size:10px;font-weight:600;min-width:16px;height:16px;border-radius:999px;display:grid;place-items:center;padding:0 4px}
+.phone-l{display:none;align-items:center;gap:7px;font-weight:600;font-size:var(--sf-text-small);color:var(--sf-ink);text-decoration:none}
+.phone-l svg{color:var(--sf-accent-strong)}
+.ph-r{display:inline-block;max-width:0;overflow:hidden;white-space:nowrap;color:var(--sf-text-2);font-weight:400;transition:max-width .35s var(--sf-ease),margin-left .35s var(--sf-ease)}
+.phone-l:hover .ph-r,.phone-l:focus-visible .ph-r{max-width:130px;margin-left:6px}
+.btn.sm{padding:9px 16px;font-size:var(--sf-text-small)}
+.hdr-go{display:none}
+@container screen (min-width:760px){.nav{display:flex}.only-m{display:none}.phone-l{display:inline-flex}}
+@container screen (min-width:900px){.hdr-go{display:inline-flex}}
+
+/* Herz */
+.heart{animation:beat var(--sf-pulse,0s) var(--sf-ease) infinite;transform-origin:50% 55%}
+.logo:hover .heart{animation:beat .7s var(--sf-ease) 1}
+@keyframes beat{0%{transform:scale(1)}5%{transform:scale(1.09)}10%{transform:scale(1)}15%{transform:scale(1.06)}22%,100%{transform:scale(1)}}
+
+/* Buttons und Links */
+.btn{font-weight:var(--sf-w-strong);font-size:1rem;border-radius:var(--sf-radius-btn);padding:13px 22px;border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background var(--sf-dur-1) var(--sf-ease),transform var(--sf-dur-1) var(--sf-ease)}
+.btn.primary{background:var(--sf-action);color:var(--sf-action-ink)}
+.btn.primary:hover{background:var(--sf-action-hover)}
+.btn.primary:active{transform:translateY(1px)}
+.btn.secondary{background:transparent;color:var(--sf-ink);border-color:var(--sf-border-strong)}
+.btn.secondary:hover{background:var(--sf-surface-2)}
+.btn.ghostw{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.55);backdrop-filter:blur(6px)}
+.btn.ghostw:hover{background:rgba(255,255,255,.24)}
+.btn.block{width:100%;margin-top:var(--sf-space-4)}
+.linkacc{color:var(--sf-accent-strong);font-weight:600;font-size:var(--sf-text-small);display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.linkacc:hover{text-decoration:underline}
+.linkacc svg{transition:transform var(--sf-dur-1) var(--sf-ease)}
+.linkacc:hover svg{transform:translateX(3px)}
+
+/* Szenen, die Bildslots fuer Lifestyle-Medien */
+.scene{position:relative;overflow:hidden;background:linear-gradient(135deg,color-mix(in srgb,var(--sf-accent) var(--sf-tint),#F3F1ED),color-mix(in srgb,var(--sf-accent) 5%,#FFFFFF) 72%)}
+.scene-art{position:absolute;inset:0}
+.scene-art.kb{animation:kb 26s ease-in-out infinite alternate;transform-origin:60% 40%}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.06) translate(-1.2%,-.8%)}}
+.sc-light{position:absolute;top:-30%;right:-18%;width:78%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.95),rgba(255,255,255,0) 62%)}
+.sc-desk{position:absolute;left:0;right:0;bottom:0;height:24%;background:linear-gradient(180deg,color-mix(in srgb,var(--sf-ink) 9%,#EBE8E2),color-mix(in srgb,var(--sf-ink) 20%,#DFDBD3))}
+.sc-window{position:absolute;top:4%;right:2%;width:56%;height:64%;opacity:.45}
+.sc-window path{stroke:color-mix(in srgb,var(--sf-ink) 22%,transparent);stroke-width:2;fill:none}
+.sc-plant{position:absolute;left:4%;bottom:12%;width:20%}
+.sc-plant .leaf{fill:color-mix(in srgb,var(--sf-success) 45%,var(--sf-ink))}
+.sc-plant .stem{fill:color-mix(in srgb,var(--sf-ink) 55%,var(--sf-success))}
+.sc-plant .pot{fill:color-mix(in srgb,var(--sf-ink) 35%,#C9C2B8)}
+.sc-person{position:absolute}
+.sc-person .body{fill:color-mix(in srgb,var(--sf-ink) 80%,var(--sf-accent))}
+.sc-person .lap{fill:color-mix(in srgb,#FFFFFF 78%,var(--sf-ink))}
+.sc-person .lap2{fill:color-mix(in srgb,#FFFFFF 55%,var(--sf-ink))}
+.sc-table{position:absolute;left:16%;right:16%;bottom:9%;height:11%;border-radius:50%;background:color-mix(in srgb,#FFFFFF 68%,var(--sf-ink))}
+.sc-cup{position:absolute;width:7%;aspect-ratio:1;border-radius:50%;background:color-mix(in srgb,var(--sf-ink) 55%,#BFB8AC)}
+.sc-note{position:absolute;width:16%;height:5%;border-radius:3px;background:color-mix(in srgb,#FFFFFF 85%,var(--sf-ink));box-shadow:0 1px 0 rgba(0,0,0,.08)}
+.sc-mockwrap{position:absolute;left:0;right:0;bottom:12%;display:flex;justify-content:center}
+.sc-grain{position:absolute;inset:0;pointer-events:none;opacity:.16;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")}
+.sc-tag{position:absolute;left:12px;bottom:12px;z-index:3;background:rgba(255,255,255,.82);backdrop-filter:blur(6px);border-radius:var(--sf-radius-btn);padding:5px 11px;font-size:11px;color:var(--sf-text-2)}
+.sc-hero .sc-person{right:10%;bottom:17%;width:36%}
+.sc-team .sc-person.p1{right:13%;bottom:19%;width:30%}
+.sc-team .sc-person.p2{left:13%;bottom:19%;width:30%;transform:scaleX(-1)}
+.sc-focus .sc-cup{right:14%;bottom:16%}
+.sc-focus .sc-note{left:12%;bottom:15%;transform:rotate(-4deg)}
+.sc-focus .sc-mockwrap .mock{width:52%;max-width:none}
+.sc-detail .sc-mockwrap{bottom:4%;left:-8%;right:-8%}
+.sc-detail .sc-mockwrap .mock{width:86%;max-width:none}
+
+/* Video-Slots */
+.vslot{position:relative;overflow:hidden;background:#0E1116}
+.vslot video,.vslot .vposter{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vslot .scene{position:absolute;inset:0;border:0;border-radius:0}
+.vctl{position:absolute;right:16px;bottom:16px;z-index:4;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.6);background:rgba(10,14,18,.35);backdrop-filter:blur(8px);color:#fff;display:grid;place-items:center;cursor:pointer}
+.vctl:hover{background:rgba(10,14,18,.55)}
+.vctl .ic-play{display:none}
+.vctl.paused .ic-pause{display:none}
+.vctl.paused .ic-play{display:block}
+
+/* Hero mit Video */
+.vhero{position:relative;min-height:clamp(500px,62cqw,700px);display:flex;align-items:center;overflow:hidden}
+.vhero>.vslot{position:absolute;inset:0}
+.vhero .scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,13,17,.78) 0%,rgba(10,13,17,.42) 48%,rgba(10,13,17,.10) 80%),linear-gradient(0deg,rgba(10,13,17,.45),transparent 34%)}
+.vhero-in{position:relative;z-index:2;width:100%;padding-top:var(--sf-space-7);padding-bottom:var(--sf-space-8)}
+.vhero .display{color:#fff;max-width:16ch}
+.vhero .sub{color:rgba(255,255,255,.86)}
+.vhero .trust{color:rgba(255,255,255,.85)}
+.eyebrow{display:inline-block;background:var(--sf-accent-weak);color:var(--sf-accent-strong);font-size:var(--sf-text-micro);font-weight:600;border-radius:var(--sf-radius-btn);padding:6px 12px;margin-bottom:var(--sf-space-4)}
+.eyebrow.inv{background:rgba(255,255,255,.16);color:#fff;backdrop-filter:blur(6px)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:var(--sf-space-5)}
+.trust{display:flex;gap:8px 20px;flex-wrap:wrap;color:var(--sf-text-2);font-size:var(--sf-text-small)}
+.trust span{display:inline-flex;align-items:center;gap:7px}
+.trust svg{color:var(--sf-success)}
+
+/* Geraete-Attrappe */
+.mock{width:64%;max-width:230px;margin:auto}
+.mock-screen{aspect-ratio:16/10;border-radius:10px 10px 3px 3px;background:linear-gradient(145deg,color-mix(in srgb,var(--sf-accent) 30%,#232830),#101318);border:3px solid #1a1e24;border-bottom-width:7px}
+.mock-base{height:6px;background:linear-gradient(#dcdfe4,#b7bcc4);border-radius:2px 2px 7px 7px;margin:0 -5%}
+
+/* Sektionen und Karten */
+.sect{padding-bottom:var(--sf-space-7)}
+.sect-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:var(--sf-space-4)}
+.sect-head .h2{margin:0}
+.sect-top{padding-top:var(--sf-space-7)}
+.grid{display:grid;gap:14px}
+.g4{grid-template-columns:repeat(2,1fr)}
+@container screen (min-width:760px){.g4{grid-template-columns:repeat(3,1fr)}}
+@container screen (min-width:1020px){.g4{grid-template-columns:repeat(4,1fr)}}
+.pcard{border:1px solid var(--sf-border);border-radius:var(--sf-radius);background:var(--sf-surface);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow var(--sf-dur-2) var(--sf-ease)}
+.pcard:hover{box-shadow:var(--sf-shadow-float)}
+.pmedia{aspect-ratio:4/3;background:var(--sf-surface-2);position:relative;display:grid;place-items:center;overflow:hidden}
+.pmedia .scene{position:absolute;inset:0;border:0;border-radius:0}
+.pmedia .mock,.pcard .scene-art{transition:transform var(--sf-dur-2) var(--sf-ease)}
+.pcard:hover .pmedia .mock{transform:translateY(-3px) scale(1.03)}
+.pcard:hover .scene-art{transform:scale(1.04)}
+.badge{position:absolute;top:12px;left:12px;z-index:2;font-size:12px;font-weight:600;padding:4px 11px;border-radius:var(--sf-radius-btn)}
+.badge.new{background:var(--sf-badge-new-bg);color:var(--sf-badge-new-ink)}
+.badge.ref{background:var(--sf-badge-ref-bg);color:var(--sf-badge-ref-ink)}
+.badge.stat{position:static;display:inline-block;margin-bottom:12px}
+.pbody{padding:14px 16px 16px;display:flex;flex-direction:column;gap:5px;flex:1}
+.pname{font-weight:600}
+.pspec{font-size:var(--sf-text-small);color:var(--sf-text-2)}
+.avail{display:inline-flex;align-items:center;gap:7px;font-size:var(--sf-text-micro);color:var(--sf-text-2)}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.dot.ok{background:var(--sf-success)}
+.dot.soon{background:var(--sf-incoming)}
+.dot.req{background:var(--sf-onrequest)}
+.prate{margin-top:auto;display:flex;align-items:baseline;gap:7px;padding-top:8px}
+.prate b{color:var(--sf-accent-strong);font-size:1.2rem;font-weight:600;font-variant-numeric:tabular-nums}
+.psub{font-size:var(--sf-text-micro);color:var(--sf-text-2)}
+.pcard.promo{cursor:default}
+.pcard.promo .scene{aspect-ratio:4/3;border:0;border-radius:0}
+@container screen (min-width:760px){
+  .pcard.promo{grid-column:span 2;flex-direction:row}
+  .pcard.promo .scene{aspect-ratio:auto;width:50%}
+  .pcard.promo .pbody{justify-content:center;gap:8px}
+}
+.fam .linkacc{margin-top:8px}
+
+/* Video-Karten (Hochformat) */
+.vcards{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@container screen (min-width:1020px){.vcards{grid-template-columns:repeat(4,1fr)}}
+.vcard-media{aspect-ratio:4/5;border-radius:var(--sf-radius);border:1px solid var(--sf-border)}
+.vcard h3{margin:12px 0 4px;font-size:1rem;font-weight:600}
+.vcard p{margin:0;font-size:var(--sf-text-small);color:var(--sf-text-2)}
+
+/* Video-Akkordeon */
+.acc{display:grid;gap:var(--sf-space-5)}
+@container screen (min-width:760px){.acc{grid-template-columns:1.05fr .95fr;align-items:center;gap:var(--sf-space-7)}}
+.acc-stage{position:relative;aspect-ratio:5/4;border-radius:var(--sf-radius);overflow:hidden;border:1px solid var(--sf-border)}
+.acc-layer{position:absolute;inset:0;opacity:0;transition:opacity .45s var(--sf-ease)}
+.acc-layer.on{opacity:1}
+.acc-layer .vslot{position:absolute;inset:0}
+.acc-list{display:flex;flex-direction:column;gap:6px}
+.acc-item{display:block;width:100%;text-align:left;background:none;border:0;border-left:2px solid var(--sf-border);padding:12px 16px;cursor:pointer;color:var(--sf-text-2);transition:border-color var(--sf-dur-1) var(--sf-ease)}
+.acc-item b{display:block;color:var(--sf-ink);font-size:1.05rem;font-weight:600;margin-bottom:2px}
+.acc-item span{font-size:var(--sf-text-small);display:none}
+.acc-item:hover{border-left-color:var(--sf-border-strong)}
+.acc-item.on{border-left-color:var(--sf-ink)}
+.acc-item.on span{display:block}
+
+/* Vorteils-Kacheln */
+.tiles{display:grid;gap:14px}
+@container screen (min-width:560px){.tiles{grid-template-columns:repeat(2,1fr)}}
+@container screen (min-width:1020px){.tiles{grid-template-columns:repeat(4,1fr)}}
+.tile{border:1px solid var(--sf-border);border-radius:var(--sf-radius);padding:20px;background:var(--sf-surface)}
+.tile-ico{width:44px;height:44px;border-radius:50%;background:var(--sf-accent-weak);color:var(--sf-accent-strong);display:grid;place-items:center;margin-bottom:12px}
+.tile h3{margin:0 0 6px;font-size:1rem;font-weight:600}
+.tile p{margin:0;font-size:var(--sf-text-small);color:var(--sf-text-2)}
+
+/* Spotlight */
+.spot{background:var(--sf-surface-2);padding:var(--sf-space-7) 0;margin-bottom:var(--sf-space-7);text-align:center}
+.spot .mock{width:min(380px,72%)}
+.spot .h2{margin-top:var(--sf-space-5)}
+.spot-rate{display:flex;justify-content:center;align-items:baseline;gap:8px;margin:4px 0 var(--sf-space-5)}
+.spot-rate b{font-size:1.6rem;color:var(--sf-accent-strong);font-weight:600;font-variant-numeric:tabular-nums}
+.spot-rate span{color:var(--sf-text-2);font-size:var(--sf-text-small)}
+
+/* Zitat */
+.quote{text-align:center;padding-top:var(--sf-space-2)}
+.q{font-size:var(--sf-text-h2);font-weight:var(--sf-w-display);letter-spacing:var(--sf-tracking-display);max-width:28ch;margin:0 auto 10px;line-height:1.3}
+.qa{display:block;color:var(--sf-text-2);font-size:var(--sf-text-small)}
+
+/* Split-Sektionen */
+.split{display:grid;gap:var(--sf-space-5);align-items:center}
+@container screen (min-width:760px){.split{grid-template-columns:1fr 1fr;gap:var(--sf-space-7)}}
+.split .scene{aspect-ratio:4/3;border-radius:var(--sf-radius);border:1px solid var(--sf-border)}
+.split-rate{display:flex;align-items:baseline;gap:8px;margin:var(--sf-space-4) 0}
+.split-rate b{font-size:1.5rem;color:var(--sf-accent-strong);font-weight:600;font-variant-numeric:tabular-nums}
+
+/* Katalog */
+.page-head{padding:var(--sf-space-5) 0 var(--sf-space-2)}
+.page-head .h1{margin-bottom:0}
+.toolrow{display:flex;flex-direction:column;gap:12px;padding:var(--sf-space-3) 0 var(--sf-space-4)}
+@container screen (min-width:760px){.toolrow{flex-direction:row;align-items:center;justify-content:space-between}}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.chip{border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-btn);padding:8px 14px;font-size:var(--sf-text-small);background:var(--sf-surface);color:var(--sf-ink);white-space:nowrap;cursor:pointer}
+.chip:hover{background:var(--sf-surface-2)}
+.chip.active{background:var(--sf-ink);color:var(--sf-surface);border-color:var(--sf-ink)}
+.kgrid{padding-bottom:var(--sf-space-7)}
+
+/* Segmente */
+.seg{display:inline-flex;background:var(--sf-surface-2);border-radius:var(--sf-radius-btn);padding:4px;gap:2px;max-width:100%}
+.seg button{border:0;background:transparent;padding:9px 14px;border-radius:calc(var(--sf-radius-btn) - 3px);font-size:var(--sf-text-small);color:var(--sf-text-2);cursor:pointer;white-space:nowrap}
+.seg button.active{background:var(--sf-surface);color:var(--sf-ink);font-weight:600;box-shadow:var(--sf-shadow-card)}
+
+/* Produktdetail */
+.crumb{padding:var(--sf-space-4) 0 0;color:var(--sf-text-2);font-size:var(--sf-text-small);display:flex;align-items:center;gap:7px;cursor:pointer;width:max-content}
+.crumb:hover{color:var(--sf-ink)}
+.crumb svg{transform:rotate(180deg)}
+.pdp{display:grid;gap:var(--sf-space-5);padding:var(--sf-space-4) 0 var(--sf-space-6)}
+@container screen (min-width:760px){.pdp{grid-template-columns:1.05fr .95fr;gap:var(--sf-space-7)}}
+.gal-main{position:relative;aspect-ratio:4/3;border-radius:var(--sf-radius);overflow:hidden;border:1px solid var(--sf-border)}
+.gal-layer{position:absolute;inset:0;opacity:0;transition:opacity .45s var(--sf-ease)}
+.gal-layer.on{opacity:1}
+.gal-layer .scene{position:absolute;inset:0;border-radius:0;border:0}
+.pmedia-fill{position:absolute;inset:0;background:var(--sf-surface-2);display:grid;place-items:center}
+.thumbs{display:flex;gap:8px;margin-top:10px}
+.thumb{position:relative;width:62px;aspect-ratio:1;border-radius:var(--sf-radius-sm);border:1px solid var(--sf-border);cursor:pointer;overflow:hidden;background:var(--sf-surface-2);display:grid;place-items:center;padding:0}
+.thumb .scene{position:absolute;inset:0;border-radius:0;border:0}
+.thumb .mock{width:70%}
+.thumb.active{border-color:var(--sf-ink)}
+.chiprow{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 var(--sf-space-3)}
+.spec-chip{font-size:var(--sf-text-micro);background:var(--sf-surface-2);border:1px solid var(--sf-border);padding:5px 10px;border-radius:var(--sf-radius-btn);color:var(--sf-text-2)}
+.cond{margin-bottom:var(--sf-space-2)}
+.conf-label{font-size:var(--sf-text-small);font-weight:600;margin:var(--sf-space-4) 0 8px}
+.pillrow{display:flex;gap:8px;flex-wrap:wrap}
+.ratebox{position:relative;border:1px solid var(--sf-border);background:var(--sf-surface-2);border-radius:var(--sf-radius);padding:20px;margin-top:var(--sf-space-5)}
+.ratebox.flash{animation:ring .55s var(--sf-ease)}
+@keyframes ring{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--sf-accent) 40%,transparent)}100%{box-shadow:0 0 0 16px transparent}}
+.rate-line{display:flex;align-items:baseline;gap:9px}
+.rate-big{font-size:2rem;font-weight:600;color:var(--sf-accent-strong);font-variant-numeric:tabular-nums;letter-spacing:-0.01em}
+.rate-per{color:var(--sf-text-2);font-size:var(--sf-text-small)}
+.rate-gross{font-size:var(--sf-text-micro);color:var(--sf-text-2);margin-top:2px}
+.rate-gross b{font-weight:600;font-variant-numeric:tabular-nums}
+.rate-sub{color:var(--sf-text-2);font-size:var(--sf-text-small);margin-top:6px}
+.benefits{list-style:none;margin:var(--sf-space-5) 0 0;padding:0;display:flex;flex-direction:column;gap:10px;color:var(--sf-text-2);font-size:var(--sf-text-small)}
+.benefits li{display:flex;align-items:center;gap:9px}
+.benefits svg{color:var(--sf-success);flex:none}
+.usecase{padding-top:var(--sf-space-2)}
+
+/* Raten-Dock (nur Produktdetail, mobil) */
+.cartdock{position:sticky;bottom:0;z-index:7;margin:0;background:var(--sf-ink);color:#fff;border-radius:var(--sf-radius-btn) var(--sf-radius-btn) 0 0;padding:10px 10px calc(10px + env(safe-area-inset-bottom)) 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:var(--sf-shadow-float)}
+.dock-rate{display:flex;flex-direction:column;line-height:1.25}
+.dock-rate b{font-size:1.1rem;font-variant-numeric:tabular-nums}
+.dock-rate span{font-size:var(--sf-text-micro);color:rgba(255,255,255,.7)}
+.cartdock .btn{padding:11px 18px;font-size:var(--sf-text-small)}
+@container screen (min-width:760px){.cartdock{display:none}}
+
+/* Mobile Bottom-Bar (Start, Katalog) */
+.mobilebar{position:sticky;bottom:0;z-index:7;display:flex;align-items:center;gap:10px;padding:10px var(--sf-gutter) calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--sf-surface) 90%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--sf-border)}
+.mobilebar .btn{flex:1;padding:12px 16px}
+.mb-phone{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:64px;height:46px;border-radius:var(--sf-radius-sm);border:1px solid var(--sf-border-strong);color:var(--sf-ink);text-decoration:none;font-size:9px;font-weight:600}
+.mb-phone svg{color:var(--sf-accent-strong)}
+.mb-cart{border:1px solid var(--sf-border-strong);width:46px;height:46px}
+@container screen (min-width:760px){.mobilebar{display:none}}
+
+/* Schritt-Indikator */
+.steps{display:flex;align-items:center;gap:8px;padding:var(--sf-space-5) 0 var(--sf-space-3);font-size:var(--sf-text-micro);color:var(--sf-text-2)}
+.step{display:flex;align-items:center;gap:7px;flex:none}
+.step .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--sf-border-strong);font-weight:600;background:var(--sf-surface);color:var(--sf-text-2)}
+.step.done .n{border-color:var(--sf-ink);color:var(--sf-ink)}
+.step.done{cursor:pointer}
+.step.active .n{background:var(--sf-accent);border-color:var(--sf-accent);color:#fff}
+.step.active{color:var(--sf-ink);font-weight:600}
+.step .lb{display:none}
+.step.active .lb{display:inline}
+.step-line{flex:1;height:1px;background:var(--sf-border);min-width:10px}
+@container screen (min-width:760px){.step .lb{display:inline}.steps{font-size:var(--sf-text-small)}}
+
+/* Anfrage */
+.aq{display:grid;gap:var(--sf-space-5);padding-bottom:var(--sf-space-7)}
+@container screen (min-width:900px){.aq{grid-template-columns:1.15fr .85fr;align-items:start}.aq-side{position:sticky;top:76px}}
+.panel{border:1px solid var(--sf-border);border-radius:var(--sf-radius);padding:20px;background:var(--sf-surface)}
+.cline{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--sf-border)}
+.cthumb{width:76px;aspect-ratio:1;background:var(--sf-surface-2);border-radius:var(--sf-radius-sm);flex:none;display:grid;place-items:center;overflow:hidden}
+.cinfo{flex:1;display:flex;flex-direction:column;gap:3px}
+.cinfo b{font-size:var(--sf-text-small)}
+.cctl{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-btn)}
+.qty button{width:32px;height:32px;border:0;background:none;font-size:15px;cursor:pointer;color:var(--sf-ink);border-radius:var(--sf-radius-btn)}
+.qty button:hover{background:var(--sf-surface-2)}
+.qv{min-width:26px;text-align:center;font-size:var(--sf-text-small);font-weight:600}
+.crate{font-size:var(--sf-text-small);color:var(--sf-text-2)}
+.crate b{color:var(--sf-ink);font-variant-numeric:tabular-nums}
+.csum{display:flex;align-items:baseline;justify-content:space-between;padding-top:var(--sf-space-4)}
+.cart-total{font-size:1.4rem;font-weight:600;color:var(--sf-accent-strong);font-variant-numeric:tabular-nums}
+.field{display:block;margin-bottom:14px}
+.field>span{display:block;font-size:var(--sf-text-small);font-weight:600;margin-bottom:6px}
+.field .opt{font-weight:400;color:var(--sf-text-2)}
+.field input{width:100%;border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-sm);padding:12px 14px;font:inherit;background:var(--sf-surface);color:var(--sf-ink)}
+.frow{display:grid;gap:0 12px}
+@container screen (min-width:560px){.frow{grid-template-columns:1fr 1fr}}
+.check{display:flex;gap:10px;font-size:var(--sf-text-micro);color:var(--sf-text-2);align-items:flex-start;line-height:1.5;margin-top:4px}
+.check input{margin-top:2px;accent-color:var(--sf-action)}
+.confirm{text-align:center;padding:var(--sf-space-4) 0}
+.confirm-ico{width:52px;height:52px;border-radius:50%;background:var(--sf-badge-ref-bg);color:var(--sf-badge-ref-ink);display:grid;place-items:center;margin:0 auto var(--sf-space-4)}
+.confirm p{margin:6px 0}
+
+/* Footer */
+.ftr{border-top:1px solid var(--sf-border);padding:var(--sf-space-6) 0 var(--sf-space-5);color:var(--sf-text-2);font-size:var(--sf-text-small);background:var(--sf-surface-2)}
+.ftr-grid{display:grid;gap:var(--sf-space-5)}
+@container screen (min-width:760px){.ftr-grid{grid-template-columns:1.2fr 1fr 1fr}}
+.ftr-note{margin:12px 0 0;max-width:26rem}
+.ftr-contact{display:flex;align-items:center;gap:8px;margin-top:14px;color:var(--sf-ink);font-weight:600;flex-wrap:wrap}
+.ftr-contact svg{color:var(--sf-accent-strong)}
+.ftr-contact .sep{width:4px;height:4px;border-radius:50%;background:var(--sf-border-strong)}
+.ftr-col{display:flex;flex-direction:column;gap:9px}
+.ftr-col b{color:var(--sf-ink);font-weight:600;margin-bottom:2px}
+.ftr-col span{cursor:pointer}
+.ftr-col span:hover{color:var(--sf-ink)}
+.ftr-base{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between;margin-top:var(--sf-space-6);padding-top:var(--sf-space-4);border-top:1px solid var(--sf-border);font-size:var(--sf-text-micro)}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-title"><b>SL Shop V3</b><span>Startseite nach Surface-Muster, Videos: Microsoft-Referenz, vor Livegang ersetzen</span></div>
+  <div class="tabs" id="tabs">
+    <button class="tab" data-s="start">Start</button>
+    <button class="tab" data-s="katalog">Katalog</button>
+    <button class="tab" data-s="produkt">Produkt neu</button>
+    <button class="tab" data-s="anfrage">Anfrage</button>
+    <button class="tab" data-s="abo">Refurbished Abo</button>
+  </div>
+  <div class="tabs" id="views">
+    <button class="tab" data-v="desktop">Desktop</button>
+    <button class="tab" data-v="mobile">Mobil, beide Marken</button>
+  </div>
+  <div class="tabs" id="brandsel">
+    <button class="tab" data-b="surface">surface.love</button>
+    <button class="tab" data-b="lenovo">lenovo.online</button>
+  </div>
+</div>
+<div id="stage"></div>
+
+<script>
+"use strict";
+/* ---------- Helfer und Icons ---------- */
+var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var fmt = function(v){ return v.toFixed(2).replace(".", ","); };
+var icoCheck = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 8.5 6.5 12 13 4.5"/></svg>';
+var icoCheckBig = '<svg viewBox="0 0 16 16" width="24" height="24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 8.5 6.5 12 13 4.5"/></svg>';
+var icoCart = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 12.2a1.6 1.6 0 0 0 1.6 1.3h7.9a1.6 1.6 0 0 0 1.6-1.3L20.6 8H6"/><circle cx="10" cy="21" r="1"/><circle cx="17.5" cy="21" r="1"/></svg>';
+var icoMenu = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+var icoArr = '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"/></svg>';
+var icoPhone = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 3.5h4l1.8 4.4-2.3 1.8a13 13 0 0 0 6.3 6.3l1.8-2.3 4.4 1.8v4a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 2.5 5.7a2 2 0 0 1 2-2.2z"/></svg>';
+var icoShield = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 5.5v5.2c0 4.6 3 7.9 7 9.8 4-1.9 7-5.2 7-9.8V5.5z"/><path d="M9 11.5l2.2 2.3L15.5 9"/></svg>';
+var icoRefresh = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.9-3M4 13a8 8 0 0 0 14.9 3"/><path d="M20 4v4h-4M4 20v-4h4"/></svg>';
+var icoSpark = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.6L18 9.4l-4.2 1.8L12 15.8l-1.8-4.6L6 9.4l4.2-1.8z"/><path d="M18.5 15.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg>';
+var icoScale = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M7 20V9m5 11V4m5 16v-7"/></svg>';
+var icoPause = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>';
+var icoPlay = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5l11 6.5-11 6.5z"/></svg>';
+var markSurface = '<svg class="heart" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path fill="currentColor" d="M16 28.2C10.4 24.4 3 18.6 3 11.9 3 7.6 6.3 4.5 10.2 4.5c2.3 0 4.4 1.1 5.8 3 1.4-1.9 3.5-3 5.8-3 3.9 0 7.2 3.1 7.2 7.4 0 6.7-7.4 12.5-13 16.3z"/><path fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 14h4.2l1.6-3.4 2.4 7 1.7-5 1.3 1.4H25"/></svg>';
+var markLenovo = '<svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="currentColor"/><rect x="9" y="14.5" width="14" height="3" rx="1.5" fill="#fff"/></svg>';
+var mock = function(){ return '<div class="mock"><div class="mock-screen"></div><div class="mock-base"></div></div>'; };
+var availTxt = { ok: "Verfügbar", soon: "Im Zulauf", req: "Auf Anfrage" };
+var badge = function(lane){ return lane === "ref" ? '<span class="badge ref">Refurbished</span>' : '<span class="badge new">Neu</span>'; };
+
+/* ---------- Szenen (Fallback der Bild- und Videoslots) ---------- */
+var scLight = '<i class="sc-light"></i>';
+var scDesk = '<i class="sc-desk"></i>';
+var scWindow = '<svg class="sc-window" viewBox="0 0 200 140" preserveAspectRatio="none" aria-hidden="true"><path d="M8 0v140M72 0v140M136 0v140M198 0v140M0 64h200"/></svg>';
+var scPlant = '<svg class="sc-plant" viewBox="0 0 100 130" aria-hidden="true"><rect class="stem" x="47" y="62" width="5" height="52" rx="2.5"/><path class="leaf" d="M50 86C30 82 19 63 22 42c17 5 28 21 28 44z"/><path class="leaf" d="M50 74c20-6 29-25 26-46-17 6-26 23-26 46z"/><path class="leaf" d="M50 98c-13-2-21-11-21-23 11 2 19 10 21 23z"/><path class="pot" d="M34 112h32l-4 16H38z"/></svg>';
+function person(cls){
+  return '<svg class="sc-person' + (cls ? ' ' + cls : '') + '" viewBox="0 0 140 110" aria-hidden="true">' +
+    '<circle class="body" cx="70" cy="27" r="15"/>' +
+    '<path class="body" d="M36 110c0-24 14-38 34-38s34 14 34 38z"/>' +
+    '<rect class="lap" x="46" y="80" width="48" height="19" rx="3"/>' +
+    '<rect class="lap2" x="40" y="97" width="60" height="5" rx="2.5"/></svg>';
+}
+function scene(kind, tag, kb){
+  var a = "";
+  if (kind === "hero")   a = scLight + scWindow + scDesk + scPlant + person("");
+  if (kind === "team")   a = scLight + scWindow + scDesk + '<i class="sc-table"></i>' + person("p1") + person("p2");
+  if (kind === "focus")  a = scLight + scDesk + '<i class="sc-cup"></i><i class="sc-note"></i><div class="sc-mockwrap">' + mock() + '</div>';
+  if (kind === "detail") a = scLight + '<div class="sc-mockwrap">' + mock() + '</div>';
+  return '<div class="scene sc-' + kind + '"><div class="scene-art' + (kb ? ' kb' : '') + '">' + a + '</div><i class="sc-grain"></i>' +
+    (tag ? '<span class="sc-tag">' + tag + '</span>' : '') + '</div>';
+}
+
+/* ---------- Video-Slot: echtes Video, sonst Szene. Referenzvideos werden vor Livegang ersetzt. ---------- */
+function vslot(v, cls, fb, auto){
+  var inner, tag;
+  if (v && v.src && !REDUCE) {
+    inner = '<video muted loop playsinline preload="metadata"' + (auto ? ' autoplay' : '') +
+      (v.poster ? ' poster="' + v.poster + '"' : '') + ' src="' + v.src + '"></video>';
+    tag = '<span class="sc-tag">Referenz Microsoft, vor Livegang ersetzen</span>';
+  } else if (v && v.poster) {
+    inner = '<img class="vposter" src="' + v.poster + '" alt="">';
+    tag = '<span class="sc-tag">Referenz Microsoft, vor Livegang ersetzen</span>';
+  } else {
+    inner = scene(fb || "hero", null, true);
+    tag = '<span class="sc-tag">Videoslot: eigenes Material folgt</span>';
+  }
+  return '<div class="vslot ' + (cls || '') + '" data-fb="' + (fb || "hero") + '">' + inner + tag + '</div>';
+}
+
+/* ---------- Marken-Konfiguration ---------- */
+var MSV = "https://videos.ctfassets.net/jy9s7k22hbg4/";
+var MSI = "https://images.ctfassets.net/jy9s7k22hbg4/";
+var BRANDS = {
+  surface: {
+    domain: "surface.love",
+    mark: markSurface,
+    slogan: "work love balance",
+    eyebrow: "Surface as a Service",
+    phone: { vanity: "0800-SURFACE", real: "0800 7873223", tel: "+498007873223" },
+    mail: "sales@surface.love",
+    heroTitle: "Surface für Ihr Team, zur Monatsrate.",
+    heroSub: "Neue Geräte konfigurieren und unverbindlich anfragen, geprüfte refurbished Geräte sofort im Abo. Planbare Kosten statt Investition.",
+    videos: {
+      hero: { src: MSV + "55HlSYKd6rt82zVC87JShZ/28866452787f1c73420c3638c64e4997/MSFT-Surface_Hero_Desktop_Multi_1920x1080-17.mp4",
+              poster: MSI + "bPyR4d56RSSOiaVbkcwg3/a9a5b18703f0cf9433588f1c02d11c50/MSFT-Surface_Hero_Desktop_Multi_3840x2160_Poster_17.jpg" },
+      cards: [
+        { src: MSV + "3uJ8YTmOFRWmLIDxLM4c2D/cafe4dd1328055bab59f7646a7698841/COM_303_Always_protected_Emerald-1080x1350.mp4",
+          poster: MSI + "4KFwSBHBVD7iWD4cbM65Zo/37b7ad8825e890b9d102cfe3d00a15d9/COM_303_Always_protected_Emerald_Poster-1080x1350.jpg" },
+        { src: MSV + "6vaShuDdPFvBKulmHMA6Bw/ad16f13cc34f351d3266531aab79bd6e/COM_302_Stay_Unplugged_Black-1080x1350.mp4",
+          poster: MSI + "2tMNF3EhSZ7HP0ybPQArpZ/a5889c500fed15f28bbf34f50beed6d5/COM_302_Stay_Unplugged_Black_Poster-1080x1350.jpg" },
+        { src: MSV + "6MunHX2roathEaKZaVxkZ9/2d4683f1a2c58622ffeaa0ae33712971/COM_301_Multitasking_Emerald-1080x1350.mp4",
+          poster: MSI + "22kqtXWEE2840Sd2CmGxaX/d3ad03e30d93ac12b38be42ef6c7cab6/COM_301_Multitasking_Emerald_Poster-1080x1350.jpg" },
+        { src: MSV + "2F3Sw8jjhmFfcGVJQ6wemY/fa1a820a1a0e234bf4a74c8de57dc419/COM_304_Camera_Desktop-1080x1350.mp4",
+          poster: MSI + "1213RO4ZOBgJgPeiZPn2YY/53d0691d3061c1828ef07945460db6be/COM_304_Camera_Desktop_Poster-1080x1350.jpg" }
+      ],
+      acc: [
+        { src: MSV + "HzF11t6MQfREHq3UDGjNU/ad57b3b11b226f9bd5e13d2c398efa0d/MSFT-Accordian-Search-Desktop-1680x1344.mp4" },
+        { src: MSV + "7601rcAH1zGpIsU73QgsGz/8baff2e00b4d3bd2fde9bff973e2db0a/msft_Accordian_All_Your_Apps_Desktop-1680x1344.mp4" },
+        { src: MSV + "1LNcACGi94NkpiWyjjBeZt/88023630b294c3c64b00086faa5d2ec7/COM_401_Accordian_Cocreator_Desktop-1680x1344.mp4" },
+        { src: MSV + "2ZgkXxy4kkVBWlh6JAXydV/ca04cbdb60858260dc0fe6b951d1f7cf/msft-COM_404_Gaming_Dune_Desktop-1680x1344.mp4" }
+      ]
+    },
+    fams: [
+      { n: "Laptops", c: "Leicht, leise, Akku für den ganzen Arbeitstag.", r: 74.90, go: "katalog" },
+      { n: "2 in 1", c: "Tablet und Laptop in einem Gerät.", r: 79.90, go: "katalog" },
+      { n: "Zubehör", c: "Docks, Stifte und mehr, passend dazu.", r: 4.90, go: "katalog" },
+      { n: "Refurbished im Abo", c: "Geprüft, sofort verfügbar, monatlich kündbar.", r: 27.90, go: "abo", ref: true }
+    ],
+    tiles: [
+      { i: "shield", h: "Liquidität geschont", p: "Keine Anfangsinvestition, eine feste Rate pro Gerät und Monat, budget- und bilanzschonend." },
+      { i: "refresh", h: "Rundum sorglos", p: "Beschaffung, Rollout, Support und Austausch inklusive, ein Ansprechpartner, ein Vertrag." },
+      { i: "spark", h: "Immer KI-fähig", p: "Aktuelle Copilot+ Hardware im Zyklus, ohne Neukauf alle paar Jahre." },
+      { i: "scale", h: "Skalierbar", p: "Hoch und runter skalieren, neue Mitarbeitende schnell ausgestattet, Geräte im Kreislauf." }
+    ],
+    quote: { q: "Ausgerollt in einer Woche, seitdem einfach Ruhe im Betrieb.", a: "Geschäftsführung, Agentur aus Dresden" },
+    products: [
+      { name: "Surface Laptop 5", spec: '13,5", i5, 16 GB, 512 GB', rate: 74.90, avail: "ok", lane: "new" },
+      { name: "Surface Pro 9", spec: '13", i7, 16 GB, 256 GB', rate: 79.90, avail: "ok", lane: "new" },
+      { name: "Surface Laptop Studio 2", spec: '14,4", i7, 32 GB, 1 TB', rate: 139.90, avail: "soon", lane: "new" },
+      { name: "Surface Laptop 4, refurbished", spec: '13,5", i5, 16 GB, 256 GB', rate: 29.90, avail: "ok", lane: "ref" },
+      { name: "Surface Go 4", spec: '10,5", N200, 8 GB, 128 GB', rate: 29.90, avail: "ok", lane: "new" },
+      { name: "Surface Pro 8, refurbished", spec: '13", i5, 16 GB, 256 GB', rate: 27.90, avail: "req", lane: "ref" }
+    ],
+    pdpNew: {
+      name: "Surface Laptop 5",
+      chips: ['13,5" Touch', "Intel i5", "16 GB RAM", "512 GB SSD"],
+      rates: {
+        leasing: [[15, 129.90], [24, 99.50], [32, 82.90], [36, 74.90]],
+        finanzierung: [[15, 135.50], [24, 103.90], [36, 78.50]]
+      },
+      defCt: "leasing", defTerm: 36
+    },
+    pdpRef: {
+      name: "Surface Laptop 4, refurbished",
+      chips: ['13,5" Touch', "Intel i5", "16 GB RAM", "256 GB SSD"],
+      abo: [["flex", 39.90], ["12", 34.90], ["24", 29.90]], def: "flex", zustand: "sehr gut"
+    },
+    cart: [
+      { name: "Surface Laptop 5", spec: "16 GB, 512 GB, Leasing, 36 Monate", rate: 74.90, qty: 5 },
+      { name: "Surface Pro 9", spec: "16 GB, 256 GB, Leasing, 36 Monate", rate: 79.90, qty: 2 }
+    ]
+  },
+  lenovo: {
+    domain: "lenovo.online",
+    mark: markLenovo,
+    slogan: "",
+    eyebrow: "Hardware as a Service",
+    phone: { vanity: "0800 000 0000", real: "", tel: "+49800000000" },
+    mail: "sales@lenovo.online",
+    heroTitle: "Business-Notebooks zur Monatsrate.",
+    heroSub: "Neue Geräte als unverbindliche Anfrage, geprüfte refurbished Geräte sofort im Abo. Eine Rate, alles drin, für Ihr Team kalkulierbar.",
+    videos: { hero: null, cards: [null, null, null, null], acc: [null, null, null, null] },
+    fams: [
+      { n: "Laptops", c: "Leicht, leise, Akku für den ganzen Arbeitstag.", r: 66.90, go: "katalog" },
+      { n: "2 in 1", c: "Tablet und Laptop in einem Gerät.", r: 76.90, go: "katalog" },
+      { n: "Zubehör", c: "Docks und mehr, passend dazu.", r: 4.90, go: "katalog" },
+      { n: "Refurbished im Abo", c: "Geprüft, sofort verfügbar, monatlich kündbar.", r: 23.90, go: "abo", ref: true }
+    ],
+    tiles: [
+      { i: "shield", h: "Liquidität geschont", p: "Keine Anfangsinvestition, eine feste Rate pro Gerät und Monat, budget- und bilanzschonend." },
+      { i: "refresh", h: "Rundum sorglos", p: "Beschaffung, Rollout, Support und Austausch inklusive, ein Ansprechpartner, ein Vertrag." },
+      { i: "spark", h: "Immer KI-fähig", p: "Aktuelle KI-fähige Hardware im Zyklus, ohne Neukauf alle paar Jahre." },
+      { i: "scale", h: "Skalierbar", p: "Hoch und runter skalieren, neue Mitarbeitende schnell ausgestattet, Geräte im Kreislauf." }
+    ],
+    quote: { q: "Ausgerollt in einer Woche, seitdem einfach Ruhe im Betrieb.", a: "Geschäftsführung, Handelsunternehmen aus Leipzig" },
+    products: [
+      { name: "Business Notebook 14", spec: '14", i5, 16 GB, 512 GB', rate: 66.90, avail: "ok", lane: "new" },
+      { name: "Convertible 13", spec: '13,3", i7, 16 GB, 512 GB', rate: 76.90, avail: "ok", lane: "new" },
+      { name: "Workstation 16", spec: '16", i9, 32 GB, 1 TB', rate: 129.90, avail: "soon", lane: "new" },
+      { name: "Business Notebook 14, refurbished", spec: '14", i5, 16 GB, 256 GB', rate: 25.90, avail: "ok", lane: "ref" },
+      { name: "Dockingstation USB-C", spec: "2x DP, HDMI, 100 W", rate: 4.90, avail: "ok", lane: "new" },
+      { name: "Convertible 13, refurbished", spec: '13,3", i5, 16 GB, 256 GB', rate: 23.90, avail: "req", lane: "ref" }
+    ],
+    pdpNew: {
+      name: "Business Notebook 14",
+      chips: ['14" IPS', "Intel i5", "16 GB RAM", "512 GB SSD"],
+      rates: {
+        leasing: [[15, 115.90], [24, 89.50], [32, 74.50], [36, 66.90]],
+        finanzierung: [[15, 121.50], [24, 93.50], [36, 69.90]]
+      },
+      defCt: "leasing", defTerm: 36
+    },
+    pdpRef: {
+      name: "Business Notebook 14, refurbished",
+      chips: ['14" IPS', "Intel i5", "16 GB RAM", "256 GB SSD"],
+      abo: [["flex", 34.90], ["12", 29.90], ["24", 25.90]], def: "flex", zustand: "sehr gut"
+    },
+    cart: [
+      { name: "Business Notebook 14", spec: "16 GB, 512 GB, Leasing, 36 Monate", rate: 66.90, qty: 5 },
+      { name: "Dockingstation USB-C", spec: "Leasing, 36 Monate", rate: 4.90, qty: 5 }
+    ]
+  }
+};
+var TILE_ICONS = { shield: icoShield, refresh: icoRefresh, spark: icoSpark, scale: icoScale };
+var VCARDS = [
+  { t: "Von Anfang an sicher", p: "Geräte kommen vorkonfiguriert, Sicherheit läuft im Hintergrund mit.", fb: "focus" },
+  { t: "Den ganzen Tag mobil", p: "Leicht, leise, mit Akku für den ganzen Arbeitstag.", fb: "hero" },
+  { t: "Schnell bei jeder Aufgabe", p: "Tabs, Calls und KI laufen flüssig nebeneinander.", fb: "detail" },
+  { t: "Immer kamerafertig", p: "Meetings mit automatischem Licht, ohne Störgeräusche.", fb: "team" }
+];
+var ACC_ITEMS = [
+  { t: "Dateien schneller finden", p: "Beschreiben statt suchen: die Suche findet Dokumente und Bilder per KI.", fb: "detail" },
+  { t: "Alle Apps Ihres Teams", p: "Microsoft 365, Branchensoftware und mehr, sofort startklar.", fb: "focus" },
+  { t: "Inhalte mit KI erstellen", p: "Entwürfe, Bilder und Texte direkt auf dem Gerät.", fb: "hero" },
+  { t: "Auch nach Feierabend", p: "Ein Gerät für Arbeit und Zuhause, vom Meeting bis zum Spiel.", fb: "team" }
+];
+
+/* ---------- Bausteine ---------- */
+function phoneLink(b){
+  return '<a class="phone-l" href="tel:' + b.phone.tel + '">' + icoPhone + '<span>' + b.phone.vanity + '</span>' +
+    (b.phone.real ? '<span class="ph-r">' + b.phone.real + '</span>' : '') + '</a>';
+}
+function header(b){
+  return '<header class="hdr"><div class="wrap hdr-in">' +
+    '<span class="logo" data-go="start" role="link" tabindex="0" aria-label="Startseite">' + b.mark +
+      (b.slogan ? '<span class="slogan">' + b.slogan + '</span>' : '') + '</span>' +
+    '<nav class="nav"><span data-go="katalog">Katalog</span><span data-go="abo">Refurbished</span><span>So funktioniert es</span><span>Kontakt</span></nav>' +
+    '<div class="hdr-cta">' + phoneLink(b) +
+      '<button class="btn primary sm hdr-go" data-go="produkt">Gerät anfragen</button>' +
+      '<button class="iconbtn" data-go="anfrage" aria-label="Anfragekorb">' + icoCart + '<span class="count">2</span></button>' +
+      '<button class="iconbtn only-m" aria-label="Menü">' + icoMenu + '</button>' +
+    '</div></div></header>';
+}
+function mobilebar(b){
+  return '<div class="mobilebar">' +
+    '<a class="mb-phone" href="tel:' + b.phone.tel + '">' + icoPhone + '<span>' + b.phone.vanity + '</span></a>' +
+    '<button class="btn primary" data-go="produkt">Gerät anfragen</button>' +
+    '<button class="iconbtn mb-cart" data-go="anfrage" aria-label="Anfragekorb">' + icoCart + '<span class="count">2</span></button>' +
+    '</div>';
+}
+function footer(b){
+  return '<footer class="ftr"><div class="wrap ftr-grid">' +
+    '<div><span class="logo">' + b.mark + (b.slogan ? '<span class="slogan">' + b.slogan + '</span>' : '') + '</span>' +
+      '<p class="ftr-note">Hardware zur Monatsrate für Geschäftskunden. Alle Raten netto, zzgl. USt., unverbindlich.</p>' +
+      '<div class="ftr-contact">' + icoPhone + '<span>' + b.phone.vanity + '</span><span class="sep"></span><span>' + b.mail + '</span></div></div>' +
+    '<div class="ftr-col"><b>Shop</b><span data-go="katalog">Katalog</span><span data-go="abo">Refurbished im Abo</span><span>So funktioniert es</span><span>Vorteile</span></div>' +
+    '<div class="ftr-col"><b>Rechtliches</b><span>Impressum</span><span>Datenschutz</span><span>AGB</span><span>Widerruf</span><span>Markenhinweise</span></div>' +
+    '</div><div class="wrap ftr-base"><span>' + b.domain + '</span><span>Angebot richtet sich an Unternehmer im Sinne des § 14 BGB.</span></div></footer>';
+}
+function pcard(p, i){
+  var d = (i || 0) * 70;
+  return '<article class="pcard" data-rev style="--d:' + d + 'ms" data-go="' + (p.lane === "ref" ? "abo" : "produkt") + '" tabindex="0">' +
+    '<div class="pmedia">' + badge(p.lane) + mock() + '</div>' +
+    '<div class="pbody">' +
+      '<span class="pname">' + p.name + '</span><span class="pspec">' + p.spec + '</span>' +
+      '<span class="avail"><span class="dot ' + p.avail + '"></span>' + availTxt[p.avail] + '</span>' +
+      '<div class="prate"><b>ab ' + fmt(p.rate) + ' €</b><span class="psub">mtl. netto</span></div>' +
+    '</div></article>';
+}
+function step(n, label, cls){
+  return '<span class="step ' + cls + '"><span class="n">' + (cls === "done" ? icoCheck : n) + '</span><span class="lb">' + label + '</span></span>';
+}
+function cline(it){
+  return '<div class="cline" data-rate="' + it.rate + '">' +
+    '<div class="cthumb">' + mock() + '</div>' +
+    '<div class="cinfo"><b>' + it.name + '</b><span class="pspec">' + it.spec + '</span>' +
+    '<div class="cctl"><span class="qty"><button data-q="-1" aria-label="Weniger">&minus;</button><span class="qv">' + it.qty + '</span><button data-q="1" aria-label="Mehr">+</button></span>' +
+    '<span class="crate"><b class="lr">' + fmt(it.rate * it.qty) + ' €</b> mtl.</span></div></div></div>';
+}
+
+/* ---------- Startseite nach Surface-Muster ---------- */
+function screenStart(b){
+  var v = b.videos;
+  /* 1. Hero-Video */
+  var hero =
+  '<section class="vhero">' + vslot(v.hero, "", "hero", true) + '<div class="scrim"></div>' +
+    '<div class="wrap vhero-in">' +
+      '<span class="eyebrow inv fx">' + b.eyebrow + '</span>' +
+      '<h1 class="display fx fx2">' + b.heroTitle + '</h1>' +
+      '<p class="sub fx fx3">' + b.heroSub + '</p>' +
+      '<div class="cta-row fx fx4"><button class="btn primary" data-go="katalog">Gerät auswählen</button><button class="btn ghostw">So funktioniert es</button></div>' +
+      '<div class="trust fx fx4"><span>' + icoCheck + ' Für Geschäftskunden</span><span>' + icoCheck + ' Monatsrate statt Investition</span><span>' + icoCheck + ' Austausch bei Defekt</span></div>' +
+    '</div>' +
+    (v.hero && v.hero.src && !REDUCE ? '<button class="vctl" data-vctl aria-label="Video anhalten"><span class="ic-pause">' + icoPause + '</span><span class="ic-play">' + icoPlay + '</span></button>' : '') +
+  '</section>';
+  /* 2. Video-Karten */
+  var vcards = VCARDS.map(function(c, i){
+    return '<div class="vcard" data-rev style="--d:' + (i * 90) + 'ms">' +
+      vslot(v.cards[i], "vcard-media", c.fb, false) +
+      '<h3>' + c.t + '</h3><p>' + c.p + '</p></div>';
+  }).join("");
+  /* 3. Geraetefamilien */
+  var fams = b.fams.map(function(f, i){
+    return '<article class="pcard fam" data-rev style="--d:' + (i * 70) + 'ms" data-go="' + f.go + '" tabindex="0">' +
+      '<div class="pmedia">' + (f.ref ? badge("ref") + scene("focus") : mock()) + '</div>' +
+      '<div class="pbody"><span class="pname">' + f.n + '</span><span class="pspec">' + f.c + '</span>' +
+      '<div class="prate"><b>ab ' + fmt(f.r) + ' €</b><span class="psub">mtl. netto</span></div>' +
+      '<span class="linkacc">Ansehen ' + icoArr + '</span></div></article>';
+  }).join("");
+  /* 4. Video-Akkordeon */
+  var accLayers = ACC_ITEMS.map(function(it, i){
+    return '<div class="acc-layer' + (i === 0 ? ' on' : '') + '">' + vslot(v.acc[i], "", it.fb, false) + '</div>';
+  }).join("");
+  var accList = ACC_ITEMS.map(function(it, i){
+    return '<button class="acc-item' + (i === 0 ? ' on' : '') + '" data-ai="' + i + '"><b>' + it.t + '</b><span>' + it.p + '</span></button>';
+  }).join("");
+  /* 5. Kacheln */
+  var tiles = b.tiles.map(function(x, i){
+    return '<div class="tile" data-rev style="--d:' + (i * 90) + 'ms"><div class="tile-ico">' + TILE_ICONS[x.i] + '</div><h3>' + x.h + '</h3><p>' + x.p + '</p></div>';
+  }).join("");
+  var refFrom = b.pdpRef.abo[b.pdpRef.abo.length - 1][1];
+  var newFrom = b.pdpNew.rates.leasing[b.pdpNew.rates.leasing.length - 1][1];
+  return header(b) + hero +
+  '<section class="wrap sect sect-top"><div class="sect-head" data-rev><h2 class="h2">Gemacht für Ihren Arbeitstag</h2></div><div class="vcards">' + vcards + '</div></section>' +
+  '<section class="wrap sect"><div class="sect-head" data-rev><h2 class="h2">Finden Sie Ihr Gerät</h2><span class="linkacc" data-go="katalog">Alle Geräte ' + icoArr + '</span></div><div class="grid g4">' + fams + '</div></section>' +
+  '<section class="wrap sect"><div class="sect-head" data-rev><h2 class="h2">Ein Gerät, alles drin</h2></div><div class="acc" data-rev><div class="acc-stage">' + accLayers + '</div><div class="acc-list">' + accList + '</div></div></section>' +
+  '<section class="wrap sect"><div class="sect-head" data-rev><h2 class="h2">Das Sorglos-Paket</h2></div><div class="tiles">' + tiles + '</div></section>' +
+  '<section class="spot" data-rev><div class="wrap">' + mock() +
+    '<h2 class="h2">' + b.pdpNew.name + '</h2>' +
+    '<div class="spot-rate"><b>ab ' + fmt(newFrom) + ' €</b><span>mtl. netto, unverbindlich</span></div>' +
+    '<button class="btn secondary" data-go="produkt">Zum Gerät</button></div></section>' +
+  '<section class="wrap sect"><div class="split">' +
+    '<div data-rev>' + scene("focus", "Bildslot: Refurbished im Einsatz", false) + '</div>' +
+    '<div data-rev style="--d:120ms"><span class="badge ref stat">Refurbished</span>' +
+      '<h2 class="h2">Sofort im Abo</h2>' +
+      '<p class="sub" style="margin-bottom:0">Geprüfte Geräte aus Rückläufern, gereinigt und neu aufgesetzt. Monatlich kündbar oder mit Laufzeit, online abschließbar, Versand inklusive.</p>' +
+      '<div class="split-rate"><b>ab ' + fmt(refFrom) + ' €</b><span class="psub">mtl. netto im Abo</span></div>' +
+      '<span class="linkacc" data-go="abo">Abo entdecken ' + icoArr + '</span></div>' +
+  '</div></section>' +
+  '<section class="wrap sect quote" data-rev><p class="q">„' + b.quote.q + '"</p><span class="qa">' + b.quote.a + '</span></section>' +
+  footer(b) + mobilebar(b);
+}
+
+function screenKatalog(b){
+  var cards = b.products.map(function(p, i){ return pcard(p, i); });
+  var promo = '<article class="pcard promo" data-rev style="--d:140ms">' + scene("team", null, false) +
+    '<div class="pbody"><span class="pname">Ihr Team, komplett ausgestattet</span>' +
+    '<span class="pspec">Rollout, Support und Austausch inklusive, eine feste Rate pro Gerät.</span>' +
+    '<span class="linkacc" data-go="start">Mehr erfahren ' + icoArr + '</span></div></article>';
+  cards.splice(2, 0, promo);
+  return header(b) + '<main class="wrap">' +
+    '<div class="page-head"><h1 class="h1">Katalog</h1><p class="sub2">' + b.products.length + ' Geräte, alle Raten netto und unverbindlich.</p></div>' +
+    '<div class="toolrow">' +
+      '<div class="seg"><button class="active">Alle</button><button>Neu</button><button>Refurbished</button></div>' +
+      '<div class="chips"><button class="chip active">Alle Typen</button><button class="chip">Laptops</button><button class="chip">2 in 1</button><button class="chip">Zubehör</button></div>' +
+    '</div>' +
+    '<div class="grid g4 kgrid">' + cards.join("") + '</div>' +
+  '</main>' + footer(b) + mobilebar(b);
+}
+
+function screenProdukt(b, lane){
+  var p = lane === "ref" ? b.pdpRef : b.pdpNew;
+  var defRate, confHtml, subDefault;
+  if (lane === "ref") {
+    var m = {}; p.abo.forEach(function(r){ m[r[0]] = r[1]; });
+    defRate = m[p.def];
+    subDefault = p.def === "flex" ? "monatlich kündbar" : "bei " + p.def + " Monaten Laufzeit";
+    var aboBtns = p.abo.map(function(r){
+      var sub = r[0] === "flex" ? "monatlich kündbar" : "bei " + r[0] + " Monaten Laufzeit";
+      return '<button class="' + (r[0] === p.def ? "active" : "") + '" data-rate="' + r[1] + '" data-sub="' + sub + '">' +
+        (r[0] === "flex" ? "Flexibel" : r[0] + " Monate") + '</button>';
+    }).join("");
+    confHtml = '<div class="conf-label">Abo-Modell</div><div class="seg">' + aboBtns + '</div>';
+  } else {
+    var find = null;
+    p.rates[p.defCt].forEach(function(r){ if (r[0] === p.defTerm) find = r[1]; });
+    defRate = find;
+    subDefault = (p.defCt === "leasing" ? "Leasing" : "Finanzierung") + ", " + p.defTerm + " Monate";
+    var termBtns = function(ct){
+      return p.rates[ct].map(function(r){
+        var lbl = ct === "leasing" ? "Leasing" : "Finanzierung";
+        return '<button class="' + (r[0] === p.defTerm ? "active" : "") + '" data-rate="' + r[1] + '" data-sub="' + lbl + ', ' + r[0] + ' Monate">' + r[0] + ' Monate</button>';
+      }).join("");
+    };
+    confHtml =
+      '<div class="conf-label">Vertragsart</div>' +
+      '<div class="seg seg-ct"><button class="active" data-ct="leasing">Leasing</button><button data-ct="finanzierung">Finanzierung</button></div>' +
+      '<div class="conf-label">Laufzeit</div>' +
+      '<div class="seg seg-terms" data-ct="leasing">' + termBtns("leasing") + '</div>' +
+      '<div class="seg seg-terms hide" data-ct="finanzierung">' + termBtns("finanzierung") + '</div>' +
+      '<div class="conf-label">Ausstattung</div><div class="pillrow"><button class="chip active">16 GB, 512 GB</button><button class="chip">32 GB, 1 TB</button></div>';
+  }
+  var cta = lane === "ref" ? "Abo starten" : "In Anfrage übernehmen";
+  var ctaSub = lane === "ref" ? "Sichere Zahlung über Stripe, Rechnung monatlich." : "Unverbindlich, Angebot folgt per E-Mail.";
+  var cond = lane === "ref"
+    ? '<div class="cond"><span class="avail"><span class="dot ok"></span>Zustand ' + p.zustand + ', geprüft, gereinigt und neu aufgesetzt</span></div>'
+    : '<div class="cond"><span class="avail"><span class="dot ok"></span>Verfügbar, Lieferung nach Angebotsannahme</span></div>';
+  var gal = '<div class="gal"><div class="gal-main">' +
+    '<div class="gal-layer on"><div class="pmedia-fill">' + badge(lane) + mock() + '</div></div>' +
+    '<div class="gal-layer">' + scene("focus", null, true) + '</div>' +
+    '<div class="gal-layer">' + scene("detail", null, true) + '</div>' +
+    '<div class="gal-layer">' + scene("team", null, true) + '</div>' +
+    '</div><div class="thumbs">' +
+    '<button class="thumb active" data-gi="0" title="Produkt">' + mock() + '</button>' +
+    '<button class="thumb" data-gi="1" title="Im Einsatz">' + scene("focus") + '</button>' +
+    '<button class="thumb" data-gi="2" title="Detail">' + scene("detail") + '</button>' +
+    '<button class="thumb" data-gi="3" title="Team">' + scene("team") + '</button>' +
+    '</div></div>';
+  return header(b) + '<main class="wrap">' +
+    '<div class="crumb" data-go="katalog">' + icoArr + ' Zurück zum Katalog</div>' +
+    '<div class="pdp">' + gal +
+      '<div class="pinfo">' +
+        '<h1 class="h1">' + p.name + '</h1>' +
+        '<div class="chiprow">' + p.chips.map(function(c){ return '<span class="spec-chip">' + c + '</span>'; }).join("") + '</div>' +
+        cond + confHtml +
+        '<div class="ratebox">' +
+          '<div class="rate-line"><span class="rate-big rate-live" data-val="' + defRate + '">' + fmt(defRate) + ' €</span><span class="rate-per">pro Monat, netto</span></div>' +
+          '<div class="rate-gross">entspricht <b class="gross-live">' + fmt(defRate * 1.19) + ' €</b> brutto</div>' +
+          '<div class="rate-sub">' + subDefault + '</div>' +
+          '<button class="btn primary block">' + cta + '</button>' +
+          '<div class="micro">' + ctaSub + '</div>' +
+        '</div>' +
+        '<ul class="benefits">' +
+          '<li>' + icoCheck + ' Versand und Rückholung inklusive</li>' +
+          '<li>' + icoCheck + ' Austauschgerät bei Defekt</li>' +
+          '<li>' + icoCheck + ' Am Laufzeitende verlängern, tauschen oder zurückgeben</li>' +
+        '</ul>' +
+      '</div>' +
+    '</div>' +
+    '<section class="sect usecase"><div class="split">' +
+      '<div data-rev>' + scene("hero", "Bildslot: Im Modern Workplace", false) + '</div>' +
+      '<div data-rev style="--d:120ms"><h2 class="h2">Gemacht für den Modern Workplace</h2>' +
+      '<p class="sub" style="margin-bottom:16px">Vom ersten Tag produktiv: wir liefern eingerichtet aus, Ihr Team meldet sich an und arbeitet.</p>' +
+      '<ul class="benefits" style="margin-top:0">' +
+        '<li>' + icoCheck + ' Beschaffung, Einrichtung und Rollout durch uns</li>' +
+        '<li>' + icoCheck + ' Support, Reparatur und Austausch inklusive</li>' +
+        '<li>' + icoCheck + ' Ein Ansprechpartner, ein Vertrag, eine Rate</li>' +
+      '</ul></div>' +
+    '</div></section>' +
+  '</main>' + footer(b) +
+  '<div class="cartdock"><div class="dock-rate"><b class="rate-live" data-val="' + defRate + '">' + fmt(defRate) + ' €</b><span>mtl. netto</span></div><button class="btn primary">' + cta + '</button></div>';
+}
+
+function screenAnfrage(b){
+  var total = b.cart.reduce(function(s, it){ return s + it.rate * it.qty; }, 0);
+  return header(b) + '<main class="wrap">' +
+    '<div class="steps">' +
+      step(1, "Gerät", "done") + '<span class="step-line"></span>' +
+      step(2, "Konfiguration", "done") + '<span class="step-line"></span>' +
+      step(3, "Übersicht", "active") + '<span class="step-line"></span>' +
+      step(4, "Kontakt", "") +
+    '</div>' +
+    '<div class="aq">' +
+      '<div class="aq-main"><div class="panel">' +
+        '<h2 class="h2">Ihre Anfrage</h2>' +
+        b.cart.map(cline).join("") +
+        '<div class="csum"><span>Monatliche Rate gesamt</span><b class="cart-total">' + fmt(total) + ' €</b></div>' +
+        '<div class="micro">Netto, unverbindlich. Das verbindliche Angebot erhalten Sie per E-Mail.</div>' +
+      '</div></div>' +
+      '<div class="aq-side"><div class="panel form-panel">' +
+        '<h2 class="h2">Kontakt</h2>' +
+        '<label class="field"><span>Firma</span><input placeholder="Firmenname GmbH"></label>' +
+        '<div class="frow">' +
+          '<label class="field"><span>Name</span><input placeholder="Vor- und Nachname"></label>' +
+          '<label class="field"><span>E-Mail</span><input type="email" placeholder="name@firma.de"></label>' +
+        '</div>' +
+        '<label class="field"><span>Telefon <span class="opt">optional</span></span><input type="tel" placeholder="+49"></label>' +
+        '<label class="check"><input type="checkbox"> Ich habe die Datenschutzerklärung gelesen und stimme der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage zu.</label>' +
+        '<button class="btn primary block" data-send>Anfrage senden</button>' +
+        '<div class="micro center">Kein Konto nötig, keine Zahlung. Antwort in der Regel am selben Werktag.</div>' +
+      '</div></div>' +
+    '</div></main>' + footer(b);
+}
+
+var confirmHTML = function(){
+  return '<div class="confirm"><div class="confirm-ico">' + icoCheckBig + '</div>' +
+    '<h2 class="h2">Anfrage gesendet</h2>' +
+    '<p>Ihre Anfrage-ID: <b>SL-20260824-A3F7C2</b></p>' +
+    '<p class="sub2">Wir prüfen Verfügbarkeit und Konditionen und melden uns mit einem unverbindlichen Angebot, in der Regel am selben Werktag.</p></div>';
+};
+
+/* ---------- Buehne ---------- */
+var SCREENS = {
+  start: function(b){ return screenStart(b); },
+  katalog: function(b){ return screenKatalog(b); },
+  produkt: function(b){ return screenProdukt(b, "new"); },
+  anfrage: function(b){ return screenAnfrage(b); },
+  abo: function(b){ return screenProdukt(b, "ref"); }
+};
+var state = { screen: "start", view: "desktop", brand: "surface" };
+var stage = document.getElementById("stage");
+
+function canPlay(v){
+  var layer = v.closest(".acc-layer, .gal-layer");
+  if (layer && !layer.classList.contains("on")) return false;
+  if (v.dataset.up) return false;
+  return true;
+}
+function initFX(scr){
+  var els = scr.querySelectorAll("[data-rev]");
+  if (!("IntersectionObserver" in window)) { els.forEach(function(el){ el.classList.add("in"); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  }, { root: scr, threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  els.forEach(function(el){ io.observe(el); });
+}
+function initVideos(scr){
+  var vids = scr.querySelectorAll(".vslot video");
+  vids.forEach(function(v){
+    v.addEventListener("error", function(){
+      var slot = v.closest(".vslot");
+      if (slot) slot.innerHTML = scene(slot.dataset.fb || "hero", null, true) +
+        '<span class="sc-tag">Videoslot: eigenes Material folgt</span>';
+    });
+  });
+  if (!("IntersectionObserver" in window) || REDUCE) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      var v = en.target.querySelector("video");
+      if (!v) return;
+      if (en.isIntersecting && canPlay(v)) { v.play().catch(function(){}); }
+      else { v.pause(); }
+    });
+  }, { root: scr, threshold: 0.3 });
+  scr.querySelectorAll(".vslot").forEach(function(s){ io.observe(s); });
+}
+function render(){
+  var f = SCREENS[state.screen];
+  if (state.view === "mobile") {
+    stage.innerHTML = ["surface", "lenovo"].map(function(k){
+      return '<div class="phone"><div class="devlabel">' + BRANDS[k].domain + '</div>' +
+        '<div class="frame"><div class="screen" data-sf="' + k + '">' + f(BRANDS[k]) + '</div></div></div>';
+    }).join("");
+  } else {
+    var k = state.brand;
+    stage.innerHTML =
+      '<div class="desk"><div class="devlabel">' + BRANDS[k].domain + ', Desktop</div>' +
+      '<div class="frame"><div class="browserbar"><span class="wdots"><i></i><i></i><i></i></span><span class="url">https://' + BRANDS[k].domain + '</span></div>' +
+      '<div class="screen" data-sf="' + k + '">' + f(BRANDS[k]) + '</div></div></div>';
+  }
+  stage.querySelectorAll(".screen").forEach(function(scr){ initFX(scr); initVideos(scr); });
+  syncBar();
+}
+function syncBar(){
+  document.querySelectorAll("#tabs .tab").forEach(function(t){ t.classList.toggle("on", t.dataset.s === state.screen); });
+  document.querySelectorAll("#views .tab").forEach(function(t){ t.classList.toggle("on", t.dataset.v === state.view); });
+  document.querySelectorAll("#brandsel .tab").forEach(function(t){ t.classList.toggle("on", t.dataset.b === state.brand); });
+  document.getElementById("brandsel").style.display = state.view === "desktop" ? "flex" : "none";
+}
+document.querySelector(".bar").addEventListener("click", function(e){
+  var t = e.target.closest(".tab"); if (!t) return;
+  if (t.dataset.s) state.screen = t.dataset.s;
+  else if (t.dataset.v) state.view = t.dataset.v;
+  else if (t.dataset.b) state.brand = t.dataset.b;
+  render();
+});
+
+/* ---------- Interaktion in den Bildschirmen ---------- */
+function animateRate(el, from, to){
+  var t0 = performance.now(), d = 260;
+  function f(t){
+    var pr = Math.min(1, (t - t0) / d), e2 = 1 - Math.pow(1 - pr, 3);
+    el.textContent = fmt(from + (to - from) * e2) + " €";
+    if (pr < 1) requestAnimationFrame(f);
+  }
+  requestAnimationFrame(f);
+}
+function applyRate(scr, btn){
+  var to = parseFloat(btn.dataset.rate);
+  scr.querySelectorAll(".rate-live").forEach(function(el){
+    var from = parseFloat(el.dataset.val || to);
+    el.dataset.val = to;
+    animateRate(el, from, to);
+  });
+  var g = scr.querySelector(".gross-live");
+  if (g) g.textContent = fmt(to * 1.19) + " €";
+  var sub = scr.querySelector(".rate-sub");
+  if (sub && btn.dataset.sub) sub.textContent = btn.dataset.sub;
+  var rb = scr.querySelector(".ratebox");
+  if (rb) { rb.classList.remove("flash"); void rb.offsetWidth; rb.classList.add("flash"); }
+}
+stage.addEventListener("click", function(e){
+  var vc = e.target.closest("[data-vctl]");
+  if (vc) {
+    var hv = vc.closest(".vhero").querySelector("video");
+    if (hv) {
+      if (hv.paused) { delete hv.dataset.up; hv.play().catch(function(){}); vc.classList.remove("paused"); vc.setAttribute("aria-label", "Video anhalten"); }
+      else { hv.pause(); hv.dataset.up = "1"; vc.classList.add("paused"); vc.setAttribute("aria-label", "Video abspielen"); }
+    }
+    return;
+  }
+  var tel = e.target.closest('a[href^="tel:"]');
+  if (tel) { e.preventDefault(); return; }
+  var ai = e.target.closest(".acc-item");
+  if (ai) {
+    var acc = ai.closest(".acc");
+    var idx = parseInt(ai.dataset.ai, 10);
+    acc.querySelectorAll(".acc-item").forEach(function(x){ x.classList.toggle("on", x === ai); });
+    acc.querySelectorAll(".acc-layer").forEach(function(l, j){
+      l.classList.toggle("on", j === idx);
+      var v = l.querySelector("video");
+      if (v) { if (j === idx && !REDUCE) { v.play().catch(function(){}); } else { v.pause(); } }
+    });
+    return;
+  }
+  var th = e.target.closest(".thumb");
+  if (th && th.dataset.gi !== undefined) {
+    var gal = th.closest(".gal");
+    gal.querySelectorAll(".thumb").forEach(function(x){ x.classList.toggle("active", x === th); });
+    var gi = parseInt(th.dataset.gi, 10);
+    gal.querySelectorAll(".gal-layer").forEach(function(l, j){ l.classList.toggle("on", j === gi); });
+    return;
+  }
+  var seg = e.target.closest(".seg button");
+  if (seg) {
+    var wrap = seg.closest(".seg");
+    wrap.querySelectorAll("button").forEach(function(x){ x.classList.toggle("active", x === seg); });
+    var scr = seg.closest(".screen");
+    if (seg.dataset.ct && wrap.classList.contains("seg-ct")) {
+      scr.querySelectorAll(".seg-terms").forEach(function(s){ s.classList.toggle("hide", s.dataset.ct !== seg.dataset.ct); });
+      var act = scr.querySelector(".seg-terms:not(.hide) button.active") || scr.querySelector(".seg-terms:not(.hide) button");
+      if (act) applyRate(scr, act);
+    } else if (seg.dataset.rate) {
+      applyRate(scr, seg);
+    }
+    return;
+  }
+  var chip = e.target.closest(".chip");
+  if (chip) {
+    chip.parentElement.querySelectorAll(".chip").forEach(function(c){ c.classList.toggle("active", c === chip); });
+    return;
+  }
+  var q = e.target.closest(".qty button");
+  if (q) {
+    var line = q.closest(".cline");
+    var qv = line.querySelector(".qv");
+    var n = Math.max(1, parseInt(qv.textContent, 10) + parseInt(q.dataset.q, 10));
+    qv.textContent = n;
+    line.querySelector(".lr").textContent = fmt(parseFloat(line.dataset.rate) * n) + " €";
+    var scr2 = q.closest(".screen");
+    var tsum = 0;
+    scr2.querySelectorAll(".cline").forEach(function(l){
+      tsum += parseFloat(l.dataset.rate) * parseInt(l.querySelector(".qv").textContent, 10);
+    });
+    var tot = scr2.querySelector(".cart-total");
+    if (tot) tot.textContent = fmt(tsum) + " €";
+    return;
+  }
+  var send = e.target.closest("[data-send]");
+  if (send) { send.closest(".panel").innerHTML = confirmHTML(); return; }
+  var go = e.target.closest("[data-go]");
+  if (go) { state.screen = go.dataset.go; render(); }
+});
+
+render();
+</script>
+</body>
+</html>

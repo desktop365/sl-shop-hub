@@ -1,0 +1,77 @@
+/* Storefront lenovo (lenovo.online), Token-Satz V2.1, Platzhalter-Identitaet "Carbon und Karmin"
+   Gleiche Variablennamen wie tokens.surface.css, nur die Werte unterscheiden sich.
+   Kein echtes Lenovo-Markenzeichen, Logo ist ein neutraler Platzhalter bis zur Markenfreigabe.
+   Theming: <html data-sf="lenovo"> laedt diesen Satz, sonst nichts. */
+
+[data-sf="lenovo"]{
+
+  /* Akzent Karmin, zwei Stufen wie bei Surface.
+     Basis erfuellt 4,5:1 mit Weiss und darf deshalb direkt die Hauptaktion fuellen. */
+  --sf-accent:#D0342C;
+  --sf-accent-strong:#A82519;
+  --sf-accent-weak:#FBEBE8;
+  --sf-action:#D0342C;
+  --sf-action-hover:#B32A21;
+  --sf-action-ink:#FFFFFF;
+  --sf-focus:#A82519;
+
+  /* Neutrale, warm (Carbon und Greige statt kuehlem Grau) */
+  --sf-ink:#191817;
+  --sf-text-2:#6F6A66;
+  --sf-surface:#FFFFFF;
+  --sf-surface-2:#F7F5F2;
+  --sf-border:#E8E4DF;
+  --sf-border-strong:#CFC8C1;
+  --sf-logo-ink:#A82519;
+
+  /* Status, identisch mit Surface, nie Akzent */
+  --sf-success:#1B9E5A;
+  --sf-incoming:#B8860B;
+  --sf-onrequest:#8A8D93;
+
+  /* Badges der beiden Lanes */
+  --sf-badge-new-bg:#F1EEEA;  --sf-badge-new-ink:#46413C;
+  --sf-badge-ref-bg:#E7F6EE;  --sf-badge-ref-ink:#136F41;
+
+  /* Typografie, technischer: Grotesk, kompakter, halbfett statt leicht */
+  --sf-font:"Inter","Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --sf-w-display:600;
+  --sf-w-body:400;
+  --sf-w-strong:600;
+  --sf-text-display:clamp(2rem, 1.4rem + 3vw, 3rem);          /* 32 bis 48 */
+  --sf-text-h1:clamp(1.625rem, 1.35rem + 1.4vw, 2rem);        /* 26 bis 32 */
+  --sf-text-h2:clamp(1.25rem, 1.1rem + 0.8vw, 1.5rem);        /* 20 bis 24 */
+  --sf-text-h3:1.125rem;
+  --sf-text-body:1rem;                                        /* 16 */
+  --sf-text-small:0.875rem;
+  --sf-text-micro:0.75rem;
+  --sf-tracking-display:-0.01em;
+  --sf-leading-tight:1.1;
+  --sf-leading-body:1.5;
+
+  /* Form, eckiger und technischer */
+  --sf-radius:12px;        /* Karten, Panels */
+  --sf-radius-sm:8px;      /* Eingaben, Thumbnails, innere Flaechen */
+  --sf-radius-btn:10px;    /* Buttons, Chips, Segmente: kein Pill */
+
+  /* Tiefe, etwas knackiger */
+  --sf-shadow-card:0 1px 2px rgba(25,24,23,.07);
+  --sf-shadow-float:0 10px 24px rgba(25,24,23,.16);
+
+  /* Bewegung, gleiche Kurven, kein Marken-Puls */
+  --sf-ease:cubic-bezier(.2,.7,.3,1);
+  --sf-dur-1:150ms;
+  --sf-dur-2:260ms;
+  --sf-dur-3:550ms;
+  --sf-pulse:0s;
+
+  /* Bildton: Staerke des Marken-Duotons auf Lifestyle-Medien und Szenen */
+  --sf-tint:12%;
+
+  /* Raum, identisch mit Surface */
+  --sf-space-1:4px;  --sf-space-2:8px;  --sf-space-3:12px;
+  --sf-space-4:16px; --sf-space-5:24px; --sf-space-6:32px;
+  --sf-space-7:48px; --sf-space-8:64px; --sf-space-9:96px;
+  --sf-container:1200px;
+  --sf-gutter:clamp(20px, 4vw, 32px);
+}

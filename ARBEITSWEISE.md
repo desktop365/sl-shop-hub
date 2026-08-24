@@ -138,3 +138,9 @@ gesetzt, sondern immer ueber eine temporaere Settings-Datei (JSON) oder eine
 maskierte Eingabe. Grund: cmd und PowerShell zerreissen Werte an & und $,
 im Juni ging so der shop-Parameter der Distributor-URL verloren. Werte nie
 in die Terminal-Historie, in Berichten nur Namen.
+
+## Projekt-Board
+Der Projektstand lebt in board/board.json, Regeln und Meldeformat in
+board/README.md. Claude Code aktualisiert betroffene Eintraege am Ende jedes
+Laufs und committet sie mit. Chats melden per Meldeblock. Kickoffs neuer
+Straenge nennen beide Dateien als volle Raw-URLs.

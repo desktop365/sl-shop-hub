@@ -38,7 +38,7 @@
 
     { "id": "d1", "phase": "Design", "titel": "Design-Brief", "owner": "master", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "d2", "phase": "Design", "titel": "UX-Varianten-Konzept und V4-Prototyp", "owner": "design", "status": "geliefert", "haengt_von": ["d1"], "notiz": "Konzept im Hub, Kontrakte nachgezogen", "gemeldet_von": "design", "datum": "2026-08-24" },
-    { "id": "d3", "phase": "Design", "titel": "V4-Prototyp-Datei im Hub ablegen und klaeren", "owner": "sascha", "status": "offen", "haengt_von": ["d2"], "notiz": "Konzept nennt slshopv4, Repo hat slshopv2", "gemeldet_von": "master", "datum": "2026-08-24" },
+    { "id": "d3", "phase": "Design", "titel": "V4-Prototyp-Datei im Hub ablegen und klaeren", "owner": "sascha", "status": "erledigt", "haengt_von": ["d2"], "notiz": "V4-Prototyp liegt als brand/slshopv4-prototyp.html, UX-VARIANTEN-KONZEPT.md aktualisiert, V2-Prototyp nach archive/ verschoben", "gemeldet_von": "sascha", "datum": "2026-08-25" },
     { "id": "d4", "phase": "Design", "titel": "Claude Design Runde 2", "owner": "design", "status": "offen", "haengt_von": ["d3"], "notiz": "Freigabepaket mit fuenf Auflagen liegt bereit", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "d5", "phase": "Design", "titel": "Runde-2-Ergebnisse in Bauvorgaben giessen", "owner": "master", "status": "offen", "haengt_von": ["d4"], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
 

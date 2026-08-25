@@ -6,7 +6,7 @@ Hält fest, was wo läuft, damit kein Chat mehr rät. Ergänzt LANDKARTE.md Absc
 - Hostinger, Business-Tarif, gemanagtes Node-Hosting, Server in Frankfurt, IP 92.113.22.128.
 - App surface-love-shop, Next.js, verbunden mit GitHub, Auto-Deploy bei jedem Push auf main.
 - Datenbank MySQL u704706543_shop2, auf demselben Server, Verbindung über 127.0.0.1, nicht localhost.
-- Verwaltung aus Claude Code über das Hostinger-Plugin.
+- Verwaltung aus Claude Code über das Hostinger-Plugin, projekt-getrennt je Konto, siehe HOSTINGER-RULES.md.
 - Arbeitsadresse worklove.shop, live mit Zertifikat. surface-service.com registriert, im Review.
 
 ## 2. Google Cloud, zwei Projekte, klar getrennt

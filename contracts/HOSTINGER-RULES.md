@@ -44,3 +44,16 @@ offener Rotationen stehen in der privaten Vollfassung.
 ## 5. Weitere Bereiche
 `agency-hosting`, `billing` und `reach` sind eigene MCP-Bereiche desselben Anbieters. Sie
 werden bei Bedarf projekt-lokal mit dem passenden Token nachgezogen, nicht global.
+
+## 6. VS-Code-Erweiterung, Warnung
+Die Hostinger-VS-Code-Erweiterung `hostinger-official.hostinger-connector` schreibt bei
+jedem VS-Code-Start sieben globale hostinger-MCP-Server in `~/.claude.json`, über
+`registerMcp` beim Aktivierungsereignis `onStartupFinished`, und meldet sich dabei mit
+einem einzigen globalen Konto an. Das hebelt die Trennung pro Projekt aus, weil die
+globalen Server in jedem Projekt mitladen. Deshalb bleibt die Erweiterung disconnected
+und deaktiviert. Wird sie neu verbunden, kehrt das globale Konto zurück und muss erneut
+per `Hostinger: Disconnect` und anschliessendes Deaktivieren entfernt werden.
+
+## 7. Rotationsstand
+Der Token von Konto B wurde am 25.08.2026 rotiert, der alte Token ist widerrufen. Der
+früher vermerkte offene Rotationspunkt ist damit erledigt.

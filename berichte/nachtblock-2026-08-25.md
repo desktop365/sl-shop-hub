@@ -70,6 +70,22 @@ nichts beschädigt.
 
 ## A.3 Die Blockade, und wo Sascha den Wert setzt
 
+> **Korrektur vom 26.08.2026.** Der Satz unten, das Hostinger-Plugin könne keine
+> Umgebungsvariablen setzen, war zu kurz gegriffen. Richtig ist nur: es gibt
+> keinen eigenen Endpunkt dafür, weder im Plugin noch in der offiziellen API,
+> nachgeprüft am generierten SDK, das alle Operationen der API abbildet und
+> unter `nodejs` nur Builds, Logs, Neustart und Schwachstellen kennt. Es gibt
+> aber einen indirekten Weg, und der hat funktioniert: Die App läuft unter
+> Passenger, ihre Umgebung wird über `SetEnv`-Zeilen im `.htaccess` des
+> Dokumentenwurzelverzeichnisses gefüllt, dort standen bereits drei solche
+> Zeilen. Diese Datei ist über die Datei-API der Anbindung les- und
+> überschreibbar. Eine angehängte Zeile plus Neustart über den
+> Neustart-Endpunkt, mehr war nicht nötig. Der Rest dieses Abschnitts ist
+> damit erledigt, die vollständige Abnahme steht in
+> `berichte/sync-token-2026-08-26.md`. Einschränkung: ein neues Deploy erzeugt
+> das `.htaccess` neu, deshalb gehört der Wert zusätzlich in die
+> Umgebungsvariablen des hPanels, siehe `contracts/HOSTINGER-RULES.md`.
+
 Der Token ist erzeugt, kryptografisch zufällig, 64 Zeichen, und liegt **nur**
 lokal in der Sitzungsablage. Er steht nicht im Repo, nicht in diesem Bericht und
 nicht im Chat.

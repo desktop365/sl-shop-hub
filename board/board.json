@@ -1,5 +1,5 @@
 {
-  "stand": "2026-08-25",
+  "stand": "2026-08-26",
   "aufgaben": [
     { "id": "a1", "phase": "Fundament", "titel": "Shop-App live auf Hostinger, worklove.shop", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "a2", "phase": "Fundament", "titel": "Datenbank verbunden, Migrationen automatisch", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
@@ -16,7 +16,7 @@
     { "id": "c2", "phase": "Katalog Durchstich", "titel": "Fallback-Bilder und minimale images.json im Bucket", "owner": "sascha", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "sascha", "datum": "2026-08-24" },
     { "id": "c3", "phase": "Katalog Durchstich", "titel": "products.json im Bucket, Datenstand 05.07.", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "wird vom ersten Feed-Lauf ersetzt", "gemeldet_von": "code", "datum": "2026-08-24" },
     { "id": "c4", "phase": "Katalog Durchstich", "titel": "358 echte Geraete live auf worklove.shop", "owner": "ziel", "status": "erledigt", "haengt_von": ["c1", "c2", "c3"], "notiz": "aktuell ueber Bucket-Rueckfall", "gemeldet_von": "code", "datum": "2026-08-24" },
-    { "id": "c5", "phase": "Katalog Durchstich", "titel": "Sync-Route Bucket zu MySQL im Shop", "owner": "code", "status": "blockiert", "haengt_von": [], "notiz": "Route gebaut, deployt und erreichbar, antwortet 503. SYNC_TOKEN ist auf Hostinger nicht gesetzt und das Plugin kann keine Umgebungsvariablen setzen. Wartet auf Sascha, hPanel, Node.js-App, Umgebungsvariablen", "gemeldet_von": "code", "datum": "2026-08-25" },
+    { "id": "c5", "phase": "Katalog Durchstich", "titel": "Sync-Route Bucket zu MySQL im Shop", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "SYNC_TOKEN ueber die Hostinger-Anbindung gesetzt, als SetEnv-Zeile im .htaccess der Node-App, danach Neustart. Die Behauptung, das Plugin koenne keine Umgebungsvariablen setzen, war nur fuer einen eigenen Endpunkt richtig. Abnahme vollstaendig: ohne Token 401, Trockenlauf und echter Lauf je 477 Produkte und 3339 Raten geschrieben, Health zeigt Quelle datenbank ohne Hinweis, alle 477 Raten der Katalogseite stimmen exakt gegen products.json. Ein neues Deploy erzeugt das .htaccess neu, dann muss der Wert erneut gesetzt werden, siehe contracts/HOSTINGER-RULES.md", "gemeldet_von": "code", "datum": "2026-08-26" },
     { "id": "c6", "phase": "Katalog Durchstich", "titel": "Azure prod vollstaendig konfiguriert, Timer 04:00 UTC", "owner": "sascha", "status": "erledigt", "haengt_von": [], "notiz": "fuenf Settings plus TIMER_SCHEDULE, test bewusst ohne Schluessel", "gemeldet_von": "sascha", "datum": "2026-08-24" },
 
     { "id": "k1", "phase": "Katalog Betrieb", "titel": "Erster frischer Feed-Lauf mit Abnahme", "owner": "katalog", "status": "erledigt", "haengt_von": ["c6"], "notiz": "Lauf 13:15 erfolgreich geschrieben, 471 Artikel, source_date 2026-08-24, products.previous.json traegt die Juli-Fassung, abgenommen", "gemeldet_von": "katalog", "datum": "2026-08-24" },

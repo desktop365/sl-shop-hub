@@ -54,6 +54,24 @@ globalen Server in jedem Projekt mitladen. Deshalb bleibt die Erweiterung discon
 und deaktiviert. Wird sie neu verbunden, kehrt das globale Konto zurück und muss erneut
 per `Hostinger: Disconnect` und anschliessendes Deaktivieren entfernt werden.
 
-## 7. Rotationsstand
+## 7. Umgebungsvariablen der Node-App
+Die API kennt keinen Endpunkt für Umgebungsvariablen, nachgeprüft am generierten SDK.
+Setzbar sind sie trotzdem über die Anbindung: Die App läuft unter Passenger, ihre
+Umgebung wird über `SetEnv`-Zeilen im `.htaccess` des Dokumentenwurzelverzeichnisses
+gefüllt, und diese Datei ist über die Datei-API les- und überschreibbar. Vorgehen:
+Datei lesen, byte-genau nachbauen, genau die eine Zeile anhängen, über die
+Upload-Schnittstelle ersetzen, dann den Node-Prozess über den Neustart-Endpunkt neu
+starten. Kein Deploy, kein Build.
+
+Zwei Regeln dazu:
+- **Nie blind überschreiben.** Die vorhandenen Passenger-Zeilen tragen Anwendungswurzel,
+  Startdatei und Node-Binary. Geht die Datei verloren, startet die App nicht mehr. Erst
+  lesen, Größe gegen die Servermeldung prüfen, dann schreiben.
+- **Nicht deploy-fest.** Ein neues Deploy erzeugt das `.htaccess` neu und verliert die
+  Zeile. Werte, die dauerhaft gelten sollen, gehören zusätzlich in die
+  Umgebungsvariablen der Node.js-Anwendung im hPanel. Der `.htaccess`-Weg ist der Weg
+  für den Moment, nicht der Ersatz für den Eintrag im Panel.
+
+## 8. Rotationsstand
 Der Token von Konto B wurde am 25.08.2026 rotiert, der alte Token ist widerrufen. Der
 früher vermerkte offene Rotationspunkt ist damit erledigt.

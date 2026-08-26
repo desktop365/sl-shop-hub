@@ -92,6 +92,42 @@ nicht geraten. Die abgeleitete Matrix und die Beschaffungsliste liegen im
 privaten Repo `sl-bilder` unter `data/matrix.json` und
 `docs/bildbedarf-2026-08-25.md`.
 
+## Ableitung v2, entschieden 26.08.2026
+
+Ergebnis des Abgleichs der Bildspezifikation v5 gegen diesen Kontrakt und die
+Pipeline, Vorlage `berichte/bilder-v5-abgleich.md`. Diese fünf Punkte gehen den
+älteren Abschnitten **Schema**, **Dateinamen und Format** und **Aufnahmelisten**
+vor, wo sie ihnen widersprechen. Alles dort, was hier nicht angefasst wird,
+gilt unverändert weiter.
+
+1. **Ausgabemodell.** Je Bildmodell und Ansicht ein Breitenset 160, 400, 800 und
+   1200 als WebP. 1600 und 2400 nur für die Leitansicht. Rückwärtskompatibel:
+   `{key}.webp` bleibt Alias der 1200er Hauptansicht, `{key}_thumb.webp` Alias
+   der 400er. Der bestehende Resolver läuft dadurch unverändert weiter, `main`
+   und `thumb` im Schema behalten ihre Bedeutung. AVIF darf zusätzlich entstehen,
+   wenn die Kodier-Umgebung es trägt, es blockiert WebP nie: fällt AVIF aus,
+   wird trotzdem ausgeliefert.
+2. **Hintergrund.** Transparent ist verbindlich, Kontaktschatten liegt im
+   Alphakanal. Voraussetzung sind freigestellte Quellen, geprüft wird das am
+   Beweismodell, bevor die Strecke breit läuft. Eine Quelle, die sich nicht
+   freistellen lässt, bekommt ausnahmsweise Weiß und wird in der Matrix
+   vermerkt, damit die Ausnahme sichtbar bleibt und nicht zur Regel wird.
+3. **Benennung.** Matrix-Schlüssel plus Ansichtsvokabular aus v5, einfacher
+   Bindestrich, Breite vor der Endung:
+   `{key}-{ansicht}-{breite}.webp`. Ansichten sind `front-open`,
+   `three-quarter`, `side-closed`, `detail`, `back`. Beispiel:
+   `surface-laptop-8-13-8-platin-front-open-1200.webp`. Keine doppelten
+   Bindestriche, keine Breite im Schlüsselteil.
+4. **Manifest.** Es gibt genau **eine** `images.json` in Version 2, und sie trägt
+   beide Ebenen. `map` bleibt unangetastet, jede MSKU zeigt auf ein Bildmodell,
+   das ist die Brücke von der Preis-Seite zum Bild. `models` wird um die je
+   Modell verfügbaren Ansichten und Breiten erweitert, damit der Konfigurator
+   seine Slots füllen kann. Ein separates v5-Manifest wird nicht geführt, es
+   verlöre die MSKU-Brücke.
+5. **Farben.** Der Konfigurator zeigt nur Farben, die Feed und Matrix kennen,
+   derzeit platin und schwarz. Consumer-Farben ohne B2B-Artikel werden nicht
+   vorgehalten, weder als Auswahl noch als Bildmodell.
+
 ## Offene Fragen, vor der finalen Bildmatrix zu klären
 **Alle vier am 25.08.2026 entschieden, siehe Abschnitt Bildmodell-Matrix. Der
 Wortlaut bleibt als Beleg stehen, welche Frage womit beantwortet wurde.**

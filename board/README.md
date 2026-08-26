@@ -13,7 +13,8 @@ erst erledigt loest Abhaengigkeiten.
 
 ## Owner-Kuerzel
 master (Master-Chat), katalog (Preislisten-Chat), design (Design-Strang),
-code (Claude Code), sascha, betrieb, ziel (Meilenstein).
+code (Claude Code), bilder (Bilder-Strang, Beschaffung und Aufbereitung der
+Produktfotos), sascha, betrieb, ziel (Meilenstein).
 
 ## Wer meldet wie
 - Claude Code aktualisiert am Ende jedes Laufs die betroffenen Eintraege

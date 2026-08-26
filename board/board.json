@@ -48,11 +48,12 @@
 
     { "id": "g1", "phase": "Optik", "titel": "Konfigurator und Design-Module ueber das Fundament", "owner": "code", "status": "offen", "haengt_von": ["d5", "v2"], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
 
-    { "id": "l1", "phase": "Live-Gang", "titel": "surface.love von Cloudflare auf Hostinger umschalten", "owner": "sascha", "status": "offen", "haengt_von": ["g1", "f3", "k1"], "notiz": "braucht Entscheidung, vorher SEO-Feinschliff und frischer Feed", "gemeldet_von": "master", "datum": "2026-08-24" },
+    { "id": "x2a", "phase": "Live-Gang", "titel": "SEO-Grundausstattung im Shop umsetzen", "owner": "code", "status": "offen", "haengt_von": ["x2", "g1"], "notiz": "Definition aus 95-MARKETING_v2 Abschnitt 2 und E-029/E-030: Titel- und Beschreibungs-Templates je Modellreihe, Kanonik ohne Parameter, noindex fuer MSKU-Rohseiten, AggregateOffer mit kleinster Monatsrate aus products.json, Sitemap, noindex-Aufhebung als Schalter fuer die Umschaltung", "gemeldet_von": "master", "datum": "2026-08-26" },
+    { "id": "l1", "phase": "Live-Gang", "titel": "surface.love von Cloudflare auf Hostinger umschalten", "owner": "sascha", "status": "offen", "haengt_von": ["g1", "f3", "k1", "x2a"], "notiz": "braucht Entscheidung, vorher SEO-Feinschliff und frischer Feed", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "l2", "phase": "Live-Gang", "titel": "Alten Cloud-Run-Shop stilllegen", "owner": "sascha", "status": "offen", "haengt_von": ["l1"], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
 
     { "id": "x1", "phase": "Spaeter", "titel": "Phase Refurbished, eigener Bestand, Stripe-Abo", "owner": "master", "status": "offen", "haengt_von": [], "notiz": "eigene einfache Strecke laut UX-Konzept", "gemeldet_von": "master", "datum": "2026-08-24" },
-    { "id": "x2", "phase": "Spaeter", "titel": "Phase Marketing, SEO, Content", "owner": "master", "status": "offen", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
+    { "id": "x2", "phase": "Spaeter", "titel": "Phase Marketing, SEO, Content", "owner": "master", "status": "laeuft", "haengt_von": [], "notiz": "Grundgeruest Marketing v2 geliefert (Positionierung, drei Profile, SEO-Zulieferung an 80, Content-Plan Phase 1, Messkonzept), Ablage 95-MARKETING_v2.md, Logbuch E-028 bis E-031 nach Master-Konsolidierung", "gemeldet_von": "marketing", "datum": "2026-08-26" },
     { "id": "x3", "phase": "Spaeter", "titel": "Phase Agenten und Automatisierung des Betriebs", "owner": "master", "status": "offen", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" }
   ]
 }

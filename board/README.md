@@ -12,10 +12,10 @@ erledigt, blockiert. geliefert heisst uebergeben und wartet auf Abnahme,
 erst erledigt loest Abhaengigkeiten.
 
 ## Owner-Kuerzel
-master (Master-Chat), katalog (Preislisten-Chat), design (Design-Strang),
-code (Claude Code), bilder (Bilder-Strang, Beschaffung und Aufbereitung der
-Produktfotos), marketing (Marketing-Strang, Strom 95), sascha, betrieb,
-ziel (Meilenstein).
+master (Master-Chat), katalog (Preislisten-Chat), design (Design und UX
+Chat, Strom 50), refurb (Refurbished-Chat, Strom 90), code (Claude Code),
+bilder (Bilder-Strang, Beschaffung und Aufbereitung der Produktfotos),
+marketing (Marketing-Strang, Strom 95), sascha, betrieb, ziel (Meilenstein).
 
 ## Wer meldet wie
 - Claude Code aktualisiert am Ende jedes Laufs die betroffenen Eintraege

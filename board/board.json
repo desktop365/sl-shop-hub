@@ -1,5 +1,5 @@
 {
-  "stand": "2026-08-26",
+  "stand": "2026-08-31",
   "aufgaben": [
     { "id": "a1", "phase": "Fundament", "titel": "Shop-App live auf Hostinger, worklove.shop", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "a2", "phase": "Fundament", "titel": "Datenbank verbunden, Migrationen automatisch", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
@@ -27,6 +27,8 @@
     { "id": "k6", "phase": "Katalog Betrieb", "titel": "Kategorie-Substanz in ADMIN.md", "owner": "katalog", "status": "offen", "haengt_von": ["k4"], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "k7", "phase": "Katalog Betrieb", "titel": "STATUS.md und PRICING.md auf Normalzustand", "owner": "katalog", "status": "offen", "haengt_von": ["k1"], "notiz": "nur eigene Abschnitte", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "k8", "phase": "Katalog Betrieb", "titel": "Spezifikation halbstuendlicher Verfuegbarkeitslauf", "owner": "katalog", "status": "offen", "haengt_von": ["k3"], "notiz": "eigene kleine Datei, products.json unberuehrt", "gemeldet_von": "master", "datum": "2026-08-24" },
+    { "id": "k9", "phase": "Katalog Betrieb", "titel": "HubSpot-Katalog-Sync", "owner": "code", "status": "laeuft", "haengt_von": [], "notiz": "Stufe 1 und Trockenlauf geliefert, vier Blocker vor dem ersten Schreibvorgang gefunden, wartet auf Schreib-Token und Konnektor-Haertung", "gemeldet_von": "katalog", "datum": "2026-08-31" },
+    { "id": "bk2", "phase": "Katalog Betrieb", "titel": "Bausteine im Feed, Datenmodell", "owner": "katalog", "status": "offen", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-31" },
 
     { "id": "v1", "phase": "Varianten und Admin", "titel": "Attributfelder im Feed pruefen", "owner": "katalog", "status": "erledigt", "haengt_von": ["k1"], "notiz": "keine strukturierten Attributfelder im Feed, Titel dafuer hochgradig regelmaessig, 412 von 413 Lenovo-Geraeten mit Groesse und Speichermuster, Parsen traegt die Masse, Kuration nur Ausnahmen", "gemeldet_von": "katalog", "datum": "2026-08-24" },
     { "id": "v2", "phase": "Varianten und Admin", "titel": "Zuordnungsschicht MSKU zu Reihe, Stufe, Attributen", "owner": "code", "status": "offen", "haengt_von": ["v1"], "notiz": "Parse-Regelwerk als Vorlage liegt in berichte/parse-regelwerk-2026-08-24.md, Bauvorgabe folgt vom Master", "gemeldet_von": "katalog", "datum": "2026-08-24" },
@@ -41,6 +43,7 @@
     { "id": "d3", "phase": "Design", "titel": "V4-Prototyp-Datei im Hub ablegen und klaeren", "owner": "sascha", "status": "erledigt", "haengt_von": ["d2"], "notiz": "V4-Prototyp liegt als brand/slshopv4-prototyp.html, UX-VARIANTEN-KONZEPT.md aktualisiert, V2-Prototyp nach archive/ verschoben", "gemeldet_von": "sascha", "datum": "2026-08-25" },
     { "id": "d4", "phase": "Design", "titel": "Claude Design Runde 2", "owner": "design", "status": "geliefert", "haengt_von": ["d3"], "notiz": "V4 auf Basis des Design-Master-Prototyps konsolidiert: Start, Geräte, Konfigurator mit Zollgrößen und Delta-Raten, Refurbished-Abo, Anfrage-Wizard mit persistentem Korb, plus SL-Herz, Montage-Animation, Produktbilder, Stories, Lifecycle und Community; offen bleiben statische Seiten, mobiles Menü, Turnstile und Refurbished-Kasse.", "gemeldet_von": "design", "datum": "2026-08-25" },
     { "id": "d5", "phase": "Design", "titel": "Runde-2-Ergebnisse in Bauvorgaben giessen", "owner": "master", "status": "offen", "haengt_von": ["d4"], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
+    { "id": "bk1", "phase": "Design", "titel": "Checkout-Baukasten UX", "owner": "design", "status": "geliefert", "haengt_von": [], "notiz": "", "gemeldet_von": "design", "datum": "2026-08-31" },
 
     { "id": "f1", "phase": "Anfrage", "titel": "HubSpot-App, Graph und Turnstile Zugaenge pruefen", "owner": "sascha", "status": "offen", "haengt_von": [], "notiz": "braucht Zugaenge", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "f2", "phase": "Anfrage", "titel": "Anfrage-Endpunkt laut ANFRAGE.md inkl. spaetem Check", "owner": "code", "status": "offen", "haengt_von": ["f1", "k8", "v2"], "notiz": "Alternativen-Moment laut SICHTBARKEIT.md", "gemeldet_von": "master", "datum": "2026-08-24" },
@@ -53,6 +56,9 @@
     { "id": "l2", "phase": "Live-Gang", "titel": "Alten Cloud-Run-Shop stilllegen", "owner": "sascha", "status": "offen", "haengt_von": ["l1"], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
 
     { "id": "x1", "phase": "Spaeter", "titel": "Phase Refurbished, eigener Bestand, Stripe-Abo", "owner": "master", "status": "offen", "haengt_von": [], "notiz": "eigene einfache Strecke laut UX-Konzept", "gemeldet_von": "master", "datum": "2026-08-24" },
+    { "id": "r8", "phase": "Spaeter", "titel": "Refurbished-Bestand in HubSpot", "owner": "katalog", "status": "erledigt", "haengt_von": [], "notiz": "218 Geraete mit Seriennummer im Portal, Master ist HubSpot, der Katalog-Sync fasst sie nie an", "gemeldet_von": "katalog", "datum": "2026-08-31" },
+    { "id": "r9", "phase": "Spaeter", "titel": "Refurb-Leseabbild und Shop-Strecke", "owner": "code", "status": "offen", "haengt_von": ["v2"], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-31" },
+    { "id": "r10", "phase": "Spaeter", "titel": "Stripe-Checkout und HubSpot-Statuskette", "owner": "code", "status": "offen", "haengt_von": ["r9", "f1"], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-31" },
     { "id": "x2", "phase": "Spaeter", "titel": "Phase Marketing, SEO, Content", "owner": "master", "status": "laeuft", "haengt_von": [], "notiz": "Grundgeruest Marketing v2 geliefert (Positionierung, drei Profile, SEO-Zulieferung an 80, Content-Plan Phase 1, Messkonzept), Ablage 95-MARKETING_v2.md, Logbuch E-028 bis E-031 nach Master-Konsolidierung", "gemeldet_von": "marketing", "datum": "2026-08-26" },
     { "id": "x3", "phase": "Spaeter", "titel": "Phase Agenten und Automatisierung des Betriebs", "owner": "master", "status": "offen", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" }
   ]

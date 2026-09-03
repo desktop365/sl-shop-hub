@@ -1,5 +1,7 @@
 # Projekt-Board, Melde-Regel
 
+> Migriert nach Azure DevOps am 03.09.2026, Projekt Surface.Love, fuehrend ist das Board.
+
 ## Quelle der Wahrheit
 board/board.json in diesem Repo. Das Dashboard im Master-Chat liest die Datei
 ueber die raw-URL und rechnet Fortschritt, Jetzt dran und Wartet selbst aus.

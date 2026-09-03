@@ -1,4 +1,5 @@
 {
+  "_migriert": "nach Azure DevOps am 03.09.2026, Projekt Surface.Love, fuehrend ist das Board",
   "stand": "2026-08-31",
   "aufgaben": [
     { "id": "a1", "phase": "Fundament", "titel": "Shop-App live auf Hostinger, worklove.shop", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },

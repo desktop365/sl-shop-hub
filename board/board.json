@@ -1,6 +1,6 @@
 {
   "_migriert": "nach Azure DevOps am 03.09.2026, Projekt Surface.Love, fuehrend ist das Board",
-  "stand": "2026-08-31",
+  "stand": "2026-09-05",
   "aufgaben": [
     { "id": "a1", "phase": "Fundament", "titel": "Shop-App live auf Hostinger, worklove.shop", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "a2", "phase": "Fundament", "titel": "Datenbank verbunden, Migrationen automatisch", "owner": "code", "status": "erledigt", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-24" },
@@ -29,6 +29,7 @@
     { "id": "k7", "phase": "Katalog Betrieb", "titel": "STATUS.md und PRICING.md auf Normalzustand", "owner": "katalog", "status": "offen", "haengt_von": ["k1"], "notiz": "nur eigene Abschnitte", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "k8", "phase": "Katalog Betrieb", "titel": "Spezifikation halbstuendlicher Verfuegbarkeitslauf", "owner": "katalog", "status": "offen", "haengt_von": ["k3"], "notiz": "eigene kleine Datei, products.json unberuehrt", "gemeldet_von": "master", "datum": "2026-08-24" },
     { "id": "k9", "phase": "Katalog Betrieb", "titel": "HubSpot-Katalog-Sync", "owner": "code", "status": "laeuft", "haengt_von": [], "notiz": "Stufe 1, Trockenlauf und Beleg der Feldzuordnung am Testartikel geliefert. 325 anlegen, 148 aendern, 279 deaktivieren, kein Lenovo. Offen: Einhaengen in die Function nach dem Beleg, und zwei Entscheidungen aus dem Testartikel, Herstellerpraefix im Namen und Farbschreibweise", "gemeldet_von": "code", "datum": "2026-08-31" },
+    { "id": "k11", "phase": "Katalog Betrieb", "titel": "Datenhistorie im Nachtlauf mitschreiben, EK und Bestand je Artikel", "owner": "code", "status": "laeuft", "haengt_von": [], "notiz": "Work Item 7149, E-082. Vorabbericht geliefert, docs/k11-historie-vorabbericht-2026-09-05.md im Pricing-Repo. Der vorgeschlagene Pfad im oeffentlichen Bucket ist abgelehnt, dort laege jeder EK offen, stattdessen privater Blob-Container historie-preise als Append-Blob, rund 130 MB in 18 Monaten, Kosten unter einem Cent im Monat. Bau wartet auf Freigabe des Ablageorts und ist nachrangig zu k10 und dem Trockenlauf", "gemeldet_von": "code", "datum": "2026-09-05" },
     { "id": "bk2", "phase": "Katalog Betrieb", "titel": "Bausteine im Feed, Datenmodell", "owner": "katalog", "status": "offen", "haengt_von": [], "notiz": "", "gemeldet_von": "master", "datum": "2026-08-31" },
 
     { "id": "v1", "phase": "Varianten und Admin", "titel": "Attributfelder im Feed pruefen", "owner": "katalog", "status": "erledigt", "haengt_von": ["k1"], "notiz": "keine strukturierten Attributfelder im Feed, Titel dafuer hochgradig regelmaessig, 412 von 413 Lenovo-Geraeten mit Groesse und Speichermuster, Parsen traegt die Masse, Kuration nur Ausnahmen", "gemeldet_von": "katalog", "datum": "2026-08-24" },

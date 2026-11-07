@@ -1,0 +1,29 @@
+/* Surface.Love, Brücke vom Shop-Namensraum --sf-* auf die Rollen aus tokens.css.
+   Unverändert aus slshopv18-arbeit.html. Kein Teil von tokens.json: Das Designsystem führt keine Bewegungswerte
+   und keine Shop-Namen. Begründung: Die Bausteine laufen in beiden Shops über --sf-*, E-098 Schritt 1 und 3. */
+[data-sf="surface"]{
+  /* Rollen aus ds/surfacelove/tokens.css, Designsystem Surface.Love V2-2026 */
+  --sf-accent:var(--brand); --sf-accent-strong:var(--accent-text); --sf-accent-weak:var(--chip-cool);
+  --sf-action:var(--action); --sf-action-hover:var(--action-hover); --sf-action-ink:var(--on-action); --sf-focus:var(--focus);
+  --sf-ink:var(--ink); --sf-text-2:var(--ink-muted); --sf-surface:var(--surface); --sf-surface-2:var(--surface-raised);
+  --sf-border:var(--line); --sf-border-strong:var(--control-border); --sf-logo-ink:var(--brand);
+  --sf-success:var(--success); --sf-incoming:var(--warning); --sf-onrequest:var(--ink-subtle);
+  --sf-badge-new-bg:var(--surface-raised); --sf-badge-new-ink:var(--ink);
+  --sf-badge-ref-bg:var(--chip-cool); --sf-badge-ref-ink:var(--on-chip-cool);
+  --sf-font:var(--font-sans);
+  --sf-w-display:300; --sf-w-body:400; --sf-w-strong:600;
+  --sf-text-display:clamp(2.75rem, 1.9rem + 3.6cqw, 4rem);
+  --sf-text-h1:clamp(2rem, 1.55rem + 1.9cqw, 2.75rem);
+  --sf-text-h2:clamp(1.5rem, 1.3rem + 0.9cqw, 2rem);
+  --sf-text-h3:1.125rem; --sf-text-body:1rem; --sf-text-small:0.875rem; --sf-text-micro:0.75rem;
+  --sf-w-h2:300;
+  --sf-tracking-display:0; --sf-leading-tight:1.094; --sf-leading-body:1.5;
+  --sf-radius:var(--radius-none); --sf-radius-sm:var(--radius-none); --sf-radius-btn:var(--radius-s);
+  --sf-shadow-card:none;
+  --sf-shadow-float:none;
+  --sf-ease:cubic-bezier(.2,.7,.3,1); --sf-dur-1:150ms; --sf-dur-2:260ms; --sf-dur-3:550ms; --sf-pulse:0s;
+  --sf-tint:0%;
+  --sf-space-1:var(--space-1); --sf-space-2:var(--space-2); --sf-space-3:var(--space-3); --sf-space-4:var(--space-4); --sf-space-5:var(--space-6);
+  --sf-space-6:var(--space-8); --sf-space-7:var(--space-12); --sf-space-8:var(--space-16); --sf-space-9:var(--space-24);
+  --sf-container:1240px; --sf-gutter:clamp(20px, 4cqw, 40px);
+}

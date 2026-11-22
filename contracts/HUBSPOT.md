@@ -13,7 +13,7 @@ HubSpot ist der kaufmännische Master. Kontakte, Firmen, Deals und Abos werden d
 - Verknüpfungen zwischen den Objekten.
 
 ## 3. Deal-Pipeline, Stufen
-Eine gemeinsame SL-Pipeline für beide Marken, keine eigene Lenovo-Pipeline. Die Pipeline-ID wird über den MCP ausgelesen und hier ergänzt.
+Eine gemeinsame SL-Pipeline für beide Marken, keine eigene Lenovo-Pipeline. Die SL-Pipeline ist die Standard-Pipeline des Portals, interne ID `default` (ausgelesen am 22.11.2026). `HUBSPOT_PIPELINE_ID` ist damit `default`.
 
 | Stufe, sichtbar | interner Wert |
 |---|---|
@@ -37,6 +37,18 @@ Grundsatz, immer die inhaltlich passende Stufe setzen, nie pauschal appointments
 ## 4. Pflichtfelder je Deal
 Aus dem Shop bei Anlage immer gesetzt, Marke und Deal-Quelle aus dem Storefront, dazu Markt und Lane, und hubspot_owner_id, Standard Sascha Blickensdörfer. Grundsatz aus der Arbeitsweise, ein Deal je Vertragsende, kein Bündeln verschiedener Enddaten.
 
+Interne Feldnamen der Shop-Pflichtfelder, angelegt am 22.11.2026 in der Gruppe Deal-Informationen:
+
+| Feld | interner Name | Typ | Werte |
+|---|---|---|---|
+| Marke | `sl_marke` | Auswahl | Surface, Lenovo |
+| Deal-Quelle | `sl_deal_quelle` | Auswahl | surface.love, lenovo.online |
+| Markt | `sl_markt` | Auswahl | DE, US |
+| Lane | `sl_lane` | Auswahl | neu, refurbished |
+| Anfrage-ID | `sl_anfrage_id` | Text, eindeutig | SL-JJJJMMTT-XXXXXX, siehe ANFRAGE.md |
+
+Die Werte kommen aus der Storefront- und Markt-Config des Shops. Ein neuer Wert dort braucht zuerst einen neuen Optionswert hier. Die Anfrage-ID ist eindeutig, eine wiederholte Anfrage legt deshalb keinen zweiten Deal an.
+
 Im weiteren Lebenszyklus durch den Betrieb gepflegt, interne Feldnamen, finanzierende_bank, Werte DLL Bank, Wortmann Finance, ABC Finance, GRENKE. vertragsnummer, anzahl_der_objekte, seriennummer, versendet_am, sobald das Angebot versendet ist.
 
 ## 5. Firmenfelder
@@ -52,6 +64,6 @@ Felder für refurbished Abos, Stripe-Bezug, Status, Laufzeit, Rechnung. Folgt in
 HubSpot ist der kaufmännische Master. Bei Widerspruch zwischen Shop-Datenbank und HubSpot gilt HubSpot für alles Kaufmännische, die Datenbank für Bestand und Katalog.
 
 ## 9. Marken im gemeinsamen Portal
-Eine gemeinsame SL-Pipeline für beide Marken. Deal-Feld Marke, Werte Surface und Lenovo, Pflichtfeld an jedem Shop-Deal, interner Feldname noch zu ergänzen. Deal-Quelle je Storefront aus der Storefront-Config, Werte in STOREFRONTS.md Abschnitt 4. Zuordnung, surface ergibt Surface, lenovo ergibt Lenovo. Weitere Marke, weiterer Optionswert, keine neue Pipeline. Angebote verwenden die Vorlage Default Modern.
+Eine gemeinsame SL-Pipeline für beide Marken. Deal-Feld Marke, Werte Surface und Lenovo, Pflichtfeld an jedem Shop-Deal, interner Name `sl_marke`, siehe Abschnitt 4. Deal-Quelle je Storefront aus der Storefront-Config, Werte in STOREFRONTS.md Abschnitt 4. Zuordnung, surface ergibt Surface, lenovo ergibt Lenovo. Weitere Marke, weiterer Optionswert, keine neue Pipeline. Angebote verwenden die Vorlage Default Modern.
 
 Warum eine Pipeline, ein Trichter, eine Stufenlogik, eine Auswertung, Filter und Berichte je Marke über das Feld. Zwei Pipelines würden Stufen doppelt pflegen und die Zahlen zerschneiden.

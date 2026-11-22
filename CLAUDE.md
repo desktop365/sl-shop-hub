@@ -6,9 +6,9 @@ DIESES REPO IST OEFFENTLICH: nie EK, VK, Aufschlaege, Faktoren,
 Zugangsdaten oder interne Preislisten, auch nicht beispielhaft.
 Monatsraten sind oeffentlich und in Ordnung.
 
-BOARD-PFLICHT: Am Ende jedes Laufs, der Aufgaben des Boards beruehrt,
-board/board.json aktualisieren (status, notiz, gemeldet_von, datum) und
-mitcommitten. Regeln und Meldeformat in board/README.md.
+Gemeldet wird als Kommentar am Work Item im Azure-DevOps-Board (Organisation
+desktop365, Projekt Surface.Love), nicht mehr ueber board/board.json. Die
+fruehere board/board.json ist seit dem 03.09.2026 eingefroren.
 
 STAGING-REGEL, gilt ohne Ausnahme: In diesem oeffentlichen Repo wird nie
 pauschal gestagt. Kein git add -A, kein git add . , kein git commit -a.

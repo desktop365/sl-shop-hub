@@ -283,7 +283,7 @@ Desktop: ab 800 px Reihenfolge Navigation, Telefon, Korb, Herz.
 Bewegung: `transition` auf `background` und `border-color` 260 ms, `--sf-ease`, Verzögerung 0 ist definiert. Die Klassen wechseln nicht, also keine sichtbare Bewegung.
 
 ### Hauptnavigation (`.nav`, `header()`, alle Seiten)
-Vier Textziele im Kopf.
+Fünf Textziele im Kopf. Das fünfte und letzte ist „Stories“ (`/de/stories`). Es steht hinter einem Schalter in der Storefront-Konfiguration, voreingestellt aus (E-107). Auf dem Handy steht es im Menü.
 
 Zustände:
 
@@ -2400,6 +2400,22 @@ Handy: gleich.
 Desktop: gleich.
 
 Bewegung: keine.
+
+## Surface Stories
+
+Die Seiten unter `/de/stories` laufen über ein eigenes Layout und nutzen die Bausteine dieser Datei (E-107, E-121). Dazu kommen nur die zwei Punkte unten. Weitere eigene Farben, Größen oder Abstände gibt es nicht.
+
+### Lagune-Leiste (Stories-Layout, nur Stories-Seiten)
+4 px hohe Leiste über dem Kopf, gefüllt mit `--gradient-lagune`.
+
+Tokens: `--gradient-lagune` aus `tokens.css`. Die Höhe von 4 px ist ein fester Wert, kein Token.
+
+Nur auf den Stories-Seiten, über deren eigenes Layout. Der Kopf des Shops bleibt unverändert. Braucht das Layout einen Einhängepunkt am Kopf, kommt er aus dem Shop (8070).
+
+### Lesetext lang (Stories-Beitrag, Lesespalte)
+Fließtext eines Beitrags in 18/30.
+
+Tokens: `--sf-text-long` (1.125rem, 18 px) und `--sf-leading-long` (1.667, 30 px bei 18 px), beide in `sf-bruecke.css`. Alle übrigen Größen der Stories-Seiten laufen über die vorhandenen `--sf-text-*`, neue Stufen gibt es nicht.
 
 ## Sammelzeilen
 

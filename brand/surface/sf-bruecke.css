@@ -18,6 +18,8 @@
   --sf-text-h3:1.125rem; --sf-text-body:1rem; --sf-text-small:0.875rem; --sf-text-micro:0.75rem;
   --sf-w-h2:300;
   --sf-tracking-display:0; --sf-leading-tight:1.094; --sf-leading-body:1.5;
+  /* Lesetext lang 18/30 für Surface Stories (E-107, E-121) */
+  --sf-text-long:1.125rem; --sf-leading-long:1.667;
   --sf-radius:var(--radius-none); --sf-radius-sm:var(--radius-none); --sf-radius-btn:var(--radius-s);
   --sf-shadow-card:none;
   --sf-shadow-float:none;

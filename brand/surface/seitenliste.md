@@ -1,6 +1,6 @@
 # surface.love, Seitenliste
 
-Verbindlich: Artifact „Slshop-Startseite Premium-Version“, https://claude.ai/artifact/43jUmRRvidfK9b8vKqK24a, Version 24, Stand V18. Alle Seiten liegen in einer Datei: `project/slshopv18-arbeit.html`. Umschalter im Prototyp stehen in der Werkzeugleiste.
+Verbindlich: Artifact „Slshop-Startseite Premium-Version“, Version 24, Stand V18. Der Link steht nicht im öffentlichen Hub (E-092), er ist am Board unter 7873 vermerkt. Alle Seiten liegen in einer Datei: `project/slshopv18-arbeit.html`. Umschalter im Prototyp stehen in der Werkzeugleiste.
 
 Der Prototyp ist Referenz und liegt wegen Raten und Kaufpreisen nicht im Paket, siehe `offene-punkte.md`. V16 und V17 bleiben als `project/slshopv16-arbeit.html` und `project/slshopv17-arbeit.html` eingefroren (E-032).
 

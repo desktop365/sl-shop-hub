@@ -5,7 +5,8 @@ Für CC-Shop nach E-098, Nacharbeit nach E-099. Stand 06.11.2026, Prototyp V18, 
 | Datei | Inhalt |
 |---|---|
 | `tokens.css`, `tokens.json` | Designsystem Surface.Love V2-2026, Werte unverändert, neu der Token `schleier`, in `tokens.json` eine Beispielzeile neutralisiert, siehe `aenderungsliste.md` |
-| `sf-bruecke.css` | Shop-Namen `--sf-*` auf die Rollen, dazu Bewegung, gesetzt über `data-sf="surface"` |
+| `sf-bruecke.css` | Shop-Namen `--sf-*` auf die Rollen, dazu Bauwerte aus dem Bauplan V18 Fassung 4 (E-144), gesetzt über `data-sf="surface"` |
+| `shop-basis.css` | Grundstile, Raster, Typografie und Kernbausteine nach dem Bauplan V18 Fassung 4, nach `sf-bruecke.css` einbinden (E-144) |
 | `fonts/` | Open Sans 300, 400, 600, 700, Lizenz SIL OFL |
 | `bausteine-und-zustaende.md` | Jeder Baustein mit Zuständen, Tokens, Handy und Desktop, Bewegung |
 | `seitenliste.md` | Seiten, Datei, Version, Zustände |
@@ -15,3 +16,5 @@ Für CC-Shop nach E-098, Nacharbeit nach E-099. Stand 06.11.2026, Prototyp V18, 
 Vor dem Bau `offene-punkte.md` lesen.
 
 Beim Einbinden: `tokens.css` setzt ihre Werte auf `:root`. lenovo.online nutzt dieselben Namen `--font-sans`, deshalb je Shop unter `[data-sf]` einbinden und nur die eigenen Schriften laden.
+
+Reihenfolge beim Einbinden im Shop: `tokens.css`, `sf-bruecke.css`, `shop-basis.css`, dann die Bausteine (Bauplan Kapitel 2). Der Bauplan selbst liegt im privaten Shop-Repo unter `docs/design/v18/`.

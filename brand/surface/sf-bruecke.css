@@ -1,6 +1,8 @@
 /* Surface.Love, Brücke vom Shop-Namensraum --sf-* auf die Rollen aus tokens.css.
    Unverändert aus slshopv18-arbeit.html. Kein Teil von tokens.json: Das Designsystem führt keine Bewegungswerte
-   und keine Shop-Namen. Begründung: Die Bausteine laufen in beiden Shops über --sf-*, E-098 Schritt 1 und 3. */
+   und keine Shop-Namen. Begründung: Die Bausteine laufen in beiden Shops über --sf-*, E-098 Schritt 1 und 3.
+   Ergänzt am 23.11.2026 um die Bauwerte aus dem Bauplan V18 Fassung 4 (E-144, Abschnitt 1 aus shop-basis.css v3).
+   Seitenrand fest statt cqw (K08). Danach shop-basis.css einbinden. */
 [data-sf="surface"]{
   /* Rollen aus ds/surfacelove/tokens.css, Designsystem Surface.Love V2-2026 */
   --sf-accent:var(--brand); --sf-accent-strong:var(--accent-text); --sf-accent-weak:var(--chip-cool);
@@ -23,9 +25,67 @@
   --sf-radius:var(--radius-none); --sf-radius-sm:var(--radius-none); --sf-radius-btn:var(--radius-s);
   --sf-shadow-card:none;
   --sf-shadow-float:none;
+  /* Bestand V18, nur noch für vorhandene Bausteine (Stories). Neue Bausteine nutzen --sf-dur-* und --sf-ease-* unten */
   --sf-ease:cubic-bezier(.2,.7,.3,1); --sf-dur-1:150ms; --sf-dur-2:260ms; --sf-dur-3:550ms; --sf-pulse:0s;
   --sf-tint:0%;
   --sf-space-1:var(--space-1); --sf-space-2:var(--space-2); --sf-space-3:var(--space-3); --sf-space-4:var(--space-4); --sf-space-5:var(--space-6);
   --sf-space-6:var(--space-8); --sf-space-7:var(--space-12); --sf-space-8:var(--space-16); --sf-space-9:var(--space-24);
-  --sf-container:1240px; --sf-gutter:clamp(20px, 4cqw, 40px);
+  --sf-container:1240px; --sf-gutter:20px;
+}
+
+/* ============================================================
+   Bauwerte nach Bauplan V18 Fassung 4 (E-144). Handy zuerst, Stufen ab 768 und 1024.
+   Kennungen K und F verweisen auf Kapitel 10 im Bauplan.
+   ============================================================ */
+[data-sf="surface"]{
+  /* Raster */
+  --sf-sect:48px;
+  --sf-sect-tight:32px;
+  --sf-gap-grid:16px;
+  --sf-gap-split:32px;
+  --sf-head-gap:24px;
+  --sf-space-10:40px; --sf-space-14:56px; --sf-space-18:72px; --sf-space-20:80px;
+  --sf-header-h:64px;
+  --sf-hit:44px;
+  --sf-control-h:48px;
+
+  /* Bildformate, F01 (E-145) */
+  --sf-ratio-stage:1 / 1; --sf-ratio-product:5 / 4; --sf-ratio-wide:3 / 2; --sf-ratio-tall:4 / 5;
+
+  /* Ebenen */
+  --sf-z-sticky:10; --sf-z-header:20; --sf-z-scrim:40; --sf-z-sheet:50; --sf-z-toast:60;
+
+  /* Schrift, K09. Display, H1, H2 fließend aus dem Block oben */
+  --sf-lh-display:1.1; --sf-lh-h1:1.18; --sf-lh-h2:1.25;
+  --sf-fs-figure-xl:28px; --sf-lh-figure-xl:32px;
+  --sf-fs-figure:28px;    --sf-lh-figure:32px;
+  --sf-fs-title-l:24px;   --sf-lh-title-l:32px;
+  --sf-fs-title:18px;     --sf-lh-title:24px;
+  --sf-fs-lead:16px;      --sf-lh-lead:24px;
+  --sf-fs-body:16px;      --sf-lh-body:24px;
+  --sf-fs-small:14px;     --sf-lh-small:20px;
+  --sf-fs-micro:12px;     --sf-lh-micro:16px;
+
+  /* Bewegung App, K10 */
+  --sf-dur-instant:100ms; --sf-dur-fast:150ms; --sf-dur-base:200ms; --sf-dur-slow:300ms;
+  --sf-ease-out:cubic-bezier(.2,.7,.3,1);
+  --sf-ease-in:cubic-bezier(.4,0,1,1);
+  --sf-ease-inout:cubic-bezier(.4,0,.2,1);
+  /* Bewegung Marke, nur Marketingflächen, nicht in Formular, Blatt und Kasse */
+  --sf-dur-reveal:550ms; --sf-dur-count:420ms; --sf-reveal-shift:16px; --sf-stagger:60ms;
+}
+@media (min-width:768px){
+  [data-sf="surface"]{
+    --sf-gutter:32px; --sf-sect:72px; --sf-sect-tight:48px;
+    --sf-gap-grid:24px; --sf-gap-split:48px; --sf-head-gap:32px;
+    --sf-header-h:72px;
+    --sf-fs-figure-xl:44px; --sf-lh-figure-xl:48px;
+    --sf-fs-lead:18px; --sf-lh-lead:28px;
+  }
+}
+@media (min-width:1024px){
+  [data-sf="surface"]{
+    --sf-gutter:40px; --sf-sect:96px; --sf-sect-tight:64px;
+    --sf-gap-split:72px; --sf-head-gap:48px;
+  }
 }

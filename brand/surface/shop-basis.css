@@ -1,0 +1,425 @@
+/* Surface.Love Shop, Grundstile und Kernbausteine nach Bauplan V18 Fassung 4 (Freigaben F01 bis F12, F14, E-144, E-145).
+   Vorschlag aus dem Design-Chat (Strom 50) vom 23.11.2026, Fassung 3, vom Master übernommen (E-099, E-144).
+   Abschnitt 1 (Tokens) steht in sf-bruecke.css. Einbinden nach tokens.css und sf-bruecke.css. Gilt nur unter [data-sf="surface"].
+   Bausteine nutzen nur --sf-* und die Rollen aus tokens.css, keine Hex-Werte.
+   Kennungen K und F verweisen auf Kapitel 10 im Bauplan, der Bauplan liegt im privaten Shop-Repo unter docs/design/v18/. */
+
+/* ============================================================
+   2. Grundstile
+   ============================================================ */
+html{overflow-x:clip;-webkit-text-size-adjust:100%;text-size-adjust:100%}   /* K01 */
+[data-sf="surface"] body,
+body[data-sf="surface"]{margin:0}
+[data-sf="surface"]{
+  font-family:var(--sf-font); font-size:var(--sf-fs-body); line-height:var(--sf-lh-body);
+  font-weight:var(--sf-w-body); color:var(--sf-ink); background:var(--sf-surface);
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; font-synthesis:none;
+}
+[data-sf="surface"] *, [data-sf="surface"] *::before, [data-sf="surface"] *::after{box-sizing:border-box}
+[data-sf="surface"] :where(button,input,select,textarea){font:inherit;color:inherit;letter-spacing:inherit}  /* K07 */
+[data-sf="surface"] :where(h1,h2,h3,h4,h5,p,ul,ol,dl,dd,figure,blockquote){margin:0}
+[data-sf="surface"] :where(ul,ol){padding:0;list-style:none}
+[data-sf="surface"] :where(img,video,svg,picture){display:block;max-width:100%;height:auto}
+[data-sf="surface"] :where(b,strong){font-weight:var(--sf-w-strong)}                               /* K02 */
+[data-sf="surface"] :where(h1,h2,h3){text-wrap:balance;font-weight:var(--sf-w-display)}
+[data-sf="surface"] :where(p,li,dd){text-wrap:pretty}
+[data-sf="surface"] :where(a){color:inherit}
+[data-sf="surface"] :where([id]){scroll-margin-top:calc(var(--sf-header-h) + 16px)}
+@media (max-width:767px){ [data-sf="surface"] :where(p){hyphens:auto} }
+[data-sf="surface"] .num,
+[data-sf="surface"] .price{font-variant-numeric:tabular-nums}
+[data-sf="surface"] .price{white-space:nowrap}
+[data-sf="surface"] .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Fokus, K06. Einzige Schattenform */
+[data-sf="surface"] :focus{outline:0}
+[data-sf="surface"] :focus-visible{outline:0;box-shadow:var(--focus-ring)}
+
+/* Skip-Link */
+[data-sf="surface"] .skip{position:absolute;left:16px;top:-100px;z-index:var(--sf-z-toast);padding:12px 16px;background:var(--sf-surface);color:var(--sf-ink);font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);font-weight:var(--sf-w-strong)}
+[data-sf="surface"] .skip:focus-visible{top:12px}
+
+/* ============================================================
+   3. Raster
+   ============================================================ */
+[data-sf="surface"] .wrap{width:100%;max-width:var(--sf-container);margin-inline:auto;padding-inline:var(--sf-gutter)}
+[data-sf="surface"] .sect{padding-block:var(--sf-sect)}
+[data-sf="surface"] .sect-tight{padding-block:var(--sf-sect-tight)}
+[data-sf="surface"] .band-sand{background:var(--surface-sand)}
+[data-sf="surface"] .band-deep{background:var(--surface-deep);color:var(--on-deep)}
+
+[data-sf="surface"] .grid-3,
+[data-sf="surface"] .grid-4{display:grid;gap:var(--sf-gap-grid);grid-template-columns:minmax(0,1fr)}
+@media (min-width:768px){
+  [data-sf="surface"] .grid-3,
+  [data-sf="surface"] .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:1024px){
+  [data-sf="surface"] .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  [data-sf="surface"] .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
+/* Zweispalter. Varianten über Klasse, siehe Bauplan 4.3 */
+[data-sf="surface"] .split{display:grid;gap:var(--sf-gap-split);grid-template-columns:minmax(0,1fr)}
+@media (min-width:1024px){
+  [data-sf="surface"] .split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  [data-sf="surface"] .split.leaf{grid-template-columns:minmax(0,1.125fr) minmax(0,1fr)}
+  [data-sf="surface"] .split.acc{grid-template-columns:minmax(0,11fr) minmax(0,9fr)}
+  [data-sf="surface"] .split.aus{grid-template-columns:minmax(0,1fr) 384px;column-gap:var(--sf-space-14)}
+}
+
+/* Wischreihe auf dem Handy, Raster ab Desktop. V18 .bahn, jetzt auch für Use Cases und Inspiration, F07 */
+[data-sf="surface"] .bahn{
+  display:grid;grid-auto-flow:column;grid-auto-columns:80%;gap:var(--sf-gap-grid);
+  overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
+  scroll-padding-inline:var(--sf-gutter);
+  margin-inline:calc(var(--sf-gutter) * -1);padding-inline:var(--sf-gutter);padding-bottom:8px;
+  scrollbar-width:thin;
+}
+[data-sf="surface"] .bahn > *{scroll-snap-align:start;min-width:0}
+@media (min-width:768px){ [data-sf="surface"] .bahn{grid-auto-columns:44%} }
+@media (min-width:1024px){
+  [data-sf="surface"] .bahn{grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;margin-inline:0;padding-inline:0;padding-bottom:0;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr))}
+}
+
+/* Abschnittskopf */
+[data-sf="surface"] .railhead{display:flex;flex-direction:column;gap:16px;margin-bottom:var(--sf-head-gap)}
+[data-sf="surface"] .railhead > div{max-width:30ch}
+@media (min-width:768px){
+  [data-sf="surface"] .railhead{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:24px}
+}
+
+/* ============================================================
+   4. Typografie, Kapitel 5
+   ============================================================ */
+[data-sf="surface"] .display{font-size:var(--sf-text-display);line-height:var(--sf-lh-display);font-weight:var(--sf-w-display);letter-spacing:0}
+[data-sf="surface"] .h1{font-size:var(--sf-text-h1);line-height:var(--sf-lh-h1);font-weight:var(--sf-w-display);color:var(--heading)}
+[data-sf="surface"] .h2{font-size:var(--sf-text-h2);line-height:var(--sf-lh-h2);font-weight:var(--sf-w-display);color:var(--heading)}
+[data-sf="surface"] .title-l{font-size:var(--sf-fs-title-l);line-height:var(--sf-lh-title-l);font-weight:var(--sf-w-body)}
+[data-sf="surface"] .title{font-size:var(--sf-fs-title);line-height:var(--sf-lh-title);font-weight:var(--sf-w-strong)}
+[data-sf="surface"] .figure-xl{font-size:var(--sf-fs-figure-xl);line-height:var(--sf-lh-figure-xl);font-weight:var(--sf-w-display);font-variant-numeric:tabular-nums;white-space:nowrap}
+[data-sf="surface"] .figure{font-size:var(--sf-fs-figure);line-height:var(--sf-lh-figure);font-weight:var(--sf-w-display);font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--sf-accent-strong)}
+[data-sf="surface"] .statement{font-size:var(--sf-fs-figure);line-height:var(--sf-lh-figure);font-weight:var(--sf-w-display)}
+[data-sf="surface"] .lead{font-size:var(--sf-fs-lead);line-height:var(--sf-lh-lead);font-weight:var(--sf-w-display);color:var(--ink-muted);max-width:52ch}
+[data-sf="surface"] .body{font-size:var(--sf-fs-body);line-height:var(--sf-lh-body)}
+[data-sf="surface"] .small{font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);color:var(--ink-muted)}
+[data-sf="surface"] .micro{font-size:var(--sf-fs-micro);line-height:var(--sf-lh-micro);color:var(--ink-subtle)}
+[data-sf="surface"] .eyebrow{font-size:12px;line-height:16px;font-weight:var(--sf-w-strong);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text)}
+[data-sf="surface"] .band-sand .eyebrow{color:var(--accent-text-sand)}
+[data-sf="surface"] .band-deep .eyebrow{color:var(--on-deep-accent)}
+[data-sf="surface"] .eyebrow + :is(.h1,.h2,.display){margin-top:12px}
+[data-sf="surface"] :is(.h1,.h2,.display) + .lead{margin-top:16px}
+[data-sf="surface"] .rate{display:inline-flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+[data-sf="surface"] .rate .unit{font-size:var(--sf-fs-micro);line-height:var(--sf-lh-micro);color:var(--ink-muted);font-weight:var(--sf-w-body)}
+
+/* ============================================================
+   5. Knopf, Link, Symbolknopf, Kapitel 6.5 bis 6.8
+   ============================================================ */
+[data-sf="surface"] .btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:var(--sf-control-h);padding:0 20px;border:1px solid transparent;border-radius:var(--sf-radius-btn);
+  font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);font-weight:var(--sf-w-strong);
+  text-decoration:none;cursor:pointer;background:transparent;color:var(--sf-ink);
+  transition:background-color var(--sf-dur-instant) var(--sf-ease-out),border-color var(--sf-dur-instant) var(--sf-ease-out),color var(--sf-dur-instant) var(--sf-ease-out);
+}
+[data-sf="surface"] .btn svg{width:16px;height:16px;flex:none}
+[data-sf="surface"] .btn.block{display:flex;width:100%}
+[data-sf="surface"] .btn.primary{background:var(--sf-action);color:var(--sf-action-ink)}
+[data-sf="surface"] .btn.secondary{border-color:var(--sf-ink)}
+[data-sf="surface"] .btn.on-dark{border-color:var(--on-deep);color:var(--on-deep)}
+[data-sf="surface"] .btn.text{min-height:var(--sf-hit);padding:0 4px}
+@media (hover:hover){
+  [data-sf="surface"] .btn.primary:hover{background:var(--sf-action-hover)}
+  [data-sf="surface"] .btn.secondary:hover{background:var(--surface-raised)}
+  [data-sf="surface"] .btn.on-dark:hover{background:rgb(255 255 255 / .12)}
+  [data-sf="surface"] .btn.text:hover{text-decoration:underline;text-underline-offset:3px}
+}
+[data-sf="surface"] .btn.primary:active{background:var(--action-active)}
+[data-sf="surface"] .btn.secondary:active{background:var(--neutral-100)}
+[data-sf="surface"] .btn.on-dark:active{background:rgb(255 255 255 / .2)}
+[data-sf="surface"] .btn[aria-busy="true"]{cursor:progress}
+[data-sf="surface"] .btn[aria-busy="true"]::before{content:"";width:16px;height:16px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:sf-spin 800ms linear infinite}
+[data-sf="surface"] .btn[aria-disabled="true"]{opacity:.4;cursor:not-allowed}
+@keyframes sf-spin{to{transform:rotate(1turn)}}
+
+/* Wegweiser und Textlink, 6.6 */
+[data-sf="surface"] .lnk{
+  display:inline-flex;align-items:center;gap:8px;padding-block:12px;margin-block:-12px;
+  font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);font-weight:var(--sf-w-strong);
+  color:var(--sf-accent-strong);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;
+  background:none;border:0;cursor:pointer;
+}
+[data-sf="surface"] .lnk.ink{color:var(--sf-ink)}
+[data-sf="surface"] .band-sand .lnk:not(.ink){color:var(--accent-text-sand)}
+[data-sf="surface"] .band-deep .lnk,
+[data-sf="surface"] .on-media .lnk{color:var(--on-deep)}
+[data-sf="surface"] .lnk svg{width:16px;height:16px;flex:none;transition:transform var(--sf-dur-fast) var(--sf-ease-out)}
+@media (hover:hover){ [data-sf="surface"] .lnk:hover svg{transform:translateX(4px)} }
+[data-sf="surface"] .lnk:focus-visible svg{transform:translateX(4px)}
+
+/* Symbolknopf, 6.7 */
+[data-sf="surface"] .iconbtn{
+  position:relative;display:inline-grid;place-items:center;width:var(--sf-hit);height:var(--sf-hit);
+  padding:0;border:0;border-radius:var(--sf-radius-btn);background:transparent;color:var(--sf-ink);cursor:pointer;
+  transition:background-color var(--sf-dur-instant) var(--sf-ease-out);
+}
+[data-sf="surface"] .iconbtn svg{width:24px;height:24px}
+[data-sf="surface"] .iconbtn.outline{border:1px solid var(--sf-border-strong)}
+[data-sf="surface"] .iconbtn.outline svg{width:16px;height:16px}
+[data-sf="surface"] .iconbtn[aria-disabled="true"]{opacity:.4;cursor:not-allowed}
+@media (hover:hover){ [data-sf="surface"] .iconbtn:hover{background:var(--surface-raised)} }
+
+/* Korbzähler, 6.3, K03 */
+[data-sf="surface"] .count{
+  position:absolute;top:2px;right:2px;display:grid;place-items:center;min-width:20px;height:20px;padding:0 6px;
+  border-radius:var(--radius-pill);background:var(--marker);color:var(--on-action);
+  font-size:12px;line-height:16px;font-weight:var(--sf-w-strong);font-variant-numeric:tabular-nums;
+}
+
+/* Pfeilfeld auf Karten, 6.8, K04 */
+[data-sf="surface"] .go{
+  display:grid;place-items:center;width:var(--sf-hit);height:var(--sf-hit);flex:none;
+  border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-btn);color:var(--sf-ink);
+  transition:background-color var(--sf-dur-fast) var(--sf-ease-out),color var(--sf-dur-fast) var(--sf-ease-out),border-color var(--sf-dur-fast) var(--sf-ease-out);
+}
+[data-sf="surface"] .go svg{width:16px;height:16px}
+
+/* ============================================================
+   6. Kopf, Navigation, Fuß, Kapitel 6.1 und 6.23
+   ============================================================ */
+[data-sf="surface"] .hdr{position:sticky;top:0;z-index:var(--sf-z-header);background:var(--sf-surface);border-bottom:1px solid var(--sf-border)}
+[data-sf="surface"] .hdr-in{display:flex;align-items:center;gap:8px;height:calc(var(--sf-header-h) - 1px)}
+[data-sf="surface"] .hdr-end{margin-left:auto;display:flex;align-items:center;gap:8px}
+[data-sf="surface"] .nav{display:none}
+[data-sf="surface"] .phone-l{display:none}
+@media (min-width:1024px){
+  [data-sf="surface"] .hdr-in{gap:24px}
+  [data-sf="surface"] .nav{display:flex;gap:32px}
+  [data-sf="surface"] .phone-l{display:inline-flex}
+  [data-sf="surface"] .only-m{display:none}
+}
+[data-sf="surface"] .nav a{
+  position:relative;display:inline-flex;align-items:center;min-height:var(--sf-hit);
+  font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);color:var(--ink-muted);text-decoration:none;
+  transition:color var(--sf-dur-instant) var(--sf-ease-out);
+}
+[data-sf="surface"] .nav a::after{content:"";position:absolute;left:0;right:0;bottom:10px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform var(--sf-dur-fast) var(--sf-ease-out)}
+[data-sf="surface"] .nav a[aria-current="page"]{color:var(--sf-ink)}
+[data-sf="surface"] .nav a[aria-current="page"]::after{transform:scaleX(1)}
+@media (hover:hover){
+  [data-sf="surface"] .nav a:hover{color:var(--sf-ink)}
+  [data-sf="surface"] .nav a:hover::after{transform:scaleX(1)}
+}
+[data-sf="surface"] .phone-l{align-items:center;gap:8px;min-height:var(--sf-hit);font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);font-weight:var(--sf-w-strong);color:var(--ink-muted);text-decoration:none}
+[data-sf="surface"] .phone-l svg{width:16px;height:16px;color:var(--icon)}
+[data-sf="surface"] .logo{display:grid;place-items:center;width:var(--sf-hit);height:var(--sf-hit);margin-left:12px;color:var(--sf-logo-ink)}
+[data-sf="surface"] .logo svg{width:43px;height:38px;max-width:none}
+
+/* Fuß */
+[data-sf="surface"] .ftr-band{background:var(--surface-brand);color:var(--on-brand)}
+[data-sf="surface"] .ftr-band .wrap{display:flex;flex-direction:column;gap:8px;padding-block:24px}
+@media (min-width:768px){ [data-sf="surface"] .ftr-band .wrap{flex-direction:row;align-items:baseline;gap:24px} }
+[data-sf="surface"] .ftr{padding-block:48px 32px}
+@media (min-width:1024px){ [data-sf="surface"] .ftr{padding-block:80px 32px} }
+[data-sf="surface"] .ftr-grid{display:grid;gap:32px;grid-template-columns:repeat(2,minmax(0,1fr))}
+[data-sf="surface"] .ftr-grid > .ftr-brand{grid-column:1 / -1}
+@media (min-width:768px){
+  [data-sf="surface"] .ftr-grid{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr)}
+  [data-sf="surface"] .ftr-grid > .ftr-brand{grid-column:auto}
+}
+[data-sf="surface"] .ftr-col h2{font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);font-weight:var(--sf-w-strong);color:var(--heading);margin-bottom:8px}
+[data-sf="surface"] .ftr-col a{display:block;padding-block:12px;font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);color:var(--ink-muted);text-decoration:none}
+@media (hover:hover){ [data-sf="surface"] .ftr-col a:hover{color:var(--sf-ink);text-decoration:underline;text-underline-offset:3px} }
+[data-sf="surface"] .ftr-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:48px;padding-top:16px;border-top:1px solid var(--sf-border);font-size:12px;line-height:16px;color:var(--ink-subtle)}
+
+/* ============================================================
+   7. Formular, Kapitel 6.9 bis 6.12
+   ============================================================ */
+[data-sf="surface"] .fld{display:flex;flex-direction:column;gap:8px}
+[data-sf="surface"] .fld + .fld,
+[data-sf="surface"] .frow + .fld,
+[data-sf="surface"] .fld + .frow,
+[data-sf="surface"] .frow + .frow{margin-top:16px}
+[data-sf="surface"] .fld label{font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);font-weight:var(--sf-w-strong);color:var(--sf-ink)}
+[data-sf="surface"] .fld label .optional{font-weight:var(--sf-w-body);color:var(--ink-muted)}
+[data-sf="surface"] .fld :is(input,select,textarea){
+  width:100%;min-height:var(--sf-control-h);padding:0 12px;border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-btn);
+  background:var(--surface-raised);font-size:16px;line-height:24px;color:var(--sf-ink);
+  transition:border-color var(--sf-dur-instant) var(--sf-ease-out);
+}
+[data-sf="surface"] .fld textarea{padding:12px;min-height:120px;resize:vertical}
+[data-sf="surface"] .fld :is(input,select,textarea)::placeholder{color:var(--ink-subtle)}
+[data-sf="surface"] .fld :is(input,select,textarea):focus-visible{border-color:var(--focus)}
+[data-sf="surface"] .fld .hint{margin-top:-4px;font-size:12px;line-height:16px;color:var(--ink-subtle)}
+[data-sf="surface"] .fld .err{display:flex;gap:8px;align-items:flex-start;font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);color:var(--danger)}
+[data-sf="surface"] .fld .err svg{width:16px;height:16px;flex:none;margin-top:2px}
+[data-sf="surface"] .fld [aria-invalid="true"]{border-color:var(--danger);box-shadow:inset 0 0 0 1px var(--danger)}
+[data-sf="surface"] .fld [aria-invalid="true"]:focus-visible{box-shadow:inset 0 0 0 1px var(--danger),var(--focus-ring)}
+
+/* Feldzeile, 6.10: <div class="frow"><div class="frow-in"> zwei .fld </div></div> */
+[data-sf="surface"] .frow{container-type:inline-size}
+[data-sf="surface"] .frow-in{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+[data-sf="surface"] .frow-in > .fld + .fld{margin-top:0}
+@container (min-width:480px){ [data-sf="surface"] .frow-in{grid-template-columns:repeat(2,minmax(0,1fr))} }
+
+/* Zustimmung, 6.11, K03, K04 */
+[data-sf="surface"] .chk-line{display:flex;gap:12px;align-items:flex-start;min-height:var(--sf-hit);padding-block:12px;cursor:pointer;font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);color:var(--ink-muted)}
+[data-sf="surface"] .box{appearance:none;flex:none;display:grid;place-items:center;width:20px;height:20px;margin:0;border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-btn);background:var(--sf-surface);cursor:pointer}
+[data-sf="surface"] .box::after{content:"";width:10px;height:6px;border:2px solid var(--white);border-top:0;border-right:0;transform:translateY(-1px) rotate(-45deg) scale(.8);opacity:0;transition:opacity var(--sf-dur-fast) var(--sf-ease-out),transform var(--sf-dur-fast) var(--sf-ease-out)}
+[data-sf="surface"] .box:checked,
+[data-sf="surface"] .box[aria-checked="true"]{background:var(--sf-ink);border-color:var(--sf-ink)}
+[data-sf="surface"] .opt[aria-checked="true"] .box{background:var(--sf-ink);border-color:var(--sf-ink)}
+[data-sf="surface"] .opt[aria-checked="true"] .box::after,
+[data-sf="surface"] .box:checked::after,
+[data-sf="surface"] .box[aria-checked="true"]::after{opacity:1;transform:translateY(-1px) rotate(-45deg) scale(1)}
+
+/* Menge, 6.12 */
+[data-sf="surface"] .qty{display:inline-flex;align-items:center;gap:4px}
+[data-sf="surface"] .qty output{min-width:56px;text-align:center;font-size:24px;line-height:32px;font-weight:var(--sf-w-strong);font-variant-numeric:tabular-nums}
+
+/* ============================================================
+   8. Auswahl, Kapitel 6.13
+   ============================================================ */
+/* Segmente: Laufzeit F05, Welt Neu oder Geprüft */
+[data-sf="surface"] .seg{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-btn);overflow:hidden}
+[data-sf="surface"] .seg > *{
+  display:grid;place-items:center;min-height:calc(var(--sf-control-h) - 2px);padding:0 12px;border:0;background:var(--sf-surface);
+  font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);color:var(--sf-ink);cursor:pointer;font-variant-numeric:tabular-nums;
+  transition:background-color var(--sf-dur-instant) var(--sf-ease-out),color var(--sf-dur-instant) var(--sf-ease-out);
+}
+[data-sf="surface"] .seg > * + *{border-left:1px solid var(--sf-border-strong)}
+[data-sf="surface"] .seg > [aria-checked="true"]{background:var(--sf-ink);color:var(--white);font-weight:var(--sf-w-strong)}
+[data-sf="surface"] .seg > :focus-visible{position:relative;z-index:1}
+@media (hover:hover){ [data-sf="surface"] .seg > [aria-checked="false"]:hover{background:var(--surface-raised)} }
+
+/* Farbfelder, K04, K06 */
+[data-sf="surface"] .swrow{display:flex;flex-wrap:wrap;gap:12px}
+[data-sf="surface"] .sw{width:var(--sf-hit);height:var(--sf-hit);padding:0;border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-btn);background:var(--c, var(--neutral-300));cursor:pointer}
+[data-sf="surface"] .sw[aria-checked="true"]{border:2px solid var(--sf-ink);box-shadow:inset 0 0 0 2px var(--white)}
+[data-sf="surface"] .sw[aria-checked="true"]:focus-visible{box-shadow:inset 0 0 0 2px var(--white),var(--focus-ring)}
+
+/* Optionszeilen: Leistung F06, Bausteine */
+[data-sf="surface"] .opt{display:flex;gap:16px;align-items:flex-start;padding-block:16px;border-top:1px solid var(--sf-border);cursor:pointer}
+[data-sf="surface"] .opt .box{margin-top:2px}
+[data-sf="surface"] .opt .opt-tx{flex:1;min-width:0}
+[data-sf="surface"] .opt .opt-end{flex:none;text-align:right;font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);font-variant-numeric:tabular-nums;white-space:nowrap}
+[data-sf="surface"] .opt[aria-disabled="true"]{opacity:.4;cursor:not-allowed}
+
+/* Größe als Textoptionen */
+[data-sf="surface"] .rail{display:flex;gap:16px;border-bottom:1px solid var(--sf-border);overflow-x:auto}
+@media (min-width:1024px){ [data-sf="surface"] .rail{gap:40px} }
+[data-sf="surface"] .rail > *{display:flex;flex-direction:column;align-items:flex-start;min-width:72px;padding:0 0 16px;border:0;border-bottom:2px solid transparent;background:none;cursor:pointer;text-align:left}
+[data-sf="surface"] .rail .v{font-size:24px;line-height:32px;font-weight:var(--sf-w-display)}
+[data-sf="surface"] .rail [aria-checked="true"]{border-bottom-color:var(--sf-ink)}
+[data-sf="surface"] .rail [aria-checked="true"] .v{font-weight:var(--sf-w-strong)}
+
+/* ============================================================
+   9. Etiketten und Verfügbarkeit, Kapitel 6.15
+   ============================================================ */
+[data-sf="surface"] .pill{display:inline-flex;align-items:center;height:24px;padding:0 12px;border-radius:var(--radius-pill);font-size:12px;line-height:16px;font-weight:var(--sf-w-strong);white-space:nowrap}
+[data-sf="surface"] .pill.cool{background:var(--chip-cool);color:var(--on-chip-cool)}
+[data-sf="surface"] .pill.warm{background:var(--chip-warm);color:var(--accent-warm-text)}
+[data-sf="surface"] .pill.neutral{background:var(--surface-raised);color:var(--sf-ink)}
+[data-sf="surface"] .stat{display:inline-flex;align-items:center;gap:8px;font-size:var(--sf-fs-small);line-height:var(--sf-lh-small)}
+[data-sf="surface"] .stat::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
+[data-sf="surface"] .stat.ok{color:var(--success)}
+[data-sf="surface"] .stat.low{color:var(--warning)}
+[data-sf="surface"] .stat.low::before{background:var(--marker)}
+[data-sf="surface"] .stat.out{color:var(--ink-subtle)}
+[data-sf="surface"] .stat.out::before{background:var(--neutral-400)}
+
+/* ============================================================
+   10. Karten und Medien, Kapitel 6.16, 6.17, 6.22
+   ============================================================ */
+[data-sf="surface"] .card{display:flex;flex-direction:column;min-width:0;color:inherit;text-decoration:none}
+[data-sf="surface"] .card .field{position:relative;aspect-ratio:var(--sf-ratio-product);background:var(--surface-raised);overflow:hidden}
+[data-sf="surface"] .card .field img{width:100%;height:100%;object-fit:contain;padding:8%;transition:transform var(--sf-dur-slow) var(--sf-ease-out)}
+[data-sf="surface"] .card .field .pill{position:absolute;top:16px;left:16px}
+[data-sf="surface"] .card .c-title{margin-top:16px}
+[data-sf="surface"] .card .c-sub{margin-top:4px}
+[data-sf="surface"] .card .c-meta{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:12px}
+/* Preiszeile unten bündig, damit Preise einer Reihe auf einer Linie stehen */
+[data-sf="surface"] .card :is(.c-sub,.c-meta):has(+ .c-foot){margin-bottom:16px}
+[data-sf="surface"] .card .c-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:16px;border-top:1px solid var(--sf-border)}
+@media (hover:hover){
+  [data-sf="surface"] .card:hover .field img{transform:scale(1.02)}
+  [data-sf="surface"] .card:hover .go{background:var(--sf-ink);border-color:var(--sf-ink);color:var(--white)}
+}
+[data-sf="surface"] .card:focus-visible .go{background:var(--sf-ink);border-color:var(--sf-ink);color:var(--white)}
+[data-sf="surface"] .card.is-out .field{opacity:.5}
+
+[data-sf="surface"] .media{position:relative;overflow:hidden;background:var(--surface-raised)}
+[data-sf="surface"] .media > :is(img,video){position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+[data-sf="surface"] .media.wide{aspect-ratio:var(--sf-ratio-wide)}
+[data-sf="surface"] .media.tall{aspect-ratio:var(--sf-ratio-tall)}
+[data-sf="surface"] .media.stage{aspect-ratio:var(--sf-ratio-stage)}
+[data-sf="surface"] .media.product{aspect-ratio:var(--sf-ratio-product)}
+[data-sf="surface"] .slot-leer{background:var(--surface-raised)}
+
+/* Datenzeile */
+[data-sf="surface"] .row{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:48px;padding-block:14px;border-top:1px solid var(--sf-border);font-size:var(--sf-fs-small);line-height:var(--sf-lh-small)}
+
+/* ============================================================
+   11. Bänder, Kapitel 6.20
+   ============================================================ */
+[data-sf="surface"] .sl-rateband{background:var(--surface-brand);color:var(--on-brand)}
+[data-sf="surface"] .sl-rateband .wrap{display:grid;gap:16px;padding-block:24px}
+@media (min-width:1024px){ [data-sf="surface"] .sl-rateband .wrap{grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:48px;min-height:96px} }
+[data-sf="surface"] .sl-rateband .figure-xl{font-size:44px;line-height:48px;color:var(--on-brand)} /* F12, freigegeben 23.11.2026: Schwarz, 7,31:1 */
+[data-sf="surface"] .facts{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:var(--sf-fs-small);line-height:var(--sf-lh-small)}
+[data-sf="surface"] .facts li{display:inline-flex;align-items:center;gap:8px}
+[data-sf="surface"] .facts li::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+
+[data-sf="surface"] .refband{display:flex;flex-direction:column;gap:12px;padding:16px 20px;background:var(--surface-sand);font-size:var(--sf-fs-small);line-height:var(--sf-lh-small)}
+@media (min-width:768px){ [data-sf="surface"] .refband{flex-direction:row;align-items:center;gap:24px;min-height:56px;padding:0 24px} [data-sf="surface"] .refband .lnk{margin-left:auto} }
+
+[data-sf="surface"] .band{position:sticky;bottom:0;z-index:var(--sf-z-sticky);background:var(--sf-surface);border-top:1px solid var(--sf-border)}
+[data-sf="surface"] .band::before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:var(--brand);opacity:0}
+[data-sf="surface"] .band.flash::before{animation:sf-flash 600ms var(--sf-ease-out)}
+@keyframes sf-flash{from{opacity:1}to{opacity:0}}
+[data-sf="surface"] .band-in{display:grid;gap:12px;padding-block:16px}
+@media (min-width:768px){ [data-sf="surface"] .band-in{grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:24px;min-height:95px} }
+
+/* ============================================================
+   12. Blatt, Schublade, Dialog, Kapitel 6.21, K01, K12
+   ============================================================ */
+[data-sf="surface"] .scrim{position:fixed;inset:0;z-index:var(--sf-z-scrim);background:var(--scrim);opacity:0;visibility:hidden;transition:opacity var(--sf-dur-base) var(--sf-ease-out),visibility 0s linear var(--sf-dur-base)}
+[data-sf="surface"] .scrim.is-open{opacity:1;visibility:visible;transition:opacity var(--sf-dur-base) var(--sf-ease-out),visibility 0s}
+[data-sf="surface"] .sheet{
+  position:fixed;inset:0;z-index:var(--sf-z-sheet);display:flex;flex-direction:column;background:var(--sf-surface);
+  visibility:hidden;transform:translateY(100%);
+  transition:transform var(--sf-dur-base) var(--sf-ease-in),visibility 0s linear var(--sf-dur-base);
+}
+@media (min-width:768px){ [data-sf="surface"] .sheet{left:auto;width:560px;transform:translateX(100%)} }
+[data-sf="surface"] .sheet.is-open{visibility:visible;transform:none;transition:transform var(--sf-dur-slow) var(--sf-ease-out),visibility 0s}
+[data-sf="surface"] .sheet-top{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:0 12px 0 24px}
+[data-sf="surface"] .sheet-prog{display:grid;grid-auto-flow:column;gap:8px;padding:0 24px}
+[data-sf="surface"] .sheet-prog i{height:2px;background:var(--sf-border)}
+[data-sf="surface"] .sheet-prog i.on{background:var(--sf-ink)}
+[data-sf="surface"] .sheet-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:24px}
+[data-sf="surface"] .sheet-foot{padding:24px;border-top:1px solid var(--sf-border);background:var(--sf-surface)}
+@media (max-width:767px){ [data-sf="surface"] .sheet-body,[data-sf="surface"] .sheet-foot{padding-inline:20px} }
+
+/* Ausklapper, 6.19 */
+[data-sf="surface"] .exp{border-top:1px solid var(--sf-border)}
+[data-sf="surface"] .exp > summary,
+[data-sf="surface"] .exp-h{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;cursor:pointer;list-style:none;font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);font-weight:var(--sf-w-strong)}
+[data-sf="surface"] .exp > summary::-webkit-details-marker{display:none}
+[data-sf="surface"] .exp-h svg{width:16px;height:16px;transition:transform var(--sf-dur-base) var(--sf-ease-inout)}
+[data-sf="surface"] .exp[open] .exp-h svg,
+[data-sf="surface"] .exp-h[aria-expanded="true"] svg{transform:rotate(180deg)}
+
+/* ============================================================
+   13. Bewegung, Kapitel 8
+   ============================================================ */
+[data-sf="surface"] [data-reveal]{opacity:0;transform:translateY(var(--sf-reveal-shift));transition:opacity var(--sf-dur-reveal) var(--sf-ease-out),transform var(--sf-dur-reveal) var(--sf-ease-out);transition-delay:calc(var(--i,0) * var(--sf-stagger))}
+[data-sf="surface"] [data-reveal].is-in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  [data-sf="surface"] *, [data-sf="surface"] *::before, [data-sf="surface"] *::after{
+    animation-duration:.01ms !important;animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;transition-delay:0s !important;scroll-behavior:auto !important;
+  }
+  [data-sf="surface"] [data-reveal]{opacity:1;transform:none}
+}
+/* Ohne JavaScript sichtbar bleiben */
+@media (scripting: none){ [data-sf="surface"] [data-reveal]{opacity:1;transform:none} }

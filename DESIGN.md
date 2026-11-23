@@ -1,16 +1,19 @@
 # Designsprache und Tokens
 
-Stand 07.11.2026, nach E-098. Surface.Love folgt dem Designsystem V2-2026, die Storefront surface.love dem Prototyp V18. lenovo.online ist ein eigenes System und nicht Teil von Beta 1 (E-101).
+Stand 23.11.2026, nach E-098 und E-144. Surface.Love folgt dem Designsystem V2-2026, die Storefront surface.love dem Prototyp V18, gebaut nach dem Bauplan V18 Fassung 4. lenovo.online ist ein eigenes System und nicht Teil von Beta 1 (E-101).
 
 Verbindlich für den Bau von surface.love ist das Paket `brand/surface/`:
 
 | Datei | Inhalt |
 |---|---|
 | `tokens.css`, `tokens.json` | Rollen und Werte, aus `tokens.json` erzeugt, nicht von Hand ändern |
-| `sf-bruecke.css` | Shop-Namen `--sf-*`, Bewegungswerte, gesetzt über `data-sf="surface"` |
-| `fonts/` | Open Sans 300, 400, 600, 700, SIL OFL |
+| `sf-bruecke.css` | Shop-Namen `--sf-*`, Bauwerte für Raster, Schrift, Bildformate, Ebenen und Bewegung (E-144), gesetzt über `data-sf="surface"` |
+| `shop-basis.css` | Grundstile, Raster, Typografie und Kernbausteine nach dem Bauplan, nach `sf-bruecke.css` einbinden (E-144) |
+| `fonts/` | Open Sans 300, 400, 600, 700, SIL OFL. Der Shop lädt nur 300, 400, 600 (K02) |
 | `bausteine-und-zustaende.md` | Jeder Baustein mit Zuständen, Tokens, Handy, Desktop und Bewegung |
 | `seitenliste.md`, `aenderungsliste.md`, `offene-punkte.md` | Seiten, Versionen, Nacharbeit |
+
+Der Bauplan V18 Fassung 4 liegt mit Bausteintafel, UX-Profil und Referenz-Prototyp im privaten Shop-Repo unter `docs/design/v18/`. Rangfolge: dieser Vertrag und `brand/surface/`, dann das Logbuch am Board, dann der Bauplan, dann `bausteine-und-zustaende.md`, dann der Prototyp (E-144).
 
 Der Prototyp liegt nicht im Hub, weil er Platzhalter-Kaufpreise enthält. Er wird im Shop übersetzt, nicht kopiert. Komponenten kennen nur `--sf-*`, die Optik kommt allein aus den Tokens, umgeschaltet über `data-sf` am Wurzelelement.
 
@@ -25,17 +28,18 @@ Nicht mehr maßgeblich für surface.love: `brand/DESIGN-V2.md`, `brand/tokens.cs
 - Die Hauptaktion ist `action` (Apricot) mit Schrift `on-action`, nicht Blau.
 - Blau als Text nur in `accent-text`, nie `brand` unter 24 px. Auf `surface-sand` wird daraus `accent-text-sand`.
 - Auf `surface-brand` stehen nur Herz und Headlines ab 24 px in Weiß, das ist eine dokumentierte Ausnahme mit 2,87 : 1. Alles Kleinere steht dort in Schwarz (`on-brand`) oder wandert auf `surface-deep`.
+- Raten und große Zahlen auf `surface-brand` stehen immer in Schwarz (`on-brand`, 7,31 : 1), ebenso der Titel im Fußband. `on-brand-display` (Weiß) gilt nicht für Raten (F12, E-145).
 - `marker` nur auf `surface`, `surface-sand` und `surface-deep`.
 - Status immer mit Wort, nie in Akzentfarbe: `success`, `warning`, `ink-subtle`.
 
 ### Verläufe
 - Es gelten nur die vier Verläufe aus den Tokens: `gradient-tiefe`, `gradient-himmel`, `gradient-lagune`, `gradient-glut`. Blau wird nie in Apricot, Koralle oder Violett überblendet.
 - Text auf Bild und Film steht auf einem Verlauf aus dem Token `schleier` (`blue-950`). Die Stopps stehen je Stelle in `bausteine-und-zustaende.md`, angenommen als Ausnahmen A1 bis A4 und B1 (E-099). Kontraste bei Filmen im Abnahmetest erneut prüfen.
-- Kein Muster auf blauen Flächen. Fehlt ein Medium, steht `surface-raised` mit Etikett, keine gezeichnete Ersatz-Szene (B2).
+- Kein Muster auf blauen Flächen. Fehlt ein Medium, steht `surface-raised` ohne Etikett (`.slot-leer`), keine gezeichnete Ersatz-Szene (B2, Bauplan 6.22).
 
 ### Schrift
 - Jeder Text in Open Sans, selbst gehostet. Headlines in Light, Lesetext in Regular, Auszeichnung in SemiBold. Segoe wird nicht mehr verwendet.
-- Stufen nur aus den Tokens: `--sf-text-display`, `-h1`, `-h2`, `-h3`, `-body`, `-small`, `-micro`. Zahlen tabellarisch.
+- Stufen nur aus den Tokens: `--sf-text-display`, `-h1`, `-h2` fließend, alles andere fest über `--sf-fs-*` und `--sf-lh-*` (E-144). Nur die Gewichte 300, 400, 600, nichts unter 12 px. Zahlen tabellarisch, Preise ohne Umbruch.
 
 ### Form und Raum
 - Flächen, Bänder, Karten und Bilder sind eckig (`radius-none`). Rund sind nur Bedienelemente (`radius-s`, 4 px) sowie Chips und Preisplaketten (`radius-pill`).
@@ -48,7 +52,8 @@ Nicht mehr maßgeblich für surface.love: `brand/DESIGN-V2.md`, `brand/tokens.cs
 - Das Herz schlägt im Shop nicht, `--sf-pulse` ist 0s. Die frühere Vorgabe mit dem Doppel-Herzschlag gilt nicht mehr.
 
 ### Bewegung
-- Drei Dauern, eine Kurve: `--sf-dur-1` 150 ms, `--sf-dur-2` 260 ms, `--sf-dur-3` 550 ms, `--sf-ease`. Feste Sonderwerte stehen je Baustein in `bausteine-und-zustaende.md`.
+- App-Bewegung: 100, 150, 200, 300 ms (`--sf-dur-instant`, `-fast`, `-base`, `-slow`), öffnen mit `--sf-ease-out`, schließen mit `--sf-ease-in`. Nur `transform` und `opacity`, keine Überschwingkurve (K10, E-144).
+- Markenbewegung nur auf Marketingflächen: Einblenden 550 ms, Rate zählt 420 ms. Nicht in Formular, Blatt und Kasse. `--sf-dur-1` bis `-3` bleiben nur für den Bestand.
 - Bewegung antwortet auf eine Aktion. Was im Prototyp nur wegen des Neuschreibens nicht läuft (Anfrage-Blatt, Ausklapper, Teile von `.bst`, `.chk`, `.tierrow`), wird in React so gebaut, wie die Bausteine es beschreiben.
 - Bei reduzierter Bewegung steht alles still, Medien zeigen das Standbild, Zahlen springen auf den Endwert.
 
@@ -87,7 +92,7 @@ Das Paket bleibt wie geliefert, diese Punkte darin sind inzwischen entschieden:
 - Garantie bei 48 Monaten: E-103, siehe `contracts/VARIANTEN.md`.
 - Nutzung der Microsoft-Medien: E-104.
 - `DESIGN.md`: mit dieser Fassung umgestellt.
-- Sand auf der Startseite und Kontaktblock im Fuß bleiben wie in V18, solange Sascha nichts anderes sagt.
+- Sand auf der Startseite bleibt (E-146). Der Kontaktblock im Fuß zeigt nur Telefon und E-Mail, Anschrift im Impressum (F14, E-146).
 
 ## lenovo.online
 

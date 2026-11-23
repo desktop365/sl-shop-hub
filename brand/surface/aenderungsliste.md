@@ -13,6 +13,7 @@ Einzelheiten je Version in `project/AENDERUNGEN-v10.md` bis `-v18.md`.
 | V16 | Hero auf Variante A festgelegt. Eingefroren. |
 | V17 | Übergabestand nach E-098: Zitat und Community als Platzhalter ohne erfundenen Inhalt, Gerüst für Impressum und Datenschutz, USt-IdNr. und Registerdaten aus der Datei entfernt, Readme auf V2-2026 und Betreiberin korrigiert. |
 | V18 | Nacharbeit nach E-099: Platzhalter statt Demo, Laufzeiten 24, 36, 48, Raten als Daten, geprüfte Geräte 12 Monate, stille Kauf-Option, A5, B1, B2, „Empfohlen“. |
+| V18 Bau | 23.11.2026, Bauplan V18 Fassung 4 aus dem Design-Chat (E-144): Bauwerte in `sf-bruecke.css`, neue Datei `shop-basis.css`, Freigaben F01 bis F05, F07, F09 bis F12, F14 und Sand (E-145, E-146). |
 
 ## Gegenüber dem Designsystem im Paket
 

@@ -242,14 +242,14 @@ body[data-sf="surface"]{margin:0}
 [data-sf="surface"] .frow + .frow{margin-top:16px}
 [data-sf="surface"] .fld label{font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);font-weight:var(--sf-w-strong);color:var(--sf-ink)}
 [data-sf="surface"] .fld label .optional{font-weight:var(--sf-w-body);color:var(--ink-muted)}
-[data-sf="surface"] .fld :is(input,select,textarea){
+[data-sf="surface"] .fld :is(input:not([type="checkbox"],[type="radio"]),select,textarea){
   width:100%;min-height:var(--sf-control-h);padding:0 12px;border:1px solid var(--sf-border-strong);border-radius:var(--sf-radius-btn);
   background:var(--surface-raised);font-size:16px;line-height:24px;color:var(--sf-ink);
   transition:border-color var(--sf-dur-instant) var(--sf-ease-out);
 }
 [data-sf="surface"] .fld textarea{padding:12px;min-height:120px;resize:vertical}
-[data-sf="surface"] .fld :is(input,select,textarea)::placeholder{color:var(--ink-subtle)}
-[data-sf="surface"] .fld :is(input,select,textarea):focus-visible{border-color:var(--focus)}
+[data-sf="surface"] .fld :is(input:not([type="checkbox"],[type="radio"]),select,textarea)::placeholder{color:var(--ink-subtle)}
+[data-sf="surface"] .fld :is(input:not([type="checkbox"],[type="radio"]),select,textarea):focus-visible{border-color:var(--focus)}
 [data-sf="surface"] .fld .hint{margin-top:-4px;font-size:12px;line-height:16px;color:var(--ink-subtle)}
 [data-sf="surface"] .fld .err{display:flex;gap:8px;align-items:flex-start;font-size:var(--sf-fs-small);line-height:var(--sf-lh-small);color:var(--danger)}
 [data-sf="surface"] .fld .err svg{width:16px;height:16px;flex:none;margin-top:2px}

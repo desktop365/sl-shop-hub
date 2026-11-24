@@ -60,9 +60,16 @@ Generation, Bildschirmgröße und Farbe. So genügen rund 25 Fotosets für den g
 
 ## Resolver im Shop
 1. MSKU im map nachschlagen, ergibt den slug.
-2. Modell im models-Block holen, Hauptbild und Vorschau anzeigen, Galerie optional.
-3. Fehlt der Eintrag, Fallback über die Familie (_fallback-{familySlug}.webp), sonst _fallback.webp.
-Dateinamen kommen immer aus images.json, nie starr aus der MSKU konstruiert.
+2. Fehlt die MSKU im map, den Schlüssel aus den Merkmalen des Artikels bilden (F-49, 24.11.2026):
+   `specs.family`, `specs.generation`, `specs.size_inch` und `specs.color` aus products.json, in dieser
+   Reihenfolge, als Slug wie oben, Größe mit Bindestrich statt Komma (13,8 wird 13-8). Gesucht wird
+   absteigend: alle vier Teile, dann mit Farbe „platin“ (Erbregel 2), dann ohne Farbe, dann Reihe und
+   Generation, dann Reihe allein. Der erste Treffer im models-Block gilt.
+3. Modell im models-Block holen, Hauptbild und Vorschau anzeigen, die Galerie zeigt alle Ansichten
+   des Modells.
+4. Gibt es keinen Treffer, Fallback über die Familie (_fallback-{familySlug}.webp), sonst _fallback.webp.
+Dateinamen kommen immer aus images.json, nie starr aus der MSKU konstruiert. Derselbe Schlüssel löst
+auch das Datenblatt in specs.json auf (F-46).
 
 ## Ablage und Aufruf
 - Alle Dateien nach gs://slshopv2-media/images/. Upload über Google Cloud Shell.

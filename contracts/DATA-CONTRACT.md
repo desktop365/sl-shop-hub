@@ -1,32 +1,65 @@
 # Datenvertrag products.json
 
-Quelle: Azure-Pipeline, Distributor Continue, Rechenlogik in contracts/PRICING.md. Stand, gebaut, aber noch nicht End-zu-End bewiesen, der Bucket ist leer, Bestandsaufnahme vor dem Bau. Kanonischer Dateiname im Bucket: products.json. Beispiel zum Bauen: data/products.sample.json.
+Stand 24.11.2026, angeglichen nach B2 (Board 7875) und P08. Erzeugt von der Preis-Pipeline, Herkunft und Ausgabe in contracts/PRICING.md. Kanonischer Dateiname im Bucket: products.json, siehe INFRA.md. Beispiel zum Bauen: data/products.sample.json, die Raten darin sind erfunden.
 
-## Grundsaetze
-- Oeffentlich sind NUR fertige Monatsraten. Keine EK-, VK- oder Faktorwerte.
-- net ist B2B-Standard, gross (mal 1,19) liegt als Komfortfeld dabei.
-- rate_from ist die guenstigste Rate ueber alle Kombinationen, fuer die Anzeige "ab X pro Monat".
-- Defensive bauen: optionale Felder koennen fehlen.
+Die Laufzeiten 24, 36 und 48 sowie `rate_from` über 48 Monate gelten ab dem ersten Pipeline-Lauf nach P08, also ab dem Nachtlauf am 25.11.2026. Bis dahin trägt die Datei noch 60 und 72 Monate und `rate_from` über 36 Monate.
+
+## Grundsätze
+- Öffentlich sind nur fertige Monatsraten. Keine EK-, VK- oder Faktorwerte, weder in `meta` noch in den Produkten. Die Pipeline prüft das vor jedem Upload. Schlägt die Prüfung fehl, lädt sie nicht hoch, und die letzte gute Version bleibt live.
+- `net` ist der B2B-Standard, `gross` (net mal 1,19, kaufmännisch gerundet) liegt als Komfortfeld dabei.
+- Nie raten: Was die Pipeline nicht sicher erkennt, fehlt als Feld. Es wird nicht mit null oder einem Schätzwert gefüllt.
+- Defensiv bauen, optionale Felder können fehlen.
+
+## Aufbau
+```
+{ "meta": { ... }, "products": [ ... ] }
+```
+
+## meta
+- `source`, neutrale Herkunft, „Preisliste Lieferant“. Der Lieferant wird öffentlich nie genannt (E-092).
+- `generated_at`, Bauzeitpunkt mit Zeitzone, ISO 8601.
+- `source_date`, optional, Datenstand der Preise als Datum, Europe/Berlin.
+- `note`, optional, Hinweis im Klartext, etwa wenn die Preise aus einer älteren Quelle stammen.
+- `currency`, `"EUR"`.
+- `vat_rate`, `1.19`.
+- `contract_types`, genau `{ "leasing": [24, 36, 48] }`.
+- `count`, Zahl der Produkte.
 
 ## Felder je Produkt
-- sku, msku, manufacturer (Pflicht)
-- name (bereinigt), title_raw (Original)
-- rates.leasing[] und rates.finanzierung[] mit je {term, net, gross}
-- rate_from {net, contract, term}
-- optional: size_inch, os, is_5g, without_charger
 
-## Vorwärtskompatible Felder (kommen später aus der Pipeline)
-- availability { status, stock }  status in: in_stock | incoming | out_of_stock. stock optional,
-  oeffentlich nur als weiche Stufe anzeigen. Ist der Status unbekannt, wird das Feld weggelassen, der
-  Shop zeigt dann auf Anfrage.
-- display_name  sauberer, lesbarer Anzeigename
-- specs { cpu, ram_gb, storage_gb, color, screen_inch, generation }
-Anreicherung pipelineseitig ueber eine MSKU-Mapping-Tabelle, nicht im Browser parsen.
+### Pflicht
+- `sku`, `msku`, `manufacturer`
+- `name` (bereinigt), `title_raw` (Original)
+- `rates.leasing[]`, je `{ term, net, gross }`, genau die Laufzeiten 24, 36 und 48
+- `rate_from { net, contract, term }`, die Rate über 48 Monate Leasing: `contract` ist `"leasing"`, `term` ist `48`, `net` gleich der 48-Monats-Rate aus `rates.leasing`. Sie ist ausdrücklich nicht die günstigste Rate.
+
+Ausnahme: Ist für ein Produkt keine Rate berechenbar, ist `rates.leasing` leer und `rate_from` null. Der Shop zeigt dann keine Rate.
+
+### Optional
+- `category`, einer von `"geraet"`, `"zubehoer"`, `"ersatzteil"`. Fehlt, wenn die Zuordnung unsicher ist.
+- `size_inch`, `os`, `is_5g`, `without_charger`, aus dem Rohtitel.
+- `availability { status, stock }`, `status` in `in_stock`, `incoming`, `out_of_stock`. `stock` ist optional und öffentlich nur als weiche Stufe anzuzeigen. Ist der Status unbekannt, fehlt das Feld, der Shop zeigt dann „auf Anfrage“.
+- `display_name`, gepflegter Anzeigename.
+- `specs`, nur bei `category` `"geraet"`. Jeder Schlüssel steht nur mit sicherem Wert da:
+  - `family`, Slug der Gerätereihe: `surface-pro`, `surface-laptop`, `surface-laptop-studio`, `surface-laptop-ultra`, `surface-laptop-go`, `surface-go`, `surface-studio`, `surface-hub`
+  - `generation`, Zeichenkette, etwa `"11"`
+  - `size_inch`, Zahl
+  - `cpu`, Klartext, etwa `"Intel Core Ultra 5"` oder `"Snapdragon X Elite"`
+  - `ram_gb`, `storage_gb`, ganze Zahlen in GB
+  - `color`, Klartext, etwa `"Platin"` oder `"Schwarz"`
+  - `screen_inch`, nur aus der gepflegten Zuordnung
+
+  Gepflegte Werte je MSKU gehen dem Parser vor. Angereichert wird nur in der Pipeline, nie im Browser.
+
+## Nicht in products.json
+- Demo-, OPENBOX- und Vorführgeräte, siehe PRICING.md Abschnitt 7.
+- Geprüfte Geräte aus eigenem Bestand, siehe PRICING.md Abschnitt 4.
+- Finanzierung und andere Laufzeiten als 24, 36 und 48 Monate.
 
 ## Vertragsarten und Laufzeiten
-Leasing 15, 24, 32, 36. Finanzierung 15, 24, 36.
+Nur Leasing, 24, 36 und 48 Monate (E-099). Was der Shop wählbar macht und bewirbt, steht in PRICING.md Abschnitt 6.
 
 ## Begleitdateien
 - product-overrides.json  handgepflegt: featured, badge, priority, marketing je MSKU
-- images.json             version 2, massgebliche Bildschicht (models plus map), siehe IMAGES.md
+- images.json             version 2, maßgebliche Bildschicht (models plus map), siehe IMAGES.md
 - licenses.json, services.json  später, gleiches Schema (meta, items, rates)

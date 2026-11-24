@@ -51,6 +51,7 @@ Ausnahme: Ist für ein Produkt keine Rate berechenbar, ist `rates.leasing` leer 
 
   Gepflegte Werte je MSKU gehen dem Parser vor. Angereichert wird nur in der Pipeline, nie im Browser.
 - `fits`, nur bei `category` `"zubehoer"`: Liste der Geräteschlüssel, zu denen der Artikel passt, etwa `surface-pro-11-13` (E-106). Fehlt die Liste, bietet der Shop den Artikel nicht an. Regeln und Schlüssel in BAUSTEINE.md.
+- `art`, nur bei `category` `"zubehoer"`: Art des Zubehörs, einer von `pen`, `tastatur`, `dock`, `maus`, `tasche`, `netzteil`, `sonstiges`. Der Shop wählt damit Titel und Nutzensatz aus dem Copy-Baukasten. Fehlt `art`, zeigt der Shop nur `display_name` ohne Nutzensatz.
 
 ## Nicht in products.json
 - Demo-, OPENBOX- und Vorführgeräte, siehe PRICING.md Abschnitt 7.

@@ -6,7 +6,7 @@ Stand 24.11.2026, F-49. Grundlage: Checkout-Baukasten bk1 (Treppe), E-065, E-076
 Die Ausstattungsseite zwischen Gerät und Anfrage bietet in fester Reihenfolge an: Zubehör, Lizenzen, Garantie, Managed Workplace. Alle Raten kommen fertig aus der Preis-Pipeline, der Shop rechnet nicht (E-099). Der Shop zeigt nur Bausteine, die zur gewählten Laufzeit eine Rate in den Daten haben.
 
 ## Quellen
-- **Zubehör:** Artikel mit `category: "zubehoer"` in products.json. Die Passung steht in `fits`, einer Liste von Geräteschlüsseln (E-106). Ohne `fits` wird der Artikel nicht angeboten.
+- **Zubehör:** Artikel mit `category: "zubehoer"` in products.json. Die Passung steht in `fits`, einer Liste von Geräteschlüsseln (E-106). Ohne `fits` wird der Artikel nicht angeboten. Das Feld `art` (DATA-CONTRACT) ordnet ihm Titel und Nutzensatz aus dem Copy-Baukasten zu.
 - **Lizenzen, Garantie, Managed Workplace:** bausteine.json im Bucket neben products.json, jede Nacht von der Preis-Pipeline geschrieben.
 
 ## Geräteschlüssel

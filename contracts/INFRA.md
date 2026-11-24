@@ -12,16 +12,20 @@ Hält fest, was wo läuft, damit kein Chat mehr rät. Ergänzt LANDKARTE.md Absc
 ## 2. Google Cloud, zwei Projekte, klar getrennt
 - Projekt slshopv2, Projektnummer 197908221956. Enthält den Bucket slshopv2-media in europe-west2. Er hält die Medien und die Live-Dateien products.json und images.json. Der neue Shop liest von hier über GCS_BASE_URL. Das bleibt.
 - Seit 26.08.2026 zusätzlich der Bucket slshopv2-assets, ebenfalls Projekt slshopv2, Region europe-west3. Uniform bucket-level access, public access prevention enforced, kein Lifecycle, Aufbewahrung unbegrenzt. Er ist **privat und bleibt privat**, es gibt keine öffentliche URL darauf.
-  - `archiv/` hält das Stufe-1-Archiv der Portal-Originale in voller Auflösung.
+  - `zip/` hält die Pakete aus dem Partnerportal, so wie geladen, je Datum (E-170).
+  - `archiv/` hält das Stufe-1-Archiv der Portal-Originale in voller Auflösung, neue Pakete je Datum und Paket.
+  - `build/` hält den vollständigen Bau eines Bild-Laufs je Datum, für Neuaufbau und Rückweg (E-170).
+  - `backup/` hält die Kataloge vor jedem Upload.
   - `marketing/` hält Marketing- und Kampagnenmaterial.
   - `_katalog.json` im Root ist das Inhaltsverzeichnis des Buckets.
+  - Lokal auf einem Arbeitsrechner liegt nur der Stapel, der gerade bearbeitet wird. Alles andere liegt hier (E-170, IMAGES.md Fassung 3).
   - Niemals öffentlich schalten, niemals EK-Daten ablegen. Die beiden Buckets nicht verwechseln: was der Shop liest, liegt in slshopv2-media, nicht hier.
 - Projekt slwebai26. Enthält den alten AI-Studio-Shop als Cloud-Run-Dienst in europe-west1. Genau dieser Dienst läuft heute noch unter surface.love. Bleibt live bis zum Umschalten. Offen, Gemini-API-Schlüssel aus dem Privatkonto hierher migrieren.
 
 ## 3. Der GCS-Schreibzugang
 - Die Preis-Pipeline und die Bild-Pipeline schreiben in den Bucket slshopv2-media.
 - Empfehlung, ein dedizierter Service-Account im Projekt slshopv2 mit Schreibrecht nur auf diesen Bucket, Schlüssel nur als Secret der Pipeline, nie im Repo.
-- Auf slshopv2-assets schreibt sl-bilder-upload@slshopv2.iam.gserviceaccount.com mit roles/storage.objectAdmin, begrenzt auf diesen einen Bucket. Der Schlüssel dazu ist ein Secret der Bild-Strecke und gehört nie ins Repo, nie in eine Ausgabe, nie in einen Bericht.
+- Die Bild-Strecke schreibt mit ihrem eigenen Upload-Dienstkonto, Rolle roles/storage.objectAdmin, begrenzt auf genau zwei Buckets: slshopv2-assets und seit E-169 auch slshopv2-media. Der Schlüssel dazu ist ein Secret der Bild-Strecke und gehört nie ins Repo, nie in eine Ausgabe, nie in einen Bericht.
 - Der Shop hat nur Lesezugriff über die öffentliche URL, keinen Schreibzugang.
 
 ## 4. Cloudflare

@@ -50,6 +50,7 @@ Ausnahme: Ist für ein Produkt keine Rate berechenbar, ist `rates.leasing` leer 
   - `screen_inch`, nur aus der gepflegten Zuordnung
 
   Gepflegte Werte je MSKU gehen dem Parser vor. Angereichert wird nur in der Pipeline, nie im Browser.
+- `fits`, nur bei `category` `"zubehoer"`: Liste der Geräteschlüssel, zu denen der Artikel passt, etwa `surface-pro-11-13` (E-106). Fehlt die Liste, bietet der Shop den Artikel nicht an. Regeln und Schlüssel in BAUSTEINE.md.
 
 ## Nicht in products.json
 - Demo-, OPENBOX- und Vorführgeräte, siehe PRICING.md Abschnitt 7.
@@ -62,4 +63,5 @@ Nur Leasing, 24, 36 und 48 Monate (E-099). Was der Shop wählbar macht und bewir
 ## Begleitdateien
 - product-overrides.json  handgepflegt: featured, badge, priority, marketing je MSKU
 - images.json             version 2, maßgebliche Bildschicht (models plus map), siehe IMAGES.md
-- licenses.json, services.json  später, gleiches Schema (meta, items, rates)
+- bausteine.json          Lizenzen, Garantie und Managed Workplace mit Raten, siehe BAUSTEINE.md
+- specs.json              technische Daten je Bildmodell-Schlüssel, siehe F-46 und IMAGES.md

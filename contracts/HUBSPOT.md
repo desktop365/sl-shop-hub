@@ -47,6 +47,14 @@ Interne Feldnamen der Shop-Pflichtfelder, angelegt am 22.11.2026 in der Gruppe D
 | Lane | `sl_lane` | Auswahl | neu, refurbished |
 | Anfrage-ID | `sl_anfrage_id` | Text, eindeutig | SL-JJJJMMTT-XXXXXX, siehe ANFRAGE.md |
 
+Positionsfeld der Ausstattung, angelegt am 24.11.2026 in der Gruppe Positionsinformationen (F-49, BAUSTEINE.md):
+
+| Feld | interner Name | Typ | Werte |
+|---|---|---|---|
+| Baustein (Shop) | `baustein` an der Position | Auswahl | `zubehoer`, `lizenz_m365_standard`, `lizenz_m365_premium`, `lizenz_copilot`, `garantie_1`, `garantie_2`, `garantie_3`, `garantie_2_plus`, `garantie_3_plus`, `managed_modell_a`, `managed_modell_b` |
+
+Bei Geräten bleibt das Feld leer. Ein neuer Baustein braucht zuerst einen neuen Optionswert hier.
+
 Die Werte kommen aus der Storefront- und Markt-Config des Shops. Ein neuer Wert dort braucht zuerst einen neuen Optionswert hier. Die Anfrage-ID ist eindeutig, eine wiederholte Anfrage legt deshalb keinen zweiten Deal an.
 
 Im weiteren Lebenszyklus durch den Betrieb gepflegt, interne Feldnamen, finanzierende_bank, Werte DLL Bank, Wortmann Finance, ABC Finance, GRENKE. vertragsnummer, anzahl_der_objekte, seriennummer, versendet_am, sobald das Angebot versendet ist.

@@ -72,7 +72,7 @@ Dateinamen kommen immer aus images.json, nie starr aus der MSKU konstruiert. Der
 auch das Datenblatt in specs.json auf (F-46).
 
 ## Ablage und Aufruf
-- Alle Dateien nach gs://slshopv2-media/images/. Upload über Google Cloud Shell.
+- Alle Dateien nach gs://slshopv2-media/images/. Hochgeladen wird nach Fassung 3, Punkt 6 und 7.
 - Öffentliche URL je Datei: https://storage.googleapis.com/slshopv2-media/images/{Dateiname}.
 
 ## Bildmodell-Matrix, entschieden 25.08.2026
@@ -135,6 +135,129 @@ gilt unverändert weiter.
    derzeit platin und schwarz. Consumer-Farben ohne B2B-Artikel werden nicht
    vorgehalten, weder als Auswahl noch als Bildmodell.
 
+## Fassung 3, entschieden 24.11.2026 (E-168 bis E-171)
+
+Gilt vor allen älteren Abschnitten, wo sie widersprechen. Was hier nicht
+angefasst wird, gilt weiter.
+
+### 1. Schlüssel
+Der Schlüssel eines Bildmodells bleibt `familie-generation-groesse-farbe`.
+`generation` ist die Edition, wie Microsoft sie zählt, genau wie in
+`specs.generation` (MODELLE.md). Beispiel: Surface Pro 12 Zoll, 2. Edition,
+Platin heißt `surface-pro-2-12-platin`. Die Brücke von der MSKU zum Bildmodell
+bleibt `map`, sie hängt nicht am Schlüsselschema.
+
+### 2. Drei Bildarten
+| Bildart | Katalog | Inhalt |
+|---|---|---|
+| Produktfoto | `images.json` v2 | freigestelltes Gerät oder Zubehör, transparent, quadratische Leinwand, Ansichten nach Ableitung v2 |
+| Lifestyle | `medien.json` je Modell | Gerät im Einsatz, mit Menschen oder Umgebung, für die Kapitel der Modellseite |
+| Film | `medien.json` je Modell, Datei je Reihe | kurzer Produktfilm, einmal je Reihe |
+
+Ein Lifestyle-Motiv steht nie als Produktfoto in `images.json`. Karten,
+Konfigurator, Anfrage und Fotokatalog zeigen nur Produktfotos.
+
+### 3. medien.json
+Eine Datei je Modell unter `media/modelle/{modellschluessel}/medien.json` im
+Bucket slshopv2-media, Modellschlüssel nach MODELLE.md. Pfade gelten ab der
+Bucket-Wurzel.
+```
+{ "version": 1,
+  "modell": "surface-laptop-8-intel",
+  "stand": "2026-11-24",
+  "kapitel": [
+    { "thema": "alltag",            // tastatur | anschluesse | display | kamera | alltag
+      "alt": "Kurzer deutscher Alt-Text",
+      "quer": { "verhaeltnis": "3:2", "breiten": [800, 1200, 1600],
+                "dateien": { "800": "media/modelle/<modell>/alltag-1-quer-800.webp" } },
+      "hoch": { "verhaeltnis": "4:5", "breiten": [800, 1200],
+                "dateien": { "800": "media/modelle/<modell>/alltag-1-hoch-800.webp" } } } ],
+  "film": { "alt": "...",
+            "quer": { "datei": "media/reihen/<reihe>/film-quer.mp4", "breite": 1920, "hoehe": 1080,
+                      "dauer_s": 28, "poster": "media/reihen/<reihe>/film-quer-poster.webp" },
+            "hoch": { "datei": "media/reihen/<reihe>/film-hoch.mp4", "breite": 1080, "hoehe": 1350,
+                      "dauer_s": 28, "poster": "media/reihen/<reihe>/film-hoch-poster.webp" } } }
+```
+- `kapitel`: 0 bis 6 Einträge, mehrere je Thema erlaubt. Fehlt ein Thema, gibt es
+  kein Ersatzbild.
+- `breiten` nennt nur, was wirklich erzeugt wurde. Es wird nie hochskaliert.
+- `film`: liegt einmal je Reihe unter `media/reihen/{reihe}/`, Reihen nach
+  MODELLE.md. Ohne Film steht dort `null`.
+- Keine Herkunftsangaben, keine Paketnamen, keine Lieferantennamen.
+- Welches Kapitel welches Motiv zeigt, legt der Modelltext im Shop fest
+  (`content/de/modelle/{modell}.json`, Feld `medium` mit dem Thema). Fehlt
+  `medium`, gilt das Feld `bild` mit einer Ansicht aus `images.json`.
+
+### 4. Plätze im Shop und Breiten
+Der Shop baut `srcset` aus den Breiten, die im Katalog stehen, und gibt je Platz
+`sizes` an. Der Server kodiert die Bilder nicht neu, sie sind schon fertig
+kodiert.
+
+| Platz | Quelle | Breiten im srcset | Handy |
+|---|---|---|---|
+| Modellkarte, Übersicht und Vergleich | Produktfoto, Leitansicht | 400, 800, 1200 | dasselbe Motiv |
+| Ausführungsliste, Anfrage, Korb, Zubehörkarte | Produktfoto | 160, 400, 800 | dasselbe Motiv |
+| Fotokatalog der Modellseite | Produktfoto, alle Ansichten | 800, 1200, 1600, 2400 | dasselbe Motiv |
+| Daumen im Fotokatalog | Produktfoto | 160 | dasselbe Motiv |
+| Kapitel der Modellseite | Lifestyle | quer 800, 1200, 1600 | hoch 4:5, 800, 1200 |
+| Film der Modellseite | Film | quer 1920×1080 | hoch 1080×1350 |
+
+Die Grenze zwischen Handy und Desktop liegt für Lifestyle und Film bei 800 px
+Breite. Filme laufen stumm, starten erst im Sichtbereich, zeigen vorher das
+Poster und respektieren `prefers-reduced-motion`.
+
+### 5. Qualität und Richtwerte
+- Bilder als WebP, Qualität etwa 80, sRGB, ohne Metadaten, nie hochskaliert.
+- Produktfoto: 1200 unter etwa 200 KB, 400 unter etwa 40 KB.
+- Lifestyle: 1600 unter etwa 350 KB.
+- Film: H.264, CRF 28, höchstens 30 Sekunden, ohne Tonspur, `faststart`,
+  unter etwa 8 MB je Datei. Poster als WebP.
+- Originale aus dem Partnerportal sind Druckdaten und gehen nie in den
+  öffentlichen Bucket.
+
+### 6. Ablage
+**Öffentlich, slshopv2-media** (der Shop liest nur hier):
+- `images.json` im Root, Produktfotos unter `images/`.
+- Lifestyle und `medien.json` unter `media/modelle/{modell}/`.
+- Filme und Poster unter `media/reihen/{reihe}/`.
+
+**Privat, slshopv2-assets** (nie öffentlich):
+- `zip/{datum}/` die Pakete aus dem Partnerportal, so wie geladen.
+- `archiv/{datum}/{paket}/` die entpackten Originale in voller Auflösung.
+- `build/{datum}/` der vollständige Bau eines Laufs, für Neuaufbau und Rückweg.
+- `backup/{datum}/` die Kataloge vor jedem Upload.
+- `_katalog.json` als Inhaltsverzeichnis für alle vier Bereiche: Datum, Paket,
+  Bildmodell oder Modell, Größe, Prüfsumme.
+
+Cache-Control: Bilder und Filme `public, max-age=86400`, Kataloge
+(`images.json`, `medien.json`) `public, max-age=300`. Hochgeladen wird in dieser
+Folge: Dateien, dann `medien.json`, zuletzt `images.json`.
+
+### 7. Lokal und Git
+- Das Repo der Bild-Strecke enthält Skripte, Tests, Dokumente und die
+  Datendateien (Zuordnung, Bedarf, Matrix, Abdeckung, dazu eine Kopie von
+  `images.json` und den `medien.json` für die Historie). Keine ZIPs, keine
+  Originale, keine erzeugten WebP- oder MP4-Dateien. Ausnahme bleibt das kleine
+  Fallback-Set.
+- Lokal liegt nur der Stapel, der gerade bearbeitet wird. Jede Datei geht zuerst
+  in den privaten Bucket, die Prüfsumme wird verglichen, erst dann wird die
+  lokale Kopie gelöscht. Wer eine Datei wieder braucht, holt sie aus dem Bucket.
+- Hochgeladen wird mit dem Upload-Dienstkonto der Bild-Strecke (INFRA.md,
+  Abschnitt 3).
+
+### 8. Abdeckungsbericht
+Nach jedem Upload ein Bericht am Board, Story der Bilder, Tabelle je Modell:
+gelistete Ausführungen, Bildmodelle, Farben, Ansichten, Lifestyle-Motive, Film,
+Lücken mit Grund. Dieselben Zahlen stehen maschinenlesbar in der
+Abdeckungsdatei im Repo der Bild-Strecke. Für alle anderen Chats ist die Wahrheit
+`images.json` und `medien.json` im öffentlichen Bucket.
+
+### 9. Sichtbar im Shop
+- `images.json` kommt über den Katalog-Sync ins Leseabbild des Shops. Der Sync
+  läuft nach jedem Nachtlauf. Ein Upload vor 04:00 UTC ist am Morgen sichtbar.
+- `medien.json` liest der Shop zur Laufzeit, mit Neuvalidierung nach höchstens
+  einer Stunde.
+
 ## Offene Fragen, vor der finalen Bildmatrix zu klären
 **Alle vier am 25.08.2026 entschieden, siehe Abschnitt Bildmodell-Matrix. Der
 Wortlaut bleibt als Beleg stehen, welche Frage womit beantwortet wurde.**
@@ -145,5 +268,5 @@ Wortlaut bleibt als Beleg stehen, welche Frage womit beantwortet wurde.**
 - Slim-Pen-Bundles, eigene Bundle-Fotos oder erben sie das Tastaturbild.
 
 ## Workflow
-Quellbilder entweder ins GitHub-Repo committen zum Abholen und Verarbeiten, oder als ZIP in den
-Bild-Chat geben. Der Upload in den Bucket erfolgt durch Sascha über Cloud Shell.
+Abgelöst durch Fassung 3, Punkt 6 und 7. Quellbilder kommen nicht mehr ins Repo, der Upload läuft
+über die Bild-Strecke selbst.

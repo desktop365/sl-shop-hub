@@ -38,15 +38,22 @@ Ausnahme: Ist für ein Produkt keine Rate berechenbar, ist `rates.leasing` leer 
 ### Optional
 - `category`, einer von `"geraet"`, `"zubehoer"`, `"ersatzteil"`. Fehlt, wenn die Zuordnung unsicher ist.
 - `size_inch`, `os`, `is_5g`, `without_charger`, aus dem Rohtitel.
+- `listed`, wahr für die Standardausführung: mit Netzteil, bei Laptops mit deutschem Tastaturlayout. Varianten ohne Netzteil oder mit anderem Layout sind kuratierte Dubletten, bleiben in der Datei mit `listed: false` und sind auf Anfrage erhältlich (SICHTBARKEIT.md). Der Shop listet nur `listed: true`. Fehlt das Feld, gilt der Artikel als gelistet.
 - `availability { status, stock }`, `status` in `in_stock`, `incoming`, `out_of_stock`. `stock` ist optional und öffentlich nur als weiche Stufe anzuzeigen. Ist der Status unbekannt, fehlt das Feld, der Shop zeigt dann „auf Anfrage“.
 - `display_name`, gepflegter Anzeigename.
 - `specs`, nur bei `category` `"geraet"`. Jeder Schlüssel steht nur mit sicherem Wert da:
+  - `model`, Modellschlüssel aus der gepflegten Tabelle, siehe MODELLE.md
+  - `platform`, `intel`, `snapdragon` oder `nvidia`
   - `family`, Slug der Gerätereihe: `surface-pro`, `surface-laptop`, `surface-laptop-studio`, `surface-laptop-ultra`, `surface-laptop-go`, `surface-go`, `surface-studio`, `surface-hub`
-  - `generation`, Zeichenkette, etwa `"11"`
+  - `generation`, Zeichenkette, die Edition, wie Microsoft sie zählt, etwa `"8"` beim Surface Laptop (8. Edition) oder `"2"` beim Surface Pro 12 Zoll (2. Edition)
   - `size_inch`, Zahl
-  - `cpu`, Klartext, etwa `"Intel Core Ultra 5"` oder `"Snapdragon X Elite"`
+  - `cpu`, voller Name, eindeutig je Wahlmöglichkeit im Modell, etwa `"Intel Core Ultra 7 366H"`, `"Snapdragon X2 Plus (10 Kerne)"`, `"NVIDIA RTX Spark N1X (20 Kerne, 6144 GPU-Kerne)"`
+  - `copilot_plus`, wahr, wenn die Ausführung die Copilot+-Regel erfüllt: NPU des Prozessors laut Microsoft-Datenblatt mindestens 40 TOPS, mindestens 16 GB RAM und mindestens 256 GB SSD. Unklar heißt falsch.
   - `ram_gb`, `storage_gb`, ganze Zahlen in GB
-  - `color`, Klartext, etwa `"Platin"` oder `"Schwarz"`
+  - `color`, Klartext, etwa `"Platin"`, `"Schwarz"` oder `"Nightfall"`
+  - `display`, `"lcd"`, `"oled"` oder `"mini-led"`, nur wo das Modell eine Wahl bietet
+  - `privacy_screen`, `smartcard`, wahr oder falsch, nur wo das Modell eine Wahl bietet
+  - `keyboard_layout`, nur Laptops, etwa `"de"`, `"emea"`, `"ch"`
   - `screen_inch`, nur aus der gepflegten Zuordnung
 
   Gepflegte Werte je MSKU gehen dem Parser vor. Angereichert wird nur in der Pipeline, nie im Browser.
@@ -65,4 +72,5 @@ Nur Leasing, 24, 36 und 48 Monate (E-099). Was der Shop wählbar macht und bewir
 - product-overrides.json  handgepflegt: featured, badge, priority, marketing je MSKU
 - images.json             version 2, maßgebliche Bildschicht (models plus map), siehe IMAGES.md
 - bausteine.json          Lizenzen, Garantie und Managed Workplace mit Raten, siehe BAUSTEINE.md
-- specs.json              Datenblatt und Funktionen je Bildmodell-Schlüssel, siehe SPECS.md
+- modelle.json            Modelle mit Schlüssel, Titel, Edition, Plattform, Größen, siehe MODELLE.md
+- specs.json              Datenblatt und Funktionen je Modellschlüssel, siehe SPECS.md

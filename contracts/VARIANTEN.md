@@ -1,40 +1,43 @@
-# VARIANTEN, das zweistufige Produktmodell
+# VARIANTEN, Reihe, Modell, Ausführung
+
+Stand 24.11.2026, E-161 (Sascha) und E-162 (Master). Ersetzt das zweistufige
+Modell und die kuratierten Ausstattungsstufen vom 24.08.2026, siehe unten.
 
 ## Modell
-Der Katalog kennt zwei Ebenen. Oben die Modellreihe (Surface Laptop, Surface
-Pro, weitere nach Sortiment), darunter die Varianten mit den Dimensionen
-Bildschirmgroesse, Prozessor, Hauptspeicher, Speicherkapazitaet, Farbe.
-Der Katalog zeigt Modellreihen, die Produktseite ist der Variantenwaehler.
-Zubehoer bleibt einstufig.
+Der Katalog kennt drei Ebenen wie Microsoft unter Surface for Business:
+Reihe, Modell, Ausführung. Das Modell ist Reihe plus Größenklasse, Edition und
+Plattform, Schlüssel und Datei in MODELLE.md. Die Ausführung ist die MSKU.
+Zubehör bleibt einstufig.
+
+## Frei konfigurierbar
+- Jede gelistete Ausführung (`listed`, DATA-CONTRACT.md) ist wählbar. Es gibt
+  keine Bündelung in Stufen und keine Vorauswahl.
+- Filter in dieser Folge, jeder nur bei mehr als einem Wert: Größe, Prozessor,
+  Farbe, Konnektivität, Besonderheit (Blickschutz, Smartcardleser, OLED).
+  Arbeitsspeicher und SSD wählt der Kunde in der Liste der Ausführungen.
+- Nichts springt. Ein Wert, der zur übrigen Auswahl nicht passt, ist ausgegraut
+  mit Hinweis. Ändert der Kunde einen oberen Filter so, dass ein unterer nicht
+  mehr passt, wird nur dieser zurückgesetzt, mit sichtbarem Hinweis.
+- Verfügbarkeit steht an jeder Ausführung (SICHTBARKEIT.md).
+- Copilot+ PC steht an jeder Ausführung, die `copilot_plus` trägt, und am
+  Prozessor, wenn alle seine Ausführungen es tragen.
 
 ## Herkunft der Struktur
-Der Feed liefert flache Artikel je MSKU. Die Zuordnung MSKU zu Modellreihe
-plus Attributen entsteht in einer Zuordnungsschicht: automatisch geparst wo
-verlaesslich, kuratiert im Admin wo noetig (Ausbaustufe laut ADMIN.md,
-Anzeigenamen und MSKU-Zuordnung). Faellt eine MSKU durch die Zuordnung,
-erscheint sie einstufig mit Rohnamen, nie gar nicht.
+Der Feed liefert flache Artikel je MSKU. Die Zuordnung MSKU zu Modell und
+Merkmalen macht die Preis-Pipeline: geparst, wo verlässlich, sonst über eine
+gepflegte Tabelle mit Quelle. Fällt eine MSKU durch, steht sie in der Meldung der
+Pipeline und erscheint nicht im Shop.
 
 ## Wirkung
-Bildmatrix (IMAGES.md) und Variantenmodell teilen denselben Schnitt je
-Reihe, Generation, Groesse, Farbe. Raten kommen unveraendert je MSKU aus
-products.json, das Variantenmodell ordnet nur an, es rechnet nie.
+Bildmatrix (IMAGES.md) und Geräteschlüssel (BAUSTEINE.md) bleiben bei Reihe,
+Generation, Größe und Farbe. Raten kommen unverändert je MSKU aus products.json,
+der Shop ordnet nur an und rechnet nie (E-099).
 
-## Kuratierte Ausstattungsstufen (Ergaenzung 24.08. abends, aus UX-VARIANTEN-KONZEPT.md)
-Prozessor, Hauptspeicher und Speicherkapazitaet werden dem Kunden nicht einzeln
-angeboten, sondern zu zwei bis drei benannten Stufen je Produkt und Groesse
-gebuendelt (essential, advanced, performance), jede mit Empfehlungssatz in
-Kundensprache und voller Spezifikation als Nebenzeile. Nicht jede lieferbare
-Kombination wird angeboten, Exoten bleiben auf Anfrage ueber den Vertrieb.
-
-Kurations-Daten, kein Hardcode: die Zuordnung MSKU zu Stufe, die
-Empfehlungstexte, das Beliebt-Flag der Vorauswahl UND die Produktkarten der
-Ebene 1 selbst (welche Modellreihen als Karte erscheinen, inkl. Zustand
-"demnaechst verfuegbar" fuer Reihen ohne bestellbare Varianten im Feed, z. B.
-Surface Laptop Ultra vor Marktstart) werden im Admin gepflegt, Erstbefuellung
-durch uns. Delta-Raten an nicht gewaehlten Optionen sind Differenzen
-oeffentlicher Raten aus products.json, bezogen auf die aktuelle Auswahl samt
-Vertragsart und Laufzeit, nie auf eine veraltete Basis, es wird nie gerechnet,
-was nicht aus products.json kommt.
+## Abgelöst am 24.11.2026
+- Zweistufiges Modell Reihe und Variante, Produktseite je Reihe und Generation.
+- Kuratierte Ausstattungsstufen essential, advanced, performance mit Beliebt-Flag
+  als Vorauswahl (24.08.2026). Grund: Sascha will freie Konfiguration nach dem
+  Muster von Microsoft.
 
 ## Garantie-Bausteine (E-103, 07.11.2026)
 Bausteine für neue Geräte. Rate und Artikel kommen aus dem Katalog, der Shop

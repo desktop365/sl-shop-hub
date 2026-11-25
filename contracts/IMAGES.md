@@ -258,6 +258,51 @@ Abdeckungsdatei im Repo der Bild-Strecke. Für alle anderen Chats ist die Wahrhe
 - `medien.json` liest der Shop zur Laufzeit, mit Neuvalidierung nach höchstens
   einer Stunde.
 
+## Nachtrag Bausteine und Dienste, entschieden 25.11.2026 (E-185, W6)
+
+### 1. Herkunft und Recht
+Surface.Love ist Microsoft-CSP-Partner und Surface Authorized Reseller. Auf
+dieser Grundlage zeigt der Shop Microsofts App-Logos und Bilder zu den Produkten,
+die er anbietet (Entscheidung Sascha, 25.11.2026). Microsoft-Medien liegen nur im
+privaten Repo der Bild-Strecke und im Bucket slshopv2-media, nie in diesem Hub.
+Das Hub nennt nur Schlüssel, Pfade und Regeln.
+
+### 2. Darstellung der Logos
+- Unverändert: nicht verzerren, nicht beschneiden, nicht umfärben.
+- Größe im Shop 32 px, nie unter 16 px. Alle Logos einer Reihe gleich breit und
+  senkrecht mittig.
+- Der Name steht immer als Text daneben, das Logo trägt ein leeres `alt`. Der
+  Abstand zum Namen ist mindestens ein Viertel der Logobreite, bevorzugt die
+  Hälfte. Der Name steht in `ink` oder `ink-muted`, nie in der Farbe des Produkts.
+- Logos stehen nur im Raster „Enthalten“ der Produktseiten und in der
+  Schnellansicht, nicht als Schmuck und nie größer als unsere eigene Marke.
+- Im Text steht bei der ersten Nennung „Microsoft“ vor dem App-Namen. Nie „M365“.
+  Kein Satz deutet eine Empfehlung durch Microsoft an.
+
+### 3. Ablage im Bucket slshopv2-media
+- Logos unter `media/dienste/dienst-{schluessel}.svg`, nur wo Microsoft kein SVG
+  anbietet als `.png` mit der größten verfügbaren Kantenlänge. Schlüssel wie in
+  BAUSTEINE.md, Abschnitt Produktseiten.
+- Katalog `media/dienste/dienste.json`:
+  `{ "version": 1, "stand": "JJJJ-MM-TT", "dienste": { "word": { "datei": "media/dienste/dienst-word.svg", "breite": 48, "hoehe": 48 } } }`.
+  Fehlt ein Schlüssel, zeigt der Shop nur den Namen, mit gleich breitem leerem Platz.
+- Aufmacher der Produktseiten sind Lifestyle (Fassung 3, Punkt 2) und liegen unter
+  `media/bausteine/{seite}/` mit einer `medien.json` nach Fassung 3, Punkt 3.
+  `modell` ist der Seitenschlüssel, das einzige Kapitel hat `thema: "aufmacher"`,
+  quer 3:2 in 800, 1200, 1600, hoch 4:5 in 800, 1200.
+- Kleine Bilder der Bausteine für Ausstattung, Schnellansicht und Warenkorb kommen
+  in `images.json` v2: Modelle mit `family: "baustein"`, nur die Ansicht
+  `front-open`, Breiten 160, 400, 800, 1200. Dazu der optionale Block
+  `bausteine`, er bildet den Baustein-Schlüssel auf den Slug im Block `models` ab.
+  `map` bleibt MSKU zu Slug. Fehlt ein Eintrag, zeigt der Shop das bisherige Symbol.
+- Cache-Control und Upload-Folge wie Fassung 3, Punkt 6: Dateien, dann
+  `dienste.json` und `medien.json`, zuletzt `images.json`.
+
+### 4. Bilder im Warenkorb
+Der Warenkorb speichert keine Bildadressen. Er löst das Bild beim Anzeigen auf,
+für Geräte über `map` und die MSKU, für Bausteine über `bausteine`. So bekommen
+auch Positionen aus einem geteilten Link (`?pos=`) ihr Bild.
+
 ## Offene Fragen, vor der finalen Bildmatrix zu klären
 **Alle vier am 25.08.2026 entschieden, siehe Abschnitt Bildmodell-Matrix. Der
 Wortlaut bleibt als Beleg stehen, welche Frage womit beantwortet wurde.**

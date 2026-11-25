@@ -55,11 +55,11 @@ Fehlt eine Rate zur gewählten Laufzeit, erscheint der Baustein bei dieser Laufz
 Jeder Baustein ist eine eigene Position direkt hinter seinem Gerät, mit derselben Laufzeit (E-105, E-182). In HubSpot wird er eine Deal-Position mit dem Schlüssel `baustein` und der Menge. Im Warenkorb sind die Mengen der Bausteine nur lesbar, geändert werden sie über „Bearbeiten“ in der Ausstattung. Einzelne Bausteine lassen sich im Warenkorb direkt entfernen, mit Rückgängig (E-182).
 
 ## Produktseiten (W6, P15, D-C13, M06)
-Fünf Seiten nach einer Vorlage: `m365-standard`, `m365-premium`, `copilot`, `managed`, `garantie`. Die Adressen legt ROUTEN-UND-SEO.md fest (W3), bis dahin gelten die Slugs aus `seiten` als Vorschlag.
+Fünf Seiten nach einer Vorlage: `m365-standard`, `m365-premium`, `copilot`, `managed`, `garantie`. Die Adressen stehen in ROUTEN-UND-SEO.md, Abschnitt 3 (W3).
 
 Je Eintrag in `seiten`:
 - `seite`: Schlüssel der Seite.
-- `slug`: Vorschlag für die Adresse.
+- `slug`: letzter Teil der Adresse, genau wie in ROUTEN-UND-SEO.md, Abschnitt 3. Ist die Seite veröffentlicht, braucht jede Änderung eine 301 (dort Regel 4.1).
 - `bausteine`: Liste der Baustein-Schlüssel auf der Seite, bei Managed zwei, bei Garantie fünf.
 - `name_microsoft`: Name, wie ihn microsoft.com/de-de heute führt, sonst `null` (Managed). Die Seite zeigt diesen Namen.
 - `dienste`: Liste von Dienst-Schlüsseln aus `word`, `excel`, `powerpoint`, `onenote`, `loop`, `clipchamp`, `outlook`, `exchange`, `teams`, `onedrive`, `sharepoint`, `entra_id`, `windows`, `intune`, `defender`, `purview`, `copilot`. `teams` nur, wenn unser Artikel Teams enthält.

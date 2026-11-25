@@ -1,6 +1,6 @@
 # Bausteine der Ausstattung (bausteine.json)
 
-Stand 24.11.2026, F-49. Grundlage: Checkout-Baukasten bk1 (Treppe), E-065, E-076, E-099, E-103, E-105, E-106, E-156, E-157.
+Stand 25.11.2026, F-49. Grundlage: Checkout-Baukasten bk1 (Treppe), E-065, E-076, E-099, E-103, E-105, E-106, E-156, E-157, E-182, E-183.
 
 ## Zweck
 Die Ausstattungsseite zwischen Gerät und Anfrage bietet in fester Reihenfolge an: Zubehör, Lizenzen, Garantie, Managed Workplace. Alle Raten kommen fertig aus der Preis-Pipeline, der Shop rechnet nicht (E-099). Der Shop zeigt nur Bausteine, die zur gewählten Laufzeit eine Rate in den Daten haben.
@@ -38,10 +38,14 @@ Fehlt eine Rate zur gewählten Laufzeit, erscheint der Baustein bei dieser Laufz
 - Lizenzen werden auf volle Jahre gerechnet (E-076) und stecken in der Rate (E-065). Die Pipeline bildet daraus die Raten je Laufzeit.
 - `lizenz_copilot` setzt `lizenz_m365_standard` oder `lizenz_m365_premium` voraus.
 - Managed Workplace setzt `lizenz_m365_premium` voraus. Wählt der Kunde Managed, wählt der Shop Premium sichtbar mit. Wählt er Premium ab, entfällt Managed, mit Hinweiszeile (bk1, Zustand 6).
-- Nichts ist vorausgewählt (bk1, rote Linie 1). „Komplett ausstatten“ wählt die empfohlenen Bausteine, jede Zeile bleibt einzeln abwählbar.
+- Bausteine gibt es nur an einem Gerät (E-182). Lizenzen, Garantie, Managed Workplace und Zubehör hängen immer an genau einem Gerät der Anfrage, eine Anfrage ohne Gerät gibt es nicht. Wird etwas ohne Wahl eines Geräts dazugebucht, hängt es am ersten Gerät im Warenkorb.
+- Wird ein Gerät aus dem Warenkorb entfernt, entfallen seine Bausteine mit ihm. Vorher zeigt der Shop einen deutlichen Hinweis, was mit entfernt wird, danach gibt es Rückgängig (E-182).
+- Nichts ist vorausgewählt (bk1, rote Linie 1), mit einer Ausnahme (E-183): Bei einem Gerät mit `copilot_plus` aus modelle.json sind `lizenz_copilot` und als Voraussetzung `lizenz_m365_premium` vorausgewählt. Das gilt auf jedem Weg, auf dem ein Copilot+ PC in den Warenkorb kommt. Geräte ohne `copilot_plus` haben keine Vorauswahl. „Komplett ausstatten“ wählt die empfohlenen Bausteine, jede Zeile bleibt einzeln abwählbar.
+- Beide vorausgewählten Lizenzen bleiben abwählbar, in der Ausstattung und im Warenkorb. Wer `lizenz_copilot` an einem Copilot+ PC abwählt, bekommt vorher einen deutlichen Hinweis, dass es ein Copilot+ PC ist und die Lizenz dazu sinnvoll ist. Wird `lizenz_m365_premium` abgewählt und keine andere Basislizenz gewählt, entfällt `lizenz_copilot` mit Hinweiszeile, wie bei Managed Workplace (E-183).
+- Die Raten auf Geräte- und Modellseiten bleiben reine Geräteraten, ohne vorausgewählte Lizenzen (E-183).
 
 ## In der Anfrage
-Jeder Baustein ist eine eigene Position direkt hinter seinem Gerät, mit derselben Laufzeit (E-105). In HubSpot wird er eine Deal-Position mit dem Schlüssel `baustein` und der Menge.
+Jeder Baustein ist eine eigene Position direkt hinter seinem Gerät, mit derselben Laufzeit (E-105, E-182). In HubSpot wird er eine Deal-Position mit dem Schlüssel `baustein` und der Menge. Im Warenkorb sind die Mengen der Bausteine nur lesbar, geändert werden sie über „Bearbeiten“ in der Ausstattung. Einzelne Bausteine lassen sich im Warenkorb direkt entfernen, mit Rückgängig (E-182).
 
 ## Nicht in bausteine.json
 Keine EK-, VK- oder Faktorwerte (E-092). Keine Texte außer `name`.

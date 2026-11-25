@@ -70,7 +70,7 @@ Je Eintrag in `seiten`:
 Regeln der Seiten:
 - Raten kommen nur aus `items` (E-099), `seiten` trägt keine. Der Kopf zeigt die Rate bei 48 Monaten, darunter die bei 24 und 36.
 - Hat ein Baustein Raten je Gerät (`gilt_fuer` mit mehr als einem Schlüssel), zeigt der Kopf „ab“ und die kleinste Rate bei 48 Monaten über alle Einträge. Liegt ein passendes Gerät im Warenkorb, zeigt die Schnellansicht dessen Rate.
-- „Enthalten“ zeigt die Logos aus `dienste` mit dem Namen als Text daneben. Bei Copilot ist das nur `copilot`. Darunter folgt eine zweite Reihe „Copilot arbeitet in diesen Apps Ihrer Basislizenz“ mit den Diensten von Business Standard, ohne Zähler im Kopf. So entsteht nicht der Eindruck, Copilot enthalte die Apps.
+- „Enthalten“ zeigt die Logos aus `dienste` mit dem Namen als Text daneben. Bei Copilot ist das nur `copilot`. Darunter folgt eine zweite Reihe „Copilot arbeitet in diesen Apps Ihrer Basislizenz“ mit genau den Apps, für die der Seitentext einen Satz unter `enthalten.dienste` hat, ohne Zähler im Kopf. So entsteht nicht der Eindruck, Copilot enthalte die Apps.
 - „Passende Geräte“ zeigt die Gerätekarten unverändert wie auf `/de/geraete` (W1). Bei `geraete_hinweis: copilot_plus` nur Copilot+ PCs, bei Garantie nur Modelle aus `gilt_fuer`.
 - Der Hauptknopf heißt „Zu einem Gerät hinzufügen“. Ohne Gerät im Warenkorb gilt die Vormerkung, mit einem Gerät die Schnellansicht, mit mehreren die Auswahl „An welches Gerät?“. Die Menge ist die Gerätemenge der Position.
 - Texte kommen aus `content/de/bausteine/{seite}.json` im Shop, die Sätze je Dienst aus `content/de/bausteine/dienste.json` (M06). Logos und Aufmacher nach IMAGES.md, Nachtrag Bausteine und Dienste.

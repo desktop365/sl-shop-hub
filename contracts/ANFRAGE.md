@@ -3,14 +3,14 @@
 Maßgeblich für die Anfrage-Logik des Neu-Zweigs. Die Logik stammt aus dem ersten Anlauf, früher archive/KONZEPT.md Abschnitt 11. Sie gilt unverändert, nur das Ziel ist jetzt die Hostinger-Node-App als Next.js-API-Route, nicht mehr ein FastAPI-Dienst auf Cloud Run.
 
 ## Stand, ehrlich
-Ablauf und Schlüssel sind vollständig entworfen, aber der Endpunkt ist im neuen Stack noch nicht gebaut. Die zugehörigen Apps und Zugänge, die HubSpot-Private-App, die Graph-App-Registrierung und das Turnstile-Widget, müssen für den neuen Auftritt geprüft oder neu erstellt und die Schlüssel als Umgebungsvariablen der Hostinger-App gesetzt werden.
+Stand 25.11.2026: Der Endpunkt ist als Next.js-API-Route gebaut (B4, 7877) und läuft seit dem Livegang am 24.11.2026 auf beta.surface.love und surface.love. HubSpot-Private-App, Graph-App-Registrierung und Turnstile-Widget sind eingerichtet, die Schlüssel stehen als Umgebungsvariablen der Hostinger-Apps.
 
 ## 1. Zweck
-Der Neu-Zweig verkauft nicht, er nimmt eine unverbindliche Anfrage entgegen. Aus einer Anfrage entsteht ein Deal in HubSpot und eine Mail an Sales. Kein Warenkorb-Kauf, keine Zahlung, kein Kundenkonto.
+Der Neu-Zweig verkauft nicht, er nimmt eine unverbindliche Anfrage entgegen. Aus einer Anfrage entsteht ein Deal in HubSpot und eine Mail an Sales. Der Warenkorb ist eine eigene Seite mit Schritten wie bei einem Kauf (E-179), rechtlich bleibt es eine unverbindliche Anfrage. Keine Zahlung, kein Kundenkonto.
 
 ## 2. Ablauf des Endpunkts /api/anfrage
-1. Eingaben validieren.
-2. Turnstile serverseitig prüfen, bei Fehlschlag 400.
+1. Eingaben validieren. Unter den Positionen muss mindestens ein Gerät sein, sonst 400 `positionen` (E-182). Bausteine und Zubehör gibt es nur zusammen mit einem Gerät, siehe BAUSTEINE.md.
+2. Turnstile serverseitig prüfen, bei Fehlschlag 400. Das Widget steht auf der Seite „Prüfen“ direkt vor dem Absenden. Nach einem Fehlschlag setzt die Seite es zurück, damit ein neuer Versuch ein neues Zeichen hat (E-182).
 3. HubSpot, nur wenn aktiviert, Kontakt upserten und Deal anlegen, Fehler nur loggen.
 4. Mail über Microsoft Graph, nur wenn aktiviert, Token holen, sendMail an das interne Ziel.
 5. Antwort nach E-090 (03.11.2026). Mit 200 und der Anfrage-ID antworten, sobald mindestens ein Weg zugestellt hat, HubSpot oder Mail. Scheitert ein Weg, kippt das die Antwort nicht, solange der andere zugestellt hat. Hat kein Weg zugestellt, mit 503 antworten, auch wenn beide zur Laufzeit scheitern und nicht nur bei fehlender Konfiguration. Ist gar kein Weg eingeschaltet, antwortet der Endpunkt sofort mit 503, bevor er Eingaben oder Turnstile prüft. Bei 503 zeigt die Seite Telefonnummer und Mailadresse der Storefront, die Eingaben bleiben stehen. Der Prüflauf `INQUIRY_DRY_RUN` ist nur für lokale Tests, er greift nur bei Aufruf über localhost und wird nie auf beta oder live gesetzt.
@@ -34,7 +34,7 @@ Werte nur als Umgebungsvariable der Hostinger-App, nie im Repo, nie öffentlich,
 
 Reply-To der Antwortmails ist sales@surface.love, siehe DETAILS.md.
 
-## 5. Zu tun im neuen Stack
+## 5. Einrichtung im neuen Stack, erledigt bis zum Livegang am 24.11.2026
 - Endpunkt als Next.js-API-Route bauen, inhaltlich wie oben.
 - HubSpot-Private-App im Portal 145452563 anlegen oder prüfen, Token setzen.
 - Graph-App-Registrierung für shop@surface.love prüfen oder anlegen, App-only-Berechtigung Mail.Send, Zustimmung erteilen.

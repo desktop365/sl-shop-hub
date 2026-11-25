@@ -270,7 +270,13 @@ Das Hub nennt nur Schlüssel, Pfade und Regeln.
 ### 2. Darstellung der Logos
 - Unverändert: nicht verzerren, nicht beschneiden, nicht umfärben.
 - Größe im Shop 32 px, nie unter 16 px. Alle Logos einer Reihe gleich breit und
-  senkrecht mittig.
+  senkrecht mittig. Liegt ein Rasterbild kleiner als 32 px vor, steht es in seiner
+  Originalgröße mittig im 32er Feld und wird nie hochskaliert. SVG wird auf 32 px
+  gezeigt.
+- Der Name neben dem Logo lautet so, wie Microsoft ihn auf seiner Planseite neben
+  dem Logo führt, zum Beispiel „Word“, „Microsoft Teams“, „Microsoft Entra ID“,
+  „Windows 11“. Der Shop liest ihn aus `content/de/bausteine/dienste.json`, Feld
+  `name`. Für `copilot` lautet er „Microsoft 365 Copilot“.
 - Der Name steht immer als Text daneben, das Logo trägt ein leeres `alt`. Der
   Abstand zum Namen ist mindestens ein Viertel der Logobreite, bevorzugt die
   Hälfte. Der Name steht in `ink` oder `ink-muted`, nie in der Farbe des Produkts.
@@ -289,7 +295,8 @@ Das Hub nennt nur Schlüssel, Pfade und Regeln.
 - Aufmacher der Produktseiten sind Lifestyle (Fassung 3, Punkt 2) und liegen unter
   `media/bausteine/{seite}/` mit einer `medien.json` nach Fassung 3, Punkt 3.
   `modell` ist der Seitenschlüssel, das einzige Kapitel hat `thema: "aufmacher"`,
-  quer 3:2 in 800, 1200, 1600, hoch 4:5 in 800, 1200.
+  quer 3:2 in 800, 1200, 1600, hoch 4:5 in 800, 1200. Reicht die Quelle für hoch
+  nicht, steht dort `null`, und das Handy zeigt die Fassung quer.
 - Kleine Bilder der Bausteine für Ausstattung, Schnellansicht und Warenkorb kommen
   in `images.json` v2: Modelle mit `family: "baustein"`, nur die Ansicht
   `front-open`, Breiten 160, 400, 800, 1200. Dazu der optionale Block

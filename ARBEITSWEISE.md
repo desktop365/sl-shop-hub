@@ -140,7 +140,29 @@ im Juni ging so der shop-Parameter der Distributor-URL verloren. Werte nie
 in die Terminal-Historie, in Berichten nur Namen.
 
 ## Projekt-Board
-Der Projektstand lebt in board/board.json, Regeln und Meldeformat in
-board/README.md. Claude Code aktualisiert betroffene Eintraege am Ende jedes
-Laufs und committet sie mit. Chats melden per Meldeblock. Kickoffs neuer
-Straenge nennen beide Dateien als volle Raw-URLs.
+Der Projektstand lebt im Azure-DevOps-Board, Organisation desktop365, Projekt
+Surface.Love. board/board.json ist seit dem 03.09.2026 eingefroren und wird
+nicht mehr geschrieben, board/README.md gilt nur noch als Archiv. Gemeldet wird
+als Kommentar am genannten Work Item, mit Beleg (Commit, PR, Pipeline-Lauf,
+Adresse, Health-Ausgabe, Bildschirmfoto). Entscheidungen stehen im Logbuch,
+dem Work Item 7873.
+
+### Zustände (E-188)
+Agile-Prozess, in der Bedeutung, die Microsoft dafür vorgibt:
+- New: beauftragt oder geplant, noch nicht begonnen.
+- Active: Die Arbeit läuft nachweislich.
+- Resolved: geliefert, wartet auf Abnahme.
+- Closed: abgenommen, mit ABNAHME am Board. Bei Shop-Code zusätzlich auf
+  `release` mit grünem Lauf der Pipeline.
+- Removed: durch eine spätere Entscheidung ersetzt, die E-Nummer steht im
+  Kommentar.
+
+Features folgen ihren Kindern: Closed, wenn alle Kinder Closed oder Removed
+sind, Resolved, wenn alle erledigt oder geliefert sind, Active, sobald eines
+begonnen ist. Zustände setzt der Master. Instanzen ändern Zustände nur mit
+ausdrücklichem Auftrag.
+
+### Verknüpfung mit GitHub (E-188)
+`AB#{ID}` in einer Commit-Nachricht oder PR-Beschreibung verknüpft den Eintrag.
+Nie `Fix`, `Fixes`, `Fixed` oder einen Zustandsnamen davor schreiben: Azure
+Boards ändert dann beim Merge den Zustand selbst und umgeht die Abnahme.

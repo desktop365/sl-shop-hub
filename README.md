@@ -38,6 +38,7 @@ Bei Widerspruch gilt ARBEITSWEISE.md.
 - [contracts/PRICING.md](contracts/PRICING.md)  Preisquelle und Rechenweg der Neu-Raten
 - [contracts/ANFRAGE.md](contracts/ANFRAGE.md)  Anfrage-Endpunkt und Schlüssel
 - [contracts/INFRA.md](contracts/INFRA.md)  Infrastruktur, Google-Projekte, Bucket, Cloudflare, Hosting
+- [contracts/ROUTEN-UND-SEO.md](contracts/ROUTEN-UND-SEO.md)  Adressen, Weiterleitungen, Kanonik, Sitemap, Search Console
 
 ## Datenfluss, kurz
 - Den Live-Katalog erzeugt die Preis-Pipeline und legt products.json im Objektspeicher ab, der Shop liest

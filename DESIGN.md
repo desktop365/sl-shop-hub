@@ -34,16 +34,18 @@ Nicht mehr maßgeblich für surface.love: `brand/DESIGN-V2.md`, `brand/tokens.cs
 
 ### Verläufe
 - Es gelten nur die vier Verläufe aus den Tokens: `gradient-tiefe`, `gradient-himmel`, `gradient-lagune`, `gradient-glut`. Blau wird nie in Apricot, Koralle oder Violett überblendet.
-- Text auf Bild und Film steht auf einem Verlauf aus dem Token `schleier` (`blue-950`). Die Stopps stehen je Stelle in `bausteine-und-zustaende.md`, angenommen als Ausnahmen A1 bis A4 und B1 (E-099). Kontraste bei Filmen im Abnahmetest erneut prüfen.
+- Über Fotos und Filmen liegt keine Markenfarbe. Steht Text darauf, wird nur in neutralem Schwarz abgedunkelt, mit `schatten-text`, `abdunklung-hoch` oder `abdunklung-fuss` (`ink` mit Deckkraft, E-225). Der Kontrast hängt damit am Bild: Abgenommen wird an der hellsten Stelle hinter jedem Text, mindestens 4,5 : 1.
+- Die Kennzahl der Vollbild-Bühne ist weiß wie alle Schrift dort, die aktive Linie bleibt `marker` (E-225).
+- Bestand bis G10 (E-225): Hero, Kampagne, Mood und Use-Case-Karten der Startseite stehen noch auf einem Verlauf aus dem Token `schleier` (`blue-950`). Die Stopps stehen je Stelle in `bausteine-und-zustaende.md`, angenommen als Ausnahmen A1 bis A4 und B1 (E-099). Kontraste bei Filmen im Abnahmetest erneut prüfen.
 - Kein Muster auf blauen Flächen. Fehlt ein Medium, steht `surface-raised` ohne Etikett (`.slot-leer`), keine gezeichnete Ersatz-Szene (B2, Bauplan 6.22).
 
 ### Schrift
 - Jeder Text in Open Sans, selbst gehostet. Headlines in Light, Lesetext in Regular, Auszeichnung in SemiBold. Segoe wird nicht mehr verwendet.
-- Stufen nur aus den Tokens: `--sf-text-display`, `-h1`, `-h2` fließend, alles andere fest über `--sf-fs-*` und `--sf-lh-*` (E-144). Nur die Gewichte 300, 400, 600, nichts unter 12 px. Zahlen tabellarisch, Preise ohne Umbruch.
+- Stufen nur aus den Tokens: `--sf-text-display`, `-h1`, `-h2` fließend, alles andere fest über `--sf-fs-*` und `--sf-lh-*` (E-144). Die Vollbild-Bühne hat eigene Stufen `--sf-text-buehne-*`, fließend ab 1920 Breite (E-225). Nur die Gewichte 300, 400, 600, nichts unter 12 px. Zahlen tabellarisch, Preise ohne Umbruch.
 
 ### Form und Raum
 - Flächen, Bänder, Karten und Bilder sind eckig (`radius-none`). Rund sind nur Bedienelemente (`radius-s`, 4 px) sowie Chips und Preisplaketten (`radius-pill`).
-- Keine Schatten außer `focus-ring`. Tiefe entsteht durch Weiß, Sand und Blau.
+- Keine Schatten außer `focus-ring`. Tiefe entsteht durch Weiß, Sand und Blau. Ausnahme ist Text frei auf Bild und Film: Dort gelten `schatten-text` und `schatten-schrift`, dazu ein weicher Schatten in neutralem Schwarz unter der Linie des Fortschritts der Bühne (E-225). Sonst nirgends.
 - Abstände aus dem 4-px-Raster. Klickziele mindestens 44 px.
 
 ### Logo

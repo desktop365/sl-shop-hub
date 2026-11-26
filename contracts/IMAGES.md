@@ -310,7 +310,7 @@ Der Warenkorb speichert keine Bildadressen. Er löst das Bild beim Anzeigen auf,
 für Geräte über `map` und die MSKU, für Bausteine über `bausteine`. So bekommen
 auch Positionen aus einem geteilten Link (`?pos=`) ihr Bild.
 
-## Nachtrag Startseite, entschieden 26.11.2026 (E-194), Stand 26.11.2026 mit E-202
+## Nachtrag Startseite, entschieden 26.11.2026 (E-194), Stand 26.11.2026 mit E-202 und E-225
 
 Gilt für die Medien der Startseite nach der Bauspezifikation Startseite
 (E-194). Was hier nicht steht, gilt aus Fassung 3. Microsoft-Medien sind nach
@@ -358,7 +358,7 @@ Shop für beide Kataloge denselben Leser nutzt.
     "surface-laptop":       <Fassung>,
     "surface-laptop-ultra": <Fassung> },
   "buehne": [
-    { "id": "prozessor",  "alt": "...", "quer": <Fassung>, "hoch": <Fassung> | null, "film": <Film> | null },
+    { "id": "prozessor",  "alt": "...", "fokus": [66, 50], "quer": <Fassung>, "hoch": <Fassung> | null, "film": <Film> | null },
     { "id": "sicherheit", ... }, { "id": "akku", ... }, { "id": "display-kamera", ... } ],
   "ki": [
     { "id": "...", "alt": "...", "film": <Film>, "standbild": <Fassung> } ],
@@ -371,7 +371,7 @@ Shop für beide Kataloge denselben Leser nutzt.
 | Platz | Abschnitt der Bauspezifikation | Inhalt | Richtwerte |
 |---|---|---|---|
 | `einstieg` | 4, Einstiegskarten | je Reihe ein Freisteller mit Alphakanal, Schlüssel wie `specs.family` (DATA-CONTRACT.md). Kein `alt`: die Karte trägt den Namen, das Bild steht mit leerem `alt` | Breiten 572 und 1144, soweit die Quelle reicht |
-| `buehne` | 6, Scroll-Bühne | genau die vier `id` in dieser Reihenfolge: `prozessor`, `sicherheit`, `akku`, `display-kamera`. `quer` für die Fläche ab 1024 Breite, `hoch` für die Karten darunter, `film` nur ab 1024 Breite | `quer` 29:16 in 1160 und 2320, `hoch` 4:3 in 780, Film höchstens 1920 breit |
+| `buehne` | 6, Vollbild-Bühne (E-222, E-225) | genau die vier `id` in dieser Reihenfolge: `prozessor`, `sicherheit`, `akku`, `display-kamera`. `quer` für die Vollbildfläche ab 1024 Breite, `hoch` für die Wischreihe darunter, `film` nur ab 1024 Breite. Regeln für Format, Fokus, Ruhezone, Gewicht und Laden in Punkt 5 | `quer` 16:9 in 1280, 1920, 2560 und 3200, `hoch` 4:3 in 780, Film höchstens 1920 breit |
 | `ki` | 7, Kartenreihe KI und Copilot | drei bis fünf Karten in der Reihenfolge der Anzeige. `id` ist ein kurzer Schlüssel aus Kleinbuchstaben und Bindestrich, eindeutig in der Liste. `standbild` steht vor dem Start und bei reduzierter Bewegung | Film 4:5, 928 × 1160, Standbild 4:5 |
 | `uc` | Use-Case-Karten „So arbeitet Ihr Team.“ (E-202) | genau die vier `id` in dieser Reihenfolge: `unterwegs`, `dock`, `stift`, `zuhause`. Hochformat für die Karte. Das Motiv (Person, Gesicht, Gerät) liegt in den oberen 60 %, die unteren 40 % liegen unter dem Text der Karte | `hoch` 4:5 in 600 und 1200 |
 | `schutz` | 8, Support und Schutz | `quer` ab 1024 Breite, `quadrat` darunter | `quer` 16:9 in 1280 und 2560, `quadrat` 1:1 in 780 und 1000 |
@@ -399,6 +399,40 @@ Der Shop zeigt die Startseite immer, ohne Fehler und ohne Platzhalterbild.
   zeigt die Bühne die übrigen.
 - **Fehlt ein Eintrag in `uc`:** die Karte steht als Text auf `surface-deep`.
   Eine unbekannte `id` in `uc` wird nicht gezeigt (E-202).
+
+### 5. Bühne im Vollbild (E-222, E-225)
+Gilt für den Platz `buehne` ab 1024 Breite, nach der Vorgabe G9 v3 von Claude
+Design, Abschnitte 3.5, 5 und 5.1. Die Bühne trägt keinen Schleier in
+Markenfarbe, der Text steht frei auf dem Bild (DESIGN.md, Verläufe).
+- **Format:** `quer` 16:9. Das Motiv liegt bei 66 % der Breite und 50 % der
+  Höhe, so bleibt es von 4:3 bis 21:9 im Bild.
+- **Fokus:** `fokus` ist der Fokuspunkt des Motivs als zwei Zahlen in Prozent,
+  erst Breite, dann Höhe. Der Shop setzt ihn als `object-position`. Fehlt er,
+  gilt `[66, 50]`.
+- **Ruhezone:** In der unteren Hälfte von 5 % bis 65 % der Breite steht der
+  Text. Dort keine harten Kanten und keine weißen Flächen. Richtwert für die
+  Auswahl: im Mittel nicht heller als Grauwert 145 von 255, an den hellsten
+  Stellen (97. Perzentil) nicht heller als 170. Verbindlich ist die Abnahme:
+  mindestens 4,5 : 1 an der hellsten Stelle hinter jedem Text, in allen
+  Fenstern.
+- **Breiten:** 1280, 1920, 2560 und 3200, als AVIF oder WebP. Jedes Motiv
+  höchstens in Quellbreite, nie hochgerechnet (E-225, Punkt 2). Reicht die
+  Quelle nicht bis 3200, endet `breiten` bei der Quellbreite.
+- **Film:** MP4 ohne Tonspur, quer höchstens 1920 breit, höchstens 10 s, mit
+  Poster.
+- **Gewicht, Obergrenzen von SL SEO:** Standbild 150 KB bei 1280, 250 KB bei
+  1920, 400 KB bei 2560, 600 KB bei 3200. Film quer 2,5 MB.
+- **Alternativtext:** `alt` je Motiv, geschrieben von CC-Marketing.
+- **Laden:** jedes Standbild als `img` mit `loading="lazy"` und
+  `decoding="async"`, nie mit `preload`, nie mit `fetchpriority` und nie als
+  Hintergrund im CSS. Jedes `img` trägt `width` und `height` oder liegt in
+  einer Fläche mit fester Höhe aus dem CSS, damit sich nichts verschiebt.
+  Quer und Hochkant sind ein `img` in einem `picture` mit Medienabfrage, nie
+  zwei Bilder nebeneinander. Filme tragen im HTML keine Quelle, der Shop
+  setzt sie erst, wenn ihre Folie aktiv wird. Die Startseite hat kein
+  VideoObject.
+- **Hochkant fürs Handy:** Die Regel folgt nach der Vorgabe v3.1 von Claude
+  Design als Nachtrag. Bis dahin gilt `hoch` 4:3 in 780 für die Wischreihe.
 
 ## Offene Fragen, vor der finalen Bildmatrix zu klären
 **Alle vier am 25.08.2026 entschieden, siehe Abschnitt Bildmodell-Matrix. Der

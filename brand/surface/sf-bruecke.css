@@ -116,3 +116,50 @@
 @media (min-width:1280px){
   [data-sf="surface"]{ --sf-text-hero:72px; --sf-lh-hero:76px; }
 }
+
+/* ============================================================
+   Vollbild-Bühne und Vollbildflächen mit Film nach E-222 und E-225, Vorgabe G9 v3 von Claude Design,
+   Abschnitte 3.3, 3.4 und 4 (G9, 26.11.2026). Nur neue Namen, nichts Bestehendes geändert.
+   Über Bild und Film keine Markenfarbe, nur ink mit Deckkraft. Die Werte stehen als Rollen in tokens.css.
+   --sf-schleier-buehne oben bleibt für den Bestand, die Bühne nutzt ihn nicht mehr.
+   ============================================================ */
+[data-sf="surface"]{
+  /* Schatten hinter dem Text der Bühne und Schriftschatten. Lage und Größe des Flecks hängen an der
+     Textspalte und stehen im Baustein (Vorgabe 3.4), hier nur die Füllung */
+  --sf-schatten-text:var(--schatten-text);
+  --sf-schatten-schrift:var(--schatten-schrift);
+
+  /* Abdunklung an der Unterkante einer Vollbildfläche mit Film, mit Mindestlänge (Vorgabe 4).
+     hoch: viel Text bis zur Mitte. fuss: wenig Text ganz unten */
+  --sf-abdunklung-hoch:var(--abdunklung-hoch);
+  --sf-abdunklung-hoch-h:max(100%, 780px);
+  --sf-abdunklung-fuss:var(--abdunklung-fuss);
+  --sf-abdunklung-fuss-h:max(60%, 468px);
+
+  /* Schrift der Bühne, alles in Weiß (on-deep). Stufen nach Vorgabe 3.3, Gewichte 300 und 400.
+     Unter 1024 Breite gilt die Wischreihe mit ihren eigenen Stufen */
+  --sf-text-buehne-titel:var(--sf-text-h1);
+  --sf-text-buehne-satz:var(--sf-text-long);
+  --sf-text-buehne-kz:64px;
+  --sf-text-buehne-zeile:16px;
+}
+@media (min-width:768px){
+  [data-sf="surface"]{ --sf-abdunklung-hoch-h:max(100%, 820px); --sf-abdunklung-fuss-h:max(60%, 600px); }
+}
+@media (min-width:1600px){
+  [data-sf="surface"]{
+    --sf-text-buehne-titel:var(--sf-text-display);
+    --sf-text-buehne-satz:var(--sf-text-h2);
+    --sf-text-buehne-kz:72px;
+    --sf-text-buehne-zeile:18px;
+  }
+}
+/* Fließende Stufe ab 1920 Breite, damit die Schrift auf großen Monitoren mitwächst (E-225, Frage 2) */
+@media (min-width:1920px){
+  [data-sf="surface"]{
+    --sf-text-buehne-titel:clamp(64px, 3.4vw, 104px);
+    --sf-text-buehne-satz:clamp(24px, 1.25vw, 36px);
+    --sf-text-buehne-kz:clamp(72px, 4.4vw, 136px);
+    --sf-text-buehne-zeile:clamp(18px, 0.95vw, 26px);
+  }
+}

@@ -26,7 +26,7 @@
   --sf-shadow-card:none;
   --sf-shadow-float:none;
   /* Bestand V18, nur noch für vorhandene Bausteine (Stories). Neue Bausteine nutzen --sf-dur-* und --sf-ease-* unten */
-  --sf-ease:cubic-bezier(.2,.7,.3,1); --sf-dur-1:150ms; --sf-dur-2:260ms; --sf-dur-3:550ms; --sf-pulse:0s;
+  --sf-ease:cubic-bezier(.2,.7,.3,1); --sf-dur-1:150ms; --sf-dur-2:260ms; --sf-dur-3:550ms; --sf-pulse:3.5s;
   --sf-tint:0%;
   --sf-space-1:var(--space-1); --sf-space-2:var(--space-2); --sf-space-3:var(--space-3); --sf-space-4:var(--space-4); --sf-space-5:var(--space-6);
   --sf-space-6:var(--space-8); --sf-space-7:var(--space-12); --sf-space-8:var(--space-16); --sf-space-9:var(--space-24);

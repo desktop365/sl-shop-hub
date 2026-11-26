@@ -57,7 +57,7 @@ Alle Bausteine laufen über diese Variablen aus dem Block `[data-sf="surface"]` 
 | `--sf-dur-1` | `150ms` | gleich |
 | `--sf-dur-2` | `260ms` | gleich |
 | `--sf-dur-3` | `550ms` | gleich |
-| `--sf-pulse` | `0s` | gleich |
+| `--sf-pulse` | `3.5s` | gleich, seit E-200 (vorher `0s`) |
 | `--sf-tint` | `0%` | gleich |
 | `--sf-space-1` | `var(--space-1)` | `4px` |
 | `--sf-space-2` | `var(--space-2)` | `8px` |
@@ -90,7 +90,7 @@ Ergänzungen:
 | `--sf-dur-2` | 260 ms | Duration | Listenzeilen, Marker, kleine Zustandswechsel |
 | `--sf-dur-3` | 550 ms | Duration | Reglerfüllung, Schalter, Tinte, Gerätebild |
 | `--sf-ease` | `cubic-bezier(.2,.7,.3,1)` | Ease-out, als Cubic-bezier | Standardkurve überall |
-| `--sf-pulse` | `0s` | Duration | Herzschlag, damit im Surface-Zweig ohne sichtbare Wirkung |
+| `--sf-pulse` | `3.5s` | Duration | Herzschlag im Doppelschlag, Periode 3,5 s, seit E-200. Im Prototyp gemessen mit `0s`, also ohne sichtbare Wirkung |
 | Überschwingkurve | `cubic-bezier(.34,1.56,.64,1)`, fester Wert, kein Token | Bounce, Näherung (Kurve statt Feder) | `ratepulse`, `chkIn`, Rückfedern des Griffs |
 | Zähler im JS | `1 - (1 - p)^3`, 420 ms, fester Wert, kein Token | Ease-out | `animateRate()` |
 | Weitere feste Dauern, kein Token | .3s, .35s, .4s, .42s, .45s, .55s, .6s, .7s, .9s, 220 ms | Duration | je Baustein genannt |
@@ -265,7 +265,7 @@ Desktop: ab 700 px einzeilig.
 Bewegung: keine.
 
 ### Kopf (`.hdr`, `.hdr-in`, `.hdr-cta`, `header()`, alle Seiten)
-Klebende Kopfzeile mit Navigation, Telefon, Anfragekorb und Herz rechts.
+Klebende Kopfzeile mit Herz links, Navigation, Telefon und Anfragekorb (E-200).
 
 Zustände:
 
@@ -276,9 +276,9 @@ Zustände:
 
 Tokens: `--surface`, `--line`, `--border-hair`. `.hdr-in` `height:74px`, `gap:20px`, fester Wert, kein Token.
 
-Handy: unter 800 px Reihenfolge Menüknopf, Korb, Herz. Navigation und Telefon aus.
+Handy: unter 800 px Reihenfolge Menüknopf, Herz, dann rechts der Korb (E-200). Navigation und Telefon aus.
 
-Desktop: ab 800 px Reihenfolge Navigation, Telefon, Korb, Herz.
+Desktop: ab 800 px Reihenfolge Herz, Navigation, dann rechts Telefon und Korb (E-200).
 
 Bewegung: `transition` auf `background` und `border-color` 260 ms, `--sf-ease`, Verzögerung 0 ist definiert. Die Klassen wechseln nicht, also keine sichtbare Bewegung.
 
@@ -381,7 +381,7 @@ Desktop: gleich.
 Bewegung: keine.
 
 ### Herz und Logo (`.logo`, `.heart`, `markSurface`, `header()`, alle Seiten)
-Einziges Logo, rechts außen im Kopf, führt zur Startseite.
+Einziges Logo, links im Kopf, führt zur Startseite (E-200, im Prototyp noch rechts außen).
 
 Zustände:
 

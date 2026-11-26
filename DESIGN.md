@@ -1,6 +1,6 @@
 # Designsprache und Tokens
 
-Stand 23.11.2026, nach E-098 und E-144. Surface.Love folgt dem Designsystem V2-2026, die Storefront surface.love dem Prototyp V18, gebaut nach dem Bauplan V18 Fassung 4. lenovo.online ist ein eigenes System und nicht Teil von Beta 1 (E-101).
+Stand 26.11.2026, nach E-098, E-144 und E-200. Surface.Love folgt dem Designsystem V2-2026, die Storefront surface.love dem Prototyp V18, gebaut nach dem Bauplan V18 Fassung 4. lenovo.online ist ein eigenes System und nicht Teil von Beta 1 (E-101).
 
 Verbindlich für den Bau von surface.love ist das Paket `brand/surface/`:
 
@@ -49,7 +49,7 @@ Nicht mehr maßgeblich für surface.love: `brand/DESIGN-V2.md`, `brand/tokens.cs
 ### Logo
 - Das Logo ist nur das Herz, zusammen mit dem Claim „work love balance“. Die Wortmarke Surface mit Herz wird nirgends mehr verwendet, der Markenname steht als Text „Surface.Love“.
 - Das Herz nicht nachzeichnen, verzerren, umfärben oder mit Effekten versehen. Rundum mindestens die halbe Herzhöhe frei. Es steht rechts, Text und Claim beginnen links.
-- Das Herz schlägt im Shop nicht, `--sf-pulse` ist 0s. Die frühere Vorgabe mit dem Doppel-Herzschlag gilt nicht mehr.
+- Im Surface-Shop steht das Herz im Kopf links und ist der Link zur Startseite. Es schlägt im Doppelschlag, zwei Schläge und dann Ruhe, Periode `--sf-pulse` 3,5 s, ohne Ende, nur `transform`. Bei reduzierter Bewegung steht es still. Bewusste Abweichung von WCAG 2.2.2 nach E-200. Lenovo bleibt ohne Puls (`--sf-pulse:0s`).
 
 ### Bewegung
 - App-Bewegung: 100, 150, 200, 300 ms (`--sf-dur-instant`, `-fast`, `-base`, `-slow`), öffnen mit `--sf-ease-out`, schließen mit `--sf-ease-in`. Nur `transform` und `opacity`, keine Überschwingkurve (K10, E-144).

@@ -126,6 +126,13 @@
   --gradient-himmel:linear-gradient(in oklch 100deg, #00A3E0 0%, #76CDEE 55%, #DFF0F8 100%);
   --gradient-lagune:linear-gradient(in oklch 100deg, #0076A8 0%, #00A3E0 55%, #12B5A6 100%);
   --gradient-glut:linear-gradient(in oklch 100deg, #FFB23E 0%, #FF9A4D 55%, #FF7F50 100%);
+  --schleier-hero-quer:linear-gradient(90deg, rgba(5,38,62,.88) 0%, rgba(5,38,62,.74) 48%, rgba(5,38,62,.5) 62%, rgba(5,38,62,.1) 82%, rgba(5,38,62,0) 100%);
+  --schleier-hero-quer-unten:linear-gradient(0deg, rgba(5,38,62,.7) 0%, rgba(5,38,62,0) 48%);
+  --schleier-hero-hoch:linear-gradient(0deg, rgba(5,38,62,.92) 0%, rgba(5,38,62,.88) 68%, rgba(5,38,62,.6) 80%, rgba(5,38,62,0) 98%);
+  --schleier-kampagne:linear-gradient(0deg, rgba(5,38,62,.92) 0%, rgba(5,38,62,.8) 46%, rgba(5,38,62,.35) 72%, rgba(5,38,62,0) 96%);
+  --schleier-buehne:linear-gradient(90deg, #124163 0%, rgba(18,65,99,.96) 34%, rgba(18,65,99,.55) 52%, rgba(18,65,99,0) 70%);
+  --schleier-schutz-oben:linear-gradient(180deg, rgba(18,65,99,.95) 0%, rgba(18,65,99,.9) 22%, rgba(18,65,99,.45) 34%, rgba(18,65,99,0) 48%);
+  --schleier-schutz-unten:linear-gradient(0deg, #124163 0%, rgba(18,65,99,0) 20%);
   --font-sans:"Open Sans", "Segoe UI", Arial, sans-serif
 }
 [data-theme="dark"]{

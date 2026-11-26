@@ -1,6 +1,6 @@
 # Bausteine der Ausstattung (bausteine.json)
 
-Stand 25.11.2026, F-49 und W6 (8100). Grundlage: Checkout-Baukasten bk1 (Treppe), E-065, E-076, E-099, E-103, E-105, E-106, E-156, E-157, E-182, E-183, E-185, E-186, E-187.
+Stand 26.11.2026, F-49 und W6 (8100). Grundlage: Checkout-Baukasten bk1 (Treppe), E-065, E-076, E-099, E-103, E-105, E-106, E-156, E-157, E-182, E-183, E-185, E-186, E-187, E-189, E-196.
 
 ## Zweck
 Die Ausstattungsseite zwischen Gerät und Anfrage bietet in fester Reihenfolge an: Zubehör, Lizenzen, Garantie, Managed Workplace. Alle Raten kommen fertig aus der Preis-Pipeline, der Shop rechnet nicht (E-099). Der Shop zeigt nur Bausteine, die zur gewählten Laufzeit eine Rate in den Daten haben.
@@ -22,7 +22,7 @@ Die Ausstattungsseite zwischen Gerät und Anfrage bietet in fester Reihenfolge a
 
 Je Eintrag:
 - `id`: stabiler Slug des Eintrags.
-- `baustein`: Schlüssel aus dem Konzept, er bestimmt Texte und Regeln im Shop. Erlaubt sind `lizenz_m365_standard`, `lizenz_m365_premium`, `lizenz_copilot`, `garantie_1`, `garantie_2`, `garantie_3`, `garantie_2_plus`, `garantie_3_plus`, `managed_modell_a` und `managed_modell_b`.
+- `baustein`: Schlüssel aus dem Konzept, er bestimmt Texte und Regeln im Shop. Erlaubt sind `lizenz_m365_standard`, `lizenz_m365_premium`, `lizenz_copilot`, `garantie_1`, `garantie_2`, `garantie_3`, `garantie_2_plus`, `garantie_3_plus`, `garantie_4`, `managed_modell_a` und `managed_modell_b`.
 - `kategorie`: `lizenz`, `garantie` oder `managed`.
 - `msku`: optional, die Artikelnummer, wo es eine gibt.
 - `name`: Artikelbezeichnung, im Shop nur als Nebenzeile. Titel und Nutzensatz kommen aus dem Copy-Baukasten (F-19).
@@ -37,6 +37,7 @@ Fehlt eine Rate zur gewählten Laufzeit, erscheint der Baustein bei dieser Laufz
 ## Regeln
 - Garantie gibt es nur zusammen mit einem Neugerät, nie im Weg der geprüften Geräte (F-37).
 - Die Garantien schließen sich gegenseitig aus. Empfohlen ist `garantie_2` bei 36 Monaten und `garantie_3` bei 48 Monaten, bei 24 Monaten gibt es keine Empfehlung (E-103). Die Plus-Varianten tragen keine Empfehlung.
+- `garantie_4` ist die Stufe für fünf Jahre (E-196), Kategorie `garantie`. Sie schließt alle übrigen Garantie-Stufen aus und trägt keine Empfehlung, E-103 bleibt unverändert. Für welche Geräte es sie gibt, steht wie bei den übrigen Stufen nur in `gilt_fuer` (E-189).
 - Lizenzen werden auf volle Jahre gerechnet (E-076) und stecken in der Rate (E-065). Die Pipeline bildet daraus die Raten je Laufzeit.
 - `lizenz_copilot` setzt `lizenz_m365_standard` oder `lizenz_m365_premium` voraus.
 - Managed Workplace setzt `lizenz_m365_premium` voraus. Wählt der Kunde Managed, wählt der Shop Premium sichtbar mit. Wählt er Premium ab, entfällt Managed, mit Hinweiszeile (bk1, Zustand 6).
@@ -60,7 +61,7 @@ Fünf Seiten nach einer Vorlage: `m365-standard`, `m365-premium`, `copilot`, `ma
 Je Eintrag in `seiten`:
 - `seite`: Schlüssel der Seite.
 - `slug`: letzter Teil der Adresse, genau wie in ROUTEN-UND-SEO.md, Abschnitt 3. Ist die Seite veröffentlicht, braucht jede Änderung eine 301 (dort Regel 4.1).
-- `bausteine`: Liste der Baustein-Schlüssel auf der Seite, bei Managed zwei, bei Garantie fünf.
+- `bausteine`: Liste der Baustein-Schlüssel auf der Seite, bei Managed zwei, bei Garantie sechs (mit `garantie_4`, E-196).
 - `name_microsoft`: Name, wie ihn microsoft.com/de-de heute führt, sonst `null` (Managed). Die Seite zeigt diesen Namen.
 - `dienste`: Liste von Dienst-Schlüsseln aus `word`, `excel`, `powerpoint`, `onenote`, `loop`, `clipchamp`, `outlook`, `exchange`, `teams`, `onedrive`, `sharepoint`, `entra_id`, `windows`, `intune`, `defender`, `purview`, `copilot`. `teams` nur, wenn unser Artikel Teams enthält.
 - `voraussetzung`: `null` oder ein Objekt, entweder `{ "benoetigt_einen_von": [Baustein-Schlüssel] }` oder `{ "nur_mit": "neugeraet" }`.

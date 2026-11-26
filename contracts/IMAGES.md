@@ -310,7 +310,7 @@ Der Warenkorb speichert keine Bildadressen. Er löst das Bild beim Anzeigen auf,
 für Geräte über `map` und die MSKU, für Bausteine über `bausteine`. So bekommen
 auch Positionen aus einem geteilten Link (`?pos=`) ihr Bild.
 
-## Nachtrag Startseite, entschieden 26.11.2026 (E-194)
+## Nachtrag Startseite, entschieden 26.11.2026 (E-194), Stand 26.11.2026 mit E-202
 
 Gilt für die Medien der Startseite nach der Bauspezifikation Startseite
 (E-194). Was hier nicht steht, gilt aus Fassung 3. Microsoft-Medien sind nach
@@ -362,6 +362,9 @@ Shop für beide Kataloge denselben Leser nutzt.
     { "id": "sicherheit", ... }, { "id": "akku", ... }, { "id": "display-kamera", ... } ],
   "ki": [
     { "id": "...", "alt": "...", "film": <Film>, "standbild": <Fassung> } ],
+  "uc": [
+    { "id": "unterwegs", "alt": "...", "hoch": <Fassung> },
+    { "id": "dock", ... }, { "id": "stift", ... }, { "id": "zuhause", ... } ],
   "schutz": { "alt": "...", "quer": <Fassung>, "quadrat": <Fassung> } }
 ```
 
@@ -370,6 +373,7 @@ Shop für beide Kataloge denselben Leser nutzt.
 | `einstieg` | 4, Einstiegskarten | je Reihe ein Freisteller mit Alphakanal, Schlüssel wie `specs.family` (DATA-CONTRACT.md). Kein `alt`: die Karte trägt den Namen, das Bild steht mit leerem `alt` | Breiten 572 und 1144, soweit die Quelle reicht |
 | `buehne` | 6, Scroll-Bühne | genau die vier `id` in dieser Reihenfolge: `prozessor`, `sicherheit`, `akku`, `display-kamera`. `quer` für die Fläche ab 1024 Breite, `hoch` für die Karten darunter, `film` nur ab 1024 Breite | `quer` 29:16 in 1160 und 2320, `hoch` 4:3 in 780, Film höchstens 1920 breit |
 | `ki` | 7, Kartenreihe KI und Copilot | drei bis fünf Karten in der Reihenfolge der Anzeige. `id` ist ein kurzer Schlüssel aus Kleinbuchstaben und Bindestrich, eindeutig in der Liste. `standbild` steht vor dem Start und bei reduzierter Bewegung | Film 4:5, 928 × 1160, Standbild 4:5 |
+| `uc` | Use-Case-Karten „So arbeitet Ihr Team.“ (E-202) | genau die vier `id` in dieser Reihenfolge: `unterwegs`, `dock`, `stift`, `zuhause`. Hochformat für die Karte. Das Motiv (Person, Gesicht, Gerät) liegt in den oberen 60 %, die unteren 40 % liegen unter dem Text der Karte | `hoch` 4:5 in 600 und 1200 |
 | `schutz` | 8, Support und Schutz | `quer` ab 1024 Breite, `quadrat` darunter | `quer` 16:9 in 1280 und 2560, `quadrat` 1:1 in 780 und 1000 |
 
 - `alt` ist ein kurzer deutscher Alt-Text, wie in Fassung 3. Für Filme gilt der
@@ -393,6 +397,8 @@ Der Shop zeigt die Startseite immer, ohne Fehler und ohne Platzhalterbild.
   entfällt die Karte.
 - **Unbekannte `id` in `buehne`:** wird nicht gezeigt. Fehlt eine der vier,
   zeigt die Bühne die übrigen.
+- **Fehlt ein Eintrag in `uc`:** die Karte steht als Text auf `surface-deep`.
+  Eine unbekannte `id` in `uc` wird nicht gezeigt (E-202).
 
 ## Offene Fragen, vor der finalen Bildmatrix zu klären
 **Alle vier am 25.08.2026 entschieden, siehe Abschnitt Bildmodell-Matrix. Der

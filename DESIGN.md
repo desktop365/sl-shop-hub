@@ -1,6 +1,6 @@
 # Designsprache und Tokens
 
-Stand 26.11.2026, nach E-098, E-144 und E-200. Surface.Love folgt dem Designsystem V2-2026, die Storefront surface.love dem Prototyp V18, gebaut nach dem Bauplan V18 Fassung 4. lenovo.online ist ein eigenes System und nicht Teil von Beta 1 (E-101).
+Stand 26.11.2026, nach E-098, E-144, E-200, E-220 und E-224. Surface.Love folgt dem Designsystem V2-2026, die Storefront surface.love dem Prototyp V18, gebaut nach dem Bauplan V18 Fassung 4. lenovo.online ist ein eigenes System und nicht Teil von Beta 1 (E-101).
 
 Verbindlich für den Bau von surface.love ist das Paket `brand/surface/`:
 
@@ -29,7 +29,7 @@ Nicht mehr maßgeblich für surface.love: `brand/DESIGN-V2.md`, `brand/tokens.cs
 - Blau als Text nur in `accent-text`, nie `brand` unter 24 px. Auf `surface-sand` wird daraus `accent-text-sand`.
 - Auf `surface-brand` stehen nur Herz und Headlines ab 24 px in Weiß, das ist eine dokumentierte Ausnahme mit 2,87 : 1. Alles Kleinere steht dort in Schwarz (`on-brand`) oder wandert auf `surface-deep`.
 - Raten und große Zahlen auf `surface-brand` stehen immer in Schwarz (`on-brand`, 7,31 : 1), ebenso der Titel im Fußband. `on-brand-display` (Weiß) gilt nicht für Raten (F12, E-145).
-- `marker` nur auf `surface`, `surface-sand` und `surface-deep`.
+- `marker` nur auf `surface`, `surface-sand` und `surface-deep`. Einzige Ausnahme ist das Vorschaubild beim Teilen: Dort darf `marker` als Fläche eines Etiketts auf `surface-brand` stehen, mit Schrift in `ink` (E-224). Sonst nirgends.
 - Status immer mit Wort, nie in Akzentfarbe: `success`, `warning`, `ink-subtle`.
 
 ### Verläufe
@@ -52,6 +52,7 @@ Nicht mehr maßgeblich für surface.love: `brand/DESIGN-V2.md`, `brand/tokens.cs
 - Das Logo ist nur das Herz, zusammen mit dem Claim „work love balance“. Die Wortmarke Surface mit Herz wird nirgends mehr verwendet, der Markenname steht als Text „Surface.Love“.
 - Das Herz nicht nachzeichnen, verzerren, umfärben oder mit Effekten versehen. Rundum mindestens die halbe Herzhöhe frei. Im Kopf des Surface-Shops steht es links (E-200), sonst rechts. Text und Claim beginnen links.
 - Im Surface-Shop steht das Herz im Kopf links und ist der Link zur Startseite. Es schlägt im Doppelschlag, zwei Schläge und dann Ruhe, Periode `--sf-pulse` 3,5 s, ohne Ende, nur `transform`. Bei reduzierter Bewegung steht es still. Bewusste Abweichung von WCAG 2.2.2 nach E-200. Lenovo bleibt ohne Puls (`--sf-pulse:0s`).
+- Ausnahme nur für die Fehlerseiten 404 und Störung des Surface-Shops (E-220): Dort steht das Herz zusätzlich groß im Inhalt, bei 404 als Null im Motiv „4 Herz 4“, bis 213 × 187 px. Form, Verhältnis und Farbe bleiben unverändert, Weiß auf `surface-deep`, der Pfad kommt aus `brand/SL_Heart_RGB.svg`. Die halbe Herzhöhe frei gilt dort nicht zwischen Herz und Ziffern, nach außen bleibt sie. Das große Herz schlägt einmal beim Laden und danach nur, solange Zeiger oder Fokus auf ihm oder auf dem Knopf zur Startseite liegen, nie dauerhaft. Bei reduzierter Bewegung steht es still. Die Abweichung von WCAG 2.2.2 aus E-200 bleibt auf das Herz im Kopf beschränkt. Nirgends sonst steht das Herz als Buchstabe, Ziffer oder Aufzählungszeichen.
 
 ### Bewegung
 - App-Bewegung: 100, 150, 200, 300 ms (`--sf-dur-instant`, `-fast`, `-base`, `-slow`), öffnen mit `--sf-ease-out`, schließen mit `--sf-ease-in`. Nur `transform` und `opacity`, keine Überschwingkurve (K10, E-144).

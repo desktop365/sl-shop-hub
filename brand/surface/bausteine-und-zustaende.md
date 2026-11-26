@@ -400,6 +400,8 @@ Desktop: gleich.
 
 Bewegung: keine. `beat` ist definiert und wirkt nicht, siehe Keyframes (gemessen, Prototyp). Der Kopf des Shops nutzt eigene Keyframes `sl-doppelschlag` mit `--sf-pulse` 3,5 s, ohne Ende, still bei reduzierter Bewegung (E-200, S23). `beat` und `.heart.go` gibt es im Shop nicht.
 
+Fehlerseiten: Auf 404 und Störung steht das Herz zusätzlich groß im Inhalt. Regel und Grenzen stehen nur in `DESIGN.md`, Abschnitt Logo (E-220).
+
 ### Band Versprechen (`.ftr-band`, `.sl-band`, `.sl-band-title`, `.sl-band-text`, `footer()`, alle Seiten)
 Blaues Band vor dem Fuß mit Satz und weißem Herz.
 

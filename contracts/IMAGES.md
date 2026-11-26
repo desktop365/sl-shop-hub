@@ -310,7 +310,7 @@ Der Warenkorb speichert keine Bildadressen. Er löst das Bild beim Anzeigen auf,
 für Geräte über `map` und die MSKU, für Bausteine über `bausteine`. So bekommen
 auch Positionen aus einem geteilten Link (`?pos=`) ihr Bild.
 
-## Nachtrag Startseite, entschieden 26.11.2026 (E-194), Stand 26.11.2026 mit E-202 und E-225
+## Nachtrag Startseite, entschieden 26.11.2026 (E-194), Stand 26.11.2026 mit E-202, E-225 und E-229
 
 Gilt für die Medien der Startseite nach der Bauspezifikation Startseite
 (E-194). Was hier nicht steht, gilt aus Fassung 3. Microsoft-Medien sind nach
@@ -358,7 +358,8 @@ Shop für beide Kataloge denselben Leser nutzt.
     "surface-laptop":       <Fassung>,
     "surface-laptop-ultra": <Fassung> },
   "buehne": [
-    { "id": "prozessor",  "alt": "...", "fokus": [66, 50], "quer": <Fassung>, "hoch": <Fassung> | null, "film": <Film> | null },
+    { "id": "prozessor",  "alt": "...", "fokus": [66, 50], "quer": <Fassung>, "hoch": <Fassung> | null, "film": <Film> | null,
+      "hochkant": <Fassung> | null, "film_hochkant": <Film> | null },
     { "id": "sicherheit", ... }, { "id": "akku", ... }, { "id": "display-kamera", ... } ],
   "ki": [
     { "id": "...", "alt": "...", "film": <Film>, "standbild": <Fassung> } ],
@@ -371,7 +372,7 @@ Shop für beide Kataloge denselben Leser nutzt.
 | Platz | Abschnitt der Bauspezifikation | Inhalt | Richtwerte |
 |---|---|---|---|
 | `einstieg` | 4, Einstiegskarten | je Reihe ein Freisteller mit Alphakanal, Schlüssel wie `specs.family` (DATA-CONTRACT.md). Kein `alt`: die Karte trägt den Namen, das Bild steht mit leerem `alt` | Breiten 572 und 1144, soweit die Quelle reicht |
-| `buehne` | 6, Vollbild-Bühne (E-222, E-225) | genau die vier `id` in dieser Reihenfolge: `prozessor`, `sicherheit`, `akku`, `display-kamera`. `quer` für die Vollbildfläche ab 1024 Breite, `hoch` für die Wischreihe darunter, `film` nur ab 1024 Breite. Regeln für Format, Fokus, Ruhezone, Gewicht und Laden in Punkt 5 | `quer` 16:9 in 1280, 1920, 2560 und 3200, `hoch` 4:3 in 780, Film höchstens 1920 breit |
+| `buehne` | 6, Vollbild-Bühne (E-222, E-225) | genau die vier `id` in dieser Reihenfolge: `prozessor`, `sicherheit`, `akku`, `display-kamera`. `quer` für die Vollbildfläche ab 1024 Breite, `hoch` für die Wischreihe darunter, `film` nur ab 1024 Breite. `hochkant` und `film_hochkant` für das Hochformat unter 1024 Breite (E-229). Regeln für Format, Fokus, Ruhezone, Gewicht und Laden in Punkt 5 | `quer` 16:9 in 1280, 1920, 2560 und 3200, `hoch` 4:3 in 780, `hochkant` 9:19,5 in 780 und 1080, Film quer höchstens 1920 breit, hochkant 720 breit |
 | `ki` | 7, Kartenreihe KI und Copilot | drei bis fünf Karten in der Reihenfolge der Anzeige. `id` ist ein kurzer Schlüssel aus Kleinbuchstaben und Bindestrich, eindeutig in der Liste. `standbild` steht vor dem Start und bei reduzierter Bewegung | Film 4:5, 928 × 1160, Standbild 4:5 |
 | `uc` | Use-Case-Karten „So arbeitet Ihr Team.“ (E-202) | genau die vier `id` in dieser Reihenfolge: `unterwegs`, `dock`, `stift`, `zuhause`. Hochformat für die Karte. Das Motiv (Person, Gesicht, Gerät) liegt in den oberen 60 %, die unteren 40 % liegen unter dem Text der Karte | `hoch` 4:5 in 600 und 1200 |
 | `schutz` | 8, Support und Schutz | `quer` ab 1024 Breite, `quadrat` darunter | `quer` 16:9 in 1280 und 2560, `quadrat` 1:1 in 780 und 1000 |
@@ -431,8 +432,18 @@ Markenfarbe, der Text steht frei auf dem Bild (DESIGN.md, Verläufe).
   zwei Bilder nebeneinander. Filme tragen im HTML keine Quelle, der Shop
   setzt sie erst, wenn ihre Folie aktiv wird. Die Startseite hat kein
   VideoObject.
-- **Hochkant fürs Handy:** Die Regel folgt nach der Vorgabe v3.1 von Claude
-  Design als Nachtrag. Bis dahin gilt `hoch` 4:3 in 780 für die Wischreihe.
+- **Hochkant fürs Handy (E-229):** Das Hochformat unter 1024 Breite liest
+  eigene Felder, damit die Wischreihe bis zum Bau des Hochformats weiterläuft.
+  - `hochkant`: 9:19,5 in 780 und 1080, höchstens in Quellbreite, nie
+    hochgerechnet. Gewicht höchstens 100 KB bei 780 und 150 KB bei 1080.
+  - `film_hochkant`: MP4 ohne Tonspur, 720 breit, höchstens 10 s, höchstens
+    1,2 MB, mit Poster. Sonst `null`.
+  - Laden wie oben: Quer und Hochkant sind ein `img` in einem `picture`,
+    Filme ohne Quelle im HTML.
+  - `hoch` 4:3 in 780 bleibt für die Wischreihe, bis das Hochformat live ist.
+    Danach räumt ein eigener Schritt `hoch` ab.
+  - Ruhezone und Fokuspunkt im Hochformat und was der Shop zeigt, wenn
+    `hochkant` fehlt, folgen nach der Vorgabe v3.1 von Claude Design.
 
 ## Offene Fragen, vor der finalen Bildmatrix zu klären
 **Alle vier am 25.08.2026 entschieden, siehe Abschnitt Bildmodell-Matrix. Der

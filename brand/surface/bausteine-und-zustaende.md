@@ -106,7 +106,7 @@ Ergänzungen:
 | `dlgIn` | `transform`, translateY(12px) nach none | .3s, `--sf-ease` | Enter, mit Translate | Auf `.dlg-in` |
 | `sheetUp` | `transform`, translateY(40px) nach none | .35s, `--sf-ease` | Enter, mit Translate | Auf `.dlg.bottom .dlg-in` und `.dlg.zub .dlg-in` unter 760 px |
 | `zubSide` | `transform`, translateX(60px) nach none | .4s, `--sf-ease` | Enter, mit Translate | Auf `.dlg.zub .dlg-in` ab 760 px |
-| `beat` | `transform`, scale 1, 1.12, 1, 1.08, 1 | `var(--sf-pulse,0s)`, 3 Durchläufe | Pulse | Keine: Dauer 0s auf `.heart.go`, `.logo .heart` hat `animation:none` (gemessen) |
+| `beat` | `transform`, scale 1, 1.12, 1, 1.08, 1 | `var(--sf-pulse,0s)`, 3 Durchläufe | Pulse | Keine: Dauer 0s auf `.heart.go`, `.logo .heart` hat `animation:none` (gemessen, Prototyp). Der Kopf des Shops nutzt eigene Keyframes `sl-doppelschlag` mit `--sf-pulse` 3,5 s, ohne Ende, still bei reduzierter Bewegung (E-200, S23). `beat` und `.heart.go` gibt es im Shop nicht. |
 | `ring` | `box-shadow` | .6s | Pulse, Näherung | Keine: von `slBandFlash` überschrieben |
 | `kb` | `transform`, scale und translate, `forwards` | 7s | Scale mit Fill mode, Näherung | Keine: `.scene-art` ist `display:none` |
 | `fadeUp` | `transform`, translateY(20px) nach none | .9s | Enter, mit Translate | Keine: `.fx` wird nicht gerendert |
@@ -398,7 +398,7 @@ Handy: gleich.
 
 Desktop: gleich.
 
-Bewegung: keine. `beat` ist definiert und wirkt nicht, siehe Keyframes.
+Bewegung: keine. `beat` ist definiert und wirkt nicht, siehe Keyframes (gemessen, Prototyp). Der Kopf des Shops nutzt eigene Keyframes `sl-doppelschlag` mit `--sf-pulse` 3,5 s, ohne Ende, still bei reduzierter Bewegung (E-200, S23). `beat` und `.heart.go` gibt es im Shop nicht.
 
 ### Band Versprechen (`.ftr-band`, `.sl-band`, `.sl-band-title`, `.sl-band-text`, `footer()`, alle Seiten)
 Blaues Band vor dem Fuß mit Satz und weißem Herz.
@@ -855,7 +855,7 @@ Handy: gleich.
 
 Desktop: gleich.
 
-Bewegung: Enter mit Translate über `data-rev`: `revUp`, .7s, `--sf-ease`, Verzögerung 0. Das Herz trägt `.go`, `beat` läuft mit Dauer 0s, also ohne sichtbare Wirkung.
+Bewegung: Enter mit Translate über `data-rev`: `revUp`, .7s, `--sf-ease`, Verzögerung 0. Das Herz trägt `.go`, `beat` läuft mit Dauer 0s, also ohne sichtbare Wirkung (gemessen, Prototyp). Im Shop schlägt das Herz auf „Anfrage gesendet“ nicht.
 
 ### Inklusivliste (`.incl`, `inclList()`, Konfigurator, Geprüftes Gerät)
 Vier Leistungen plus Schlusszeile.

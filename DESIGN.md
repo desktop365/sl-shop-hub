@@ -48,7 +48,7 @@ Nicht mehr maßgeblich für surface.love: `brand/DESIGN-V2.md`, `brand/tokens.cs
 
 ### Logo
 - Das Logo ist nur das Herz, zusammen mit dem Claim „work love balance“. Die Wortmarke Surface mit Herz wird nirgends mehr verwendet, der Markenname steht als Text „Surface.Love“.
-- Das Herz nicht nachzeichnen, verzerren, umfärben oder mit Effekten versehen. Rundum mindestens die halbe Herzhöhe frei. Es steht rechts, Text und Claim beginnen links.
+- Das Herz nicht nachzeichnen, verzerren, umfärben oder mit Effekten versehen. Rundum mindestens die halbe Herzhöhe frei. Im Kopf des Surface-Shops steht es links (E-200), sonst rechts. Text und Claim beginnen links.
 - Im Surface-Shop steht das Herz im Kopf links und ist der Link zur Startseite. Es schlägt im Doppelschlag, zwei Schläge und dann Ruhe, Periode `--sf-pulse` 3,5 s, ohne Ende, nur `transform`. Bei reduzierter Bewegung steht es still. Bewusste Abweichung von WCAG 2.2.2 nach E-200. Lenovo bleibt ohne Puls (`--sf-pulse:0s`).
 
 ### Bewegung

@@ -89,3 +89,30 @@
     --sf-gap-split:72px; --sf-head-gap:48px;
   }
 }
+
+/* ============================================================
+   Startseite nach E-194, Bauspezifikation Startseite Abschnitt 3, 5, 6 und 8 (G6, 26.11.2026).
+   Nur neue Namen, nichts Bestehendes geändert. Die Schleier stehen als Rollen in tokens.css.
+   ============================================================ */
+[data-sf="surface"]{
+  /* Titelstufe Hero: unter 1024 44/48, ab 1024 64/70 (Stil display), ab 1280 72/76 (Stil display-xl), Gewicht 300 */
+  --sf-text-hero:44px; --sf-lh-hero:48px; --sf-w-hero:300;
+
+  /* Text auf Bild und Film. Der Hero quer hat zwei Lagen, die erste liegt oben */
+  --sf-schleier-hero-quer:var(--schleier-hero-quer-unten), var(--schleier-hero-quer);
+  --sf-schleier-hero-hoch:var(--schleier-hero-hoch);
+  --sf-schleier-kampagne:var(--schleier-kampagne);
+  --sf-schleier-buehne:var(--schleier-buehne);
+  --sf-schleier-schutz-oben:var(--schleier-schutz-oben);
+  --sf-schleier-schutz-unten:var(--schleier-schutz-unten);
+
+  /* Flächen der Sprungknöpfe: Ruhe --scrim, gedrückt die volle Fläche #05263E (blue-950) */
+  --sf-scrim:var(--scrim);
+  --sf-scrim-solid:var(--blue-950);
+}
+@media (min-width:1024px){
+  [data-sf="surface"]{ --sf-text-hero:64px; --sf-lh-hero:70px; }
+}
+@media (min-width:1280px){
+  [data-sf="surface"]{ --sf-text-hero:72px; --sf-lh-hero:76px; }
+}

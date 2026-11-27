@@ -1,6 +1,6 @@
 # Routen und SEO (surface.love)
 
-Fassung 2, Stand 27.11.2026, R1 (8152), SEO10 Teil 2 (8143) und R1b (8163). Grundlage: E-174, E-176, E-180, E-186, E-215, E-217, E-219, E-228, E-230, E-231, E-234, E-238, S14 (C9), S16 (Livegang), S17 (Warenkorb), Vertragstext von CC-SEO (SEO05, 8138).
+Fassung 2, Stand 27.11.2026, R1 (8152), SEO10 Teil 2 (8143) und R1b (8163). Grundlage: E-174, E-176, E-180, E-186, E-215, E-217, E-219, E-228, E-230, E-231, E-234, E-238, E-240, S14 (C9), S16 (Livegang), S17 (Warenkorb), Vertragstext von CC-SEO (SEO05, 8138).
 Fassung 1 vom 25.11.2026, W3 (8097), abgeglichen gegen Shop-`main` `0786e2e`, den Zweig `s17-warenkorb` und `https://surface.love/sitemap.xml` (26 Adressen) am 25.11.2026.
 
 ## 0. Geltung
@@ -165,6 +165,7 @@ Die Liste ist damit fertig. Die Zeilen der Fassung 1 mit „seit“ stehen in de
 - **Jede indexierte Seite hat eine eigene Beschreibung.** Keine Seite erbt die Beschreibung der Startseite.
 - **Texte** schreibt CC-Marketing. Microsoft-Namen nach IMAGES.md, Punkt 2. Keine Preise von Microsoft, Raten nur aus unseren Daten (E-099).
 - **Keine Rate in Titel oder Beschreibung.** Sie ändert sich mit `products.json`, ein Suchergebnis mit einer alten Zahl wäre falsch.
+- **Kein „leasen“ und kein „Leasing“ (E-240).** Nicht in Titeln, Beschreibungen, Überschriften, sichtbaren Texten, Alternativtexten und strukturierten Daten. Das Angebot heißt as a Service zur Monatsrate. Ausgenommen sind interne Felder wie `rates.leasing` und `contract_types` sowie die Rechtstexte. Alte Adressen, die das Wort enthalten, leiten nur weiter (Abschnitt 8). Diese Regel gilt für alle Kontrakte, sie steht nur hier.
 
 | Seitentyp | Titel aus | Beschreibung aus |
 |---|---|---|
@@ -181,7 +182,7 @@ Die Liste ist damit fertig. Die Zeilen der Fassung 1 mit „seit“ stehen in de
 - `lowPrice` im `AggregateOffer` ist die sichtbare Rate der Seite, „ab … netto im Monat“ aus `rateFrom.net` des Shops. Nie ein anderes Minimum, nie von Hand gesetzt (E-029, E-030, E-099). Dazu eine `UnitPriceSpecification` mit Monat und Laufzeit.
 - **Der Block ist abschaltbar.** Meldet Google einen Verstoß oder eine manuelle Maßnahme, geht er sofort auf Weg B ohne Preis zurück, ohne neue Entscheidung.
 - Lizenzen bleiben ohne Preis. Managed Workplace trägt die eigene Rate aus `bausteine.json`.
-- Titel und Beschreibung der Modellseite sagen unmissverständlich, dass es um Leasing zur Monatsrate geht. Die Rate selbst steht dort nicht (siehe oben).
+- Titel und Beschreibung der Modellseite sagen unmissverständlich, dass es um as a Service zur Monatsrate geht, ohne „leasen“ und „Leasing“ (E-240, Regel oben). Das Muster für Titel und H1 legt SL SEO in M11 (8167) fest. Die Rate selbst steht dort nicht (siehe oben).
 - Die Reihenseiten tragen keinen Product-Block, E-230 gilt nur für die Modellseiten (bestätigt von SL SEO an 8152). Sie tragen CollectionPage, ItemList und BreadcrumbList wie im Vertragstext SEO05, dazu VideoObject nur für Hero und Rampenlicht (E-238, SL SEO 16177205, IMAGES.md, Nachtrag Reihenseiten, Punkt 5). Die Filme der Kapitel, der KI und der Sicherheit bekommen keines.
 
 ## 10. Search Console

@@ -72,5 +72,5 @@ Nur Leasing, 24, 36 und 48 Monate (E-099). Was der Shop wählbar macht und bewir
 - product-overrides.json  handgepflegt: featured, badge, priority, marketing je MSKU
 - images.json             version 2, maßgebliche Bildschicht (models plus map), siehe IMAGES.md
 - bausteine.json          Lizenzen, Garantie und Managed Workplace mit Raten, siehe BAUSTEINE.md
-- modelle.json            Modelle mit Schlüssel, Titel, Edition, Plattform, Größen, siehe MODELLE.md
+- modelle.json            Modelle mit Schlüssel, Titel, Edition, Plattform, Größen, dazu die Reihen der Reihenseiten, siehe MODELLE.md
 - specs.json              Datenblatt und Funktionen je Modellschlüssel, siehe SPECS.md

@@ -446,3 +446,90 @@ Wortlaut bleibt als Beleg stehen, welche Frage womit beantwortet wurde.**
 ## Workflow
 Abgelöst durch Fassung 3, Punkt 6 und 7. Quellbilder kommen nicht mehr ins Repo, der Upload läuft
 über die Bild-Strecke selbst.
+
+## Nachtrag Reihenseiten, entschieden 27.11.2026 (E-217, R1)
+
+Gilt für die Medien der Reihenseiten `/de/geraete/{reihe}` (ROUTEN-UND-SEO.md,
+Abschnitt 2). Was hier nicht steht, gilt aus dem Nachtrag Startseite, vor
+allem die Formen Fassung und Film (Punkt 2) und die Regeln der Bühne
+(Punkt 5). Microsoft-Medien liegen nur im Repo der Bild-Strecke und im Bucket,
+nie in diesem Hub. Die Farbregel der Startseite gilt auch hier.
+
+### 1. Datei und Pfade
+- Katalog: `media/reihen/{reihe}/medien.json` im Bucket slshopv2-media, eine
+  Datei je Reihenschlüssel aus `reihen` in `modelle.json` (MODELLE.md).
+- Jede Datei, auf die der Katalog zeigt, liegt unter `media/reihen/{reihe}/`.
+- CC-Bilder liefert (R4, 8155). Upload-Folge, Cache-Control und Lesen zur
+  Laufzeit wie im Nachtrag Startseite, Punkt 1.
+
+### 2. Schema
+```
+{ "stand": "2026-11-27",
+  "hero":        <Eintrag>,
+  "kapitel":     [ <Eintrag>, … ],
+  "sicherheit":  [ <Eintrag>, <Eintrag>, <Eintrag>, <Eintrag> ],
+  "ki":          [ <Eintrag>, … ],
+  "rampenlicht": <Eintrag> }
+```
+**Eintrag:**
+```
+{ "id": "…", "alt": "...", "fokus": [66, 50], "fokus_hochkant": [50, 40],
+  "quer": <Fassung> | null, "hochkant": <Fassung> | null,
+  "film": <Film> | null, "film_hochkant": <Film> | null }
+```
+**Film** wie im Nachtrag Startseite, Punkt 2, dazu für das VideoObject:
+```
+{ "datei", "breite", "hoehe", "dauer_s", "poster",
+  "name": "…", "beschreibung": "…", "datum": "2026-11-27" }
+```
+
+| Platz | Inhalt |
+|---|---|
+| `hero` | `film` und `film_hochkant`, dazu `quer` und `hochkant` als Poster. Der Poster ist das LCP-Bild der Seite, deshalb eine Fassung in mehreren Breiten. `poster` im Film zeigt auf die größte Datei derselben Fassung. Ohne `id` |
+| `kapitel` | je Kapitel ein Eintrag, `id` gleich der `id` des Kapitels in `content/de/reihen/{reihe}.json`. `quer`, `hochkant`, `film` und `film_hochkant` sind alle optional |
+| `sicherheit` | genau vier Einträge mit Bild, `id` gleich der `id` der Karte im Text |
+| `ki` | drei bis vier Einträge, je ein Bild oder ein Film, `id` gleich der `id` der Karte im Text |
+| `rampenlicht` | `film` und `film_hochkant`, jeder mit Poster. Ohne `id`, das Modell steht in `rampenlicht` von `reihen` |
+
+- **Je Eintrag** `alt`, `fokus` und `fokus_hochkant`. `alt` gilt für Bild,
+  Poster und Film, wie auf der Startseite. `fokus` fehlt: `[66, 50]`,
+  `fokus_hochkant` fehlt: `[50, 40]`.
+- Das Seitenverhältnis von `sicherheit` und `ki` legt der Entwurf der
+  Reihenseite fest (R2, 8153). `verhaeltnis` in der Fassung nennt es.
+
+### 3. Formate, Grenzen und Laden
+- **Wie Punkt 5 der Bühne:** `quer` 16:9, `hochkant` 9:19,5 in 780 und 1080,
+  jedes Motiv höchstens in Quellbreite, im `srcset` mit der echten Breite aus
+  `breiten`. Ruhezone, Abdunklung, Gewicht der Standbilder und Grenzen der
+  Filme wie dort. Quer und Hochkant sind ein `img` in einem `picture`.
+- **Ausnahme Hero:** Der Poster ist das LCP-Bild. Er lädt ohne `lazy`, mit
+  `fetchpriority="high"`, als `img` im `picture`, nie als Hintergrund im CSS.
+  Grenzen: 120 KB bei 1280, 200 KB bei 1920, 100 KB hochkant. Die Quelle des
+  Films setzt der Shop erst nach dem Laden der Seite, der Poster bleibt
+  stehen, bis der Film läuft.
+- Alle anderen Standbilder laden mit `loading="lazy"` und
+  `decoding="async"`, nie mit `preload` oder `fetchpriority`. Filme tragen im
+  HTML keine Quelle, der Shop setzt sie erst, wenn ihr Abschnitt sichtbar
+  wird.
+
+### 4. Wenn etwas fehlt
+- **Datei fehlt oder ist nicht lesbar:** die Seite steht ohne Medien, jeder
+  Abschnitt auf `surface-deep`. Der Shop schreibt einen Hinweis ins Log, nie
+  auf die Seite.
+- **Ein Eintrag fehlt oder alle Medien darin sind `null`:** der Abschnitt
+  steht ohne Medium auf `surface-deep`.
+- **`hochkant` ist `null`:** das Bild aus `quer` gilt auch im Hochformat.
+  **`film_hochkant` ist `null`:** im Hochformat läuft kein Film, das Bild
+  bleibt. **`film` ist `null`:** es steht das Bild.
+- **Unbekannte `id`:** wird nicht gezeigt.
+
+### 5. VideoObject
+- Auf den Reihenseiten ist ein VideoObject erlaubt, auf der Startseite nicht
+  (Punkt 5 der Bühne).
+- Je Film `name`, `beschreibung` und `datum`. `datum` ist der Tag der
+  Veröffentlichung als ISO-Datum. Dazu nimmt der Shop `poster` als Vorschau,
+  `dauer_s` als Dauer und `datei` als Adresse des Films.
+- Fehlt eines der drei Felder, gibt der Shop für diesen Film kein
+  VideoObject aus. Der Film läuft trotzdem.
+- `name` und `beschreibung` schreibt CC-Marketing, in eigenen Worten, ohne
+  Raten und ohne Preise.

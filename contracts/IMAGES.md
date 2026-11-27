@@ -496,13 +496,16 @@ Wortlaut bleibt als Beleg stehen, welche Frage womit beantwortet wurde.**
 Abgelöst durch Fassung 3, Punkt 6 und 7. Quellbilder kommen nicht mehr ins Repo, der Upload läuft
 über die Bild-Strecke selbst.
 
-## Nachtrag Reihenseiten, entschieden 27.11.2026 (E-217, R1), Stand 27.11.2026 mit E-238 (R1b)
+## Nachtrag Reihenseiten, entschieden 27.11.2026 (E-217, R1), Stand 28.11.2026 mit E-238 (R1b) und E-244 (R8)
 
 Gilt für die Medien der Reihenseiten `/de/geraete/{reihe}` (ROUTEN-UND-SEO.md,
 Abschnitt 2). Was hier nicht steht, gilt aus dem Nachtrag Startseite, vor
 allem die Formen Fassung und Film (Punkt 2) und die Regeln der Bühne
 (Punkt 5). Microsoft-Medien liegen nur im Repo der Bild-Strecke und im Bucket,
 nie in diesem Hub. Nichts wird von microsoft.com eingebunden (E-170, E-238).
+Quellen: zuerst das Partnerportal, dann microsoft.com (E-238), für die Marke
+Copilot dazu `copilot.com` mit Logos und Animationen (E-244). Für alle drei
+gilt dasselbe: alles im eigenen Bucket, nichts eingebunden, nichts im Hub.
 Auf den Medien der Reihenseite liegen Box und Schleier in `surface-deep`, eine
 Ausnahme von E-225 nur für diese Seite (E-238, DESIGN.md, Verläufe). Der
 Aufbau der Seite folgt der Bauvorgabe v2.1 von Claude Design (R2, 8153).
@@ -521,7 +524,8 @@ Aufbau der Seite folgt der Bauvorgabe v2.1 von Claude Design (R2, 8153).
   "kapitel":     [ <Eintrag>, … ],
   "sicherheit":  [ <Karte>, <Karte>, <Karte>, <Karte> ],
   "ki":          [ <Karte>, … ],
-  "rampenlicht": <Eintrag> }
+  "rampenlicht": <Eintrag>,
+  "lizenzkarte": <Eintrag> }
 ```
 **Eintrag:**
 ```
@@ -553,7 +557,8 @@ dazu die Angaben für das VideoObject (Punkt 5), in den übrigen Plätzen nicht:
 | `kapitel` | je Kapitel ein Eintrag, `id` gleich der `id` des Kapitels in `content/de/reihen/{reihe}.json`. `quer`, `hochkant`, `film` und `film_hochkant` sind alle optional. `box` sagt, auf welcher Seite die Box steht |
 | `sicherheit` | genau vier Motive in dieser Reihenfolge: `firmware-intune`, `zero-trust`, `secured-core`, `bitlocker` (E-238). `id` gleich der `id` der Karte im Text. Am Desktop Vollbild aus `quer`, am Handy Kachel zum Wischen aus `hoch`. Je Motiv immer ein Standbild, auf Wunsch dazu ein Film |
 | `ki` | drei bis vier Karten in dieser Reihenfolge: `copilot-plus-pc`, `npu`, `copilot-m365`, `copilot-taste` (E-238). Je ein Bild in `hoch`. Die ersten drei tragen einen Film, dessen `poster` das Bild aus `hoch` ist, `copilot-taste` ist ein Standbild. `id` gleich der `id` der Karte im Text |
-| `rampenlicht` | `film` und `film_hochkant`, jeder mit Poster. Ohne `id`, das Modell steht in `rampenlicht` von `reihen` |
+| `rampenlicht` | `film` und `film_hochkant`, jeder mit Poster. Ohne `id`, das Modell steht in `rampenlicht` von `reihen`. Gibt es den Film nur quer, schneidet CC-Bilder `film_hochkant` daraus, höchstens in Quellbreite, nie hochgerechnet. Grenzen wie bei Surface Pro (Punkt 3, Sicherheit): quer höchstens 1920 breit und 2,5 MB, hochkant 1,2 MB |
+| `lizenzkarte` | optional, das Medium der Lizenzkarte in der Modellwahl (E-244, MODELLE.md). `quer` ist das Standbild im Bildfeld 5:4, `film` ein Film dazu, `hochkant` und `film_hochkant` bleiben `null`. Ohne `id`. Regeln unten, Punkt 6 |
 
 - **Je Eintrag** `alt`, `fokus` und `fokus_hochkant`. `alt` gilt für Bild,
   Poster und Film, wie auf der Startseite. `fokus` fehlt: `[66, 50]`,
@@ -651,3 +656,35 @@ dazu die Angaben für das VideoObject (Punkt 5), in den übrigen Plätzen nicht:
   `breiten`, nie mit einer festen Zahl.
 - `name` und `beschreibung` schreibt CC-Marketing, in eigenen Worten, ohne
   Raten und ohne Preise.
+
+### 6. Lizenzkarte (E-244)
+- **Grund im Bild:** Standbild und Film tragen als Grund `--surface-raised`,
+  dasselbe Token wie das Bildfeld der Modellkarten. Hat die Quelle einen
+  eigenen Grund, rechnet CC-Bilder ihn in der Datei auf das Token um, im Shop
+  läuft kein Filter. Abnahme: der Grund misst den Wert des Tokens mit
+  höchstens einer Stufe Abweichung je Farbkanal, zwischen Medium und Feld ist
+  keine Kante zu sehen.
+- **Unter 768 Breite** steht nur das Standbild, der Film wird nicht geladen.
+- **Ab 768 Breite** steht zuerst das Standbild. Der Film hat keine Quelle im
+  HTML, er bekommt sie, wenn die Karte zu 30 Prozent im Bild steht, und läuft
+  ohne Ton in der Schleife nur im Bild. Bei reduzierter Bewegung und bei
+  Datensparen startet er nicht.
+- **Schmuck:** Der Film ist `aria-hidden`, nicht im Tab-Lauf und bekommt
+  kein VideoObject. `alt` gilt für das Standbild.
+- **Fehlt der Eintrag** oder ist `quer` `null`, steht die Karte mit leerem
+  Bildfeld in `--surface-raised`.
+
+### 7. Kacheln der Geräteübersicht (E-244)
+- Katalog `media/geraete/kacheln.json` im Bucket, je Kachel ein Eintrag mit
+  `id` gleich der `id` der Kachel (MODELLE.md, Kacheln) und `quer` als
+  Fassung. Keine Filme.
+- **Kein `alt`:** Die Kachel trägt ihren Namen als Linktext, das Bild steht
+  mit leerem `alt`, wie die Einstiegskarten der Startseite.
+- **Die erste Kachel ist das größte Bild beim Laden.** Sie ist ein Standbild,
+  lädt ohne `lazy` mit `fetchpriority="high"` und wird vorgeladen. Das
+  Vorladen der Übersicht aus SEO02 zieht auf diese Kachel um. Die übrigen
+  laden mit `loading="lazy"`.
+- **Grenzen von SL SEO:** 120 KB bei 1280 Breite, 200 KB bei 1920, 100 KB am
+  Handy.
+- Fehlt der Katalog oder ein Eintrag, steht die Kachel ohne Bild auf
+  `--surface-raised`.

@@ -1,6 +1,6 @@
 # Modelle (modelle.json)
 
-Stand 27.11.2026, E-161, E-162 und mit den Reihenseiten E-217 (R1, 8152) und E-238 (R1b, 8163). Erzeugt von der Preis-Pipeline aus einer
+Stand 28.11.2026, E-161, E-162 und mit den Reihenseiten E-217 (R1, 8152), E-238 (R1b, 8163) und E-244 (R8, 8170). Erzeugt von der Preis-Pipeline aus einer
 gepflegten Tabelle, liegt im Bucket neben products.json, jede Nacht neu geschrieben.
 
 ## Begriffe
@@ -54,6 +54,7 @@ Der Shop bildet ihn nie selbst, er liest ihn aus `specs.model`.
       "generation": "8",
       "platform": "intel",
       "sizes": [13.8, 15],
+      "gruppe": "13-8-und-15-zoll",
       "neu": false,
       "vorgaenger": false,
       "reihenfolge": 20 } ] }
@@ -63,6 +64,8 @@ Der Shop bildet ihn nie selbst, er liest ihn aus `specs.model`.
 - `vorgaenger`: wahr, wenn es eine neuere Edition derselben Reihe und Plattform gibt.
   Vorgänger stehen im Shop unter „Weiterhin erhältlich“.
 - `reihenfolge`: kleiner zuerst, innerhalb der Reihe.
+- `gruppe` (E-244): optional, Schlüssel einer Gruppe aus `gruppen` der Reihe,
+  in der das Modell steht. Nur für Reihen mit Gruppen, siehe Abschnitt Reihen.
 - Ein Modell ohne gelistete Ausführung (`listed`) erscheint nicht.
 
 ## Reihen (E-217)
@@ -78,7 +81,10 @@ aus derselben gepflegten Tabelle wie die Modelle.
     "aktuell": ["surface-pro-12-zoll-2-snapdragon", "…"],
     "vorgaenger": ["…"],
     "rampenlicht": "surface-pro-12-zoll-2-snapdragon" },
-  { "key": "surface-laptop", … } ]
+  { "key": "surface-laptop",
+    "titel": "Surface Laptop",
+    "gruppen": [ { "key": "13-zoll", "titel": "13 Zoll" }, … ],
+    … } ]
 ```
 
 - `key`: Reihenschlüssel und Adresse der Reihenseite, `/de/geraete/{key}`.
@@ -92,6 +98,17 @@ aus derselben gepflegten Tabelle wie die Modelle.
   erhältlich“ zeigt. Darf leer sein.
 - `rampenlicht`: genau ein Modellschlüssel aus `aktuell`, das Modell im
   Abschnitt Rampenlicht der Seite.
+- `gruppen` (E-244): optional, die Gruppen der Modellwahl in der Reihenfolge
+  der Anzeige. Je Gruppe `key` (Kleinbuchstaben, Ziffern, Bindestrich,
+  eindeutig in der Reihe) und `titel`, der Name der Gruppe als Text, etwa
+  „13 Zoll“. Fehlt das Feld oder ist es leer, hat die Reihe keine Gruppen und
+  die Modellwahl steht wie bisher (Surface Pro).
+- **Gruppe am Modell:** Hat eine Reihe Gruppen, trägt jedes Modell in
+  `aktuell` ein Feld `gruppe` mit einem `key` aus `gruppen`. Die Pipeline
+  prüft das vor dem Upload und lädt sonst nicht hoch. In der Gruppe stehen
+  die Modelle in der Reihenfolge von `aktuell`. Eine Gruppe ohne gezeigtes
+  Modell entfällt samt Überschrift. Bei Modellen in `vorgaenger` und in
+  Reihen ohne Gruppen liest der Shop `gruppe` nicht.
 - **Zuordnung:** Jedes Modell steht in höchstens einer Reihe, entweder in
   `aktuell` oder in `vorgaenger`. Surface Laptop Ultra und Surface Laptop
   13 Zoll gehören zu `surface-laptop`, Surface Pro 12 Zoll zu `surface-pro`.
@@ -119,6 +136,26 @@ aus derselben gepflegten Tabelle wie die Modelle.
   ist. Kein Mittelwert, keine Rundung, keine eigene Rechnung. `reihen` trägt
   keine Rate.
 
+### Modellwahl, Etikett und Vergleich der Reihenseite (E-244)
+- **Überschriften:** H2 aus `modellwahl.h2` der Texte. Mit Gruppen trägt
+  jede Gruppe ihren `titel` als H3, jede Karte darin ist eine H4. Der Name
+  der Gruppe steht als echter Text im HTML der ersten Antwort, nie als Bild
+  und nie im Code (SL SEO 16181284).
+- **Raster:** Die Gruppen stehen nebeneinander in einem Raster, die
+  Überschriften in einer Zeile, die n-te Karte jeder Gruppe in derselben
+  Zeile. Unter 768 Breite stehen die Gruppen untereinander, jede mit ihrer
+  H3. Aufbau in `brand/surface/bausteine-und-zustaende.md`, Reihenseite.
+- **Etikett „Copilot+ PC“:** Eine Modellkarte trägt es nur, wenn alle
+  gelisteten Ausführungen (`listed`) des Modells `copilot_plus` tragen
+  (DATA-CONTRACT.md). Trägt es nur ein Teil, steht an der Karte keines. Die
+  Ausführung selbst trägt es weiter nach VARIANTEN.md. Gilt für jede
+  Modellkarte.
+- **Vergleich:** Die Spalten folgen der Reihenfolge der Gruppen, darin der
+  Reihenfolge von `aktuell`. Eine Zeile entfällt, wenn kein Modell der
+  Tabelle den Wert hat, bei Surface Laptop etwa 5G. Hat ihn nur ein Teil der
+  Modelle, bleibt die Zeile, und für die übrigen steht nichts ohne Beleg
+  (SPECS.md).
+
 ## Texte der Reihenseite (content/de/reihen)
 Die Texte stehen im Shop unter `content/de/reihen/{reihe}.json`, eine Datei je
 Reihenschlüssel. CC-Marketing schreibt sie (R3, 8154), gegliedert nach dem
@@ -131,7 +168,9 @@ ROUTEN-UND-SEO.md, Abschnitt 9.
   "hero": { "h1": "…", "erster_satz": "…", "rate_satz": "…",
             "sprung": { "id": "…", "text": "…" } },
   "leiste": { "name": "…" },
-  "modellwahl": { "h2": "…", "satz": "…" },
+  "modellwahl": { "h2": "…", "satz": "…",
+                  "lizenzkarte": { "seite": "…", "etikett": "…", "titel": "…",
+                                   "zeile": "…", "satz": "…", "knopf": "…" } },
   "kapitel_knopf": "…",
   "kapitel": [
     { "id": "…", "titel": "…", "satz": "…",
@@ -152,15 +191,16 @@ ROUTEN-UND-SEO.md, Abschnitt 9.
 
 | Feld | Regel |
 |---|---|
-| `meta` | `titel` ohne Marke, höchstens 45 Zeichen, `beschreibung` 120 bis 155 Zeichen. Keine Rate darin |
-| `hero` | `h1` ist die einzige H1 der Seite. Zwei Felder statt des früheren `satz` (E-238): `erster_satz` steht unter der H1, genau ein Satz, ohne Rate. `rate_satz` steht im Band unter dem Hero, mit `{ab_rate}` und „netto im Monat“. Der Shop trennt nie selbst am ersten Punkt. `sprung` ist der Knopf zu einem Abschnitt der Seite, `id` ist die `id` dieses Abschnitts |
+| `meta` | `titel` ohne Marke, höchstens 50 Zeichen, das Wichtigste in den ersten 45 (ROUTEN-UND-SEO.md, Abschnitt 9). `beschreibung` 120 bis 155 Zeichen. Keine Rate darin |
+| `hero` | `h1` ist die einzige H1 der Seite. Zwei Felder statt des früheren `satz` (E-238): `erster_satz` steht unter der H1, genau ein Satz, ohne Rate. `rate_satz` steht im Band unter dem Hero, mit `{ab_rate}` und „netto im Monat“. Der Shop trennt nie selbst am ersten Punkt. `sprung` ist der Knopf zu einem Abschnitt der Seite, `id` ist die `id` dieses Abschnitts. `h1` steht als ein Element, am Handy bricht sie nur nach dem Namen der Reihe um (E-244, `bausteine-und-zustaende.md`, Reihenseite) |
 | `leiste` | `name` steht in der klebenden Leiste unter dem Kopf, dem Band, links neben `rate_satz` aus `hero` |
 | `kapitel_knopf` | Text des Knopfs in jeder Kapitelbox, etwa „Modell wählen“ (E-238). Ziel ist immer `#modelle`, es steht nicht im Text. Fehlt das Feld, steht in den Boxen kein Knopf |
-| `modellwahl` | optional, „Modellwahl kurz“ (Konzept P2, Abschnitt 4, Nr. 2). `h2`, `satz` optional. Die Karten kommen aus `aktuell` in `reihen` und aus `products.json`, nicht aus dem Text |
-| `kapitel` | 4 bis 6 Einträge in der Reihenfolge der Anzeige. `id` ist ein kurzer Schlüssel aus Kleinbuchstaben und Bindestrich, eindeutig in der Datei, und verbindet das Kapitel mit seinen Medien (IMAGES.md, Nachtrag Reihenseiten). `kennzahl` und `kennzahl_zeile` sind optional und stehen nur zusammen. `link` ist optional, mit `text` und `ziel`: ein Pfad im Shop ohne Host, etwa eine Story, der nicht weiterleitet (ROUTEN-UND-SEO.md, Regel 4.5). Fehlt eines der beiden Felder, steht kein Link |
+| `modellwahl` | optional, „Modellwahl kurz“ (Konzept P2, Abschnitt 4, Nr. 2). `h2`, `satz` optional. Die Modellkarten kommen aus `aktuell` in `reihen` und aus `products.json`, nicht aus dem Text, die Gruppen aus `gruppen` in `reihen` |
+| `modellwahl.lizenzkarte` | optional, Kartenart „Lizenz“ (E-244), eine Karte, die keine Modellkarte ist. `seite` ist der `slug` einer Seite aus `seiten` in `bausteine.json` (BAUSTEINE.md, Produktseiten), nie ein Pfad. Der Shop bildet daraus die Adresse nach ROUTEN-UND-SEO.md, Abschnitt 2. Fehlt die Seite in `seiten` oder ist `bausteine.json` nicht lesbar, entfällt die Karte, sie zeigt nie auf eine 404. `titel` ist die H4 und trägt den Link, der sich über die ganze Karte spannt. `knopf` führt zum selben Ziel, es bleibt bei zwei Links mit sichtbarem Text. `etikett`, `zeile` und `satz` sind optional. Keine Rate, kein Knopf „Konfigurieren“, keine Zahl im Text. Mit Gruppen steht die Karte als letzte in der letzten Gruppe, ohne Gruppen nach der letzten Modellkarte. Medium in IMAGES.md, Nachtrag Reihenseiten |
+| `kapitel` | 4 bis 6 Einträge in der Reihenfolge der Anzeige. `id` ist ein kurzer Schlüssel aus Kleinbuchstaben und Bindestrich, eindeutig in der Datei, und verbindet das Kapitel mit seinen Medien (IMAGES.md, Nachtrag Reihenseiten). Die ids sind Sprungziele und je Reihe fest (E-244): `surface-pro` `leistung`, `display`, `zwei-in-eins`, `kamera`, `akku`, `surface-laptop` `leistung`, `display`, `tastatur`, `kamera`, `akku`. Ändern nur über diesen Kontrakt. `kennzahl` und `kennzahl_zeile` sind optional und stehen nur zusammen. `link` ist optional, mit `text` und `ziel`: ein Pfad im Shop ohne Host, etwa eine Story, der nicht weiterleitet (ROUTEN-UND-SEO.md, Regel 4.5). Fehlt eines der beiden Felder, steht kein Link |
 | `sicherheit`, `ki`, `service` | je `h2` und Karten mit `id`, `titel`, `satz`. `ziel` ist optional, ein interner Pfad ohne Host, der nicht weiterleitet (ROUTEN-UND-SEO.md, Regel 4.5) |
 | `rampenlicht` | `h2` und `satz`. Das Modell kommt aus `rampenlicht` in `reihen` |
-| `tabelle` | nur `h2`. Die Zeilen kommen aus den Daten (`modelle.json`, `specs.json`) |
+| `tabelle` | nur `h2`. Die Zeilen kommen aus den Daten (`modelle.json`, `specs.json`). Eine Zeile entfällt, wenn kein Modell der Tabelle den Wert hat (E-244, Abschnitt Reihen) |
 | `zubehoer`, `andere` | je `h2` und `satz`. `andere` verweist auf die andere Reihe |
 | `weiterhin` | optional, „Weiterhin erhältlich“ (Konzept P2, Abschnitt 4, Nr. 9). `h2`, `satz` optional. Die Karten kommen aus `vorgaenger` in `reihen` und aus `products.json`. Ist `vorgaenger` leer, steht der Abschnitt nicht auf der Seite |
 | `faq` | 10 bis 15 Einträge mit `frage` und `antwort` (E-232). Jede Frage ist echt, die Antwort steht im ersten Satz, keine Frage doppelt eine Frage der Modellseiten |
@@ -190,7 +230,39 @@ ROUTEN-UND-SEO.md, Abschnitt 9.
 - Microsoft-Namen nach IMAGES.md, Punkt 2. Keine Preise von Microsoft, keine
   Firmen- oder Lieferantennamen.
 
+## Kacheln der Geräteübersicht (E-244)
+Über „Alle Modelle“ auf `/de/geraete` stehen drei Kacheln als Einstieg. Die
+Texte stehen in `content/de/devices.json`, CC-Marketing schreibt sie (R10,
+8172).
+
+```
+"kacheln": {
+  "liste": [ { "id": "surface-pro", "reihe": "surface-pro", "name": "…",
+               "rate_satz": "…", "kurz": "…" },
+             { "id": "surface-laptop-ultra", "modell": "surface-laptop-ultra-1-nvidia",
+               "name": "…", "rate_satz": "…", "kurz": "…" } ],
+  "alle_modelle": "…" }
+```
+
+| Feld | Regel |
+|---|---|
+| `id` | Schlüssel der Kachel, verbindet sie mit ihrem Bild (IMAGES.md, Nachtrag Reihenseiten, Punkt 7) |
+| `reihe` oder `modell` | genau eines. `reihe` ist ein `key` aus `reihen`, Ziel ist die Reihenseite. `modell` ist ein Modellschlüssel, Ziel ist die Modellseite. Die dritte Kachel, Surface Laptop Ultra, ist ein Modell und keine Reihe (SL SEO 16181284) |
+| `name` | Name der Reihe oder des Modells, H2 der Kachel und Linktext. Der Link sitzt in der H2 und spannt sich über die Kachel |
+| `rate_satz` | Zeile unter dem Namen mit `{ab_rate}` und „netto im Monat“. Bei einer Reihe die ab-Rate der Reihe (Abschnitt Reihen), bei einem Modell die ab-Rate seiner Modellseite. Fehlt die Rate, entfällt die Zeile |
+| `kurz` | optional, kurze Fassung des Linktexts von 768 bis 1279 Breite |
+| `alle_modelle` | H2 über den Reitern und Karten der heutigen Übersicht |
+
+- **Reihenfolge der Seite:** die H1 der Übersicht bleibt der erste Text,
+  darunter die Kacheln in der Reihenfolge von `liste`, darunter
+  `alle_modelle` als H2. Keine verborgene Überschrift über den Kacheln.
+- **Wann sie stehen:** nur, wenn beide Reihenseiten ausgeliefert werden,
+  also beide Reihen ein aktuelles Modell und ihre Texte haben (E-239). Sonst
+  steht keine Kachel und `alle_modelle` entfällt mit. Fehlt das Ziel einer
+  einzelnen Kachel, entfällt nur diese.
+- Raten nur als Platzhalter, wie in den Texten der Reihenseite (E-099).
+
 ## Nicht in modelle.json
-Keine Texte außer `title`, `title_short` und `titel` in `reihen`. Einleitung, Prozessor-Hinweis,
+Keine Texte außer `title`, `title_short` und `titel` in `reihen` und in `gruppen`. Einleitung, Prozessor-Hinweis,
 Kapitel, Vorteile, FAQ und Fußnoten pflegt der Shop unter content/de/modelle/.
 Keine Preise, keine Raten, keine Firmen- oder Lieferantennamen.

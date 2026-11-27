@@ -159,7 +159,7 @@ Die Liste ist damit fertig. Die Zeilen der Fassung 1 mit „seit“ stehen in de
 
 ## 9. Titel und Beschreibung
 - **Muster:** Der Shop setzt den Titel als `{Seitentitel}, Surface.Love`. Der Seitentitel in den Daten enthält die Marke nie selbst.
-- **Länge:** Seitentitel höchstens 45 Zeichen, mit Zusatz höchstens 60. Beschreibung 120 bis 155 Zeichen.
+- **Länge:** Seitentitel höchstens 50 Zeichen ohne den Anhang „, Surface.Love“, das Wichtigste steht in den ersten 45 (SL SEO 16181351 an 8132). Beschreibung 120 bis 155 Zeichen. Gilt für alle Seiten.
 - **Jede indexierte Seite hat eine eigene Beschreibung.** Keine Seite erbt die Beschreibung der Startseite.
 - **Texte** schreibt CC-Marketing. Microsoft-Namen nach IMAGES.md, Punkt 2. Keine Preise von Microsoft, Raten nur aus unseren Daten (E-099).
 - **Keine Rate in Titel oder Beschreibung.** Sie ändert sich mit `products.json`, ein Suchergebnis mit einer alten Zahl wäre falsch.
@@ -170,12 +170,13 @@ Die Liste ist damit fertig. Die Zeilen der Fassung 1 mit „seit“ stehen in de
 | Seite | Titel | H1 |
 |---|---|---|
 | Reihenseite | „{Reihe} as a Service für Unternehmen“ | „{Reihe} as a Service“ |
-| Modellseite | „{Modellname} as a Service“ | nach 8167 |
-| Geräteübersicht | „Microsoft Surface für Unternehmen, as a Service“ | nach 8167 |
+| Modellseite | „{Modellname} as a Service“ | unverändert (CC-Marketing 16180930 an 8167) |
+| Geräteübersicht | „Microsoft Surface für Unternehmen, as a Service“ | unverändert (CC-Marketing 16180930 an 8167) |
 
   - Die Beschreibung nennt „Monatsrate“ und „Unternehmen“ oder „as a Service“.
   - Kein Wort für eine Vertragsart in Titel, H1 und Beschreibung. Auch kein Ersatz: nicht „mieten“, „Miete“, „Abo“, „Finanzierung“, „Ratenkauf“. Erlaubt sind „as a Service“, „Monatsrate“, „monatlich“, „Laufzeit“, „Rate“.
-  - Für diese drei Seiten gilt: Titel höchstens 50 Zeichen ohne den Anhang „, Surface.Love“, Beschreibung 120 bis 155 Zeichen. Die Länge oben gilt für die übrigen Seiten.
+  - Länge wie oben, dieselbe für alle Seiten.
+  - Beispiel Reihenseite Surface Laptop (SL SEO 16181272): Titel „Surface Laptop as a Service für Unternehmen“, H1 „Surface Laptop as a Service“.
 
 | Seitentyp | Titel aus | Beschreibung aus |
 |---|---|---|

@@ -372,7 +372,7 @@ Shop für beide Kataloge denselben Leser nutzt.
 | Platz | Abschnitt der Bauspezifikation | Inhalt | Richtwerte |
 |---|---|---|---|
 | `einstieg` | 4, Einstiegskarten | je Reihe ein Freisteller mit Alphakanal, Schlüssel wie `specs.family` (DATA-CONTRACT.md). Kein `alt`: die Karte trägt den Namen, das Bild steht mit leerem `alt` | Breiten 572 und 1144, soweit die Quelle reicht |
-| `buehne` | 6, Vollbild-Bühne (E-222, E-225) | genau die vier `id` in dieser Reihenfolge: `prozessor`, `sicherheit`, `akku`, `display-kamera`. `quer` für die Vollbildfläche ab 1024 Breite, `hoch` für die Wischreihe darunter, `film` nur ab 1024 Breite. `hochkant` und `film_hochkant` für das Hochformat unter 1024 Breite (E-229). Regeln für Format, Fokus, Ruhezone, Gewicht und Laden in Punkt 5 | `quer` 16:9 in 1280, 1920, 2560 und 3200, `hoch` 4:3 in 780, `hochkant` 9:19,5 in 780 und 1080, Film quer höchstens 1920 breit, hochkant 720 breit |
+| `buehne` | 6, Vollbild-Bühne (E-222, E-225) | genau die vier `id` in dieser Reihenfolge: `prozessor`, `sicherheit`, `akku`, `display-kamera`. `quer` für die Vollbildfläche ab 1024 Breite, `hoch` für die Wischreihe darunter, `film` nur ab 1024 Breite. `hochkant` und `film_hochkant` für das Hochformat unter 1024 Breite (E-229). Regeln für Format, Fokus, Ruhezone, Gewicht und Laden in Punkt 5 | `quer` 16:9 in 1280, 1920, 2560 und 3200, `hoch` 4:3 in 780, `hochkant` 9:19,5 in 780 und 1080 oder bis zur Quellbreite, Film quer höchstens 1920 breit, hochkant 720 breit |
 | `ki` | 7, Kartenreihe KI und Copilot | drei bis fünf Karten in der Reihenfolge der Anzeige. `id` ist ein kurzer Schlüssel aus Kleinbuchstaben und Bindestrich, eindeutig in der Liste. `standbild` steht vor dem Start und bei reduzierter Bewegung | Film 4:5, 928 × 1160, Standbild 4:5 |
 | `uc` | Use-Case-Karten „So arbeitet Ihr Team.“ (E-202) | genau die vier `id` in dieser Reihenfolge: `unterwegs`, `dock`, `stift`, `zuhause`. Hochformat für die Karte. Das Motiv (Person, Gesicht, Gerät) liegt in den oberen 60 %, die unteren 40 % liegen unter dem Text der Karte | `hoch` 4:5 in 600 und 1200 |
 | `schutz` | 8, Support und Schutz | `quer` ab 1024 Breite, `quadrat` darunter | `quer` 16:9 in 1280 und 2560, `quadrat` 1:1 in 780 und 1000 |
@@ -435,7 +435,13 @@ Markenfarbe, der Text steht frei auf dem Bild (DESIGN.md, Verläufe).
 - **Hochkant fürs Handy (E-229):** Das Hochformat unter 1024 Breite liest
   eigene Felder, damit die Wischreihe bis zum Bau des Hochformats weiterläuft.
   - `hochkant`: 9:19,5 in 780 und 1080, höchstens in Quellbreite, nie
-    hochgerechnet. Gewicht höchstens 100 KB bei 780 und 150 KB bei 1080.
+    hochgerechnet. Reicht die Quelle nicht bis 1080, trägt die größte Stufe
+    ihre Quellbreite, im Feld `breiten` und im Dateinamen. Gewicht höchstens
+    100 KB bei 780 und 150 KB bei 1080. Für eine größte Stufe zwischen 780
+    und 1080 gilt die Grenze von 1080.
+  - **Echte Breite im `srcset`:** Jede Datei steht dort mit ihrer echten
+    Breite aus `breiten`, nie mit einer festen Zahl. Sonst wählt der Browser
+    eine zu kleine Datei und zeigt sie unscharf (SL SEO, E-223).
   - `film_hochkant`: MP4 ohne Tonspur, 720 breit, höchstens 10 s, höchstens
     1,2 MB, mit Poster. Sonst `null`.
   - Laden wie oben: Quer und Hochkant sind ein `img` in einem `picture`,

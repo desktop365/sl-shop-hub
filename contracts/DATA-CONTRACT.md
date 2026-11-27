@@ -1,6 +1,6 @@
 # Datenvertrag products.json
 
-Stand 24.11.2026, angeglichen nach B2 (Board 7875) und P08. Erzeugt von der Preis-Pipeline, Herkunft und Ausgabe in contracts/PRICING.md. Kanonischer Dateiname im Bucket: products.json, siehe INFRA.md. Beispiel zum Bauen: data/products.sample.json, die Raten darin sind erfunden.
+Stand 27.11.2026, angeglichen nach B2 (Board 7875) und P08, Begleitdateien der Reihenseiten nach E-217 und E-238 (R1b, 8163). Erzeugt von der Preis-Pipeline, Herkunft und Ausgabe in contracts/PRICING.md. Kanonischer Dateiname im Bucket: products.json, siehe INFRA.md. Beispiel zum Bauen: data/products.sample.json, die Raten darin sind erfunden.
 
 Die Laufzeiten 24, 36 und 48 sowie `rate_from` über 48 Monate gelten ab dem ersten Pipeline-Lauf nach P08, also ab dem Nachtlauf am 25.11.2026. Bis dahin trägt die Datei noch 60 und 72 Monate und `rate_from` über 36 Monate.
 
@@ -74,3 +74,6 @@ Nur Leasing, 24, 36 und 48 Monate (E-099). Was der Shop wählbar macht und bewir
 - bausteine.json          Lizenzen, Garantie und Managed Workplace mit Raten, siehe BAUSTEINE.md
 - modelle.json            Modelle mit Schlüssel, Titel, Edition, Plattform, Größen, dazu die Reihen der Reihenseiten, siehe MODELLE.md
 - specs.json              Datenblatt und Funktionen je Modellschlüssel, siehe SPECS.md
+- media/reihen/{reihe}/medien.json  Medien der Reihenseite mit Feld `box` je Medium, siehe IMAGES.md, Nachtrag Reihenseiten
+
+Die Texte der Reihenseite (`content/de/reihen/{reihe}.json`, MODELLE.md) liegen im Shop, nicht im Bucket. Keine dieser Dateien trägt eine Rate, die ab-Rate der Reihe kommt aus products.json (E-099).

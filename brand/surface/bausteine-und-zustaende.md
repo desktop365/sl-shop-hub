@@ -2403,6 +2403,53 @@ Desktop: gleich.
 
 Bewegung: keine.
 
+## Reihenseite
+
+Die Reihenseiten `/de/geraete/{reihe}` folgen der Bauvorgabe R2 v2.1 von Claude Design (8153), gewählt von Sascha am Bild (E-238). Hier stehen nur die Bausteine, die der Hub festlegt. Box und Schleier in Dunkelblau sind eine Ausnahme von E-225 nur für diese Seite (`DESIGN.md`, Verläufe). Medien und Feld `box` in `contracts/IMAGES.md`, Nachtrag Reihenseiten, Texte in `contracts/MODELLE.md`, Texte der Reihenseite.
+
+### Bühne mit zwei Gesichtern (Vollbild-Bühne aus G9, Startseite und Reihenseite)
+Ein Baustein, zwei Varianten. Mechanik wie die Bühne aus G9: Fläche klebt, ein Schritt je Folie, Wechsel über Deckkraft, Fortschritt und Pausenknopf, kein Scroll-Ereignis. Medien, Fokus und Laden wie in `IMAGES.md`, Nachtrag Startseite, Punkt 5.
+
+| Variante | Wo | Text ab 1024 Breite | Text unter 1024 Breite |
+|---|---|---|---|
+| frei | Startseite `#leistung` (G9, E-225) | frei auf dem Bild, Fleck `--sf-schatten-text`, Schrift `--sf-text-buehne-*` | frei, `--sf-abdunklung-fuss` mit `--sf-schatten-schrift` |
+| Box | Reihenseite, Kapitel (E-238) | Box in `--surface-deep`, siehe unten, Seite nach `box` je Medium | frei auf `--sf-schleier-reihe`, dazu `--sf-schatten-schrift` |
+
+- Die Variante wählt die Seite, nicht das Medium. Die Startseite zeigt nie eine Box, die Reihenseite nie den Fleck.
+- In der Variante Box stehen Fortschritt und Pausenknopf in der Box, am unteren Rand ihres Innenabstands.
+- `box` gleich `rechts` setzt Box, Fortschritt und Pausenknopf an den rechten Rand des Seitenrasters. Fehlt das Feld, gilt `links`.
+
+### Box auf Bild und Film (Hero, Kapitel, Sicherheit, Reihenseite)
+Kleine Fläche in `--surface-deep` mit Schrift `--on-deep`, unten am Seitenraster, nur ab 1024 Breite.
+
+| Maß | 1024 bis 1279 | ab 1280 |
+|---|---|---|
+| Breite `--sf-box-w` | 420 | 480 |
+| Innenabstand `--sf-box-pad` | 32 | 40 |
+| Abstand zur Unterkante `--sf-box-unten` | 40 | 56 |
+| H1 im Hero `--sf-text-box-h1` / `--sf-lh-box-h1` | 36 / 44 | 40 / 48 |
+| H2 in Kapitel und Sicherheit `--sf-text-box-h2` / `--sf-lh-box-h2` | 28 / 36 | 32 / 40 |
+| Satz `--sf-text-box-satz` / `--sf-lh-box-satz` | 16 / 24 (`--sf-fs-body`) | 18 / 28 (`--sf-fs-lead`) |
+| Kennzahl `--sf-text-box-kz` / `--sf-lh-box-kz` | 36 / 44 | 44 / 48 (`--sf-fs-figure-xl`) |
+| Zeile der Kennzahl `--sf-text-box-zeile` / `--sf-lh-box-zeile` | 14 / 20 (`--sf-fs-small`) | 14 / 20 |
+
+- **Hero:** H1, `erster_satz`, zwei Knöpfe („Modell wählen“ zu `#modelle`, „Modelle vergleichen“ zu `#tabelle`). Die Box steht immer links. Die Rate steht nicht im Hero, sondern im Band darunter (`rate_satz`).
+- **Kapitel:** H2, Satz, Kennzahl mit Zeile, Knopf aus `kapitel_knopf` zu `#modelle`.
+- **Sicherheit:** dieselbe Box, sie läuft durch die vier Punkte, das Motiv wechselt je Punkt über Deckkraft. Ein Knopf in `--action`.
+- Kein Schatten, keine Rundung, kein Verlauf an der Box. Abstand der Teile 12 px (`--space-3`).
+- Gemessen von Claude Design: 10,7 : 1 bei jedem Bild, 1024 bis 1920 Breite.
+
+### Schleier der Reihenseite (unter 1024 Breite)
+Text frei auf Bild und Film, darunter `--sf-schleier-reihe`.
+
+- Das Element des Schleiers reicht von der Unterkante der Fläche bis 96 px über die Oberkante des Textblocks. Der Verlauf deckt bis 96 px unter seiner Oberkante mit 94 %, darüber läuft er auf 0 aus.
+- Die Höhe folgt dem Text, nicht dem Bild. Längerer Text macht den Schleier höher.
+- Gilt im Hero und in den Kapiteln. Die Sicherheit steht am Handy als vier Kacheln 4:3 zum Wischen, ohne Schleier.
+- Gemessen von Claude Design: 8,8 bis 11,4 : 1 bei 390 und 768 Breite.
+
+### Abschlussband (Reihenseite)
+Band in `--surface-deep` vor den Fußnoten, Schrift `--on-deep`. H2 aus `abschluss.h2`, eine Zeile aus `abschluss.zeile` mit der Rate, Knopf aus `abschluss.knopf` in `--action` zu `#modelle`. Fehlt der Block `abschluss`, steht kein Band. Fehlt die Rate, entfällt die Zeile.
+
 ## Surface Stories
 
 Die Seiten unter `/de/stories` laufen über ein eigenes Layout und nutzen die Bausteine dieser Datei (E-107, E-121). Dazu kommen nur die zwei Punkte unten. Weitere eigene Farben, Größen oder Abstände gibt es nicht.

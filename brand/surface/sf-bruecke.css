@@ -130,18 +130,26 @@
   --sf-schatten-schrift:var(--schatten-schrift);
 
   /* Abdunklung an der Unterkante einer Vollbildfläche mit Film, mit Mindestlänge (Vorgabe 4).
-     hoch: viel Text bis zur Mitte. fuss: wenig Text ganz unten */
+     hoch: viel Text bis zur Mitte. fuss: wenig Text ganz unten.
+     Das Hochformat der Bühne unter 1024 Breite nutzt fuss, kein eigenes Token (Vorgabe v3.1, 3.4).
+     Der Fleck --sf-schatten-text gilt nur ab 1024 */
   --sf-abdunklung-hoch:var(--abdunklung-hoch);
   --sf-abdunklung-hoch-h:max(100%, 780px);
   --sf-abdunklung-fuss:var(--abdunklung-fuss);
   --sf-abdunklung-fuss-h:max(60%, 468px);
 
   /* Schrift der Bühne, alles in Weiß (on-deep). Stufen nach Vorgabe 3.3, Gewichte 300 und 400.
-     Unter 1024 Breite gilt die Wischreihe mit ihren eigenen Stufen */
+     Zeilenhöhen ohne Einheit, damit sie mit der Schrift wachsen (Vorgabe v3.1, 3.3).
+     Bis S28 live ist, gilt unter 1024 Breite die Wischreihe mit hoch 4:3 und ihren eigenen Stufen.
+     Danach gilt dort das Hochformat mit hochkant (IMAGES.md, Nachtrag Startseite, Punkt 5) */
   --sf-text-buehne-titel:var(--sf-text-h1);
   --sf-text-buehne-satz:var(--sf-text-long);
   --sf-text-buehne-kz:64px;
   --sf-text-buehne-zeile:16px;
+  --sf-lh-buehne-titel:1.18;
+  --sf-lh-buehne-satz:1.667;
+  --sf-lh-buehne-kz:1.125;
+  --sf-lh-buehne-zeile:1.5;
 }
 @media (min-width:768px){
   [data-sf="surface"]{ --sf-abdunklung-hoch-h:max(100%, 820px); --sf-abdunklung-fuss-h:max(60%, 600px); }
@@ -152,6 +160,10 @@
     --sf-text-buehne-satz:var(--sf-text-h2);
     --sf-text-buehne-kz:72px;
     --sf-text-buehne-zeile:18px;
+    --sf-lh-buehne-titel:1.094;
+    --sf-lh-buehne-satz:1.333;
+    --sf-lh-buehne-kz:1.111;
+    --sf-lh-buehne-zeile:1.5;
   }
 }
 /* Fließende Stufe ab 1920 Breite, damit die Schrift auf großen Monitoren mitwächst (E-225, Frage 2) */
@@ -161,5 +173,9 @@
     --sf-text-buehne-satz:clamp(24px, 1.25vw, 36px);
     --sf-text-buehne-kz:clamp(72px, 4.4vw, 136px);
     --sf-text-buehne-zeile:clamp(18px, 0.95vw, 26px);
+    --sf-lh-buehne-titel:1.094;
+    --sf-lh-buehne-satz:1.333;
+    --sf-lh-buehne-kz:1.1;
+    --sf-lh-buehne-zeile:1.5;
   }
 }

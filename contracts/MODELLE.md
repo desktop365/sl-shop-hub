@@ -106,11 +106,15 @@ aus derselben gepflegten Tabelle wie die Modelle.
   dem Upload und lädt sonst nicht hoch.
 - Ein Modellschlüssel in `reihen`, den `items` nicht führt oder der keine
   gelistete Ausführung hat, wird übergangen. Hat eine Reihe dann kein
-  aktuelles Modell mehr, antwortet ihre Seite mit 404 und fällt aus der
-  Sitemap.
+  aktuelles Modell mehr, leitet ihre Adresse dauerhaft mit 301 auf
+  `/de/geraete` weiter, nicht 404, und fällt aus der Sitemap. So behält die
+  Adresse, was sie sich erarbeitet hat (SL SEO 16177375, ROUTEN-UND-SEO.md,
+  Abschnitt 8).
 - **Die ab-Rate der Reihe wird ausgewählt, nicht gerechnet (E-099).** Der
-  Shop nimmt das kleinste `rate_from.net` unter den gelisteten Ausführungen
-  der Modelle in `aktuell` aus `products.json` und zeigt es mit „ab“.
+  Shop nimmt je gelisteter Ausführung der Modelle in `aktuell` die beworbene
+  ab-Rate nach PRICING.md, Abschnitt 6, also aus `rates.leasing` mit der
+  beworbenen Laufzeit des Markts, nicht aus `rate_from`. Die kleinste davon
+  zeigt er mit „ab“.
   **Vorgänger zählen nicht,** auch wenn ein Modell in `vorgaenger` günstiger
   ist. Kein Mittelwert, keine Rundung, keine eigene Rechnung. `reihen` trägt
   keine Rate.
@@ -172,12 +176,17 @@ ROUTEN-UND-SEO.md, Abschnitt 9.
   Text um den Platzhalter, nicht im eingesetzten Wert.
 - **Ohne Rate:** Fehlt die Rate, steht im Band nur `name` und im
   Abschlussband nur `h2` und Knopf.
+- **Im HTML der ersten Antwort (SL SEO 16177375):** `erster_satz` unter der
+  H1 und `rate_satz` im Band, mit eingesetzter Rate, stehen als echter Text
+  im HTML, das der Server zuerst ausliefert. Nie per Skript nachgeladen oder
+  erst im Browser eingesetzt.
 - **`hero.satz` aus R1 entfällt.** CC-Marketing stellt die Texte mit R3 auf
   `erster_satz` und `rate_satz` um, bevor der Shop die Reihenseite baut
   (E-238, Reihenfolge der Merges). Der Shop liest `hero.satz` nicht.
 - Fehlt ein optionaler Abschnitt, steht er nicht auf der Seite. Pflicht sind
-  `meta`, `hero`, `kapitel` und `faq`. Fehlt die Datei, antwortet die
-  Reihenseite mit 404.
+  `meta`, `hero`, `kapitel` und `faq`. Fehlt die Datei, leitet die
+  Reihenseite wie eine Reihe ohne aktuelles Modell mit 301 auf `/de/geraete`
+  weiter und fällt aus der Sitemap (SL SEO 16177375).
 - Microsoft-Namen nach IMAGES.md, Punkt 2. Keine Preise von Microsoft, keine
   Firmen- oder Lieferantennamen.
 

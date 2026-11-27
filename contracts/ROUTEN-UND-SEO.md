@@ -124,6 +124,7 @@ Fertig gestellt am 27.11.2026 nach dem Vertragstext von CC-SEO (SEO05, 8138). Gr
 | `surface-service.com/*`, `www.surface-service.com/*`, über http und https | `/de/device-as-a-service` (E-234) | 301 | pauschal, erst wenn die Zielseite live ist (E-228) | Hoster |
 | `/de/katalog` | `/de/geraete` | 308 | einzeln | Shop, `next.config.mjs` |
 | `/de/konfigurator` | `/de/geraete` | 301 | einzeln | Shop, `next.config.mjs` |
+| `/de/geraete/{reihe}`, wenn die Reihe kein aktuelles Modell mehr hat oder ihre Texte fehlen (MODELLE.md, Reihen) | `/de/geraete` | 301 | Muster. Die Seite fällt aus der Sitemap, kein 404 (SL SEO 16177375) | Shop, Route der Reihenseite |
 | `/de/konfigurator/{reihe-generation}` | die Reihenseite: `surface-pro…` auf `/de/geraete/surface-pro`, `surface-laptop…` auf `/de/geraete/surface-laptop`. Bis die Reihenseiten live sind, `/de/geraete` | 301 | Muster | Shop, `next.config.mjs` |
 | `/de/ausstattung` ohne Parameter | `/de/geraete` | 308 | einzeln | Shop, Seite `ausstattung` |
 | `/{kultur}/{markt}/` und `/{kultur}/` | `/de` | 301 | pauschal auf die Startseite | Shop, `proxy.ts` |

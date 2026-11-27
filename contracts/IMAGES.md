@@ -551,7 +551,7 @@ dazu die Angaben für das VideoObject (Punkt 5), in den übrigen Plätzen nicht:
 |---|---|
 | `hero` | `film` und `film_hochkant`, dazu `quer` und `hochkant` als Poster. Der Poster ist das LCP-Bild der Seite, deshalb eine Fassung in mehreren Breiten. `poster` im Film zeigt auf die größte Datei derselben Fassung. Ohne `id` |
 | `kapitel` | je Kapitel ein Eintrag, `id` gleich der `id` des Kapitels in `content/de/reihen/{reihe}.json`. `quer`, `hochkant`, `film` und `film_hochkant` sind alle optional. `box` sagt, auf welcher Seite die Box steht |
-| `sicherheit` | genau vier Motive in dieser Reihenfolge: `firmware-intune`, `zero-trust`, `secured-core`, `bitlocker` (E-238). `id` gleich der `id` der Karte im Text. Am Desktop Vollbild aus `quer`, am Handy Kachel zum Wischen aus `hoch`. Je Motiv Standbild oder Film |
+| `sicherheit` | genau vier Motive in dieser Reihenfolge: `firmware-intune`, `zero-trust`, `secured-core`, `bitlocker` (E-238). `id` gleich der `id` der Karte im Text. Am Desktop Vollbild aus `quer`, am Handy Kachel zum Wischen aus `hoch`. Je Motiv immer ein Standbild, auf Wunsch dazu ein Film |
 | `ki` | drei bis vier Karten in dieser Reihenfolge: `copilot-plus-pc`, `npu`, `copilot-m365`, `copilot-taste` (E-238). Je ein Bild in `hoch`. Die ersten drei tragen einen Film, dessen `poster` das Bild aus `hoch` ist, `copilot-taste` ist ein Standbild. `id` gleich der `id` der Karte im Text |
 | `rampenlicht` | `film` und `film_hochkant`, jeder mit Poster. Ohne `id`, das Modell steht in `rampenlicht` von `reihen` |
 
@@ -567,8 +567,10 @@ dazu die Angaben für das VideoObject (Punkt 5), in den übrigen Plätzen nicht:
   Vollbild wie in `kapitel`. `quer` wie die Bühne: 16:9 in 1280, 1920, 2560
   und 3200. `hoch` ist die Kachel am Handy in 4:3, wie die Wischreihe der
   Startseite. `film` läuft am Desktop, `film_hoch` in der Kachel am Handy,
-  beide dürfen `null` sein. Film oder Standbild entscheidet CC-Bilder je
-  Motiv: Film nur, wenn er die Grenze aus Punkt 3 hält, sonst Standbild.
+  beide dürfen `null` sein. Jedes Motiv hat immer ein Standbild in `quer`
+  und `hoch`, auch wenn es als Film läuft (SL SEO 16177375). Ob dazu ein
+  Film läuft, entscheidet CC-Bilder je Motiv: nur, wenn er die Grenze aus
+  Punkt 3 hält.
 - **Je Karte der KI** `alt` und `hoch`. Eine Karte hat dasselbe Bild in jeder
   Fensterbreite, deshalb kein `quer`, kein `hochkant` und keinen Fokuspunkt.
   Verhältnis 4:5, Filme und Standbilder 700 und 1400 breit, wie in der
@@ -599,7 +601,10 @@ dazu die Angaben für das VideoObject (Punkt 5), in den übrigen Plätzen nicht:
   250 KB bei 1920, 400 KB bei 2560, 600 KB bei 3200. `hoch` 100 KB bei 780
   und 200 KB bei 1560. `film` quer höchstens 1920 breit und 2,5 MB,
   `film_hoch` 720 breit und 1,2 MB, beide ohne Tonspur, höchstens 10 s, mit
-  Poster. Geladen wird nur das Motiv, das gerade dran ist.
+  Poster. Die Standbilder halten ihre Grenzen auch, wenn das Motiv als Film
+  läuft. Geladen wird nur das Motiv, das gerade dran ist: das erste, wenn
+  der Abschnitt ins Bild kommt, jedes weitere erst beim Wechsel
+  (SL SEO 16177375).
 - **KI:** Filme 700 breit, ohne Tonspur, mit Poster aus `hoch`, Grenzen der
   Standbilder 100 KB bei 700 und 200 KB bei 1400. Die drei Filme starten
   zusammen, wenn ihre Reihe ins Bild kommt, nicht vorher.
@@ -632,7 +637,10 @@ dazu die Angaben für das VideoObject (Punkt 5), in den übrigen Plätzen nicht:
   in `kapitel`, `sicherheit` und `ki` bekommen keines, auch wenn sie die
   Angaben unten tragen. Auf der Startseite gibt es keines (Punkt 5 der
   Bühne).
-- Je Film fünf Angaben für das VideoObject: Titel (`name`), Beschreibung
+- **Pflicht nur in `hero` und `rampenlicht` (SL SEO 16177375).** Die Filme
+  in `kapitel`, `sicherheit` und `ki` brauchen `name`, `beschreibung` und
+  `datum` nicht.
+- Je Film in `hero` und `rampenlicht` fünf Angaben für das VideoObject: Titel (`name`), Beschreibung
   (`beschreibung`), Datum der Veröffentlichung (`datum`, ISO-Datum), Dauer
   (`dauer_s`, der Shop schreibt sie als ISO-Dauer, etwa `PT12S`) und Poster
   (`poster`, der Shop schreibt die absolute Adresse). Dazu `datei` als Adresse des Films.

@@ -103,6 +103,8 @@
   --sf-schleier-hero-hoch:var(--schleier-hero-hoch);
   --sf-schleier-kampagne:var(--schleier-kampagne);
   --sf-schleier-buehne:var(--schleier-buehne);
+  /* Abgelöst mit E-237 (Abschnitt Schutz, Fassung A), nicht für Neues. oben nutzt niemand,
+     unten nur noch .sl-schutz-bild::after im Shop, das mit S31 entfällt. Bleiben stehen */
   --sf-schleier-schutz-oben:var(--schleier-schutz-oben);
   --sf-schleier-schutz-unten:var(--schleier-schutz-unten);
 
@@ -177,5 +179,40 @@
     --sf-lh-buehne-satz:1.333;
     --sf-lh-buehne-kz:1.1;
     --sf-lh-buehne-zeile:1.5;
+  }
+}
+
+/* ============================================================
+   Reihenseite nach E-238, Bauvorgabe R2 v2.1 von Claude Design, Abschnitte 4.1, 4.3 und 5.2 (R1b, 27.11.2026).
+   Nur neue Namen, nichts Bestehendes geändert. Gilt nur auf der Reihenseite, die Startseite bleibt bei G9.
+   Ab 1024 Breite steht der Text in einer Box auf surface-deep (Schrift on-deep), darunter frei auf
+   --sf-schleier-reihe. Beides ist eine Ausnahme von E-225 nur für diese Seite (DESIGN.md, Verläufe).
+   ============================================================ */
+[data-sf="surface"]{
+  /* Schleier unter 1024 Breite. Das Element reicht von der Unterkante bis 96 px über die Oberkante
+     des Textblocks, der Verlauf läuft auf diesen 96 px aus */
+  --sf-schleier-reihe:var(--schleier-reihe);
+
+  /* Box auf Bild und Film, Werte für 1024 bis 1279 Breite. Unter 1024 gibt es keine Box */
+  --sf-box-w:420px;
+  --sf-box-pad:32px;
+  --sf-box-unten:40px;
+
+  /* Schrift in der Box, 1024 bis 1279 Breite. Kennzahl und ihre Zeile aus der Skala, wo sie passt */
+  --sf-text-box-h1:36px;  --sf-lh-box-h1:44px;
+  --sf-text-box-h2:28px;  --sf-lh-box-h2:36px;
+  --sf-text-box-satz:var(--sf-fs-body); --sf-lh-box-satz:var(--sf-lh-body);
+  --sf-text-box-kz:36px;  --sf-lh-box-kz:44px;
+  --sf-text-box-zeile:var(--sf-fs-small); --sf-lh-box-zeile:var(--sf-lh-small);
+}
+@media (min-width:1280px){
+  [data-sf="surface"]{
+    --sf-box-w:480px;
+    --sf-box-pad:40px;
+    --sf-box-unten:56px;
+    --sf-text-box-h1:40px;  --sf-lh-box-h1:48px;
+    --sf-text-box-h2:32px;  --sf-lh-box-h2:40px;
+    --sf-text-box-satz:var(--sf-fs-lead); --sf-lh-box-satz:var(--sf-lh-lead);
+    --sf-text-box-kz:var(--sf-fs-figure-xl); --sf-lh-box-kz:var(--sf-lh-figure-xl);
   }
 }

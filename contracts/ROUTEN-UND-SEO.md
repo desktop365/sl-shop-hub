@@ -1,6 +1,6 @@
 # Routen und SEO (surface.love)
 
-Fassung 2, Stand 27.11.2026, R1 (8152) und SEO10 Teil 2 (8143). Grundlage: E-174, E-176, E-180, E-186, E-215, E-217, E-219, E-228, E-230, E-231, E-234, S14 (C9), S16 (Livegang), S17 (Warenkorb), Vertragstext von CC-SEO (SEO05, 8138).
+Fassung 2, Stand 27.11.2026, R1 (8152), SEO10 Teil 2 (8143) und R1b (8163). Grundlage: E-174, E-176, E-180, E-186, E-215, E-217, E-219, E-228, E-230, E-231, E-234, E-238, E-240, E-242, E-243, S14 (C9), S16 (Livegang), S17 (Warenkorb), Vertragstext von CC-SEO (SEO05, 8138).
 Fassung 1 vom 25.11.2026, W3 (8097), abgeglichen gegen Shop-`main` `0786e2e`, den Zweig `s17-warenkorb` und `https://surface.love/sitemap.xml` (26 Adressen) am 25.11.2026.
 
 ## 0. Geltung
@@ -18,7 +18,6 @@ Fassung 1 vom 25.11.2026, W3 (8097), abgeglichen gegen Shop-`main` `0786e2e`, de
 | Länder `at`, `de`, `dk`, `es`, `fr`, `uk` unter surface.love | Altadressen | nein | 301 auf `https://surface.love/de`, an der Kante (E-176) |
 | `blog` und `stories` unter surface.love | Altadressen | nein | 301 auf `https://surface.love/de/stories` ohne Pfad, an der Kante (E-176) |
 | `http://` auf jedem Host oben | unverschlüsselt | nein | dauerhaft auf `https://surface.love` mit dem Endziel, in höchstens zwei Sprüngen: zuerst hebt der Hoster auf https, dann leitet der Shop auf die kanonische Adresse. „HTTPS erzwingen“ beim Hoster bleibt eingeschaltet. Mehr als zwei Sprünge sind ein Fehler (E-231, ändert E-219 für http) |
-| `worklove.shop`, `www.worklove.shop` | frühere Domain | nein | 301 auf `https://surface.love/de`, beim Hoster, nicht im Shop (Entscheidung vom 06.09.2026) |
 | `cms.surface.love` | Bilder des alten Shops | nein | ohne DNS-Eintrag, keine Weiterleitung |
 | `surface-service.com`, `www.surface-service.com` | Domain für „Surface as a Service“ (E-228) | nein | als Ganzes dauerhaft auf die Zielseite „Device as a Service“ im Shop, `/de/device-as-a-service` (E-234), über http und https, in einem Sprung, beim Hoster. Bis die Zielseite live ist, bleibt die Domain, wie sie ist. Ihre robots.txt sperrt den Abruf nicht, sonst folgt Google der Weiterleitung nicht |
 
@@ -118,13 +117,13 @@ Fertig gestellt am 27.11.2026 nach dem Vertragstext von CC-SEO (SEO05, 8138). Gr
 | `/{pfad}` ohne Sprache, außer den Altpfaden und der Wurzel | `/de/{pfad}` | 307 | Muster | Shop, `proxy.ts`, vorläufig bis zur Sprachwahl |
 | `/en/{pfad}` | `/de/{pfad}` | 307 | Muster | Shop, `proxy.ts`, bis zur Freigabe des Markts |
 | `/stories` | `/de/stories` | 308 | einzeln | Shop, `proxy.ts` |
-| `worklove.shop/*`, `www.worklove.shop/*` | `https://surface.love/de` | 301 | pauschal | Hoster |
 | `{at,de,dk,es,fr,uk}.surface.love/*` | `https://surface.love/de` | 301 | pauschal | Kante |
 | `blog.surface.love/*`, `stories.surface.love/*` | `https://surface.love/de/stories` | 301 | pauschal | Kante |
 | `surface-service.com/*`, `www.surface-service.com/*`, über http und https | `/de/device-as-a-service` (E-234) | 301 | pauschal, erst wenn die Zielseite live ist (E-228) | Hoster |
-| `/de/katalog` | `/de/geraete` | 308 | einzeln | Shop, `next.config.mjs` |
-| `/de/konfigurator` | `/de/geraete` | 301 | einzeln | Shop, `next.config.mjs` |
-| `/de/konfigurator/{reihe-generation}` | die Reihenseite: `surface-pro…` auf `/de/geraete/surface-pro`, `surface-laptop…` auf `/de/geraete/surface-laptop`. Bis die Reihenseiten live sind, `/de/geraete` | 301 | Muster | Shop, `next.config.mjs` |
+| `/de/katalog` | `/de/geraete` | 308 | einzeln | Shop, `proxy.ts` |
+| `/de/konfigurator` | `/de/geraete` | 301 | einzeln | Shop, `proxy.ts` |
+| `/de/geraete/{reihe}`, wenn die Reihe kein aktuelles Modell mehr hat oder ihre Texte fehlen (MODELLE.md, Reihen) | `/de/geraete` | 301 | Muster. Die Seite fällt aus der Sitemap, kein 404 (SL SEO 16177375) | Shop, Route der Reihenseite |
+| `/de/konfigurator/{reihe-generation}` | die Reihenseite: `surface-pro…` auf `/de/geraete/surface-pro`, `surface-laptop…` auf `/de/geraete/surface-laptop`. Bis die Reihenseiten live sind, `/de/geraete` | 301 | Muster | Shop, `proxy.ts` |
 | `/de/ausstattung` ohne Parameter | `/de/geraete` | 308 | einzeln | Shop, Seite `ausstattung` |
 | `/{kultur}/{markt}/` und `/{kultur}/` | `/de` | 301 | pauschal auf die Startseite | Shop, `proxy.ts` |
 | Zubehör: `…/{boutique/accessoires, shop/zubehoer, store/accessories, winkel/accessoires, butik/tilbehoer, tienda/accesorios}/…`, auch Filter und Detailseiten | `/de/geraete` | 301 | pauschal, gilt nur bis zum Bau von W8. Danach zeigen die Regeln auf die Zubehörseiten (E-215) | Shop, `proxy.ts` |
@@ -164,6 +163,19 @@ Die Liste ist damit fertig. Die Zeilen der Fassung 1 mit „seit“ stehen in de
 - **Jede indexierte Seite hat eine eigene Beschreibung.** Keine Seite erbt die Beschreibung der Startseite.
 - **Texte** schreibt CC-Marketing. Microsoft-Namen nach IMAGES.md, Punkt 2. Keine Preise von Microsoft, Raten nur aus unseren Daten (E-099).
 - **Keine Rate in Titel oder Beschreibung.** Sie ändert sich mit `products.json`, ein Suchergebnis mit einer alten Zahl wäre falsch.
+- **Kein „leasen“ und kein „Leasing“ (E-240).** Nicht in Titeln, Beschreibungen, Überschriften, sichtbaren Texten, Alternativtexten und strukturierten Daten. Das Angebot heißt as a Service zur Monatsrate. Ausgenommen sind interne Felder wie `rates.leasing` und `contract_types` sowie die Rechtstexte. Alte Adressen, die das Wort enthalten, leiten nur weiter (Abschnitt 8). Diese Regel gilt für alle Kontrakte, sie steht nur hier.
+  - **Einzige Ausnahme (E-242):** Der Satz „Die Rate ist auf Leasing berechnet.“ steht an genau einer Stelle, in der FAQ der Startseite.
+- **Muster für Titel und H1 nach E-240** (SL SEO, 16179627 an 8167 und 16179693 an 8132, im Ganzen an 8167):
+
+| Seite | Titel | H1 |
+|---|---|---|
+| Reihenseite | „{Reihe} as a Service für Unternehmen“ | „{Reihe} as a Service“ |
+| Modellseite | „{Modellname} as a Service“ | nach 8167 |
+| Geräteübersicht | „Microsoft Surface für Unternehmen, as a Service“ | nach 8167 |
+
+  - Die Beschreibung nennt „Monatsrate“ und „Unternehmen“ oder „as a Service“.
+  - Kein Wort für eine Vertragsart in Titel, H1 und Beschreibung. Auch kein Ersatz: nicht „mieten“, „Miete“, „Abo“, „Finanzierung“, „Ratenkauf“. Erlaubt sind „as a Service“, „Monatsrate“, „monatlich“, „Laufzeit“, „Rate“.
+  - Für diese drei Seiten gilt: Titel höchstens 50 Zeichen ohne den Anhang „, Surface.Love“, Beschreibung 120 bis 155 Zeichen. Die Länge oben gilt für die übrigen Seiten.
 
 | Seitentyp | Titel aus | Beschreibung aus |
 |---|---|---|
@@ -180,8 +192,8 @@ Die Liste ist damit fertig. Die Zeilen der Fassung 1 mit „seit“ stehen in de
 - `lowPrice` im `AggregateOffer` ist die sichtbare Rate der Seite, „ab … netto im Monat“ aus `rateFrom.net` des Shops. Nie ein anderes Minimum, nie von Hand gesetzt (E-029, E-030, E-099). Dazu eine `UnitPriceSpecification` mit Monat und Laufzeit.
 - **Der Block ist abschaltbar.** Meldet Google einen Verstoß oder eine manuelle Maßnahme, geht er sofort auf Weg B ohne Preis zurück, ohne neue Entscheidung.
 - Lizenzen bleiben ohne Preis. Managed Workplace trägt die eigene Rate aus `bausteine.json`.
-- Titel und Beschreibung der Modellseite sagen unmissverständlich, dass es um Leasing zur Monatsrate geht. Die Rate selbst steht dort nicht (siehe oben).
-- Die Reihenseiten tragen keinen Product-Block, E-230 gilt nur für die Modellseiten (bestätigt von SL SEO an 8152). Sie tragen CollectionPage, ItemList und BreadcrumbList wie im Vertragstext SEO05, dazu VideoObject (IMAGES.md, Nachtrag Reihenseiten, Punkt 5).
+- Titel und Beschreibung der Modellseite sagen, dass es um as a Service zur Monatsrate geht (E-240, Muster oben). Die Rate selbst steht dort nicht (siehe oben).
+- Die Reihenseiten tragen keinen Product-Block, E-230 gilt nur für die Modellseiten (bestätigt von SL SEO an 8152). Sie tragen CollectionPage, ItemList und BreadcrumbList wie im Vertragstext SEO05, dazu VideoObject nur für Hero und Rampenlicht (E-238, SL SEO 16177205, IMAGES.md, Nachtrag Reihenseiten, Punkt 5). Die Filme der Kapitel, der KI und der Sicherheit bekommen keines.
 
 ## 10. Search Console
 - **Property:** `surface.love` als Domain-Property. Zugang hat Sascha.

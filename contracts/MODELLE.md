@@ -1,6 +1,6 @@
 # Modelle (modelle.json)
 
-Stand 27.11.2026, E-161, E-162 und mit den Reihenseiten E-217 (R1, 8152). Erzeugt von der Preis-Pipeline aus einer
+Stand 27.11.2026, E-161, E-162 und mit den Reihenseiten E-217 (R1, 8152) und E-238 (R1b, 8163). Erzeugt von der Preis-Pipeline aus einer
 gepflegten Tabelle, liegt im Bucket neben products.json, jede Nacht neu geschrieben.
 
 ## Begriffe
@@ -106,11 +106,15 @@ aus derselben gepflegten Tabelle wie die Modelle.
   dem Upload und lädt sonst nicht hoch.
 - Ein Modellschlüssel in `reihen`, den `items` nicht führt oder der keine
   gelistete Ausführung hat, wird übergangen. Hat eine Reihe dann kein
-  aktuelles Modell mehr, antwortet ihre Seite mit 404 und fällt aus der
-  Sitemap.
+  aktuelles Modell mehr, leitet ihre Adresse dauerhaft mit 301 auf
+  `/de/geraete` weiter, nicht 404, und fällt aus der Sitemap. So behält die
+  Adresse, was sie sich erarbeitet hat (SL SEO 16177375, ROUTEN-UND-SEO.md,
+  Abschnitt 8).
 - **Die ab-Rate der Reihe wird ausgewählt, nicht gerechnet (E-099).** Der
-  Shop nimmt das kleinste `rate_from.net` unter den gelisteten Ausführungen
-  der Modelle in `aktuell` aus `products.json` und zeigt es mit „ab“.
+  Shop nimmt je gelisteter Ausführung der Modelle in `aktuell` die beworbene
+  ab-Rate nach PRICING.md, Abschnitt 6, also aus `rates.leasing` mit der
+  beworbenen Laufzeit des Markts, nicht aus `rate_from`. Die kleinste davon
+  zeigt er mit „ab“.
   **Vorgänger zählen nicht,** auch wenn ein Modell in `vorgaenger` günstiger
   ist. Kein Mittelwert, keine Rundung, keine eigene Rechnung. `reihen` trägt
   keine Rate.
@@ -118,14 +122,17 @@ aus derselben gepflegten Tabelle wie die Modelle.
 ## Texte der Reihenseite (content/de/reihen)
 Die Texte stehen im Shop unter `content/de/reihen/{reihe}.json`, eine Datei je
 Reihenschlüssel. CC-Marketing schreibt sie (R3, 8154), gegliedert nach dem
-Konzept der Reihenseiten (P2, Abschnitt 4). Titel und Beschreibung nach
+Konzept der Reihenseiten (P2, Abschnitt 4), seit E-238 nach der Bauvorgabe
+v2.1 von Claude Design (R2, 8153). Titel und Beschreibung nach
 ROUTEN-UND-SEO.md, Abschnitt 9.
 
 ```
 { "meta": { "titel": "…", "beschreibung": "…" },
-  "hero": { "h1": "…", "satz": "…", "sprung": { "id": "…", "text": "…" } },
+  "hero": { "h1": "…", "erster_satz": "…", "rate_satz": "…",
+            "sprung": { "id": "…", "text": "…" } },
   "leiste": { "name": "…" },
   "modellwahl": { "h2": "…", "satz": "…" },
+  "kapitel_knopf": "…",
   "kapitel": [
     { "id": "…", "titel": "…", "satz": "…",
       "kennzahl": "…", "kennzahl_zeile": "…",
@@ -139,14 +146,16 @@ ROUTEN-UND-SEO.md, Abschnitt 9.
   "andere":     { "h2": "…", "satz": "…" },
   "weiterhin":  { "h2": "…", "satz": "…" },
   "faq": [ { "frage": "…", "antwort": "…" } ],
+  "abschluss": { "h2": "…", "zeile": "…", "knopf": "…" },
   "fussnoten": [ { "id": "…", "text": "…" } ] }
 ```
 
 | Feld | Regel |
 |---|---|
 | `meta` | `titel` ohne Marke, höchstens 45 Zeichen, `beschreibung` 120 bis 155 Zeichen. Keine Rate darin |
-| `hero` | `h1` ist die einzige H1 der Seite. `sprung` ist der Knopf zu einem Abschnitt der Seite, `id` ist die `id` dieses Abschnitts |
-| `leiste` | `name` steht in der klebenden Leiste unter dem Kopf |
+| `hero` | `h1` ist die einzige H1 der Seite. Zwei Felder statt des früheren `satz` (E-238): `erster_satz` steht unter der H1, genau ein Satz, ohne Rate. `rate_satz` steht im Band unter dem Hero, mit `{ab_rate}` und „netto im Monat“. Der Shop trennt nie selbst am ersten Punkt. `sprung` ist der Knopf zu einem Abschnitt der Seite, `id` ist die `id` dieses Abschnitts |
+| `leiste` | `name` steht in der klebenden Leiste unter dem Kopf, dem Band, links neben `rate_satz` aus `hero` |
+| `kapitel_knopf` | Text des Knopfs in jeder Kapitelbox, etwa „Modell wählen“ (E-238). Ziel ist immer `#modelle`, es steht nicht im Text. Fehlt das Feld, steht in den Boxen kein Knopf |
 | `modellwahl` | optional, „Modellwahl kurz“ (Konzept P2, Abschnitt 4, Nr. 2). `h2`, `satz` optional. Die Karten kommen aus `aktuell` in `reihen` und aus `products.json`, nicht aus dem Text |
 | `kapitel` | 4 bis 6 Einträge in der Reihenfolge der Anzeige. `id` ist ein kurzer Schlüssel aus Kleinbuchstaben und Bindestrich, eindeutig in der Datei, und verbindet das Kapitel mit seinen Medien (IMAGES.md, Nachtrag Reihenseiten). `kennzahl` und `kennzahl_zeile` sind optional und stehen nur zusammen. `link` ist optional, mit `text` und `ziel`: ein Pfad im Shop ohne Host, etwa eine Story, der nicht weiterleitet (ROUTEN-UND-SEO.md, Regel 4.5). Fehlt eines der beiden Felder, steht kein Link |
 | `sicherheit`, `ki`, `service` | je `h2` und Karten mit `id`, `titel`, `satz`. `ziel` ist optional, ein interner Pfad ohne Host, der nicht weiterleitet (ROUTEN-UND-SEO.md, Regel 4.5) |
@@ -155,6 +164,7 @@ ROUTEN-UND-SEO.md, Abschnitt 9.
 | `zubehoer`, `andere` | je `h2` und `satz`. `andere` verweist auf die andere Reihe |
 | `weiterhin` | optional, „Weiterhin erhältlich“ (Konzept P2, Abschnitt 4, Nr. 9). `h2`, `satz` optional. Die Karten kommen aus `vorgaenger` in `reihen` und aus `products.json`. Ist `vorgaenger` leer, steht der Abschnitt nicht auf der Seite |
 | `faq` | 10 bis 15 Einträge mit `frage` und `antwort` (E-232). Jede Frage ist echt, die Antwort steht im ersten Satz, keine Frage doppelt eine Frage der Modellseiten |
+| `abschluss` | optional, das Abschlussband in `surface-deep` vor den Fußnoten (E-238). `h2` ist die Überschrift, `zeile` eine Zeile mit `{ab_rate}`, `knopf` der Text des Knopfs. Ziel ist immer `#modelle`. Fehlt der Block, steht kein Band |
 | `fussnoten` | `id` und `text`. Verweise im Text auf eine Fußnote wie in `content/de/modelle/` |
 
 - **Raten nur als Platzhalter `{ab_rate}`.** Der Shop setzt die ab-Rate der
@@ -164,9 +174,19 @@ ROUTEN-UND-SEO.md, Abschnitt 9.
   Format mit zwei Nachkommastellen und geschütztem Leerzeichen vor dem €,
   etwa „12,34 €“ (Beispiel erfunden). „ab“ und „netto im Monat“ stehen im
   Text um den Platzhalter, nicht im eingesetzten Wert.
+- **Ohne Rate:** Fehlt die Rate, steht im Band nur `name` und im
+  Abschlussband nur `h2` und Knopf.
+- **Im HTML der ersten Antwort (SL SEO 16177375):** `erster_satz` unter der
+  H1 und `rate_satz` im Band, mit eingesetzter Rate, stehen als echter Text
+  im HTML, das der Server zuerst ausliefert. Nie per Skript nachgeladen oder
+  erst im Browser eingesetzt.
+- **`hero.satz` aus R1 entfällt.** CC-Marketing stellt die Texte mit R3 auf
+  `erster_satz` und `rate_satz` um, bevor der Shop die Reihenseite baut
+  (E-238, Reihenfolge der Merges). Der Shop liest `hero.satz` nicht.
 - Fehlt ein optionaler Abschnitt, steht er nicht auf der Seite. Pflicht sind
-  `meta`, `hero`, `kapitel` und `faq`. Fehlt die Datei, antwortet die
-  Reihenseite mit 404.
+  `meta`, `hero`, `kapitel` und `faq`. Fehlt die Datei, leitet die
+  Reihenseite wie eine Reihe ohne aktuelles Modell mit 301 auf `/de/geraete`
+  weiter und fällt aus der Sitemap (SL SEO 16177375).
 - Microsoft-Namen nach IMAGES.md, Punkt 2. Keine Preise von Microsoft, keine
   Firmen- oder Lieferantennamen.
 

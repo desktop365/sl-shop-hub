@@ -496,13 +496,16 @@ Wortlaut bleibt als Beleg stehen, welche Frage womit beantwortet wurde.**
 Abgelöst durch Fassung 3, Punkt 6 und 7. Quellbilder kommen nicht mehr ins Repo, der Upload läuft
 über die Bild-Strecke selbst.
 
-## Nachtrag Reihenseiten, entschieden 27.11.2026 (E-217, R1)
+## Nachtrag Reihenseiten, entschieden 27.11.2026 (E-217, R1), Stand 27.11.2026 mit E-238 (R1b)
 
 Gilt für die Medien der Reihenseiten `/de/geraete/{reihe}` (ROUTEN-UND-SEO.md,
 Abschnitt 2). Was hier nicht steht, gilt aus dem Nachtrag Startseite, vor
 allem die Formen Fassung und Film (Punkt 2) und die Regeln der Bühne
 (Punkt 5). Microsoft-Medien liegen nur im Repo der Bild-Strecke und im Bucket,
-nie in diesem Hub. Die Farbregel der Startseite gilt auch hier.
+nie in diesem Hub. Nichts wird von microsoft.com eingebunden (E-170, E-238).
+Auf den Medien der Reihenseite liegen Box und Schleier in `surface-deep`, eine
+Ausnahme von E-225 nur für diese Seite (E-238, DESIGN.md, Verläufe). Der
+Aufbau der Seite folgt der Bauvorgabe v2.1 von Claude Design (R2, 8153).
 
 ### 1. Datei und Pfade
 - Katalog: `media/reihen/{reihe}/medien.json` im Bucket slshopv2-media, eine
@@ -522,15 +525,23 @@ nie in diesem Hub. Die Farbregel der Startseite gilt auch hier.
 ```
 **Eintrag:**
 ```
-{ "id": "…", "alt": "...", "fokus": [66, 50], "fokus_hochkant": [50, 40],
+{ "id": "…", "alt": "...", "box": "links",
+  "fokus": [66, 50], "fokus_hochkant": [50, 40],
   "quer": <Fassung> | null, "hochkant": <Fassung> | null,
   "film": <Film> | null, "film_hochkant": <Film> | null }
 ```
-**Karte**, für `sicherheit` und `ki`, so wie CC-Bilder sie gebaut hat:
+**Motiv**, für `sicherheit` (E-238):
+```
+{ "id": "…", "alt": "...", "fokus": [66, 50],
+  "quer": <Fassung>, "hoch": <Fassung>,
+  "film": <Film> | null, "film_hoch": <Film> | null }
+```
+**Karte**, für `ki`, so wie CC-Bilder sie gebaut hat:
 ```
 { "id": "…", "alt": "...", "hoch": <Fassung>, "film": <Film> | null }
 ```
-**Film** wie im Nachtrag Startseite, Punkt 2, dazu für das VideoObject:
+**Film** wie im Nachtrag Startseite, Punkt 2. In `hero` und `rampenlicht`
+dazu die Angaben für das VideoObject (Punkt 5), in den übrigen Plätzen nicht:
 ```
 { "datei", "breite", "hoehe", "dauer_s", "poster",
   "name": "…", "beschreibung": "…", "datum": "2026-11-27" }
@@ -539,20 +550,33 @@ nie in diesem Hub. Die Farbregel der Startseite gilt auch hier.
 | Platz | Inhalt |
 |---|---|
 | `hero` | `film` und `film_hochkant`, dazu `quer` und `hochkant` als Poster. Der Poster ist das LCP-Bild der Seite, deshalb eine Fassung in mehreren Breiten. `poster` im Film zeigt auf die größte Datei derselben Fassung. Ohne `id` |
-| `kapitel` | je Kapitel ein Eintrag, `id` gleich der `id` des Kapitels in `content/de/reihen/{reihe}.json`. `quer`, `hochkant`, `film` und `film_hochkant` sind alle optional |
-| `sicherheit` | genau vier Karten mit Bild in `hoch`, `film` ist `null`. `id` gleich der `id` der Karte im Text |
-| `ki` | drei bis vier Karten, je ein Bild in `hoch`, auf Wunsch dazu ein Film, dessen `poster` das Bild aus `hoch` ist. `id` gleich der `id` der Karte im Text |
+| `kapitel` | je Kapitel ein Eintrag, `id` gleich der `id` des Kapitels in `content/de/reihen/{reihe}.json`. `quer`, `hochkant`, `film` und `film_hochkant` sind alle optional. `box` sagt, auf welcher Seite die Box steht |
+| `sicherheit` | genau vier Motive in dieser Reihenfolge: `firmware-intune`, `zero-trust`, `secured-core`, `bitlocker` (E-238). `id` gleich der `id` der Karte im Text. Am Desktop Vollbild aus `quer`, am Handy Kachel zum Wischen aus `hoch`. Je Motiv immer ein Standbild, auf Wunsch dazu ein Film |
+| `ki` | drei bis vier Karten in dieser Reihenfolge: `copilot-plus-pc`, `npu`, `copilot-m365`, `copilot-taste` (E-238). Je ein Bild in `hoch`. Die ersten drei tragen einen Film, dessen `poster` das Bild aus `hoch` ist, `copilot-taste` ist ein Standbild. `id` gleich der `id` der Karte im Text |
 | `rampenlicht` | `film` und `film_hochkant`, jeder mit Poster. Ohne `id`, das Modell steht in `rampenlicht` von `reihen` |
 
 - **Je Eintrag** `alt`, `fokus` und `fokus_hochkant`. `alt` gilt für Bild,
   Poster und Film, wie auf der Startseite. `fokus` fehlt: `[66, 50]`,
   `fokus_hochkant` fehlt: `[50, 40]`.
-- **Je Karte** `alt` und `hoch`. Eine Karte hat dasselbe Bild in jeder
+- **`box` je Eintrag (E-238):** `links` oder `rechts`, die Seite der Box ab
+  1024 Breite. Fehlt das Feld oder ist der Wert unbekannt, gilt `links`.
+  `display` steht auf `rechts`, weil das Gerät links im Bild liegt. Die Box
+  steht im Hero immer links, `box` wirkt nur in `kapitel`. Unter 1024 Breite
+  gibt es keine Box, das Feld wirkt dort nicht.
+- **Je Motiv der Sicherheit** `alt`, `quer` und `hoch`, `fokus` für das
+  Vollbild wie in `kapitel`. `quer` wie die Bühne: 16:9 in 1280, 1920, 2560
+  und 3200. `hoch` ist die Kachel am Handy in 4:3, wie die Wischreihe der
+  Startseite. `film` läuft am Desktop, `film_hoch` in der Kachel am Handy,
+  beide dürfen `null` sein. Jedes Motiv hat immer ein Standbild in `quer`
+  und `hoch`, auch wenn es als Film läuft (SL SEO 16177375). Ob dazu ein
+  Film läuft, entscheidet CC-Bilder je Motiv: nur, wenn er die Grenze aus
+  Punkt 3 hält.
+- **Je Karte der KI** `alt` und `hoch`. Eine Karte hat dasselbe Bild in jeder
   Fensterbreite, deshalb kein `quer`, kein `hochkant` und keinen Fokuspunkt.
-- Das Seitenverhältnis von `sicherheit` und `ki` legt der Entwurf der
-  Reihenseite fest (R2, 8153, nach E-233 mit dem Gesamtentwurf v2).
-  `verhaeltnis` in der Fassung `hoch` nennt es, der Shop setzt daraus `width`
-  und `height`.
+  Verhältnis 4:5, Filme und Standbilder 700 und 1400 breit, wie in der
+  Bauvorgabe v2.1.
+- `verhaeltnis` in der Fassung `hoch` nennt das Seitenverhältnis, der Shop
+  setzt daraus `width` und `height`.
 
 ### 3. Formate, Grenzen und Laden
 - **Wie Punkt 5 der Bühne:** `quer` 16:9, `hochkant` 9:19,5 in 780 und 1080,
@@ -561,11 +585,29 @@ nie in diesem Hub. Die Farbregel der Startseite gilt auch hier.
   dort. Quer und Hochkant sind ein `img` in einem `picture`.
 - **Keine Abdunklung im Medium (E-225, E-232).** Bilder und Filme kommen ohne
   eingebrannten Schleier oder Verlauf. Ist ein Film unten hell, dunkelt die
-  Seite per CSS-Token ab. Welches Token wo gilt, legt der Entwurf R2 fest.
+  Seite per CSS-Token ab. Nach dem Entwurf R2 gilt ab 1024 Breite die Box,
+  darunter `--sf-schleier-reihe` (DESIGN.md, Verläufe, E-238).
 - **Schriftzug im Bild (E-229, E-232):** Lesbare Texte in Oberflächen,
   Dialogen und Abspann, besonders englische, sind ausgeschlossen. Aufdrucke
   auf Gerät oder Chip, etwa Markenzeichen oder Prozessorname, und
   Bildschirminhalte, die man nicht lesen kann, zählen nicht als Schriftzug.
+- **Ausnahme englische Schrift (E-238):** Auf der Reihenseite dürfen genau
+  vier Medien von Microsoft eine englische Oberfläche zeigen: die drei Filme
+  der KI (`copilot-plus-pc`, `npu`, `copilot-m365`) und Motiv 4 der
+  Sicherheit (`bitlocker`). Sonst nirgends. Ihre Alternativtexte bleiben
+  deutsch, die englische Zeile wird nicht vorgelesen. Motiv 1 der Sicherheit
+  darf kurz ein blaues Gerät zeigen (E-238).
+- **Sicherheit, Grenzen von SL SEO:** Standbild `quer` 150 KB bei 1280,
+  250 KB bei 1920, 400 KB bei 2560, 600 KB bei 3200. `hoch` 100 KB bei 780
+  und 200 KB bei 1560. `film` quer höchstens 1920 breit und 2,5 MB,
+  `film_hoch` 720 breit und 1,2 MB, beide ohne Tonspur, höchstens 10 s, mit
+  Poster. Die Standbilder halten ihre Grenzen auch, wenn das Motiv als Film
+  läuft. Geladen wird nur das Motiv, das gerade dran ist: das erste, wenn
+  der Abschnitt ins Bild kommt, jedes weitere erst beim Wechsel
+  (SL SEO 16177375).
+- **KI:** Filme 700 breit, ohne Tonspur, mit Poster aus `hoch`, Grenzen der
+  Standbilder 100 KB bei 700 und 200 KB bei 1400. Die drei Filme starten
+  zusammen, wenn ihre Reihe ins Bild kommt, nicht vorher.
 - **Ausnahme Hero:** Der Poster ist das LCP-Bild. Er lädt ohne `lazy`, mit
   `fetchpriority="high"`, als `img` im `picture`, nie als Hintergrund im CSS.
   Grenzen: 120 KB bei 1280, 200 KB bei 1920, 100 KB hochkant. Die Quelle des
@@ -585,12 +627,20 @@ nie in diesem Hub. Die Farbregel der Startseite gilt auch hier.
 - **`hochkant` ist `null`:** das Bild aus `quer` gilt auch im Hochformat.
   **`film_hochkant` ist `null`:** im Hochformat läuft kein Film, das Bild
   bleibt. **`film` ist `null`:** es steht das Bild.
+- **Sicherheit:** Fehlt ein Motiv, steht sein Punkt in der Box ohne
+  Wechsel des Motivs, das vorige bleibt stehen. Fehlen alle, steht der
+  Abschnitt auf `surface-deep`. `film_hoch` `null`: die Kachel zeigt `hoch`.
 - **Unbekannte `id`:** wird nicht gezeigt.
 
 ### 5. VideoObject
-- Auf den Reihenseiten ist ein VideoObject erlaubt, auf der Startseite nicht
-  (Punkt 5 der Bühne).
-- Je Film fünf Angaben für das VideoObject: Titel (`name`), Beschreibung
+- **Nur für `hero` und `rampenlicht` (E-238, SL SEO 16177205).** Die Filme
+  in `kapitel`, `sicherheit` und `ki` bekommen keines, auch wenn sie die
+  Angaben unten tragen. Auf der Startseite gibt es keines (Punkt 5 der
+  Bühne).
+- **Pflicht nur in `hero` und `rampenlicht` (SL SEO 16177375).** Die Filme
+  in `kapitel`, `sicherheit` und `ki` brauchen `name`, `beschreibung` und
+  `datum` nicht.
+- Je Film in `hero` und `rampenlicht` fünf Angaben für das VideoObject: Titel (`name`), Beschreibung
   (`beschreibung`), Datum der Veröffentlichung (`datum`, ISO-Datum), Dauer
   (`dauer_s`, der Shop schreibt sie als ISO-Dauer, etwa `PT12S`) und Poster
   (`poster`, der Shop schreibt die absolute Adresse). Dazu `datei` als Adresse des Films.

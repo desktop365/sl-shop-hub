@@ -1,6 +1,6 @@
 # Routen und SEO (surface.love)
 
-Fassung 2, Stand 27.11.2026, R1 (8152) und SEO10 Teil 2 (8143). Grundlage: E-174, E-176, E-180, E-186, E-215, E-217, E-219, E-228, E-230, E-231, S14 (C9), S16 (Livegang), S17 (Warenkorb), Vertragstext von CC-SEO (SEO05, 8138).
+Fassung 2, Stand 27.11.2026, R1 (8152) und SEO10 Teil 2 (8143). Grundlage: E-174, E-176, E-180, E-186, E-215, E-217, E-219, E-228, E-230, E-231, E-234, S14 (C9), S16 (Livegang), S17 (Warenkorb), Vertragstext von CC-SEO (SEO05, 8138).
 Fassung 1 vom 25.11.2026, W3 (8097), abgeglichen gegen Shop-`main` `0786e2e`, den Zweig `s17-warenkorb` und `https://surface.love/sitemap.xml` (26 Adressen) am 25.11.2026.
 
 ## 0. Geltung
@@ -20,7 +20,7 @@ Fassung 1 vom 25.11.2026, W3 (8097), abgeglichen gegen Shop-`main` `0786e2e`, de
 | `http://` auf jedem Host oben | unverschlüsselt | nein | dauerhaft auf `https://surface.love` mit dem Endziel, in höchstens zwei Sprüngen: zuerst hebt der Hoster auf https, dann leitet der Shop auf die kanonische Adresse. „HTTPS erzwingen“ beim Hoster bleibt eingeschaltet. Mehr als zwei Sprünge sind ein Fehler (E-231, ändert E-219 für http) |
 | `worklove.shop`, `www.worklove.shop` | frühere Domain | nein | 301 auf `https://surface.love/de`, beim Hoster, nicht im Shop (Entscheidung vom 06.09.2026) |
 | `cms.surface.love` | Bilder des alten Shops | nein | ohne DNS-Eintrag, keine Weiterleitung |
-| `surface-service.com`, `www.surface-service.com` | Domain für „Surface as a Service“ (E-228) | nein | als Ganzes dauerhaft auf die Zielseite „Device as a Service“ im Shop, über http und https, in einem Sprung, beim Hoster. **Die Adresse der Zielseite ist offen** (Abschnitt 2). Bis die Zielseite live ist, bleibt die Domain, wie sie ist. Ihre robots.txt sperrt den Abruf nicht, sonst folgt Google der Weiterleitung nicht |
+| `surface-service.com`, `www.surface-service.com` | Domain für „Surface as a Service“ (E-228) | nein | als Ganzes dauerhaft auf die Zielseite „Device as a Service“ im Shop, `/de/device-as-a-service` (E-234), über http und https, in einem Sprung, beim Hoster. Bis die Zielseite live ist, bleibt die Domain, wie sie ist. Ihre robots.txt sperrt den Abruf nicht, sonst folgt Google der Weiterleitung nicht |
 
 ## 2. Adressen, Deutsch
 Jede öffentliche Adresse trägt die Sprache als erstes Segment. Aktiv ist nur `de`.
@@ -40,6 +40,7 @@ Jede öffentliche Adresse trägt die Sprache als erstes Segment. Aktiv ist nur `
 | `/de/stories/kategorie/{slug}` | Kategorie | ja | selbst | ja | Sanity |
 | `/de/stories/{slug}` | Beitrag | ja | selbst | ab E-167, Punkt 5 | Sanity |
 | `/de/impressum`, `/de/datenschutz`, `/de/agb`, `/de/widerruf` | Rechtstexte | ja | selbst | ja | |
+| `/de/device-as-a-service` | Zielseite „Device as a Service“, geplant (E-228, E-234) | ja | selbst | ja | |
 | `/de/lizenzen/{slug}`, `/de/leistungen/{slug}` | Produktseiten der Bausteine, Abschnitt 3 | ja | selbst | ja | `slug` in `seiten` von `bausteine.json` |
 | `/de/lizenzen`, `/de/leistungen` | noch keine Seite (Stufe 2) | 404 | keine | nein | |
 | `/de/bausteine` | Bausteintafel, nur intern | nein, nofollow | keine | nein | |
@@ -50,7 +51,7 @@ Pfade ohne Sprache leiten auf `/de` weiter, siehe Abschnitt 8. `/en/…` ist vor
 
 **Reihe und Modell teilen sich das Segment `/de/geraete/`.** Ein Reihenschlüssel ist nie zugleich ein Modellschlüssel. Ein neuer Modellschlüssel in `modelle.json` darf keinem Reihenschlüssel gleichen, und umgekehrt (MODELLE.md, Abschnitt Reihen). Surface Laptop Ultra gehört zur Reihe `surface-laptop`, die 12- und 13-Zoll-Modelle gehören zu `surface-pro` und `surface-laptop`.
 
-**Offen: Zielseite „Device as a Service“ (E-228).** Eine indexierte Seite mit Kanonik auf sich selbst und Eintrag in der Sitemap. Sie nennt „Surface as a Service“ deutlich, im Titel oder in der H1 und im Text, und wirbt mit Monatsraten, nie mit Kaufpreisen. **Die Adresse ist offen,** Sascha entscheidet sie vor dem Bau. Sie wird dann in die Tabelle oben eingetragen, vorher wird nichts gebaut und `surface-service.com` leitet nicht weiter.
+**Zielseite „Device as a Service“ (E-228, E-234).** Sie liegt unter `/de/device-as-a-service`. Die Adresse ist endgültig und wird nach der Veröffentlichung nicht umbenannt. Eine indexierte Seite mit Kanonik auf sich selbst und Eintrag in der Sitemap. Sie nennt „Surface as a Service“ deutlich, im Titel oder in der H1 und im Text, und wirbt mit Monatsraten, nie mit Kaufpreisen. Bis die Seite live ist, leitet `surface-service.com` nicht weiter. Offen sind der Wortlaut (Auftrag an CC-Marketing beim Bau) und das Aussehen (nach E-233 mit dem Gesamtentwurf v2), nicht die Adresse.
 
 **Brotkrumen:** Start › Geräte › Reihe › Modell. Die Reihenseite endet bei der Reihe, die Modellseite führt über ihre Reihenseite. Bis die Reihenseiten live sind, entfällt die Stufe Reihe, nach Regel 4.5 verlinkt keine Brotkrume eine Adresse, die es noch nicht gibt oder die weiterleitet.
 
@@ -120,7 +121,7 @@ Fertig gestellt am 27.11.2026 nach dem Vertragstext von CC-SEO (SEO05, 8138). Gr
 | `worklove.shop/*`, `www.worklove.shop/*` | `https://surface.love/de` | 301 | pauschal | Hoster |
 | `{at,de,dk,es,fr,uk}.surface.love/*` | `https://surface.love/de` | 301 | pauschal | Kante |
 | `blog.surface.love/*`, `stories.surface.love/*` | `https://surface.love/de/stories` | 301 | pauschal | Kante |
-| `surface-service.com/*`, `www.surface-service.com/*`, über http und https | die Zielseite „Device as a Service“, **Adresse offen** (Abschnitt 2) | 301 | pauschal, erst wenn die Zielseite live ist (E-228) | Hoster |
+| `surface-service.com/*`, `www.surface-service.com/*`, über http und https | `/de/device-as-a-service` (E-234) | 301 | pauschal, erst wenn die Zielseite live ist (E-228) | Hoster |
 | `/de/katalog` | `/de/geraete` | 308 | einzeln | Shop, `next.config.mjs` |
 | `/de/konfigurator` | `/de/geraete` | 301 | einzeln | Shop, `next.config.mjs` |
 | `/de/konfigurator/{reihe-generation}` | die Reihenseite: `surface-pro…` auf `/de/geraete/surface-pro`, `surface-laptop…` auf `/de/geraete/surface-laptop`. Bis die Reihenseiten live sind, `/de/geraete` | 301 | Muster | Shop, `next.config.mjs` |
@@ -180,7 +181,7 @@ Die Liste ist damit fertig. Die Zeilen der Fassung 1 mit „seit“ stehen in de
 - **Der Block ist abschaltbar.** Meldet Google einen Verstoß oder eine manuelle Maßnahme, geht er sofort auf Weg B ohne Preis zurück, ohne neue Entscheidung.
 - Lizenzen bleiben ohne Preis. Managed Workplace trägt die eigene Rate aus `bausteine.json`.
 - Titel und Beschreibung der Modellseite sagen unmissverständlich, dass es um Leasing zur Monatsrate geht. Die Rate selbst steht dort nicht (siehe oben).
-- Für die Reihenseiten ist kein Product-Block entschieden. Sie tragen Brotkrumen und VideoObject (IMAGES.md, Nachtrag Reihenseiten, Punkt 5), einen Product-Block erst nach einer eigenen Entscheidung.
+- Die Reihenseiten tragen keinen Product-Block, E-230 gilt nur für die Modellseiten (bestätigt von SL SEO an 8152). Sie tragen CollectionPage, ItemList und BreadcrumbList wie im Vertragstext SEO05, dazu VideoObject (IMAGES.md, Nachtrag Reihenseiten, Punkt 5).
 
 ## 10. Search Console
 - **Property:** `surface.love` als Domain-Property. Zugang hat Sascha.

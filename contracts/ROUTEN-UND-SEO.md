@@ -1,6 +1,6 @@
 # Routen und SEO (surface.love)
 
-Fassung 2, Stand 27.11.2026, R1 (8152) und SEO10 Teil 2 (8143). Grundlage: E-174, E-176, E-180, E-186, E-215, E-217, E-219, S14 (C9), S16 (Livegang), S17 (Warenkorb), Vertragstext von CC-SEO (SEO05, 8138).
+Fassung 2, Stand 27.11.2026, R1 (8152) und SEO10 Teil 2 (8143). Grundlage: E-174, E-176, E-180, E-186, E-215, E-217, E-219, E-228, E-230, E-231, S14 (C9), S16 (Livegang), S17 (Warenkorb), Vertragstext von CC-SEO (SEO05, 8138).
 Fassung 1 vom 25.11.2026, W3 (8097), abgeglichen gegen Shop-`main` `0786e2e`, den Zweig `s17-warenkorb` und `https://surface.love/sitemap.xml` (26 Adressen) am 25.11.2026.
 
 ## 0. Geltung
@@ -17,9 +17,10 @@ Fassung 1 vom 25.11.2026, W3 (8097), abgeglichen gegen Shop-`main` `0786e2e`, de
 | jede unbekannte Adresse, etwa eine Vorschau des Hosters | keine | nein | wie Testdomain |
 | Länder `at`, `de`, `dk`, `es`, `fr`, `uk` unter surface.love | Altadressen | nein | 301 auf `https://surface.love/de`, an der Kante (E-176) |
 | `blog` und `stories` unter surface.love | Altadressen | nein | 301 auf `https://surface.love/de/stories` ohne Pfad, an der Kante (E-176) |
-| `http://` auf jedem Host oben | unverschlüsselt | nein | 301 auf `https://surface.love` mit dem Endziel, in einem Sprung (E-219) |
+| `http://` auf jedem Host oben | unverschlüsselt | nein | dauerhaft auf `https://surface.love` mit dem Endziel, in höchstens zwei Sprüngen: zuerst hebt der Hoster auf https, dann leitet der Shop auf die kanonische Adresse. „HTTPS erzwingen“ beim Hoster bleibt eingeschaltet. Mehr als zwei Sprünge sind ein Fehler (E-231, ändert E-219 für http) |
 | `worklove.shop`, `www.worklove.shop` | frühere Domain | nein | 301 auf `https://surface.love/de`, beim Hoster, nicht im Shop (Entscheidung vom 06.09.2026) |
 | `cms.surface.love` | Bilder des alten Shops | nein | ohne DNS-Eintrag, keine Weiterleitung |
+| `surface-service.com`, `www.surface-service.com` | Domain für „Surface as a Service“ (E-228) | nein | als Ganzes dauerhaft auf die Zielseite „Device as a Service“ im Shop, über http und https, in einem Sprung, beim Hoster. **Die Adresse der Zielseite ist offen** (Abschnitt 2). Bis die Zielseite live ist, bleibt die Domain, wie sie ist. Ihre robots.txt sperrt den Abruf nicht, sonst folgt Google der Weiterleitung nicht |
 
 ## 2. Adressen, Deutsch
 Jede öffentliche Adresse trägt die Sprache als erstes Segment. Aktiv ist nur `de`.
@@ -48,6 +49,8 @@ Jede öffentliche Adresse trägt die Sprache als erstes Segment. Aktiv ist nur `
 Pfade ohne Sprache leiten auf `/de` weiter, siehe Abschnitt 8. `/en/…` ist vorbereitet und leitet bis zur Freigabe des Markts auf die deutsche Fassung.
 
 **Reihe und Modell teilen sich das Segment `/de/geraete/`.** Ein Reihenschlüssel ist nie zugleich ein Modellschlüssel. Ein neuer Modellschlüssel in `modelle.json` darf keinem Reihenschlüssel gleichen, und umgekehrt (MODELLE.md, Abschnitt Reihen). Surface Laptop Ultra gehört zur Reihe `surface-laptop`, die 12- und 13-Zoll-Modelle gehören zu `surface-pro` und `surface-laptop`.
+
+**Offen: Zielseite „Device as a Service“ (E-228).** Eine indexierte Seite mit Kanonik auf sich selbst und Eintrag in der Sitemap. Sie nennt „Surface as a Service“ deutlich, im Titel oder in der H1 und im Text, und wirbt mit Monatsraten, nie mit Kaufpreisen. **Die Adresse ist offen,** Sascha entscheidet sie vor dem Bau. Sie wird dann in die Tabelle oben eingetragen, vorher wird nichts gebaut und `surface-service.com` leitet nicht weiter.
 
 **Brotkrumen:** Start › Geräte › Reihe › Modell. Die Reihenseite endet bei der Reihe, die Modellseite führt über ihre Reihenseite. Bis die Reihenseiten live sind, entfällt die Stufe Reihe, nach Regel 4.5 verlinkt keine Brotkrume eine Adresse, die es noch nicht gibt oder die weiterleitet.
 
@@ -98,15 +101,16 @@ Entschieden von Sascha am 25.11.2026. Es gibt zwei Segmente, die Slugs tragen de
 Fertig gestellt am 27.11.2026 nach dem Vertragstext von CC-SEO (SEO05, 8138). Grundsätze:
 
 - **Ein Sprung.** Jede Weiterleitung zeigt direkt auf das Endziel, absolut mit `https://surface.love`. Kein Ziel leitet selbst weiter (E-219).
+- **Ausnahme http (E-231):** Eine `http://`-Adresse kommt in höchstens zwei dauerhaften Sprüngen an, zuerst Hoster auf https, dann Shop auf das Endziel. Für `https://` bleibt es bei einem Sprung.
 - **Dauerhaft.** 301 oder 308. 307 gibt es nur noch vorläufig: für `/en/…` bis zur Freigabe des Markts und für Pfade ohne Sprache bis zur Sprachwahl.
 - **Reihenfolge im Shop:** erst Host und Protokoll, dann die Altpfade, dann Kleinschreibung, dann die Sprache. Die Altpfade werden vor der Kleinschreibung geprüft, weil sie Großbuchstaben tragen können.
 - **Altpfade** des alten Shops haben die Form `/{kultur}/{markt}/…`, etwa `/de-de/deutschland/…` oder `/en-gb/united-kingdom/…`. Die Regeln gelten für jede Kultur und jeden Markt und unter `surface.love` wie unter `www.surface.love`.
-- **410** steht nur dort, wo es kein passendes Ziel gibt. Der Grund steht in der Zeile.
+- **410** steht nur bei den benannten Altmustern in der Tabelle, mit Grund in der Zeile. Jede andere unbekannte Adresse bleibt 404.
 - Eine pauschale Weiterleitung ist in der Spalte „Art“ markiert.
 
 | Quelle | Ziel | Code | Art | Ort |
 |---|---|---|---|---|
-| `http://surface.love/{pfad}`, `http://www.surface.love/{pfad}` | `https://surface.love/{pfad}`, Endziel nach den Zeilen unten | 301 | Muster | Shop (`proxy.ts`), beim Hoster ist das Erzwingen von HTTPS dann aus. Bis dahin beim Hoster |
+| `http://surface.love/{pfad}`, `http://www.surface.love/{pfad}` | zuerst `https://` mit demselben Host und Pfad, dann das Endziel nach den Zeilen unten | dauerhaft | Muster, höchstens zwei Sprünge (E-231) | erst Hoster („HTTPS erzwingen“ bleibt an), dann Shop, `proxy.ts` |
 | `https://www.surface.love/{pfad}` | `https://surface.love/{pfad}`, Endziel nach den Zeilen unten | 308 | Muster | Shop, `proxy.ts` |
 | `https://surface.love/` | `https://surface.love/de` | 308 | einzeln | Shop, `proxy.ts` |
 | Pfad mit Großbuchstaben, etwa `/DE/geraete` | derselbe Pfad klein geschrieben | 308 | Muster | Shop, `proxy.ts` |
@@ -116,13 +120,14 @@ Fertig gestellt am 27.11.2026 nach dem Vertragstext von CC-SEO (SEO05, 8138). Gr
 | `worklove.shop/*`, `www.worklove.shop/*` | `https://surface.love/de` | 301 | pauschal | Hoster |
 | `{at,de,dk,es,fr,uk}.surface.love/*` | `https://surface.love/de` | 301 | pauschal | Kante |
 | `blog.surface.love/*`, `stories.surface.love/*` | `https://surface.love/de/stories` | 301 | pauschal | Kante |
+| `surface-service.com/*`, `www.surface-service.com/*`, über http und https | die Zielseite „Device as a Service“, **Adresse offen** (Abschnitt 2) | 301 | pauschal, erst wenn die Zielseite live ist (E-228) | Hoster |
 | `/de/katalog` | `/de/geraete` | 308 | einzeln | Shop, `next.config.mjs` |
 | `/de/konfigurator` | `/de/geraete` | 301 | einzeln | Shop, `next.config.mjs` |
 | `/de/konfigurator/{reihe-generation}` | die Reihenseite: `surface-pro…` auf `/de/geraete/surface-pro`, `surface-laptop…` auf `/de/geraete/surface-laptop`. Bis die Reihenseiten live sind, `/de/geraete` | 301 | Muster | Shop, `next.config.mjs` |
 | `/de/ausstattung` ohne Parameter | `/de/geraete` | 308 | einzeln | Shop, Seite `ausstattung` |
 | `/{kultur}/{markt}/` und `/{kultur}/` | `/de` | 301 | pauschal auf die Startseite | Shop, `proxy.ts` |
-| Zubehör: `…/{boutique/accessoires, shop/zubehoer, store/accessories, winkel/accessoires, butik/tilbehoer, tienda/accesorios}/…`, auch Filter und Detailseiten | `/de/geraete` | 301 | pauschal, mit W8 auf die Zubehörseite umstellen (E-215) | Shop, `proxy.ts` |
-| Zubehör unter der alten Produktliste: `…/{shop/produkte, store/products, shop/geraete, store/devices, boutique/appareils}/…/{name}`, wenn der Name kein Gerät ist | `/de/geraete` | 301 | pauschal, mit W8 umstellen (E-215) | Shop, `proxy.ts` |
+| Zubehör: `…/{boutique/accessoires, shop/zubehoer, store/accessories, winkel/accessoires, butik/tilbehoer, tienda/accesorios}/…`, auch Filter und Detailseiten | `/de/geraete` | 301 | pauschal, gilt nur bis zum Bau von W8. Danach zeigen die Regeln auf die Zubehörseiten (E-215) | Shop, `proxy.ts` |
+| Zubehör unter der alten Produktliste: `…/{shop/produkte, store/products, shop/geraete, store/devices, boutique/appareils}/…/{name}`, wenn der Name kein Gerät ist | `/de/geraete` | 301 | pauschal, gilt nur bis zum Bau von W8. Danach zeigen die Regeln auf die Zubehörseiten (E-215) | Shop, `proxy.ts` |
 | Gerät Surface Pro: Name `surface_pro{zahl}` oder `surface_pro_x` | `/de/geraete/surface-pro`, bis dahin `/de/geraete` | 301 | Muster | Shop, `proxy.ts` |
 | Gerät Surface Laptop: Name `surface_laptop…` | `/de/geraete/surface-laptop`, bis dahin `/de/geraete` | 301 | Muster | Shop, `proxy.ts` |
 | Gerät ohne Angebot: `surface_go…`, `surface_studio…`, `surface_book…`, `surface_duo…` | `/de/geraete` | 301 | pauschal | Shop, `proxy.ts` |
@@ -140,7 +145,7 @@ Fertig gestellt am 27.11.2026 nach dem Vertragstext von CC-SEO (SEO05, 8138). Gr
 | Inhaltsseiten ohne Gegenstück: `…/{ueber-uns, about-us, vorteile, advantages, voordelen, faq, kontakt, contact, bestell-ablauf, order-process, market-info, markt-info, market-and-culture, sprache-waehlen}` | `/de` | 301 | pauschal auf die Startseite | Shop, `proxy.ts` |
 | `…/{bildung, education}` | keins | 410 | Muster. Grund: kein Angebot für Bildung | Shop, `proxy.ts` |
 | `…/{karriere, careers}` und Stellenanzeigen | keins | 410 | Muster. Grund: keine Stellenseite | Shop, `proxy.ts` |
-| jeder übrige Pfad unter `/{kultur}/…` | keins | 410 | Auffangregel. Grund: alte Konto-, Warenkorb- und Systemseiten ohne Gegenstück | Shop, `proxy.ts` |
+| jeder übrige Pfad unter `/{kultur}/…` | keins | 404 | Auffangregel. Kein 410: 410 gilt nur für die benannten Altmuster oben, jede andere unbekannte Adresse bleibt 404 | Shop, Fehlerseite |
 
 **Liste L, Lizenzen des alten Shops nach Name im Pfad**
 
@@ -169,6 +174,13 @@ Die Liste ist damit fertig. Die Zeilen der Fassung 1 mit „seit“ stehen in de
 | Stories, Kategorie, Beitrag | Sanity, Felder der Seite | Sanity |
 | Rechtstexte, Impressum | Titel des Texts | eigener Schlüssel in `content/de/recht.json` |
 | noindex-Seiten | Schlüssel der Seite | keine Pflicht |
+
+**Strukturierte Daten, Product-Block der Modellseiten (E-230):**
+- `lowPrice` im `AggregateOffer` ist die sichtbare Rate der Seite, „ab … netto im Monat“ aus `rateFrom.net` des Shops. Nie ein anderes Minimum, nie von Hand gesetzt (E-029, E-030, E-099). Dazu eine `UnitPriceSpecification` mit Monat und Laufzeit.
+- **Der Block ist abschaltbar.** Meldet Google einen Verstoß oder eine manuelle Maßnahme, geht er sofort auf Weg B ohne Preis zurück, ohne neue Entscheidung.
+- Lizenzen bleiben ohne Preis. Managed Workplace trägt die eigene Rate aus `bausteine.json`.
+- Titel und Beschreibung der Modellseite sagen unmissverständlich, dass es um Leasing zur Monatsrate geht. Die Rate selbst steht dort nicht (siehe oben).
+- Für die Reihenseiten ist kein Product-Block entschieden. Sie tragen Brotkrumen und VideoObject (IMAGES.md, Nachtrag Reihenseiten, Punkt 5), einen Product-Block erst nach einer eigenen Entscheidung.
 
 ## 10. Search Console
 - **Property:** `surface.love` als Domain-Property. Zugang hat Sascha.

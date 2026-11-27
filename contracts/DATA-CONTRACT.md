@@ -44,7 +44,7 @@ Ausnahme: Ist für ein Produkt keine Rate berechenbar, ist `rates.leasing` leer 
 - `specs`, nur bei `category` `"geraet"`. Jeder Schlüssel steht nur mit sicherem Wert da:
   - `model`, Modellschlüssel aus der gepflegten Tabelle, siehe MODELLE.md
   - `platform`, `intel`, `snapdragon` oder `nvidia`
-  - `family`, Slug der Gerätereihe: `surface-pro`, `surface-laptop`, `surface-laptop-studio`, `surface-laptop-ultra`, `surface-laptop-go`, `surface-go`, `surface-studio`, `surface-hub`
+  - `family`, Slug der Gerätefamilie, nicht die Reihe der Reihenseiten (MODELLE.md, Begriffe): `surface-pro`, `surface-laptop`, `surface-laptop-studio`, `surface-laptop-ultra`, `surface-laptop-go`, `surface-go`, `surface-studio`, `surface-hub`
   - `generation`, Zeichenkette, die Edition, wie Microsoft sie zählt, etwa `"8"` beim Surface Laptop (8. Edition) oder `"2"` beim Surface Pro 12 Zoll (2. Edition)
   - `size_inch`, Zahl
   - `cpu`, voller Name, eindeutig je Wahlmöglichkeit im Modell, etwa `"Intel Core Ultra 7 366H"`, `"Snapdragon X2 Plus (10 Kerne)"`, `"NVIDIA RTX Spark N1X (20 Kerne, 6144 GPU-Kerne)"`

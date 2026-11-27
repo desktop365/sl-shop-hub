@@ -1612,7 +1612,7 @@ Zustände:
 | Ziehen | `pointerdown` auf `.trk` | Nächster Stop rastet, `recompute(host,false)`, beim Loslassen `recompute(host,true)` |
 | Tastatur | Pfeil links, rechts auf `.stop` | Wechsel plus `focus()`, Fokus unsichtbar an `.stop.on`, siehe Fokusring |
 | Stufen | `TERMS` | 24, 36, 48 Monate, Voreinstellung 48. Die beworbene ab-Rate ist die 48-Monats-Rate. Die Pipeline liefert auch 60 und 72, der Shop blendet sie aus |
-| Überschrift | `.now` | „Leasing, 48 Monate“ |
+| Überschrift | `.now` | „Laufzeit 48 Monate“, im Shop `config.termNow` mit „Laufzeit {term} Monate“ (E-240, M11) |
 | Satz darunter | `[data-saving]` | „Bei n Monaten zahlen Sie x € weniger im Monat.“ oder „Längste Laufzeit, x € günstiger als bei n Monaten.“ |
 | Rand | `.first`, `.last` | Beschriftung links- und rechtsbündig |
 

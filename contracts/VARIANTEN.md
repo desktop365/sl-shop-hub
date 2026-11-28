@@ -20,7 +20,9 @@ Zubehör bleibt einstufig.
   mehr passt, wird nur dieser zurückgesetzt, mit sichtbarem Hinweis.
 - Verfügbarkeit steht an jeder Ausführung (SICHTBARKEIT.md).
 - Copilot+ PC steht an jeder Ausführung, die `copilot_plus` trägt, und am
-  Prozessor, wenn alle seine Ausführungen es tragen.
+  Prozessor, wenn alle seine Ausführungen es tragen. An der Modellkarte steht
+  es nur, wenn alle gelisteten Ausführungen des Modells es tragen (E-244,
+  MODELLE.md).
 
 ## Herkunft der Struktur
 Der Feed liefert flache Artikel je MSKU. Die Zuordnung MSKU zu Modell und

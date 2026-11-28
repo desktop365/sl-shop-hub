@@ -2405,7 +2405,7 @@ Bewegung: keine.
 
 ## Reihenseite
 
-Die Reihenseiten `/de/geraete/{reihe}` folgen der Bauvorgabe R2 v2.1 von Claude Design (8153), gewählt von Sascha am Bild (E-238). Hier stehen nur die Bausteine, die der Hub festlegt. Box und Schleier in Dunkelblau sind eine Ausnahme von E-225 nur für diese Seite (`DESIGN.md`, Verläufe). Medien und Feld `box` in `contracts/IMAGES.md`, Nachtrag Reihenseiten, Texte in `contracts/MODELLE.md`, Texte der Reihenseite.
+Die Reihenseiten `/de/geraete/{reihe}` folgen der Bauvorgabe R2 v2.1 von Claude Design (8153), gewählt von Sascha am Bild (E-238). Surface Laptop folgt dazu der Bauvorgabe R7 v1 (8164, E-244). An der H1 gilt für beide Reihen die Bauvorgabe Surface Pro v2.2. Hier stehen nur die Bausteine, die der Hub festlegt. Box und Schleier in Dunkelblau sind eine Ausnahme von E-225 nur für diese Seite (`DESIGN.md`, Verläufe). Medien und Feld `box` in `contracts/IMAGES.md`, Nachtrag Reihenseiten, Texte in `contracts/MODELLE.md`, Texte der Reihenseite.
 
 ### Bühne mit zwei Gesichtern (Vollbild-Bühne aus G9, Startseite und Reihenseite)
 Ein Baustein, zwei Varianten. Mechanik wie die Bühne aus G9: Fläche klebt, ein Schritt je Folie, Wechsel über Deckkraft, Fortschritt und Pausenknopf, kein Scroll-Ereignis. Medien, Fokus und Laden wie in `IMAGES.md`, Nachtrag Startseite, Punkt 5.
@@ -2449,6 +2449,35 @@ Text frei auf Bild und Film, darunter `--sf-schleier-reihe`.
 
 ### Abschlussband (Reihenseite)
 Band in `--surface-deep` vor den Fußnoten, Schrift `--on-deep`. H2 aus `abschluss.h2`, eine Zeile aus `abschluss.zeile` mit der Rate, Knopf aus `abschluss.knopf` in `--action` zu `#modelle`. Fehlt der Block `abschluss`, steht kein Band. Fehlt die Rate, entfällt die Zeile.
+
+### H1 im Hero (E-244, Bauvorgabe Surface Pro v2.2)
+Die H1 aus `hero.h1` ist ein einziges Element. Sie darf am Handy und in der Box in zwei Zeilen stehen und bricht nur nach dem Namen der Reihe um.
+
+- Beginnt `hero.h1` mit `titel` der Reihe (MODELLE.md, Reihen), setzt der Shop den Namen der Reihe und den Rest je in ein `span` in derselben H1, jedes mit `white-space: nowrap`. Zwischen beiden steht ein normales Leerzeichen. So steht nie ein einzelnes Wort in der zweiten Zeile.
+- Die ganze H1 trägt nie `white-space: nowrap`. Die Regel „H1 am Handy in einer Zeile“ aus v2.1 entfällt, für Surface Pro und Surface Laptop.
+- Beginnt `hero.h1` nicht mit dem Namen der Reihe, steht sie ohne Teilung und bricht frei um.
+- Größe: unter 1024 Breite wie in der Vorlage, unter 360 Breite eine Stufe kleiner (Bauvorgabe v2.2), ab 1024 Breite `--sf-text-box-h1`. Kein neues Token.
+- Für die Suche bleibt es eine H1 mit dem ganzen Text (SL SEO 16181272).
+
+### Modellwahl mit Gruppen und Lizenzkarte (E-244)
+Daten und Regeln in `contracts/MODELLE.md`, Reihen und Texte der Reihenseite.
+
+- **Ohne Gruppen** (Surface Pro): wie bisher.
+- **Mit Gruppen** (Surface Laptop): ein Raster für alle Gruppen. Die H3 der Gruppen stehen in Zeile 1, je mit einer Linie darüber, die ersten Karten in Zeile 2, die zweiten in Zeile 3. Bild, Name, Rate und Knöpfe fluchten über die Spalten. Abstand der Kartenzeilen 40 px, fester Wert, kein Token.
+- **Unter 768 Breite:** Gruppen untereinander, jede mit ihrer H3, Karten flach wie in der Vorlage.
+- **Lizenzkarte:** Aufbau wie eine Modellkarte, Bildfeld in `--surface-raised`, Etikett, Titel als H4 mit dem Link über die ganze Karte, Zeile, Satz, Knopf in der zweiten Stufe. Keine Rate, kein „Konfigurieren“. Klick auf Bild und Text trifft den Link im Titel, Klick auf den Knopf den Knopf. Unter 768 Breite nur das Standbild.
+
+### Vergleich mit mehr als drei Modellen (E-244)
+- Fünf Spalten stehen ab 1280 Breite nebeneinander. Von 768 bis 1279 Breite und am Handy wischt man zur Seite.
+- Im Kopf der Spalte steht die Plattform in einer eigenen Zeile unter dem Namen. Rate und Knöpfe fluchten über alle Spalten.
+- Eine Zeile ohne Wert bei allen Modellen entfällt (`contracts/MODELLE.md`).
+
+### Kacheln der Geräteübersicht (E-244)
+Drei Kacheln oben auf `/de/geraete`, unter der H1 der Seite, über „Alle Modelle“ (H2). Texte in `contracts/MODELLE.md`, Kacheln, Bilder in `contracts/IMAGES.md`, Nachtrag Reihenseiten, Punkt 7.
+
+- Jede Kachel ist ein echter Link. Der Name ist eine H2 mit dem Link darin, der Link spannt sich über die Kachel. Darunter die Zeile mit der Rate.
+- Ab 1280 Breite drei nebeneinander. Von 768 bis 1279 Breite sind die Zeilen für Name, Rate und Link fest reserviert, der Link trägt `kurz`. Am Handy flache Kacheln untereinander, Bild links.
+- Keine Kachel ist ein Film.
 
 ## Surface Stories
 

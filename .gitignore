@@ -3,6 +3,9 @@
 .env.*
 *.key
 *.pem
+*.json.key
+gsc-*.json
+*-sa.json
 secrets/
 node_modules/
 __pycache__/
@@ -11,3 +14,6 @@ __pycache__/
 dist/
 
 *.zip
+
+# lokale MCP-Einstellungen, nie ins öffentliche Hub
+.mcp.json

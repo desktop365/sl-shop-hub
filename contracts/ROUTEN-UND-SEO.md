@@ -1,6 +1,6 @@
 # Routen und SEO (surface.love)
 
-Fassung 2, Stand 27.11.2026, R1 (8152), SEO10 Teil 2 (8143) und R1b (8163). Grundlage: E-174, E-176, E-180, E-186, E-215, E-217, E-219, E-228, E-230, E-231, E-234, E-238, E-240, E-242, E-243, S14 (C9), S16 (Livegang), S17 (Warenkorb), Vertragstext von CC-SEO (SEO05, 8138).
+Fassung 2, Stand 28.11.2026, R1 (8152), SEO10 Teil 2 (8143), R1b (8163) und R13 (8183, E-254). Grundlage: E-174, E-176, E-180, E-186, E-215, E-217, E-219, E-228, E-230, E-231, E-234, E-238, E-240, E-242, E-243, S14 (C9), S16 (Livegang), S17 (Warenkorb), Vertragstext von CC-SEO (SEO05, 8138).
 Fassung 1 vom 25.11.2026, W3 (8097), abgeglichen gegen Shop-`main` `0786e2e`, den Zweig `s17-warenkorb` und `https://surface.love/sitemap.xml` (26 Adressen) am 25.11.2026.
 
 ## 0. Geltung
@@ -28,7 +28,8 @@ Jede öffentliche Adresse trägt die Sprache als erstes Segment. Aktiv ist nur `
 |---|---|---|---|---|---|
 | `/de` | Startseite | ja | selbst | ja | |
 | `/de/geraete` | Geräteübersicht, Reiter mit `?reihe=` | ja | selbst, ohne Parameter | ja | |
-| `/de/geraete/{reihe}`, also `/de/geraete/surface-pro` und `/de/geraete/surface-laptop` | Reihenseite, geplant (E-217) | ja | selbst | ja | `key` in `reihen` von `modelle.json`, Texte aus `content/de/reihen/{reihe}.json` |
+| `/de/geraete/{reihe}`, also `/de/geraete/surface-pro` und `/de/geraete/surface-laptop` | Reihenseite (E-217) | ja | selbst | ja | `key` in `reihen` von `modelle.json`, Texte aus `content/de/reihen/{reihe}.json` |
+| `/de/geraete/surface-laptop-ultra` | Reihenseite, geplant (E-254). Werte im Abschnitt „Reihenseite Surface Laptop Ultra“ unten | nach SL SEO | nach SL SEO | nach SL SEO | wie oben, Reihenschlüssel `surface-laptop-ultra` |
 | `/de/geraete/{modell}` | Modellseite | ja | selbst | ja | `key` in `modelle.json` |
 | `/de/geraete/{modell}/konfigurieren` | Zusammenstellung | nein, follow | keine | nein | wie Modellseite |
 | `/de/geraete/vergleich` mit `?m=` | Vergleich | nein, follow | keine | nein | |
@@ -48,7 +49,22 @@ Jede öffentliche Adresse trägt die Sprache als erstes Segment. Aktiv ist nur `
 
 Pfade ohne Sprache leiten auf `/de` weiter, siehe Abschnitt 8. `/en/…` ist vorbereitet und leitet bis zur Freigabe des Markts auf die deutsche Fassung.
 
-**Reihe und Modell teilen sich das Segment `/de/geraete/`.** Ein Reihenschlüssel ist nie zugleich ein Modellschlüssel. Ein neuer Modellschlüssel in `modelle.json` darf keinem Reihenschlüssel gleichen, und umgekehrt (MODELLE.md, Abschnitt Reihen). Surface Laptop Ultra gehört zur Reihe `surface-laptop`, die 12- und 13-Zoll-Modelle gehören zu `surface-pro` und `surface-laptop`.
+**Reihe und Modell teilen sich das Segment `/de/geraete/`.** Ein Reihenschlüssel ist nie zugleich ein Modellschlüssel. Ein neuer Modellschlüssel in `modelle.json` darf keinem Reihenschlüssel gleichen, und umgekehrt (MODELLE.md, Abschnitt Reihen). Die 12- und 13-Zoll-Modelle gehören zu `surface-pro` und `surface-laptop`. Surface Laptop Ultra hat seit E-254 eine eigene Reihe `surface-laptop-ultra` und steht zusätzlich als Gruppe auf der Seite `surface-laptop` (MODELLE.md, Zuordnung). Reihenschlüssel `surface-laptop-ultra` und Modellschlüssel `surface-laptop-ultra-1-nvidia` sind verschieden, die Regel oben ist erfüllt.
+
+**Reihenseite Surface Laptop Ultra (E-254).** Adresse `/de/geraete/surface-laptop-ultra`, endgültig. Die Modellseite `/de/geraete/surface-laptop-ultra-1-nvidia` bleibt unverändert. Reihen- und Modellseite dürfen sich in der Suche nicht gegenseitig Konkurrenz machen. Die Werte legt SL SEO an 8132 vor dem Bau fest (E-223, E-254, Punkt 5), Claude Hub trägt sie danach hier ein. Bis dahin gilt für den Bau nichts aus den leeren Feldern.
+
+| Feld | Wert | Quelle |
+|---|---|---|
+| Titel (`meta.titel` in `content/de/reihen/surface-laptop-ultra.json`) | offen | SL SEO, 8132 |
+| H1 (`hero.h1`) | offen | SL SEO, 8132 |
+| Beschreibung (`meta.beschreibung`) | offen | SL SEO, 8132 |
+| Index und Kanonik der Reihenseite | offen | SL SEO, 8132 |
+| Sitemap | offen | SL SEO, 8132 |
+| Titel, H1 und Kanonik der Modellseite `surface-laptop-ultra-1-nvidia`, falls sie sich ändern | offen | SL SEO, 8132 |
+| Brotkrume der Modellseite: über `surface-laptop` oder `surface-laptop-ultra` | offen | SL SEO, 8132 |
+| Weiterleitungen nach Abschnitt 8, deren Muster `surface-laptop…` auch den Ultra trifft (`/de/konfigurator/{reihe-generation}`, alter Gerätename `surface_laptop…`) | offen, bis dahin unverändert auf `/de/geraete/surface-laptop` | SL SEO, 8132 |
+
+Bis die Werte stehen, gelten die Muster aus Abschnitt 9 für Reihenseiten. Live geht die Seite erst mit allen drei Reihenseiten und den Kacheln (E-239, E-254).
 
 **Zielseite „Device as a Service“ (E-228, E-234).** Sie liegt unter `/de/device-as-a-service`. Die Adresse ist endgültig und wird nach der Veröffentlichung nicht umbenannt. Eine indexierte Seite mit Kanonik auf sich selbst und Eintrag in der Sitemap. Sie nennt „Surface as a Service“ deutlich, im Titel oder in der H1 und im Text, und wirbt mit Monatsraten, nie mit Kaufpreisen. Bis die Seite live ist, leitet `surface-service.com` nicht weiter. Offen sind der Wortlaut (Auftrag an CC-Marketing beim Bau) und das Aussehen (nach E-233 mit dem Gesamtentwurf v2), nicht die Adresse.
 
@@ -90,7 +106,7 @@ Entschieden von Sascha am 25.11.2026. Es gibt zwei Segmente, die Slugs tragen de
 - **Drin:** alle Adressen mit „Sitemap: ja“ aus den Abschnitten 2 und 3.
 - **Nicht drin:** alle noindex-Seiten, Adressen mit Parametern, `/de/api/…`, `/de/bausteine`, Weiterleitungen und Fehlerseiten.
 - **Stand 25.11.2026:** 26 Adressen. Startseite, Geräteübersicht, 15 Modellseiten, Stories-Übersicht, 4 Kategorien, 4 Rechtstexte.
-- **Zuwachs:** 5 Produktseiten mit W6, die Beiträge der Stories mit E-167, Punkt 5, 2 Reihenseiten mit E-217. `lastmod` der Reihenseite kommt aus `content/de/reihen/{reihe}.json`.
+- **Zuwachs:** 5 Produktseiten mit W6, die Beiträge der Stories mit E-167, Punkt 5, 2 Reihenseiten mit E-217, eine dritte mit E-254 nach dem Abschnitt „Reihenseite Surface Laptop Ultra“. `lastmod` der Reihenseite kommt aus `content/de/reihen/{reihe}.json`.
 - `lastmod` nennt die letzte inhaltliche Änderung der Seite, nicht den Zeitpunkt des Abrufs. `changefreq` und `priority` sind erlaubt, Suchmaschinen werten sie kaum.
 
 ## 7. robots.txt

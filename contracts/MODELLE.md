@@ -1,12 +1,12 @@
 # Modelle (modelle.json)
 
-Stand 28.11.2026, E-161, E-162 und mit den Reihenseiten E-217 (R1, 8152), E-238 (R1b, 8163) und E-244 (R8, 8170). Erzeugt von der Preis-Pipeline aus einer
+Stand 28.11.2026, E-161, E-162 und mit den Reihenseiten E-217 (R1, 8152), E-238 (R1b, 8163), E-244 (R8, 8170) und E-254 (R13, 8183). Erzeugt von der Preis-Pipeline aus einer
 gepflegten Tabelle, liegt im Bucket neben products.json, jede Nacht neu geschrieben.
 
 ## Begriffe
 - **Reihe** heißt in den Verträgen nur noch die Reihe der Reihenseiten: ein
-  Eintrag im Block `reihen`, heute `surface-pro` und `surface-laptop`
-  (Abschnitt Reihen).
+  Eintrag im Block `reihen`, heute `surface-pro`, `surface-laptop` und
+  `surface-laptop-ultra` (Abschnitt Reihen, E-254).
 - **Modellreihe** heißt das Feld `reihe` am Modell in `items`, etwa
   `surface-pro-12-zoll`. Es ist feiner als die Reihe und bildet den ersten
   Teil des Modellschlüssels. Der Feldname bleibt `reihe`, er wird nicht
@@ -28,8 +28,9 @@ gepflegten Tabelle, liegt im Bucket neben products.json, jede Nacht neu geschrie
 `{reihe}-{edition}-{plattform}`.
 - `reihe`, die Modellreihe: `surface-pro`, `surface-pro-12-zoll`,
   `surface-laptop`, `surface-laptop-13-zoll`, `surface-laptop-ultra`. Neue
-  Modellreihen nur über diesen Kontrakt. Dass `surface-pro` und
-  `surface-laptop` hier auch als Modellreihe vorkommen, ist erlaubt: ein
+  Modellreihen nur über diesen Kontrakt. Dass `surface-pro`,
+  `surface-laptop` und `surface-laptop-ultra` hier auch als Modellreihe
+  vorkommen, ist erlaubt: ein
   Modellschlüssel hat immer Edition und Plattform dahinter und gleicht deshalb
   nie einem Reihenschlüssel.
 - `edition`: die Edition, wie Microsoft sie zählt, etwa `8` beim Surface Laptop
@@ -84,12 +85,19 @@ aus derselben gepflegten Tabelle wie die Modelle.
   { "key": "surface-laptop",
     "titel": "Surface Laptop",
     "gruppen": [ { "key": "13-zoll", "titel": "13 Zoll" }, … ],
+    … },
+  { "key": "surface-laptop-ultra",
+    "titel": "Surface Laptop Ultra",
+    "aktuell": ["surface-laptop-ultra-1-nvidia"],
+    "vorgaenger": [],
+    "rampenlicht": "surface-laptop-ultra-1-nvidia",
     … } ]
 ```
 
 - `key`: Reihenschlüssel und Adresse der Reihenseite, `/de/geraete/{key}`.
-  Heute genau `surface-pro` und `surface-laptop` (ROUTEN-UND-SEO.md,
-  Abschnitt 2). Neue Reihen nur über diesen Kontrakt.
+  Heute genau `surface-pro`, `surface-laptop` und `surface-laptop-ultra`
+  (ROUTEN-UND-SEO.md, Abschnitt 2, E-254). Neue Reihen nur über diesen
+  Kontrakt.
 - `titel`: Anzeigename der Reihe ohne Marke „Surface.Love“.
 - `reihenfolge`: kleiner zuerst, etwa in der Geräteübersicht.
 - `aktuell`: Liste der Modellschlüssel der aktuellen Modelle, in der
@@ -110,8 +118,12 @@ aus derselben gepflegten Tabelle wie die Modelle.
   Modell entfällt samt Überschrift. Bei Modellen in `vorgaenger` und in
   Reihen ohne Gruppen liest der Shop `gruppe` nicht.
 - **Zuordnung:** Jedes Modell steht in höchstens einer Reihe, entweder in
-  `aktuell` oder in `vorgaenger`. Surface Laptop Ultra und Surface Laptop
-  13 Zoll gehören zu `surface-laptop`, Surface Pro 12 Zoll zu `surface-pro`.
+  `aktuell` oder in `vorgaenger`. Surface Laptop 13 Zoll gehört zu
+  `surface-laptop`, Surface Pro 12 Zoll zu `surface-pro`.
+  **Einzige Ausnahme (E-254):** `surface-laptop-ultra-1-nvidia` steht in
+  `aktuell` von `surface-laptop-ultra` und zugleich in `aktuell` von
+  `surface-laptop`, dort als eigene Gruppe. Die Pipeline lässt genau diese
+  doppelte Zuordnung zu und lehnt jede andere ab.
   Das Feld `reihe` eines Modells (Modellreihe) bleibt, wie es ist. Es ist
   feiner als der Reihenschlüssel und dient nur dem Modellschlüssel.
 - **`umfasst` gehört nicht in `modelle.json`.** CC-Pricing darf die Reihe in
@@ -135,6 +147,29 @@ aus derselben gepflegten Tabelle wie die Modelle.
   **Vorgänger zählen nicht,** auch wenn ein Modell in `vorgaenger` günstiger
   ist. Kein Mittelwert, keine Rundung, keine eigene Rechnung. `reihen` trägt
   keine Rate.
+
+### Reihe Surface Laptop Ultra (E-254)
+- **Eine Reihe mit genau einem Modell.** `aktuell` trägt nur
+  `surface-laptop-ultra-1-nvidia`, `rampenlicht` ist dasselbe Modell.
+  `vorgaenger` ist leer, solange es keine ältere Edition gibt. Die Reihe hat
+  keine `gruppen`. Die Daten liefert CC-Pricing (R14).
+- **Reihenseite und Modellseite bleiben getrennt.** Die Reihenseite liegt
+  unter `/de/geraete/surface-laptop-ultra`, die Modellseite mit Konfigurator
+  bleibt unverändert unter `/de/geraete/surface-laptop-ultra-1-nvidia`.
+  Konfiguriert wird nur auf der Modellseite.
+- **Vorlage** ist die Reihenseite Surface Pro (Bauvorgabe R2 v2.2). Ob die
+  Modellwahl mit einem einzigen Modell eine eigene Form braucht, entscheidet
+  sich am Bild mit Claude Design (E-226), bevor gebaut wird. Bis dahin gilt
+  die Modellwahl wie bei Surface Pro, ohne Gruppen.
+- **ab-Rate** wie oben: die kleinste beworbene ab-Rate der gelisteten
+  Ausführungen des einen Modells. Sie ist damit dieselbe wie auf der
+  Modellseite.
+- **Auf der Seite Surface Laptop bleibt die Gruppe Ultra** mit dem Modell
+  und bekommt einen Verweis auf die neue Reihenseite, siehe Texte,
+  `modellwahl.verweise`.
+- **Live** geht die Seite erst, wenn alle drei Reihenseiten fertig sind,
+  zusammen mit den Kacheln (E-239, E-254). Bis dahin leitet die Adresse nach
+  der Regel oben mit 301 auf `/de/geraete`, weil ihre Texte fehlen.
 
 ### Modellwahl, Etikett und Vergleich der Reihenseite (E-244)
 - **Überschriften:** H2 aus `modellwahl.h2` der Texte. Mit Gruppen trägt
@@ -170,7 +205,8 @@ ROUTEN-UND-SEO.md, Abschnitt 9.
   "leiste": { "name": "…" },
   "modellwahl": { "h2": "…", "satz": "…",
                   "lizenzkarte": { "seite": "…", "etikett": "…", "titel": "…",
-                                   "zeile": "…", "satz": "…", "knopf": "…" } },
+                                   "zeile": "…", "satz": "…", "knopf": "…" },
+                  "verweise": [ { "gruppe": "…", "reihe": "…", "text": "…" } ] },
   "kapitel_knopf": "…",
   "kapitel": [
     { "id": "…", "titel": "…", "satz": "…",
@@ -197,11 +233,12 @@ ROUTEN-UND-SEO.md, Abschnitt 9.
 | `kapitel_knopf` | Text des Knopfs in jeder Kapitelbox, etwa „Modell wählen“ (E-238). Ziel ist immer `#modelle`, es steht nicht im Text. Fehlt das Feld, steht in den Boxen kein Knopf |
 | `modellwahl` | optional, „Modellwahl kurz“ (Konzept P2, Abschnitt 4, Nr. 2). `h2`, `satz` optional. Die Modellkarten kommen aus `aktuell` in `reihen` und aus `products.json`, nicht aus dem Text, die Gruppen aus `gruppen` in `reihen` |
 | `modellwahl.lizenzkarte` | optional, Kartenart „Lizenz“ (E-244), eine Karte, die keine Modellkarte ist. `seite` ist der `slug` einer Seite aus `seiten` in `bausteine.json` (BAUSTEINE.md, Produktseiten), nie ein Pfad. Der Shop bildet daraus die Adresse nach ROUTEN-UND-SEO.md, Abschnitt 2. Fehlt die Seite in `seiten` oder ist `bausteine.json` nicht lesbar, entfällt die Karte, sie zeigt nie auf eine 404. `titel` ist die H4 und trägt den Link, der sich über die ganze Karte spannt. `knopf` führt zum selben Ziel, es bleibt bei zwei Links mit sichtbarem Text. `etikett`, `zeile` und `satz` sind optional. Keine Rate, kein Knopf „Konfigurieren“, keine Zahl im Text. Mit Gruppen steht die Karte als letzte in der letzten Gruppe, ohne Gruppen nach der letzten Modellkarte. Medium in IMAGES.md, Nachtrag Reihenseiten |
-| `kapitel` | 4 bis 6 Einträge in der Reihenfolge der Anzeige. `id` ist ein kurzer Schlüssel aus Kleinbuchstaben und Bindestrich, eindeutig in der Datei, und verbindet das Kapitel mit seinen Medien (IMAGES.md, Nachtrag Reihenseiten). Die ids sind Sprungziele und je Reihe fest (E-244): `surface-pro` `leistung`, `display`, `zwei-in-eins`, `kamera`, `akku`, `surface-laptop` `leistung`, `display`, `tastatur`, `kamera`, `akku`. Ändern nur über diesen Kontrakt. `kennzahl` und `kennzahl_zeile` sind optional und stehen nur zusammen. `link` ist optional, mit `text` und `ziel`: ein Pfad im Shop ohne Host, etwa eine Story, der nicht weiterleitet (ROUTEN-UND-SEO.md, Regel 4.5). Fehlt eines der beiden Felder, steht kein Link |
+| `modellwahl.verweise` | optional, Verweis einer Gruppe auf eine eigene Reihenseite (E-254). Heute genau einer: auf der Seite `surface-laptop` die Gruppe Ultra auf `surface-laptop-ultra`. `gruppe` ist ein `key` aus `gruppen` dieser Reihe, `reihe` ein `key` aus `reihen`, nie ein Pfad. Der Shop bildet daraus `/de/geraete/{reihe}`. **Platz:** am Ende der Gruppe, nach ihren Modellkarten und vor einer Lizenzkarte, falls die Gruppe sie trägt. Ein Textlink mit sichtbarem `text`, kein Knopf, keine eigene Überschrift, keine Rate. Unter 768 Breite steht er unter der letzten Karte der Gruppe. **Wortlaut** schreibt CC-Marketing (R15, 8185), SL SEO prüft ihn. Fehlt die Gruppe, wird die Reihenseite nicht ausgeliefert oder leitet sie weiter, entfällt der Verweis (ROUTEN-UND-SEO.md, Regel 4.5). Ob der Platz am Bild so bleibt, entscheidet Claude Design mit Sascha (E-226) |
+| `kapitel` | 4 bis 6 Einträge in der Reihenfolge der Anzeige. `id` ist ein kurzer Schlüssel aus Kleinbuchstaben und Bindestrich, eindeutig in der Datei, und verbindet das Kapitel mit seinen Medien (IMAGES.md, Nachtrag Reihenseiten). Die ids sind Sprungziele und je Reihe fest (E-244): `surface-pro` `leistung`, `display`, `zwei-in-eins`, `kamera`, `akku`, `surface-laptop` `leistung`, `display`, `tastatur`, `kamera`, `akku`. Für `surface-laptop-ultra` (E-254) sind sie noch nicht festgelegt, sie kommen mit R15 über diesen Kontrakt, bevor CC-Bilder die Medien der Kapitel liefert (R16). Ändern nur über diesen Kontrakt. `kennzahl` und `kennzahl_zeile` sind optional und stehen nur zusammen. `link` ist optional, mit `text` und `ziel`: ein Pfad im Shop ohne Host, etwa eine Story, der nicht weiterleitet (ROUTEN-UND-SEO.md, Regel 4.5). Fehlt eines der beiden Felder, steht kein Link |
 | `sicherheit`, `ki`, `service` | je `h2` und Karten mit `id`, `titel`, `satz`. `ziel` ist optional, ein interner Pfad ohne Host, der nicht weiterleitet (ROUTEN-UND-SEO.md, Regel 4.5) |
 | `rampenlicht` | `h2` und `satz`. Das Modell kommt aus `rampenlicht` in `reihen` |
 | `tabelle` | nur `h2`. Die Zeilen kommen aus den Daten (`modelle.json`, `specs.json`). Eine Zeile entfällt, wenn kein Modell der Tabelle den Wert hat (E-244, Abschnitt Reihen) |
-| `zubehoer`, `andere` | je `h2` und `satz`. `andere` verweist auf die andere Reihe |
+| `zubehoer`, `andere` | je `h2` und `satz`. `andere` verweist auf die anderen Reihen, seit E-254 sind es je Seite zwei |
 | `weiterhin` | optional, „Weiterhin erhältlich“ (Konzept P2, Abschnitt 4, Nr. 9). `h2`, `satz` optional. Die Karten kommen aus `vorgaenger` in `reihen` und aus `products.json`. Ist `vorgaenger` leer, steht der Abschnitt nicht auf der Seite |
 | `faq` | 10 bis 15 Einträge mit `frage` und `antwort` (E-232). Jede Frage ist echt, die Antwort steht im ersten Satz, keine Frage doppelt eine Frage der Modellseiten |
 | `abschluss` | optional, das Abschlussband in `surface-deep` vor den Fußnoten (E-238). `h2` ist die Überschrift, `zeile` eine Zeile mit `{ab_rate}`, `knopf` der Text des Knopfs. Ziel ist immer `#modelle`. Fehlt der Block, steht kein Band |
@@ -230,16 +267,22 @@ ROUTEN-UND-SEO.md, Abschnitt 9.
 - Microsoft-Namen nach IMAGES.md, Punkt 2. Keine Preise von Microsoft, keine
   Firmen- oder Lieferantennamen.
 
-## Kacheln der Geräteübersicht (E-244)
+## Kacheln der Geräteübersicht (E-244, E-254)
 Über „Alle Modelle“ auf `/de/geraete` stehen drei Kacheln als Einstieg. Die
 Texte stehen in `content/de/devices.json`, CC-Marketing schreibt sie (R10,
 8172).
+
+**E-254 ändert E-244:** Die dritte Kachel, Surface Laptop Ultra, zeigt auf
+die neue Reihenseite `/de/geraete/surface-laptop-ultra` statt auf die
+Modellseite. Sie trägt deshalb `reihe` statt `modell`. Ihre `id` bleibt
+`surface-laptop-ultra`, das Bild aus `kacheln.json` bleibt gültig.
 
 ```
 "kacheln": {
   "liste": [ { "id": "surface-pro", "reihe": "surface-pro", "name": "…",
                "rate_satz": "…", "kurz": "…" },
-             { "id": "surface-laptop-ultra", "modell": "surface-laptop-ultra-1-nvidia",
+             { "id": "surface-laptop", "reihe": "surface-laptop", … },
+             { "id": "surface-laptop-ultra", "reihe": "surface-laptop-ultra",
                "name": "…", "rate_satz": "…", "kurz": "…" } ],
   "alle_modelle": "…" }
 ```
@@ -247,7 +290,7 @@ Texte stehen in `content/de/devices.json`, CC-Marketing schreibt sie (R10,
 | Feld | Regel |
 |---|---|
 | `id` | Schlüssel der Kachel, verbindet sie mit ihrem Bild (IMAGES.md, Nachtrag Reihenseiten, Punkt 7) |
-| `reihe` oder `modell` | genau eines. `reihe` ist ein `key` aus `reihen`, Ziel ist die Reihenseite. `modell` ist ein Modellschlüssel, Ziel ist die Modellseite. Die dritte Kachel, Surface Laptop Ultra, ist ein Modell und keine Reihe (SL SEO 16181284) |
+| `reihe` oder `modell` | genau eines. `reihe` ist ein `key` aus `reihen`, Ziel ist die Reihenseite. `modell` ist ein Modellschlüssel, Ziel ist die Modellseite. Seit E-254 tragen alle drei Kacheln `reihe`, auch Surface Laptop Ultra. Die frühere Festlegung „ein Modell und keine Reihe“ (SL SEO 16181284, E-244) ist damit abgelöst. `modell` bleibt im Schema für spätere Kacheln |
 | `name` | Name der Reihe oder des Modells, H2 der Kachel und Linktext. Der Link sitzt in der H2 und spannt sich über die Kachel |
 | `rate_satz` | Zeile unter dem Namen mit `{ab_rate}` und „netto im Monat“. Bei einer Reihe die ab-Rate der Reihe (Abschnitt Reihen), bei einem Modell die ab-Rate seiner Modellseite. Fehlt die Rate, entfällt die Zeile |
 | `kurz` | optional, kurze Fassung des Linktexts von 768 bis 1279 Breite |
@@ -256,8 +299,9 @@ Texte stehen in `content/de/devices.json`, CC-Marketing schreibt sie (R10,
 - **Reihenfolge der Seite:** die H1 der Übersicht bleibt der erste Text,
   darunter die Kacheln in der Reihenfolge von `liste`, darunter
   `alle_modelle` als H2. Keine verborgene Überschrift über den Kacheln.
-- **Wann sie stehen:** nur, wenn beide Reihenseiten ausgeliefert werden,
-  also beide Reihen ein aktuelles Modell und ihre Texte haben (E-239). Sonst
+- **Wann sie stehen:** nur, wenn alle drei Reihenseiten ausgeliefert werden,
+  also alle drei Reihen ein aktuelles Modell und ihre Texte haben (E-239,
+  E-254). Sonst
   steht keine Kachel und `alle_modelle` entfällt mit. Fehlt das Ziel einer
   einzelnen Kachel, entfällt nur diese.
 - Raten nur als Platzhalter, wie in den Texten der Reihenseite (E-099).

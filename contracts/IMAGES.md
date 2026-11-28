@@ -496,7 +496,7 @@ Wortlaut bleibt als Beleg stehen, welche Frage womit beantwortet wurde.**
 Abgelöst durch Fassung 3, Punkt 6 und 7. Quellbilder kommen nicht mehr ins Repo, der Upload läuft
 über die Bild-Strecke selbst.
 
-## Nachtrag Reihenseiten, entschieden 27.11.2026 (E-217, R1), Stand 28.11.2026 mit E-238 (R1b) und E-244 (R8)
+## Nachtrag Reihenseiten, entschieden 27.11.2026 (E-217, R1), Stand 28.11.2026 mit E-238 (R1b), E-244 (R8) und E-254 (R13)
 
 Gilt für die Medien der Reihenseiten `/de/geraete/{reihe}` (ROUTEN-UND-SEO.md,
 Abschnitt 2). Was hier nicht steht, gilt aus dem Nachtrag Startseite, vor
@@ -516,6 +516,16 @@ Aufbau der Seite folgt der Bauvorgabe v2.1 von Claude Design (R2, 8153).
 - Jede Datei, auf die der Katalog zeigt, liegt unter `media/reihen/{reihe}/`.
 - CC-Bilder liefert (R4, 8155). Upload-Folge, Cache-Control und Lesen zur
   Laufzeit wie im Nachtrag Startseite, Punkt 1.
+- **Reihe Surface Laptop Ultra (E-254):** Katalog
+  `media/reihen/surface-laptop-ultra/medien.json`, alle Dateien unter
+  `media/reihen/surface-laptop-ultra/`, Schema und Regeln wie bei der Reihe
+  Surface Pro (`media/reihen/surface-pro/medien.json`). CC-Bilder liefert
+  mit R16. `rampenlicht` zeigt das einzige Modell der Reihe. Die ids in
+  `kapitel` folgen den Kapiteln aus R15 (MODELLE.md, Texte). Eine
+  `lizenzkarte` gibt es nur, wenn die Texte der Reihe eine tragen.
+- Die Kachel `surface-laptop-ultra` in `media/geraete/kacheln.json`
+  (Punkt 7) bleibt, wie sie ist. Mit E-254 ändert sich nur ihr Ziel, nicht
+  ihr Bild.
 
 ### 2. Schema
 ```
